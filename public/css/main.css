@@ -1,0 +1,147 @@
+html, body{
+    background: rgb(242, 170, 168);
+    font-family: Calibri, sans-serif !important;
+}
+.maroon{
+    color: rgb(97, 13, 13);
+}
+.white{
+    color: #fff;
+}
+
+.row{
+    justify-content: center;
+}
+.btn-primary{
+    background: #fff;
+    color: rgb(97, 13, 13);
+    font-weight: 600;
+    font-size: 20px;
+    border: none;
+}
+.btn-primary:hover{
+    background: rgba(97, 13, 13, 0.8);
+    color: #fff;
+}
+.btn-primary:focus{
+    box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5);
+}
+.btn-primary:active{
+    background-color:  rgba(97,1,13,0.5) !important;
+}
+
+
+
+/* Navbar */
+
+.navbar-brand span{
+    font-size: 36px;
+    font-weight: 700;
+}
+.navbar-brand small{
+    font-weight: 600
+}
+.nav-item a{
+    color: rgb(97, 13, 13)  !important;
+    margin-left: 14px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* End Navbar */
+.round-img{
+    margin-top: 20px;
+    text-align: -webkit-center;
+    justify-content: center;
+}
+.round-img h4{
+    font-weight: 600;
+    margin-bottom: 1rem;
+    /* font-size: 18px; */
+}
+.img{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-color: #142CD6;
+    margin-bottom: 20px;
+}
+
+.header-brief{
+    text-align: -webkit-center;
+    text-align: center;
+    text-align: -moz-center;
+    margin-top: 50px;
+
+}
+.header-brief h4{
+    color: #fff
+}
+
+
+.service-section{
+    margin: 20px auto 50px;
+}
+.service-section .col-md-4{
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+}
+.service-section .card{
+    width: 15rem;
+    border-radius: 14px;
+    border: 2px solid rgb(97, 13, 13);
+    background: rgb(97, 13, 13);
+    color: #fff;
+    height: 140px;
+   
+    display: grid;
+    place-content: center;
+    -webkit-box-shadow: 0px 0px 8px 12px rgba(97,13,13,0.75);
+    -moz-box-shadow: 0px 0px 8px 12px rgba(97,13,13,0.75);
+    box-shadow: 0px 0px 8px 12px rgba(97,13,13,0.75);
+}
+.service-section .card h2{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+
+
+
+/* Ask Doctor Styling */
+
+.ask-dcotor-form{
+    margin: 50px auto;
+  
+}
+
+.ask-dcotor-form .register-block{
+
+    background: rgb(97, 13, 13);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: -webkit-center;
+    text-align: center;
+    text-align: -moz-center;
+}
+.ask-dcotor-form .register-block h2{
+    margin-bottom: 0;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.ask-dcotor-form form input, .ask-dcotor-form form select, .ask-dcotor-form textarea{
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    /* background: transparent; */
+    color: rgb(97, 13, 13) !important;
+    margin-bottom: 10px;
+}
+.ask-dcotor-form form input:focus{
+    /* background: transparent; */
+    /* box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5); */
+    box-shadow: none;
+}
