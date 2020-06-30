@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +43,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get a validator for an incoming registration data.
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -49,8 +51,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'min:10', 'max:10'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,9 +68,22 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'userFirstName' => $data['firstName'],
+            'userLastName' => $data['lastName'],
+            'userMobileNo' => $data['mobile'],
+            // 'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function create_user(Request $request){
+        $user = new User;
+        $user->userFirstName = $request['firstName'];
+        $user->userLastName = $request['lastName'];
+        $user->userMobileNo = $request['mobile'];
+        $user->userPassword = Hash::make($request['password']);
+        $user->save();
+        Auth::login($user);
+        return $user;
     }
 }

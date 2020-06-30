@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PatientDetail extends Model
+class Patient extends Model
 {
-    protected $table = 'patient_details';
-    public $primarykey = 'id';
+    protected $table = 'patient';
+    public $primarykey = 'idSequence';
     public $timestamp = true;
 
     /**

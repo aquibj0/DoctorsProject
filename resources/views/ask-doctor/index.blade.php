@@ -14,22 +14,23 @@
                            <h2> Ask a doctor</h2>
                         </div>
                         <div>
-                            <form action="#" method="POST">
+                            <form action="{{ route('ask_a_doctor.store') }}" method="POST">
+                                {{ csrf_field() }}
                                 <div class="mb-3">
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name">
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name">
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="" id="">
+                                        <select class="form-control" name="gender" id="gender">
                                             <option selected disabled>Gender </option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -37,23 +38,23 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="integer" class="form-control" id="inputPassword4" placeholder="Age">
+                                        <input type="number" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="" id="">
+                                        <select class="form-control" name="department" id="department">
                                             <option selected disabled>Department </option>
-                                            <option value="Male">Value 1</option>
-                                            <option value="Female">Value 2</option>
-                                            <option value="Transgender">Value 3</option>
+                                            <option value="Value 1">Value 1</option>
+                                            <option value="value 2">Value 2</option>
+                                            <option value="value 3">Value 3</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_backgroun" id="patient_background" cols="30" rows="10" placeholder="Patient Background"></textarea>
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="10" placeholder="Patient Background"></textarea>
                                     </div>
                                 </div>
 

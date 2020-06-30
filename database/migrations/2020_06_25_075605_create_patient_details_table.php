@@ -13,22 +13,21 @@ class CreatePatientDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patient_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('patient_id')->unique();
-            $table->string('first_name_of_patinet');
-            $table->string('last_name_of_patinet');
-            $table->string('gender_of_patinet');
-            $table->integer('age_of_patinet');
-            $table->text('background_of_patinet');
-            $table->text('address_line_1')->nullable();
-            $table->text('address_line_2')->nullable();
-            $table->text('city')->nullable();
-            $table->text('state')->nullable();
-            $table->text('country')->nullable();
-            $table->integer('pincode')->nullable();
+        Schema::create('patient', function (Blueprint $table) {
+            $table->bigIncrements('idSequence');
+            $table->string('patId')->unique();
+            // $table->foreign('patId')->references('userId')->on('users')->onDelete('cascade');
+            $table->string('patUserId')->unique();
+            $table->string('patFirstName');
+            $table->string('patLastName');
+            $table->string('patGender');
+            $table->integer('patAge');
+            $table->string("patMobileCC");
+            $table->string("patMobileNo");
+            $table->string("patEmail");
+            $table->integer("patAddrId");
+            $table->text("patBackground");
+            $table->text("patPhotoFileNameLink");
             $table->timestamps();
         });
     }

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\AskAQuestion;
+use App\Patient;
+use App\ServiceRequest;
+use Auth;
 
 class AskDoctorController extends Controller
 {
@@ -34,7 +39,29 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asaq = new AskAQuestion;
+        $asaq->aaqPatientBackground = $request['patient_background'];
+        $asaq->aaqQuestionText = $request['patient_question'];
+        
+        $asaq->save();
+
+        $patient = new Patient;
+        $patient->patFirstName = $request['firstName'];
+        $patient->patLastName = $request['lastName'];
+        $patient->patGender = $request['gender'];
+        $patient->patAge = $request['age'];
+        $patient->patUserId = Auth::user()->id;
+        $patient->save();
+
+        $srvcReq = new ServiceRequest;
+        $srvcReq->srPatientId = $patient->idSequence;
+        $srvcReq->srUserId = Auth::user()->id;
+        $srvcReq->srRecievedDateTime = $asaq->created_at;
+        $srvcReq->srDueDateTime = Carbon::tomorrow();
+        $srvcReq->srDepartment = $request['department'];
+        // $srvcReq->
+        $srvcReq->save();
+        return array($asaq, $patient, $srvcReq);
     }
 
     /**
