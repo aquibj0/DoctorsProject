@@ -81,9 +81,10 @@ class RegisterController extends Controller
         $user->userFirstName = $request['firstName'];
         $user->userLastName = $request['lastName'];
         $user->userMobileNo = $request['mobile'];
+        $user->userEmail = $request['email'];
         $user->userPassword = Hash::make($request['password']);
         $user->save();
         Auth::login($user);
-        return $user;
+        return redirect('/');
     }
 }

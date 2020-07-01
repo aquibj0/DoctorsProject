@@ -21,6 +21,10 @@ class AskDoctorController extends Controller
         return view('ask-doctor.index');
     }
 
+
+    public function doctor_index(){
+        return view('ask-doctor.admin_index');
+    }
     /**
      * Show the form for creating a new resource.
      *

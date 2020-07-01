@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -35,5 +39,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login_user(Request $request){
+        if($request){
+            if(User::where('userMobileNo', $request['email'])->first()){
+                $user = User::where('userMobileNo', $request['email'])->first();
+                if(Hash::check($request['password'], $user->userPassword)){
+                    Auth::login($user);
+                    return redirect('/');
+                }
+            }else if(User::where('userEmail', $request['email'])->first()){
+                $user = User::where('userEmail', $request['email'])->first();
+                if(Hash::check($request['password'], $user->userPassword)){
+                    Auth::login($user);
+                    return redirect('/');
+                }
+            }else{
+                return redirect()->back();
+            }
+        }
     }
 }
