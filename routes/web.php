@@ -15,8 +15,10 @@
 
 Route::get('/', 'AppController@index');
 
+// Route
 Route::get('/doctor/ask-a-doctor', 'AskDoctorController@doctor_index');
-Route::get('/doctor/ask-a-doctor/show/{id}', 'AskDoctorController@doctor_show');
+Route::get('/doctor/ask-a-doctor/{id}', 'AskDoctorController@doctor_show');
+Route::post('/doctor/ask-a-doctor/{id}/response', 'AskDoctorController@doctor_respones')->name('ask_a_doctor.response');
 Route::get('/ask-a-doctor', 'AskDoctorController@index');
 Route::post('/ask-a-doctor/store', 'AskDoctorController@store')->name('ask_a_doctor.store');
 

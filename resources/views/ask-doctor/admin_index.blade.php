@@ -14,12 +14,16 @@
                            <h2> Ask a doctor</h2>
                         </div>
                         <div>
-                            @foreach($asadoc as $item)
+                            {{ $aaq }}
+                            <br>
+                            <br>
+                            {{ $srvcReq }}
+                            {{-- @foreach($asadoc as $item)
                                 <div class="row">
-                                    <div class="col-md"></div>
+                                    <div class="col-md">{{  }}</div>
                                     <div class="col-md"></div>
                                 </div>
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
                 </div>

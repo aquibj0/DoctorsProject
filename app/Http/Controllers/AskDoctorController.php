@@ -23,7 +23,23 @@ class AskDoctorController extends Controller
 
 
     public function doctor_index(){
-        return view('ask-doctor.admin_index');
+        $aaq_srvcReq = AskAQuestion::all()->pluck('aaqSrId');
+        $aaq = AskAQuestion::all();
+        $srvcReq = ServiceRequest::whereIn('id', $aaq_srvcReq)->get();
+        return view('ask-doctor.admin_index')->with('aaq', $aaq)->with('srvcReq', $srvcReq);
+    }
+
+
+    public function doctor_respones($id, Request $request){
+        $aaq = AskAQuestion::find($id);
+        $aaq->aaqDocResponse = $request['response'];
+        $aaq->update();
+
+        $srvcReq = ServiceRequest::find($aaq->aaqSrId);
+        $srvcReq->srResponseDateTime = $aaq->updated_at;
+        $srvcReq->update();
+
+        return array($aaq, $srvcReq);
     }
     /**
      * Show the form for creating a new resource.
@@ -43,12 +59,6 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $asaq = new AskAQuestion;
-        $asaq->aaqPatientBackground = $request['patient_background'];
-        $asaq->aaqQuestionText = $request['patient_question'];
-        
-        $asaq->save();
-
         $patient = new Patient;
         $patient->patFirstName = $request['firstName'];
         $patient->patLastName = $request['lastName'];
@@ -56,15 +66,29 @@ class AskDoctorController extends Controller
         $patient->patAge = $request['age'];
         $patient->patUserId = Auth::user()->id;
         $patient->save();
-
+        
         $srvcReq = new ServiceRequest;
-        $srvcReq->srPatientId = $patient->idSequence;
+        $srvcReq->srPatientId = $patient->id;
         $srvcReq->srUserId = Auth::user()->id;
-        $srvcReq->srRecievedDateTime = $asaq->created_at;
+        $srvcReq->srRecievedDateTime = Carbon::now();
         $srvcReq->srDueDateTime = Carbon::tomorrow();
         $srvcReq->srDepartment = $request['department'];
         // $srvcReq->
         $srvcReq->save();
+        
+        $asaq = new AskAQuestion;
+        $asaq->aaqSrId = $srvcReq->id;
+        $asaq->aaqPatientBackground = $request['patient_background'];
+        $asaq->aaqQuestionText = $request['patient_question'];
+        
+        $asaq->save();
+
+        
+
+        
+
+        
+        // $asaq->update();
         return array($asaq, $patient, $srvcReq);
     }
 
@@ -79,6 +103,13 @@ class AskDoctorController extends Controller
         //
     }
 
+
+    public function doctor_show($id){
+        $aaq = AskAQuestion::find($id);
+        $srvcReq = ServiceRequest::find($aaq->aaqSrId);
+        $patient = Patient::find($srvcReq->srPatientId);
+        return view('ask-doctor.admin_show')->with('aaq', $aaq)->with('srvcReq', $srvcReq)->with('patient', $patient);
+    }
     /**
      * Show the form for editing the specified resource.
      *

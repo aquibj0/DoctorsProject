@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     protected $table = 'patient';
-    public $primarykey = 'idSequence';
+    public $primarykey = 'id';
     public $timestamp = true;
 
     /**
