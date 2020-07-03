@@ -30,7 +30,6 @@ Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-<<<<<<< HEAD
 
 
 
@@ -38,6 +37,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/service-request/{id}', 'UserController@userServiceRequest');
 Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail');
 
-=======
 Route::post('/change-user-to-internal', 'AppController@internal_user');
->>>>>>> e79492b5afaa3e8b71b554e8cbb79d7278c5644b
