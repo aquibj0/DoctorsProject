@@ -14,30 +14,37 @@
                            <h2> Ask a doctor</h2>
                         </div>
                         <div>
-                            {{ $aaq }}
+                            <h5>Ask a Question Table</h5>
+                                <div class="card">{{ $aaq }}</div>
+
+
+                            <h5>Service Request Table</h5>
+                                <div class="card">{{ $srvcReq }}</div>
+
+
+                            <h5>Patient Table</h5>
+                            <div class="card">{{ $patient }}</div>
                             <br>
-                            <br>
-                            {{ $srvcReq }}
-                            <br>
-                            <br>
-                            {{ $patient }}
-                            <br>
-                            <br>
+
                             <form method="POST" action="{{ url('/doctor/ask-a-doctor/'.$aaq->id.'/response') }}" >
                                 {{ csrf_field() }}
 
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="response" id="response" cols="30" rows="10" placeholder="Response"></textarea>
+                                        <textarea class="form-control" name="response" id="response" cols="30" rows="5" placeholder="Response"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="mb-3">
-                                        <h2 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h2>
+                                        <h5 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h5>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <input type="file" class="form-control" >
+                                        <span><h5>Do you want to upload?</h5>
+                                        <input type="checkbox" value="1" name="document_upload" id="document_upload" placeholder="Yes"><label for="document_upload">YES</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" value="0" name="document_upload" id="document_upload" placeholder="No"><label for="document_upload">NO</label>
+                                        </span>
+                                        {{-- <input type="file" class="form-control" > --}}
                                     </div>
                                 </div>
 

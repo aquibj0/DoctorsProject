@@ -30,3 +30,4 @@ Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/change-user-to-internal', 'AppController@internal_user');

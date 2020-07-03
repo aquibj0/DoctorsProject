@@ -8,6 +8,8 @@ use App\AskAQuestion;
 use App\Patient;
 use App\ServiceRequest;
 use Auth;
+use App\Service;
+// use Carbon\Carbon;
 
 class AskDoctorController extends Controller
 {
@@ -36,7 +38,7 @@ class AskDoctorController extends Controller
         $aaq->update();
 
         $srvcReq = ServiceRequest::find($aaq->aaqSrId);
-        $srvcReq->srResponseDateTime = $aaq->updated_at;
+        $srvcReq->srResponseDateTime = Carbon::now();
         $srvcReq->update();
 
         return array($aaq, $srvcReq);
@@ -66,21 +68,29 @@ class AskDoctorController extends Controller
         $patient->patAge = $request['age'];
         $patient->patUserId = Auth::user()->id;
         $patient->save();
-        
+        $patient->patId = Auth::user()->id."-".$patient->id;
+        $patient->update();
         $srvcReq = new ServiceRequest;
+        $service = 
+        $srvcReq->srSrvcId = Service::where('srvcShortName', 'AAQ')->first()->id;
+        $srvcReq->srAppmntId = 0;
         $srvcReq->srPatientId = $patient->id;
         $srvcReq->srUserId = Auth::user()->id;
         $srvcReq->srRecievedDateTime = Carbon::now();
-        $srvcReq->srDueDateTime = Carbon::tomorrow();
+        // $hours = $srvcReq->srRecievedDateTime->diffInHoursCarbon::now();
+        $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
         $srvcReq->srDepartment = $request['department'];
         // $srvcReq->
         $srvcReq->save();
-        
+        $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+        $srvcReq->update();
+
+
         $asaq = new AskAQuestion;
         $asaq->aaqSrId = $srvcReq->id;
         $asaq->aaqPatientBackground = $request['patient_background'];
         $asaq->aaqQuestionText = $request['patient_question'];
-        
+        $asaq->aaqDocResponseUploaded = 'N';
         $asaq->save();
 
         
