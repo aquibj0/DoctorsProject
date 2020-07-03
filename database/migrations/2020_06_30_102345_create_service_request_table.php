@@ -14,11 +14,18 @@ class CreateServiceRequestTable extends Migration
     public function up()
     {
         Schema::create('service_request', function (Blueprint $table) {
-            $table->bigIncrements('idSequence');
-            $table->string("srId");
-            $table->integer("srSrvcId");
-            $table->string("srPatientId");
-            $table->string("srUserId");
+            $table->bigIncrements('id');
+            $table->string("srId")->unique();
+
+            $table->unsignedBigInteger("service_id");
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+
+            $table->unsignedBigInteger("patient_id");
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
+
+            $table->unsignedBigInteger("user_id");
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->datetime("srRecievedDateTime");
             $table->datetime("srDueDateTime");
             $table->datetime("srResponseDateTime");

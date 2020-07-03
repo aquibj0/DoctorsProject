@@ -14,7 +14,7 @@ class CreateInternalUserRoleTable extends Migration
     public function up()
     {
         Schema::create('internal_user_role', function (Blueprint $table) {
-            $table->bigIncrements('idSequence');
+            $table->bigIncrements('id');
             $table->integer("inturRoleId");
             $table->string("inturUserId");
             $table->timestamps();

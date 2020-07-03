@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="10" placeholder="Patient Background"></textarea>
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background"></textarea>
                                     </div>
                                 </div>
 
@@ -129,18 +129,18 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="10" placeholder="Patient Question"></textarea>
+                                        <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-row">
+                                {{-- <div class="form-row">
                                     <div class="mb-3">
                                         <h2 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h2>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <input type="file" class="form-control" >
                                     </div>
-                                </div>
+                                </div> --}}
 
 
 

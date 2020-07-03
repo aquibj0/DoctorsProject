@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServicesTable extends Migration
+class CreatePatientDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            // $table->bigIncrements('srvcId');
+        Schema::create('patient_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('srvcName');
-            $table->string("srvcShortName");
-            $table->decimal("srvcPrice", 8, 2);
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
+            $table->string('patient_document');
+            $table->string('document_description');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('patient_documents');
     }
 }

@@ -43,7 +43,6 @@ html, body{
 }
 .nav-item a{
     color: rgb(97, 13, 13)  !important;
-    margin-left: 14px;
     font-size: 16px;
     font-weight: 600;
 }
@@ -130,7 +129,11 @@ html, body{
     margin-bottom: 0;
     color: #fff;
     font-weight: 700;
+    font-size: 1.4rem;
     text-transform: uppercase;
+}
+form h2{
+    font-size: 1.4rem;
 }
 .ask-dcotor-form form input, .ask-dcotor-form form select, .ask-dcotor-form textarea{
     border: none;

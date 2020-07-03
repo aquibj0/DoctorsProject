@@ -14,10 +14,12 @@ class CreatePatientDetailsTable extends Migration
     public function up()
     {
         Schema::create('patient', function (Blueprint $table) {
-            $table->bigIncrements('idSequence');
+            $table->bigIncrements('id');
             $table->string('patId')->unique();
-            // $table->foreign('patId')->references('userId')->on('users')->onDelete('cascade');
-            $table->string('patUserId')->unique();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('patFirstName');
             $table->string('patLastName');
             $table->string('patGender');

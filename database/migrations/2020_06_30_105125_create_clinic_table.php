@@ -14,7 +14,7 @@ class CreateClinicTable extends Migration
     public function up()
     {
         Schema::create('clinic', function (Blueprint $table) {
-            $table->bigIncrements('clinicId');
+            $table->bigIncrements('id');
             $table->string("clinicType");
             $table->string("clinicName");
             $table->string("clinicMobileNo");

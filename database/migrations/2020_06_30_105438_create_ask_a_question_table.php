@@ -14,8 +14,9 @@ class CreateAskAQuestionTable extends Migration
     public function up()
     {
         Schema::create('ask_a_question', function (Blueprint $table) {
-            $table->bigIncrements('idSequence');
-            $table->string("aaqSrId");
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger("service_req_id");
+            $table->foreign('service_req_id')->references('id')->on('service_request')->onDelete('cascade');
             $table->string("aaqPatientBackground");
             $table->string("aaqQuestionText");
             $table->string("aaqDocResponse");

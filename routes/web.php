@@ -30,3 +30,10 @@ Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+Route::get('/service-request/{id}', 'UserController@userServiceRequest');
+Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail');
+

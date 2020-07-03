@@ -14,7 +14,7 @@ class CreateInternalUserTable extends Migration
     public function up()
     {
         Schema::create('internal_user', function (Blueprint $table) {
-            $table->bigIncrements('idSequence');
+            $table->bigIncrements('id');
             $table->string("intuId");
             $table->string("intuUserCategory");
             $table->string("intuGender");
