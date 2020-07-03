@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\service;
+use Auth;
+
 class AppController extends Controller
 {
     /**
@@ -13,8 +15,12 @@ class AppController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->id == 8){
+            return view('admin.home');
+        }
         $services = Service::all();
         return view('app.index', compact('services'));
+        // return Auth::user()->id;
     }
 
     /**
