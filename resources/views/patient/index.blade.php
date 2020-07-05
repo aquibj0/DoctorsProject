@@ -5,53 +5,84 @@
     
     <div class="row">
         {{-- <div class="col-md-4" style="background:#142cd6; height:100vh;"></div> --}}
-        <div class="col-md">
-            
+        <div class="col-md-8 mt-5">
             <div class="row">
-                <div class="col-md-10">
-                    
-                        <div class="register-block">
-                           <h2>User Patients</h2>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-body">
-                              <h5 class="card-title"></h5>
-                              <h6 class="card-subtitle mb-2 text-muted"></h6>
-                              <p class="card-text">
-                                @foreach($patients as $patient)
-                                    {{ $patient }}
-                                    <br>
-                                    <br>
-                                    <a href="{{ url('/user-patient/'.$patient->id.'/edit') }}" class="btn btn-primary btn-md">Edit details</a>
-                                    @if($service == "AAQ")
-                                    <a href="{{ url('/ask-a-doctor/'.$patient->id) }}" class="btn btn-primary btn-sm">Select Patient</a>
-                                    {{-- @elseif($service == "") --}}
-                                    @endif
-                                @endforeach
-                              </p>
-                              
-                              {{-- <a href="#" class="card-link">Another link</a> --}}
-                            </div>
-                        </div>
-                        
-                    
+                <div class="col-md-8">
+                    <div class="register-block">
+                        <h2>Select Patient</h2>
+                    </div>
                 </div>
-            </div>     
-        
+                <div class="col-md-12">
+
+     
+
+                    <div class="card" >
+                        <div class="card-body">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Patient ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($patients  as $patient)
+                                        <tr>
+                                            <th scope="row">{{$patient->patId}}</th>
+                                            <td>{{$patient->patFirstName}}</td>
+                                            <td>{{$patient->patLastName}}</td>
+                                            <td>{{$patient->patGender}}</td>
+                                            <td>{{$patient->patAge}}</td>
+                                            @if($service == "AAQ")
+                                            <td>
+                                                <a href="{{ url('/ask-a-doctor/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
+                                            </td>
+                                            {{-- @elseif($service == "") --}}
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                    
+                                    
+                                </tbody>
+                            </table>
+
+
+                            <h5 class="card-title"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"></h6>
+                            <p class="card-text">
+                        </div>
+                    </div>
+
+
+
+                    <div class="text-center mb-5">
+                            <h3 class="maroon mt-4"><b>New patient ?</b> &nbsp; <span><a href="{{ url('/ask-a-doctor/0') }}" ><u>Click here</u></a></span> </h3>
+                        </div>
+                   
+
+
+                </div>
+            </div>   
         </div>
     </div>
+
+
+
+
+
     <div class="container justify-content-center">
         <div class="row">
             <div class="col-md">
-                <br>
-                <br>
-                <h3 style="float:right">Add new patient </h3>
+                <h3 style="float:right"></h3>
             </div>
             <div class="col-md">
                 <br>
                 <br>
-                <a href="{{ url('/ask-a-doctor/0') }}" class="btn btn-primary btn-sm">Click here</a>
+                
             </div>
         </div>
     </div>
