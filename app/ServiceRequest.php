@@ -25,5 +25,10 @@ class ServiceRequest extends Model
     }
 
 
+    public function askQuestion(){
+        return $this->hasOne('App\AskAQuestion', 'service_req_id');
+    }
+
+
 
 }

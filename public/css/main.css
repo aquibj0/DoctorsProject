@@ -5,11 +5,15 @@ html, body{
 .maroon{
     color: rgb(97, 13, 13);
 }
+
+.thead-dark{
+    background-color: rgb(97, 13, 13) !important;
+}
 .white{
     color: #fff;
 }
 
-.row{
+.row{ 
     justify-content: center;
 }
 .btn-primary{
@@ -35,11 +39,12 @@ html, body{
 .btn-maroon{
     color: #fff;
     background: rgb(97, 13, 13);
-    font-weight: 600;
-    font-size: 20px;
+    /* font-weight: 600;
+    font-size: 20px; */
     border: none;
 }
 .btn-maroon:hover{
+    color: #fff;
     box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5);
 }
 
@@ -63,6 +68,10 @@ html, body{
 }
 
 
+.card{
+    border-radius: 0;
+    border: none;
+}
 
 
 /* Navbar */
