@@ -18,9 +18,14 @@ class AskDoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('ask-doctor.index');
+        $patient = Patient::find($id);
+        if(!empty($patient)){
+            return view('ask-doctor.index')->with('patient', $patient);
+        }else{
+            return view('ask-doctor.index')->with('patient', null);
+        }
     }
 
 
@@ -61,18 +66,22 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $patient = new Patient;
-        $patient->patId = str_random(15);
-        $patient->user_id = Auth::user()->id;
-        $patient->patFirstName = $request['firstName'];
-        $patient->patLastName = $request['lastName'];
-        $patient->patGender = $request['gender'];
-        $patient->patAge = $request['age'];
-        $patient->patBackground = $request['background'];
-        $patient->save();
-        $patient->patId = Auth::user()->id."-".$patient->id;
-        $patient->update();
-
+        //
+        if($request['patient_id']){
+            $patient = Patient::find($request['patient_id']);
+        }else{
+            $patient = new Patient;
+            $patient->patId = str_random(15);
+            $patient->user_id = Auth::user()->id;
+            $patient->patFirstName = $request['firstName'];
+            $patient->patLastName = $request['lastName'];
+            $patient->patGender = $request['gender'];
+            $patient->patAge = $request['age'];
+            $patient->patBackground = $request['background'];
+            $patient->save();
+            $patient->patId = Auth::user()->userId."-".$patient->id;
+            $patient->update();
+        }
 
         if($patient->save()){
             $srvcReq = new ServiceRequest;
@@ -98,7 +107,8 @@ class AskDoctorController extends Controller
                 $asaq->aaqDocResponseUploaded = 'N';
                 $asaq->save();
 
-                return redirect()->route('confirm-service-request', $srvdID);
+                return view('/ask-doctor.thank-you');
+                // return redirect()->route('confirm-service-request', $srvdID);
                 // ->with('success', 'Your Booking is done, Please pay to confirm.');
             }
         }

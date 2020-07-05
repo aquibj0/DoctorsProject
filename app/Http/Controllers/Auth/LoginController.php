@@ -48,6 +48,8 @@ class LoginController extends Controller
                 if(Hash::check($request['password'], $user->userPassword)){
                     Auth::login($user);
                     return redirect('/');
+                }else{
+                    
                 }
             }else if(User::where('userEmail', $request['email'])->first()){
                 $user = User::where('userEmail', $request['email'])->first();
@@ -56,7 +58,7 @@ class LoginController extends Controller
                     return redirect('/');
                 }
             }else{
-                return redirect()->back();
+                return redirect('/login');
             }
         }
     }

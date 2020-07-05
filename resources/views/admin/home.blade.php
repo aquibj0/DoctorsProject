@@ -15,7 +15,7 @@
                         </div>
                         <div>
                             <h3>Make Internal User</h3>
-                            <form action="{{ url('/change-user-to-internal') }}" method="POST">
+                            {{-- <form action="{{ url('/change-user-to-internal') }}" method="POST">
                                 <label for="make_internal">Select user </label>
                                 <select name="user_id" id="user_id">
                                     <option value="0">Select One</option>
@@ -23,7 +23,7 @@
                                         <option value="{{ $user->id }}">{{ $user->userFirstName }}&nbsp;{{ $user->userLastName }}</option>
                                     @endforeach
                                 </select>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>

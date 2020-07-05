@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\service;
 use Auth;
 
-class AppController extends Controller
+class AdminAppController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +17,12 @@ class AppController extends Controller
         if(Auth::user()){
             if(Auth::user()->userType == 'A'){
                 return view('admin.home');
+            }else{
+                return redirect('/');
             }
+        }else{
+            return redirect('/login');
         }
-        $services = Service::all();
-        return view('app.index', compact('services'));
-        // return Auth::user()->id;
     }
 
     /**
