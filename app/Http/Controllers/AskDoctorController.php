@@ -25,7 +25,7 @@ class AskDoctorController extends Controller
 
 
     public function doctor_index(){
-        $aaq_srvcReq = AskAQuestion::all()->pluck('aaqSrId');
+        $aaq_srvcReq = AskAQuestion::all()->pluck('service_req_id');
         $aaq = AskAQuestion::all();
         $srvcReq = ServiceRequest::whereIn('id', $aaq_srvcReq)->get();
         return view('ask-doctor.admin_index')->with('aaq', $aaq)->with('srvcReq', $srvcReq);
@@ -37,7 +37,7 @@ class AskDoctorController extends Controller
         $aaq->aaqDocResponse = $request['response'];
         $aaq->update();
 
-        $srvcReq = ServiceRequest::find($aaq->aaqSrId);
+        $srvcReq = ServiceRequest::find($aaq->service_req_id);
         $srvcReq->srResponseDateTime = Carbon::now();
         $srvcReq->update();
 
@@ -68,6 +68,7 @@ class AskDoctorController extends Controller
         $patient->patLastName = $request['lastName'];
         $patient->patGender = $request['gender'];
         $patient->patAge = $request['age'];
+<<<<<<< HEAD
         $patient->patBackground = $request['background'];
         $patient->save();
         $patient->patId = Auth::user()->id."-".$patient->id;
@@ -105,6 +106,34 @@ class AskDoctorController extends Controller
 
    
 
+=======
+        $patient->user_id = Auth::user()->id;
+        $patient->save();
+        $patient->patId = Auth::user()->id."-".$patient->id;
+        $patient->update();
+        $srvcReq = new ServiceRequest;
+        // $service = 
+        $srvcReq->service_Id = Service::where('srvcShortName', 'AAQ')->first()->id;
+        $srvcReq->srAppmntId = 0;
+        $srvcReq->patient_id = $patient->id;
+        $srvcReq->user_id = Auth::user()->id;
+        $srvcReq->srRecievedDateTime = Carbon::now();
+        // $hours = $srvcReq->srRecievedDateTime->diffInHoursCarbon::now();
+        $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
+        $srvcReq->srDepartment = $request['department'];
+        // $srvcReq->
+        $srvcReq->save();
+        $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+        $srvcReq->update();
+
+
+        $asaq = new AskAQuestion;
+        $asaq->service_req_id = $srvcReq->id;
+        $asaq->aaqPatientBackground = $request['patient_background'];
+        $asaq->aaqQuestionText = $request['patient_question'];
+        $asaq->aaqDocResponseUploaded = 'N';
+        $asaq->save();
+>>>>>>> 3122faee19de4bf26df658b4ce884b1446a8cbf3
 
 
         
@@ -140,8 +169,8 @@ class AskDoctorController extends Controller
 
     public function doctor_show($id){
         $aaq = AskAQuestion::find($id);
-        $srvcReq = ServiceRequest::find($aaq->aaqSrId);
-        $patient = Patient::find($srvcReq->srPatientId);
+        $srvcReq = ServiceRequest::find($aaq->service_req_id);
+        $patient = Patient::find($srvcReq->patient_id);
         return view('ask-doctor.admin_show')->with('aaq', $aaq)->with('srvcReq', $srvcReq)->with('patient', $patient);
     }
     /**
