@@ -92,8 +92,7 @@ class AskDoctorController extends Controller
             $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
             $srvcReq->srDepartment = $request['department'];
             $srvcReq->save();
-            $srvcReq->srId = "SR00".$srvcReq->id."AAQ";
-            $srvcReq->update();
+            
 
 
             $srvdID = $srvcReq->srId ;
@@ -106,7 +105,10 @@ class AskDoctorController extends Controller
                 $asaq->aaqQuestionText = $request['patient_question'];
                 $asaq->aaqDocResponseUploaded = 'N';
                 $asaq->save();
-
+            
+                $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+                $srvcReq->servSpecificId = $asaq->id;
+                $srvcReq->update();
                 return view('/ask-doctor.thank-you');
                 // return redirect()->route('confirm-service-request', $srvdID);
                 // ->with('success', 'Your Booking is done, Please pay to confirm.');
