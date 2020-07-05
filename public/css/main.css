@@ -5,6 +5,10 @@ html, body{
 .maroon{
     color: rgb(97, 13, 13);
 }
+
+.thead-dark{
+    background-color: rgb(97, 13, 13) !important;
+}
 .white{
     color: #fff;
 }

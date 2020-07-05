@@ -49,11 +49,6 @@
                                     
                                 </tbody>
                             </table>
-
-
-                            <h5 class="card-title"></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"></h6>
-                            <p class="card-text">
                         </div>
                     </div>
 
