@@ -18,9 +18,14 @@ class AskDoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('ask-doctor.index');
+        $patient = Patient::find($id);
+        if(!empty($patient)){
+            return view('ask-doctor.index')->with('patient', $patient);
+        }else{
+            return view('ask-doctor.index')->with('patient', null);
+        }
     }
 
 
@@ -61,6 +66,7 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
+        // 
         $patient = new Patient;
         $patient->patFirstName = $request['firstName'];
         $patient->patLastName = $request['lastName'];
@@ -68,8 +74,9 @@ class AskDoctorController extends Controller
         $patient->patAge = $request['age'];
         $patient->user_id = Auth::user()->id;
         $patient->save();
-        $patient->patId = Auth::user()->id."-".$patient->id;
+        $patient->patId = Auth::user()->userId."-".$patient->id;
         $patient->update();
+
         $srvcReq = new ServiceRequest;
         // $service = 
         $srvcReq->service_Id = Service::where('srvcShortName', 'AAQ')->first()->id;
@@ -99,7 +106,8 @@ class AskDoctorController extends Controller
 
         
         // $asaq->update();
-        return array($asaq, $patient, $srvcReq);
+        // return array($asaq, $patient, $srvcReq);
+        return view('ask-doctor.thank-you');
     }
 
     /**

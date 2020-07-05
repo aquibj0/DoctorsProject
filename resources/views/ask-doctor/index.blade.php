@@ -19,32 +19,61 @@
                                 <div class="mb-3">
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
                                 </div>
+                                @if($patient != null)
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}">
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ $patient->patFirstName }}" disabled>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}">
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ $patient->patLastName }}" disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="gender" id="gender">
+                                        {{-- <select class="form-control" name="gender" id="gender">
+                                            <option selected disabled>Gender </option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Transgender">Transgender</option>
+                                        </select> --}}
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" required>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ $patient->patAge }}" required>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="patient_id" value="{{$patient->id}}">
+
+                                @endif
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <select class="form-control" name="gender" id="gender" required>
                                             <option selected disabled>Gender </option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                             <option value="Transgender">Transgender</option>
                                         </select>
+                                        {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled> --}}
+
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="number" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}">
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}" required>
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="department" id="department">
+                                        <select class="form-control" name="department" id="department" required>
                                             <option selected disabled>Department </option>
                                             <option value="Value 1">Value 1</option>
                                             <option value="value 2">Value 2</option>
@@ -54,7 +83,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background"></textarea>
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
                                     </div>
                                 </div>
 
@@ -63,73 +92,10 @@
                                     <h2 class="maroon MB-3"><b>PATIENT QUESTION</b></h2>
                                 </div>
 
-{{--                                 
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Mobile No.">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Email Id">
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address Line 1">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="Address Line 2">
-                                </div>
-
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="City">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="District">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Pincode">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="State">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Country">
-                                </div>
-
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" id="inputCity">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                    <select id="inputState" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                    <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                        Check me out
-                                    </label>
-                                    </div>
-                                </div> --}}
 
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question"></textarea>
+                                        <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required></textarea>
                                     </div>
                                 </div>
 
@@ -141,7 +107,6 @@
                                         <input type="file" class="form-control" >
                                     </div>
                                 </div> --}}
-
 
 
                                 <button type="submit" class="btn btn-primary btn-lg" style="width:100%">SUBMIT</button>

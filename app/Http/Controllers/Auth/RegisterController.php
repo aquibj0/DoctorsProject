@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Address;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -77,12 +78,25 @@ class RegisterController extends Controller
     }
 
     public function create_user(Request $request){
+
+        $addr = new Address;
+        $addr->addrLine_1 = $request['addressLine1'];
+        if($request['addressLine2'])
+            $addr->addrLine_2 = $request['addressLine2'];
+        $addr->addrCity = $request['city'];
+        $addr->addrDistrict = $request['district'];
+        $addr->addrPincode = $request['pincode'];
+        $addr->addrState = $request['state'];
+        $addr->addrCountry = $request['country'];
+        $addr->save();
+
         $user = new User;
         $user->userFirstName = $request['firstName'];
         $user->userLastName = $request['lastName'];
         $user->userMobileNo = $request['mobile'];
         $user->userEmail = $request['email'];
         $user->userType = "I";
+        $user->userAddress = $addr->id;
         $user->userPassword = Hash::make($request['password']);
         $user->save();
         $user->userId = "UID".$user->id;

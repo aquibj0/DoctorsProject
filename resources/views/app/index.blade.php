@@ -62,7 +62,7 @@
                                 <h2>Ask a doctor</h2>
                             </div>
                         </div>
-                        <a href="/ask-a-doctor" class="btn btn-primary ">Submit</a>
+                        <a href="/user-patients/AAQ" class="btn btn-primary ">Submit</a>
                     </div>
 
                     <div class="col-md-4 mb-5">

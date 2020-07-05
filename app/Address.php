@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $table = 'address';
-    public $primarykey = 'addrId';
+    public $primarykey = 'id';
     public $timestamp = true;
 }

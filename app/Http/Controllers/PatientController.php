@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\service;
+use App\Patient;
 use Auth;
 
-class AppController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($service)
     {
-        if(Auth::user()){
-            if(Auth::user()->userType == 'A'){
-                return view('admin.home');
-            }
+        $patients = Patient::where('user_id', Auth::user()->id)->get();
+        if($patients){
+            return view('patient.index')->with('patients', $patients)->with('service', $service);
+        }else{
+            return redirect('/user-patients/add');
         }
-        $services = Service::all();
-        return view('app.index', compact('services'));
-        // return Auth::user()->id;
+        
     }
 
     /**
@@ -32,7 +31,8 @@ class AppController extends Controller
      */
     public function create()
     {
-        //
+        return view('patient.create');
+        // return "Hey, How's it going?";
     }
 
     /**
@@ -43,7 +43,15 @@ class AppController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $patient = new Patient;
+        $patient->patFirstName = $request['firstName'];
+        $patient->patLastName = $request['lastName'];
+        $patient->patGender = $request['gender'];
+        $patient->patAge = $request['age'];
+        $patient->user_id = Auth::user()->id;
+        $patient->save();
+        $patient->patId = Auth::user()->userId."-".$patient->id;
+        $patient->update();
     }
 
     /**
