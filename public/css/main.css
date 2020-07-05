@@ -32,6 +32,39 @@ html, body{
 
 
 
+.btn-maroon{
+    color: #fff;
+    background: rgb(97, 13, 13);
+    font-weight: 600;
+    font-size: 20px;
+    border: none;
+}
+.btn-maroon:hover{
+    box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5);
+}
+
+
+.register-block{
+
+    background: rgb(97, 13, 13);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: -webkit-center;
+    text-align: center;
+    text-align: -moz-center;
+}
+.register-block h2{
+    margin-bottom: 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+
+
+
 /* Navbar */
 
 .navbar-brand span{
@@ -41,7 +74,7 @@ html, body{
 .navbar-brand small{
     font-weight: 600
 }
-.nav-item a{
+.nav-item a{ 
     color: rgb(97, 13, 13)  !important;
     font-size: 16px;
     font-weight: 600;
@@ -107,6 +140,43 @@ html, body{
 
 
 
+/* User Registration Page */
+
+.user-register-form form input, .user-register-form form select, .user-register-form textarea{
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    /* background: transparent; */
+    color: rgb(97, 13, 13) !important;
+    margin-bottom: 10px;
+}
+.user-register-form form input:focus{
+    /* background: transparent; */
+    /* box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5); */
+    box-shadow: none;
+}
+
+
+
+/* End User Registration Page */
+
+
+
+
+.user-login-form form input{
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    /* background: transparent; */
+    color: rgb(97, 13, 13) !important;
+    margin-bottom: 10px;
+}
+.user-login-form form input:focus{
+    /* background: transparent; */
+    /* box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5); */
+    box-shadow: none;
+}
+
 
 /* Ask Doctor Styling */
 
@@ -115,23 +185,7 @@ html, body{
   
 }
 
-.ask-dcotor-form .register-block{
 
-    background: rgb(97, 13, 13);
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-    text-align: -webkit-center;
-    text-align: center;
-    text-align: -moz-center;
-}
-.ask-dcotor-form .register-block h2{
-    margin-bottom: 0;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-}
 form h2{
     font-size: 1.4rem;
 }
@@ -147,4 +201,32 @@ form h2{
     /* background: transparent; */
     /* box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5); */
     box-shadow: none;
+}
+
+
+
+/* Clinic Appointment */
+.clinic-appointment-form{
+    margin: 50px auto;
+  
+}
+
+.clinic-appointment-form .register-block{
+
+    background: rgb(97, 13, 13);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    text-align: -webkit-center;
+    text-align: center;
+    text-align: -moz-center;
+}
+
+
+.clinic-appointment-form .register-block h2{
+    margin-bottom: 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
 }

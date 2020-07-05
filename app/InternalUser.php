@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class InternalUser extends Model
 {
     protected $table = 'internal_user';
-    public $primarykey = 'idSequence';
+    public $primarykey = 'id';
     public $timestamp = true;
 }

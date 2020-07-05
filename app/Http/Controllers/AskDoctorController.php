@@ -62,45 +62,69 @@ class AskDoctorController extends Controller
     public function store(Request $request)
     {
         $patient = new Patient;
+        $patient->patId = str_random(15);
+        $patient->user_id = Auth::user()->id;
         $patient->patFirstName = $request['firstName'];
         $patient->patLastName = $request['lastName'];
         $patient->patGender = $request['gender'];
         $patient->patAge = $request['age'];
-        $patient->patUserId = Auth::user()->id;
+        $patient->patBackground = $request['background'];
         $patient->save();
         $patient->patId = Auth::user()->id."-".$patient->id;
         $patient->update();
-        $srvcReq = new ServiceRequest;
-        $service = 
-        $srvcReq->srSrvcId = Service::where('srvcShortName', 'AAQ')->first()->id;
-        $srvcReq->srAppmntId = 0;
-        $srvcReq->srPatientId = $patient->id;
-        $srvcReq->srUserId = Auth::user()->id;
-        $srvcReq->srRecievedDateTime = Carbon::now();
-        // $hours = $srvcReq->srRecievedDateTime->diffInHoursCarbon::now();
-        $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
-        $srvcReq->srDepartment = $request['department'];
-        // $srvcReq->
-        $srvcReq->save();
-        $srvcReq->srId = "SR".$srvcReq->id."AAQ";
-        $srvcReq->update();
 
 
-        $asaq = new AskAQuestion;
-        $asaq->aaqSrId = $srvcReq->id;
-        $asaq->aaqPatientBackground = $request['patient_background'];
-        $asaq->aaqQuestionText = $request['patient_question'];
-        $asaq->aaqDocResponseUploaded = 'N';
-        $asaq->save();
+        if($patient->save()){
+            $srvcReq = new ServiceRequest;
+            $srvcReq->service_id = Service::where('srvcShortName', 'AAQ')->first()->id;
+            $srvcReq->patient_id = $patient->id;
+            $srvcReq->user_id = Auth::user()->id;
+            $srvcReq->srRecievedDateTime = Carbon::now();
+            $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
+            $srvcReq->srDepartment = $request['department'];
+            $srvcReq->save();
+            $srvcReq->srId = "SR00".$srvcReq->id."AAQ";
+            $srvcReq->update();
 
+
+            $srvdID = $srvcReq->srId ;
+
+
+            if($srvcReq->save()){
+                $asaq = new AskAQuestion;
+                $asaq->service_req_id = $srvcReq->id;
+                $asaq->aaqPatientBackground = $request['patient_background'];
+                $asaq->aaqQuestionText = $request['patient_question'];
+                $asaq->aaqDocResponseUploaded = 'N';
+                $asaq->save();
+
+                return redirect()->route('confirm-service-request', $srvdID);
+                // ->with('success', 'Your Booking is done, Please pay to confirm.');
+            }
+        }
+
+   
+
+
+
+        
         
 
         
 
         
         // $asaq->update();
-        return array($asaq, $patient, $srvcReq);
+        // return array($asaq, $patient, $srvcReq);
     }
+
+
+
+    public function serviceBooking($srvdID){
+        $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
+        return view('ask-doctor.booking', compact('serviceRequest'));
+    }
+
+    
 
     /**
      * Display the specified resource.

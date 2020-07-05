@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class AskAQuestion extends Model
 {
     protected $table = 'ask_a_question';
-    public $primarykey = 'idSequence';
+    public $primarykey = 'id';
     public $timestamp = true;
 }

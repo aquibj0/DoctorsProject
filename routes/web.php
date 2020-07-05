@@ -12,6 +12,7 @@
 */
 
 
+Auth::routes();
 
 Route::get('/', 'AppController@index');
 
@@ -27,17 +28,26 @@ Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
 
 Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
-Auth::routes();
 
+
+
+ 
 Route::get('/home', 'HomeController@index')->name('home');
-<<<<<<< HEAD
-
-
-
 
 Route::get('/service-request/{id}', 'UserController@userServiceRequest');
 Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail');
 
-=======
-Route::post('/change-user-to-internal', 'AppController@internal_user');
->>>>>>> e79492b5afaa3e8b71b554e8cbb79d7278c5644b
+
+Route::get('/service-booking/{srvdID}', 'AskDoctorController@serviceBooking')->name('confirm-service-request');
+// Route::get('product', 'RazorpayController@index'); 
+
+Route::post('/payment-inititate-request', 'PaymentController@Initiate');
+
+
+Route::post('razor-thank-you', 'PaymentController@thankYou');
+// Route::post('/change-user-to-internal', 'AppController@internal_user');
+
+
+
+// Clinic Apoointment
+Route::get('/clinic-appointment', 'ClinicAppointmentController@index');

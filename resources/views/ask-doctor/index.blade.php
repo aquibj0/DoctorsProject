@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<section class="ask-doctor" style="padding-top:0">
+<section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row">
         <div class="col-md-4" style="background:#142cd6; height:100vh;"></div>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background"></textarea>
+                                        <textarea class="form-control" name="background" id="background" cols="30" rows="5" placeholder="Patient Background"></textarea>
                                     </div>
                                 </div>
 

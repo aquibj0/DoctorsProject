@@ -13,7 +13,7 @@ class ClinicAppointmentController extends Controller
      */
     public function index()
     {
-        //
+        return  view('clinic-appointment.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ClinicAppointmentController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
