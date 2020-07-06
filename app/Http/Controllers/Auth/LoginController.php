@@ -58,7 +58,7 @@ class LoginController extends Controller
                     return redirect('/');
                 }
             }else{
-                return redirect('/login');
+                return redirect('/login')->with('error', 'Email/Phone No or password input mismatch!');
             }
         }
     }
