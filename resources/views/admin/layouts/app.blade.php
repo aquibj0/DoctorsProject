@@ -28,7 +28,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     <span class="maroon">DR-ONLINE</span> <br>
                     <small class="maroon">Exceptional Care you choose</small>
@@ -76,14 +76,14 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
+                                    {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
 
                                 </a>
                                 
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     {{-- <a class="dropdown-item" href=" /service-request/{{Auth::user()->id}}">My Services </a> --}}
-                                    <a class="dropdown-item" href="/admin/dashboard">Dashboard </a>
+                                    <a class="dropdown-item" href="/admin/">Dashboard </a>
                                     <a class="dropdown-item" href="/admin/setting/{{Auth::user()->id}}">My Profile </a>
 
 

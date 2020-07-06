@@ -17,7 +17,8 @@ Auth::routes();
 Route::get('/', 'AppController@index');
 
 
-
+Route::get('/contact-us', 'ContactUsController@index');
+Route::post('/contact-us', 'ContactUsController@store');
 Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
 // Auth::routes();
@@ -75,7 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Clinic Apoointment
     Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
-    Route::get('/admin', 'AdminAppController@index');
+    // Route::get('/admin', 'AdminAppController@index');
 
 
     //
@@ -92,7 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
-    Route::get('dashboard', 'Admin\AdminController@index')->name('admin.dashboard');
+    // Route::get('dashboard', 'Admin\AdminController@index')->name('admin.dashboard');
     Route::get('register', 'Admin\AdminController@create')->name('admin.register');
     Route::post('register', 'Admin\AdminController@store')->name('admin.register.store');
     Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');

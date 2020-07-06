@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+
 @section('content')
 
 <section class="ask-doctor" style="padding-top:0">
@@ -44,13 +45,13 @@
                                                     <th scope="row">Age</th>
                                                     <td>{{ $srvcReq->patient->patAge}}</td>        
                                                 </tr>
-                                                <tr>    
+                                                {{-- <tr>    
                                                     <th scope="row">Patient background</th>
                                                     <td>{{ $srvcReq->patient->patBackground}}</td>        
-                                                </tr>
+                                                </tr> --}}
                                                 <tr>    
                                                     <th scope="row">Patient background</th>
-                                                    <td>{{ $srvcReq->patient->patBackground}}</td>        
+                                                    <td>{{ $srvcReq->askQuestion->aaqPatientBackground }}</td>        
                                                 </tr>
                                                 <tr>
                                                     <th scope="col">Department</th>
