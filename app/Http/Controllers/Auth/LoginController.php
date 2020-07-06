@@ -48,8 +48,9 @@ class LoginController extends Controller
                 if(Hash::check($request['password'], $user->userPassword)){
                     Auth::login($user);
                     return redirect('/');
-                }else{
-                    
+                }
+                else{
+                    return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
                 }
             }
             else if(User::where('userEmail', $request['email'])->first()){
@@ -58,10 +59,16 @@ class LoginController extends Controller
                     Auth::login($user);
                     return redirect('/');
                 }
+                else{
+                    return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
+                }
             }
             else{
-                return redirect('/login')->with('status', 'Email/Phone No or password input mismatch!');
+                return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
+
             }
+            
         }
     }
+
 }

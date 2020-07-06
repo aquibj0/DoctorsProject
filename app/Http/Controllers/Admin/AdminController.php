@@ -35,8 +35,8 @@ class AdminController extends Controller
     public function store_user(Request $request){
         // return $request;
         $intUser = new Admin;
-        $intUser->userFirstName = $request->firstName;
-        $intUser->userLastName = $request->lastName;
+        $intUser->FirstName = $request->firstName;
+        $intUser->LastName = $request->lastName;
         $intUser->phoneNo = $request->phoneNo;
         $intUser->category = $request->category;
         $intUser->department = $request->department;

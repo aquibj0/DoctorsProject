@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
 
 <section class="ask-doctor" style="padding-top:0">

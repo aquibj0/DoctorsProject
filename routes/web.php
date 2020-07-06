@@ -17,9 +17,12 @@ Auth::routes();
 Route::get('/', 'AppController@index');
 
 
+
 Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
-Auth::routes();
+// Auth::routes();
+
+
 
 Route::group(['middleware' => ['auth']], function () {
     // User Setting

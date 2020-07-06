@@ -32,7 +32,7 @@ class ServiceRequestController extends Controller
         $srvcReq->srResponseDateTime = Carbon::now();
         $srvcReq->update();
 
-        return redirect('/admin/dashboard')->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
+        return redirect()->back()->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
     }
 
     /**

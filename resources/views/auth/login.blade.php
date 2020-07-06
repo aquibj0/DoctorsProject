@@ -9,8 +9,9 @@
             <div class="col-md-8">
                 <div class="user-login-form">
                     <div class="register-block mt-5">
-                        <h2 class="mb-0"> <b>REGISTER</b></h2>
+                        <h2 class="mb-0"> <b>REGISTER</b></h2> 
                     </div>
+                    @include('layouts.message')
 
                     <div class="mt-4">
                         <form method="POST" action="{{ route('login_user') }}">
