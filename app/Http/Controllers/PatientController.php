@@ -16,12 +16,12 @@ class PatientController extends Controller
     public function index($service)
     {
         $patients = Patient::where('user_id', Auth::user()->id)->get();
-        if($patients){
+        if(count($patients) != 0){
             return view('patient.index')->with('patients', $patients)->with('service', $service);
         }else{
-            return redirect('ask-doctor.index')->with('patient', null);
+            return redirect('/ask-a-doctor/0');
         }
-        
+            // return count($patients);
     }
 
     /**
