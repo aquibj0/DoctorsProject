@@ -8,6 +8,16 @@
                 <div class="panel-heading">Admin Register</div>
 
                 <div class="panel-body">
+                    @include('layouts.message')
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form class="form-horizontal" method="POST" action="{{ route('admin.register.user.store') }}">
                         {{ csrf_field() }}
 
@@ -43,7 +53,7 @@
                             <label for="phoneNo" class="col-md-4 control-label">Phone number</label>
 
                             <div class="col-md-6">
-                                <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus>
+                                <input id="phoneNo" type="number" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                 @if ($errors->has('phoneNo'))
                                     <span class="help-block">

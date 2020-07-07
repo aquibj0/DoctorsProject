@@ -7,6 +7,7 @@ use App\Admin;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
 
 class AdminController extends Controller
@@ -34,9 +35,17 @@ class AdminController extends Controller
 
     public function store_user(Request $request){
         // return $request;
+        $validator = Validator::make($request->all(), [
+            'firstName' => ['required', 'string', 'max:40'],
+            'lastName' => ['required', 'string', 'max:40'],
+            'email' => ['string', 'email', 'max:100', 'unique:admins'],
+            'phoneNo' => ['required', 'min:10', 'max:10', 'unique:admins'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if(!$validator->fails()){
         $intUser = new Admin;
-        $intUser->FirstName = $request->firstName;
-        $intUser->LastName = $request->lastName;
+        $intUser->userFirstName = $request->firstName;
+        $intUser->userLastName = $request->lastName;
         $intUser->phoneNo = $request->phoneNo;
         $intUser->category = $request->category;
         $intUser->department = $request->department;
@@ -50,7 +59,10 @@ class AdminController extends Controller
         $intUser->save();
         $intUser->intuId = "IID".$intUser->id;
         $intUser->update();
-        return redirect('/admin/dashboard');
+        return redirect('/admin')->with('success', 'User created successfully!');
+        }else{
+            return redirect()->back()->withErrors($validator)->withInput();
+        }   
     }
     /**
      * Show the form for creating a new resource.
@@ -83,7 +95,7 @@ class AdminController extends Controller
         $admins = new Admin;
         $admins->name = $request->name;
         $admins->email = $request->email;
-        $admins->password=bcrypt($request->password);
+        $admins->password=Hash::make($request->password);
 
         $admins->save();
 

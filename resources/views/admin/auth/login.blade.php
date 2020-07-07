@@ -17,6 +17,7 @@
                             </div>
             
                             <div class="mt-4">
+                                @include('layouts.message')
                                 <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
                                     {{ csrf_field() }}
             

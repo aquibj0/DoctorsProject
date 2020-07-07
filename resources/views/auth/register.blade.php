@@ -44,7 +44,7 @@
                                 <div class="col-md-6 form-group">
                                     <input id="userMobileNo" type="number" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
-                                    @error('mobile')
+                                    @error('userMobileNo')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
