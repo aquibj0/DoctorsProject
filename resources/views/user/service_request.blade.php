@@ -13,6 +13,7 @@
 
             <div class="col-md-12">
                 <div class="card">
+                    @include('layouts.message')
                     <div class="card-body">
                         <table class="table table-bordered table-responsive">
                             <thead class="thead-dark">

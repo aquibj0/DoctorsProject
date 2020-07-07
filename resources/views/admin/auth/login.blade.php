@@ -20,6 +20,7 @@
                             </div>
             
                             <div class="mt-4">
+                                @include('layouts.message')
                                 <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
                                     {{ csrf_field() }}
             
@@ -40,7 +41,7 @@
                                     <div class=" form-row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{-- <label for="password" class="col-md-4 control-label">Password</label> --}}
             
-                                        <div class="col-md-12">
+                                        <div class="col-md-11">
                                             <input id="password"  type="password" placeholder="Password" class="form-control" name="password" required>
             
                                             @if ($errors->has('password'))
@@ -49,8 +50,21 @@
                                                 </span>
                                             @endif
                                         </div>
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="form-control" onclick="myFunction()">
+                                            <script>
+                                                function myFunction() {
+                                                    var x = document.getElementById("password");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                } 
+                                            </script>
+                                        </div>
                                     </div>
-            
+                                    
                                     <div class="form-row form-group">
                                         <div class="col-md-12">
                                             <div class="checkbox">

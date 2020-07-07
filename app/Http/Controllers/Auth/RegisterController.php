@@ -92,8 +92,8 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'firstName' => ['required', 'string', 'max:40'],
             'lastName' => ['required', 'string', 'max:40'],
-            'userEmail' => ['string', 'email', 'max:100'],
-            'userMobileNo' => ['required', 'min:10', 'max:10',],
+            'userEmail' => ['string', 'email', 'max:100', 'unique:users'],
+            'userMobileNo' => ['required', 'numeric',  'digits:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         // return $validator->fails();
@@ -103,7 +103,7 @@ class RegisterController extends Controller
             $user->userLastName = $request['lastName'];
             $user->userMobileNo = $request['userMobileNo'];
             $user->userEmail = $request['userEmail'];
-            $user->userType = "I";
+            $user->userType = "E";
             // $user->userAddress = $addr->id;
             $user->userPassword = Hash::make($request['password']);
             $user->save();
@@ -112,7 +112,11 @@ class RegisterController extends Controller
             Auth::login($user);
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
+<<<<<<< HEAD
             return redirect()->back()->withErrors($validator);
+=======
+            return redirect('/register')->withErrors($validator)->withInput();
+>>>>>>> anik-06-07-2020
         }
     }
 }

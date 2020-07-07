@@ -44,7 +44,7 @@
                                 <div class="col-md-6 form-group">
                                     <input id="userMobileNo" type="number" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
-                                    @error('mobile')
+                                    @error('userMobileNo')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -64,7 +64,7 @@
                             <div class="form-group row" >
                                 <div class="col-md-12">
                                         <input id="userEmail" type="email" placeholder="Email" class="form-control @error('userEmail') is-invalid @enderror" name="userEmail" value="{{ old('userEmail') }}" autocomplete="userEmail">
-    
+                                        
                                         @error('userEmail')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -74,34 +74,68 @@
                             </div>
     
                             <div class="form-group row">
-                                
-    
-                                <div class="col-md-12">
+                                <div class="col-md-11">
                                     <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-    
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" class="form-control" onclick="myFunction()">
+                                    <script>
+                                        function myFunction() {
+                                            var x = document.getElementById("password");
+                                            if (x.type === "password") {
+                                                x.type = "text";
+                                            } else {
+                                                x.type = "password";
+                                            }
+                                        } 
+                                    </script>
+                                </div>
                             </div>
     
                             <div class="form-group row">
-                               
-    
-                                <div class="col-md-12">
+                                <div class="col-md-11">
                                     <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" class="form-control" onclick="myFunctionConfirm()">
+                                    <script>
+                                        function myFunctionConfirm() {
+                                            var x = document.getElementById("password-confirm");
+                                            if (x.type === "password") {
+                                                x.type = "text";
+                                            } else {
+                                                x.type = "password";
+                                            }
+                                        } 
+                                    </script>
                                 </div>
                             </div>
                             
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 mb-2">
-                                    <input type="checkbox">
-                                    <label for="">I Agree with all the statements in <a href="#"><u>Terms of Services</u></a></label>
+                                    <input type="checkbox" id="terms" onchange="confirm()">
+                                    <label for="">I Agree with all the statements in <a href="{{ url('/terms-and-condition') }}"><u>Terms of Services</u></a></label>
+                                    <script>
+                                        function confirm(){
+                                            var checkbox = document.getElementById('terms');
+                                            var button = document.getElementById('submit');
+                                            if(checkbox.checked == true){
+                                                button.disabled = false;
+                                                // console.log('yes');   
+                                            }else{
+                                                button.disabled = true;
+                                                // console.log('no');
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                 <div class="col-md-12 ">
-                                    <button type="submit" style="width:100%" class="btn btn-maroon" onclick="return Validate()">
+                                    <button type="submit" style="width:100%" id="submit" class="btn btn-maroon" onclick="return Validate()">
                                         {{ __('Register') }}
                                     </button>
                                 </div>

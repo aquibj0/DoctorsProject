@@ -66,55 +66,68 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if($request['patient_id']){
-            $patient = Patient::find($request['patient_id']);
-        }else{
-            $patient = new Patient;
-            $patient->patId = str_random(15);
-            $patient->user_id = Auth::user()->id;
-            $patient->patFirstName = $request['firstName'];
-            $patient->patLastName = $request['lastName'];
-            $patient->patGender = $request['gender'];
-            $patient->patAge = $request['age'];
-            $patient->patBackground = $request['background'];
-            $patient->save();
-            $patient->patId = Auth::user()->userId."-".$patient->id;
-            $patient->update();
-        }
-
-        if($patient->save()){
-            $srvcReq = new ServiceRequest;
-            $srvcReq->service_id = Service::where('srvcShortName', 'AAQ')->first()->id;
-            $srvcReq->patient_id = $patient->id;
-            $srvcReq->user_id = Auth::user()->id;
-            $srvcReq->srRecievedDateTime = Carbon::now();
-            $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
-            $srvcReq->srDepartment = $request['department'];
-            $srvcReq->save();
-            
-
-
-            $srvdID = $srvcReq->srId ;
-
-
-            if($srvcReq->save()){
-                $asaq = new AskAQuestion;
-                $asaq->service_req_id = $srvcReq->id;
-                $asaq->aaqPatientBackground = $request['patient_background'];
-                $asaq->aaqQuestionText = $request['patient_question'];
-                $asaq->aaqDocResponseUploaded = 'N';
-                $asaq->save();
-            
-                $srvcReq->srId = "SR".$srvcReq->id."AAQ";
-                $srvcReq->servSpecificId = $asaq->id;
-                $srvcReq->update();
-                return view('/ask-doctor.thank-you');
-                // return redirect()->route('confirm-service-request', $srvdID);
-                // ->with('success', 'Your Booking is done, Please pay to confirm.');
+        if($request){
+            if($request['patient_id']){
+                $patient = Patient::find($request['patient_id']);
+            }else{
+                $patient = new Patient;
+                $patient->patId = str_random(15);
+                $patient->user_id = Auth::user()->id;
+                $patient->patFirstName = $request['firstName'];
+                $patient->patLastName = $request['lastName'];
+                $patient->patGender = $request['gender'];
+                $patient->patAge = $request['age'];
+                $patient->patBackground = $request['patient_background'];
+                if(!empty($request->email)){
+                    $patient->patEmail = $request['email'];
+                }
+                $patient->patMobileCC = $request['mobileCC'];
+                $patient->patMobileNo = $request['mobileNo']; 
+                $patient->patAddrLine1 = $request['addressLine1'];
+                $patient->patAddrLine2 = $request['addressLine2'];
+                $patient->patCity = $request['city'];
+                $patient->patDistrict = $request['district'];
+                $patient->patState = $request['state'];
+                $patient->patCountry = $request['country'];
+                $patient->save();
+                $patient->patId = Auth::user()->userId."-".$patient->id;
+                $patient->update();
             }
-        }
 
+            if($patient->save()){
+                $srvcReq = new ServiceRequest;
+                $srvcReq->service_id = Service::where('srvcShortName', 'AAQ')->first()->id;
+                $srvcReq->patient_id = $patient->id;
+                $srvcReq->user_id = Auth::user()->id;
+                $srvcReq->srRecievedDateTime = Carbon::now();
+                $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
+                $srvcReq->srDepartment = $request['department'];
+                $srvcReq->save();
+                
+
+
+                $srvdID = $srvcReq->srId ;
+
+
+                if($srvcReq->save()){
+                    $asaq = new AskAQuestion;
+                    $asaq->service_req_id = $srvcReq->id;
+                    $asaq->aaqPatientBackground = $request['patient_background'];
+                    $asaq->aaqQuestionText = $request['patient_question'];
+                    $asaq->aaqDocResponseUploaded = 'N';
+                    $asaq->save();
+                
+                    $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+                    $srvcReq->servSpecificId = $asaq->id;
+                    $srvcReq->update();
+                    return view('/ask-doctor.thank-you');
+                    // return redirect()->route('confirm-service-request', $srvdID);
+                    // ->with('success', 'Your Booking is done, Please pay to confirm.');
+                }
+            }
+        }else{
+            return redirect()->back()->withInputs()->with('error', 'Something went wrong!');
+        }
    
 
 

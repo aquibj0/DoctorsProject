@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Auth;
 class LoginController extends Controller
@@ -49,17 +50,23 @@ class LoginController extends Controller
     public function loginAdmin(Request $request)
     {
       // Validate the form data
-      $this->validate($request, [
-        'email'   => 'required|email',
+      $validator = Validator::make($request->all(), [
+        'email'   => 'required|email|exists:admins',
         'password' => 'required|min:6'
       ]);
       // Attempt to log the user in
-      if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-        // if successful, then redirect to their intended location
-        return redirect()->intended(route('admin.dashboard'))->with('success', 'Hello '.Auth::user()->userFirstName);
-      }
+      if(!$validator->fails()){
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+          // if successful, then redirect to their intended location
+          return redirect()->intended(url('/admin'))->with('success', 'Logged in successfully!');
+        }else{
+          return redirect()->back()->withInput()->with('error','Wrong Password!');
+        }
+        // $admin = Admin::where('email', $request->email)->first();
+      }else{
       // if unsuccessful, then redirect back to the login with the form data
-      return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput()->with('error', 'Email dosen\'t exists!');
+      }
     }
 
     public function logout()
