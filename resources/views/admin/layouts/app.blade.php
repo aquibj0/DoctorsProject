@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script> 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,8 +30,8 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/admin') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <span class="maroon">DR-ONLINE</span> <br>
-                    <small class="maroon">Exceptional Care you choose</small>
+                    <p class="maroon mb-0"><b>DR-ONLINE</b></p> 
+                    <small class="maroon mt-0 mb-0">Exceptional Care you choose</small>
                     
                 </a>
                
@@ -76,7 +76,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
+                                    {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
 
                                 </a>
                                 

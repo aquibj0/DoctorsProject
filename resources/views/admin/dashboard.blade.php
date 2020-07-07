@@ -26,7 +26,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @if (!empty($servReq))
                                 @foreach ($servReq as $serviceReq)
                                     <tr>
@@ -35,12 +34,10 @@
                                         <td>{{$serviceReq->srRecievedDateTime}}</td>
                                         <td>{{$serviceReq->srStatus}}</td>
                                         <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
-                                        <td><a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">Open</a>                                        </td>
+                                        <td><a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a>                                        </td>
                                     </tr>
                                 @endforeach
                             @endif
-                            
-                            
                         </tbody>
                     </table>
                 </div>
