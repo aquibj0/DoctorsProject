@@ -92,8 +92,8 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'firstName' => ['required', 'string', 'max:40'],
             'lastName' => ['required', 'string', 'max:40'],
-            'userEmail' => ['string', 'email', 'max:100', 'unique:users'],
-            'userMobileNo' => ['required', 'min:10', 'max:10', 'unique:users'],
+            'userEmail' => ['string', 'email', 'max:100'],
+            'userMobileNo' => ['required', 'min:10', 'max:10',],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         // return $validator->fails();
@@ -110,7 +110,7 @@ class RegisterController extends Controller
             $user->userId = "UID".$user->id;
             $user->update();
             Auth::login($user);
-            return redirect('/');
+            return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
             return redirect('/register')->with('error', $validator);
         }

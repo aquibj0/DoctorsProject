@@ -12,6 +12,7 @@
                 </div>
             </div>
             <div class="card">
+                @include('layouts.message')
                 <div class="card-body">
                     <table class="table">
                         <thead class="thead-dark">

@@ -50,7 +50,7 @@ class LoginController extends Controller
                     return redirect('/');
                 }
                 else{
-                    return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
+                    return redirect()->back()->with('error', 'Password input mismatch, Please Try Again');
                 }
             }
             else if(User::where('userEmail', $request['email'])->first()){
@@ -60,14 +60,16 @@ class LoginController extends Controller
                     return redirect('/');
                 }
                 else{
-                    return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
+                    return redirect()->back()->with('error', 'Password input mismatch, Please Try Again');
                 }
             }
             else{
-                return redirect()->back()->with('error', 'Email/Phone No or password input mismatch, Please Try Again');
+                return redirect()->back()->with('error', 'Email Or Phone No. input mismatch, Please Try Again');
 
             }
             
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
 

@@ -19,7 +19,7 @@ class PatientController extends Controller
         if($patients){
             return view('patient.index')->with('patients', $patients)->with('service', $service);
         }else{
-            return redirect('/user-patients/add');
+            return redirect('ask-doctor.index')->with('patient', null);
         }
         
     }
