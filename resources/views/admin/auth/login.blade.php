@@ -11,6 +11,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
+
+                        @include('layouts.message')
+
                         <div class="user-login-form">
                             <div class="register-block mt-5">
                                 <h2 class="mb-0"> <b>Admin Login</b></h2> 
