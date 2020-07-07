@@ -11,7 +11,7 @@
                     <div class="register-block mt-5">
                         <h2 class="mb-0"> <b>REGISTER</b></h2>
                     </div>
-
+                    @include('layouts.message')
 
                     <div class="mt-5">
                         <form method="POST" action="{{ route('register_user') }}">
@@ -42,7 +42,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-6 form-group">
-                                    <input id="mobile" type="text" placeholder="Mobile No." class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
+                                    <input id="userMobileNo" type="number" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                     @error('mobile')
                                         <span class="invalid-feedback" role="alert">
@@ -63,9 +63,9 @@
 
                             <div class="form-group row" >
                                 <div class="col-md-12">
-                                        <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
+                                        <input id="userEmail" type="email" placeholder="Email" class="form-control @error('userEmail') is-invalid @enderror" name="userEmail" value="{{ old('userEmail') }}" autocomplete="userEmail">
     
-                                        @error('email')
+                                        @error('userEmail')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -101,7 +101,7 @@
                                     <label for="">I Agree with all the statements in <a href="#"><u>Terms of Services</u></a></label>
                                 </div>
                                 <div class="col-md-12 ">
-                                    <button type="submit" style="width:100%" class="btn btn-maroon">
+                                    <button type="submit" style="width:100%" class="btn btn-maroon" onclick="return Validate()">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -119,3 +119,14 @@
     </div>
 </div>
 @endsection
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("password-confirm").value;
+        if (password != confirmPassword) {
+            alert("Passwords and Confirm Password do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>

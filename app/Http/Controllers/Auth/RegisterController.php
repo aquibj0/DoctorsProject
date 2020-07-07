@@ -89,19 +89,30 @@ class RegisterController extends Controller
         // $addr->addrState = $request['state'];
         // $addr->addrCountry = $request['country'];
         // $addr->save();
-
-        $user = new User;
-        $user->userFirstName = $request['firstName'];
-        $user->userLastName = $request['lastName'];
-        $user->userMobileNo = $request['mobile'];
-        $user->userEmail = $request['email'];
-        $user->userType = "I";
-        // $user->userAddress = $addr->id;
-        $user->userPassword = Hash::make($request['password']);
-        $user->save();
-        $user->userId = "UID".$user->id;
-        $user->update();
-        Auth::login($user);
-        return redirect('/');
+        $validator = Validator::make($request->all(), [
+            'firstName' => ['required', 'string', 'max:40'],
+            'lastName' => ['required', 'string', 'max:40'],
+            'userEmail' => ['string', 'email', 'max:100', 'unique:users'],
+            'userMobileNo' => ['required', 'min:10', 'max:10', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // return $validator->fails();
+        if(!$validator->fails()){
+            $user = new User;
+            $user->userFirstName = $request['firstName'];
+            $user->userLastName = $request['lastName'];
+            $user->userMobileNo = $request['userMobileNo'];
+            $user->userEmail = $request['userEmail'];
+            $user->userType = "I";
+            // $user->userAddress = $addr->id;
+            $user->userPassword = Hash::make($request['password']);
+            $user->save();
+            $user->userId = "UID".$user->id;
+            $user->update();
+            Auth::login($user);
+            return redirect('/');
+        }else{
+            return redirect('/register')->with('error', $validator);
+        }
     }
 }
