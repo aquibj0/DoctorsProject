@@ -16,7 +16,9 @@ Auth::routes();
 
 Route::get('/', 'AppController@index');
 
-
+Route::get('/terms-and-condition', function(){
+    return view('terms-and-condition');
+});
 Route::get('/contact-us', 'ContactUsController@index');
 Route::post('/contact-us', 'ContactUsController@store');
 Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');

@@ -31,7 +31,7 @@
         
                             <div class="form-group row">
                                 
-                                <div class="col-md-12">
+                                <div class="col-md-11">
                                     <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
     
                                     @error('password')
@@ -39,6 +39,19 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" class="form-control" onclick="myFunction()">
+                                    <script>
+                                        function myFunction() {
+                                            var x = document.getElementById("password");
+                                            if (x.type === "password") {
+                                                x.type = "text";
+                                            } else {
+                                                x.type = "password";
+                                            }
+                                        } 
+                                    </script>
                                 </div>
                             </div>
     
