@@ -77,7 +77,18 @@ class AskDoctorController extends Controller
                 $patient->patLastName = $request['lastName'];
                 $patient->patGender = $request['gender'];
                 $patient->patAge = $request['age'];
-                $patient->patBackground = $request['background'];
+                $patient->patBackground = $request['patient_background'];
+                if(!empty($request->email)){
+                    $patient->patEmail = $request['email'];
+                }
+                $patient->patMobileCC = $request['mobileCC'];
+                $patient->patMobileNo = $request['mobileNo']; 
+                $patient->patAddrLine1 = $request['addressLine1'];
+                $patient->patAddrLine2 = $request['addressLine2'];
+                $patient->patCity = $request['city'];
+                $patient->patDistrict = $request['district'];
+                $patient->patState = $request['state'];
+                $patient->patCountry = $request['country'];
                 $patient->save();
                 $patient->patId = Auth::user()->userId."-".$patient->id;
                 $patient->update();
