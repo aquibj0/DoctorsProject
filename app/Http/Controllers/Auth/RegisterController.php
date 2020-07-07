@@ -112,7 +112,7 @@ class RegisterController extends Controller
             Auth::login($user);
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
-            return redirect('/register')->with('error', $validator);
+            return redirect()->back()->withErrors($validator);
         }
     }
 }

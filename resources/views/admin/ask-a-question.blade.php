@@ -24,7 +24,7 @@
                                     <h5  class="maroon text-center"><b><u>PATIENT DETAILS</u></b></h5>
                                     <div class="card mb-4">
                                         <div class="card-body">
-                                            <table class="table table-responsive ">
+                                            <table class="table table-bordered table-responsive ">
 
                                                 <tr>
                                                     <th scope="col">Patient ID</th>

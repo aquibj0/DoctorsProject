@@ -18,7 +18,7 @@
 
                     <div class="card" >
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table table-bordered table-responsive">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Patient ID</th>

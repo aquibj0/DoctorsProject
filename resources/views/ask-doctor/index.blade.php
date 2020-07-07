@@ -12,12 +12,12 @@
                     <div class="ask-dcotor-form">
                         <div class="register-block">
                            <h2> Ask a doctor</h2>
-                        </div>
+                        </div> 
                         <div>
                             <form action="{{ route('ask_a_doctor.store') }}" method="POST">
                                 {{ csrf_field() }}
-                                <div class="mb-3">
-                                        <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
+                                <div class="mb-2">
+                                    <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
                                 </div>
                                 @if($patient != null)
                                 <div class="form-row">
@@ -31,14 +31,7 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        {{-- <select class="form-control" name="gender" id="gender">
-                                            <option selected disabled>Gender </option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Transgender">Transgender</option>
-                                        </select> --}}
                                         <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled>
-
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ $patient->patAge }}" disabled>
@@ -111,7 +104,7 @@
                                 </div> --}}
 
 
-                                <button type="submit" class="btn btn-primary btn-lg" style="width:100%">SUBMIT</button>
+                                <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
                             </form>
                           
                         </div>

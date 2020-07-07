@@ -8,12 +8,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="user-register-form">
-                    <div class="register-block mt-5">
+                    <div class="register-block mt-4">
                         <h2 class="mb-0"> <b>REGISTER</b></h2>
                     </div>
                     @include('layouts.message')
 
-                    <div class="mt-5">
+                    <div class="mt-3">
                         <form method="POST" action="{{ route('register_user') }}">
                             @csrf
     

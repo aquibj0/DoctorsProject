@@ -12,7 +12,7 @@ html, body{
 .white{
     color: #fff;
 }
-
+ 
 .row{ 
     justify-content: center;
 }
@@ -22,6 +22,17 @@ html, body{
     font-weight: 600;
     font-size: 20px;
     border: none;
+}
+
+@media(min-width:768px){
+    .table-responsive{
+        display: table;
+    }
+}
+@media(max-width:768px){
+    .table-responsive{
+        display: block;
+    }
 }
 .btn-primary:hover{
     background: rgba(97, 13, 13, 0.8);
@@ -157,11 +168,9 @@ html, body{
     border-radius: 0;
     /* background: transparent; */
     color: rgb(97, 13, 13) !important;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 .user-register-form form input:focus{
-    /* background: transparent; */
-    /* box-shadow: 0 0 0 0.2rem rgba(97,1,13,0.5); */
     box-shadow: none;
 }
 
@@ -178,7 +187,7 @@ html, body{
     border-radius: 0;
     /* background: transparent; */
     color: rgb(97, 13, 13) !important;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 .user-login-form form input:focus{
     /* background: transparent; */
@@ -190,13 +199,10 @@ html, body{
 /* Ask Doctor Styling */
 
 .ask-dcotor-form{
-    margin: 50px auto;
-  
+    margin: 30px auto;
 }
-
-
-form h2{
-    font-size: 1.4rem;
+.ask-dcotor-form form h2{
+    font-size: 1.2rem;
 }
 .ask-dcotor-form form input, .ask-dcotor-form form select, .ask-dcotor-form textarea{
     border: none;
@@ -204,7 +210,6 @@ form h2{
     border-radius: 0;
     /* background: transparent; */
     color: rgb(97, 13, 13) !important;
-    margin-bottom: 10px;
 }
 .ask-dcotor-form form input:focus{
     /* background: transparent; */
