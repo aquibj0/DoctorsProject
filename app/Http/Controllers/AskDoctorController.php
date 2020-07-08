@@ -8,7 +8,10 @@ use App\AskAQuestion;
 use App\Patient;
 use App\ServiceRequest;
 use Auth;
+use Mail;
+use App\Mail\AAQEmail;
 use App\Service;
+use App\Jobs\SendEmail;
 // use Carbon\Carbon;
 
 class AskDoctorController extends Controller
@@ -103,6 +106,10 @@ class AskDoctorController extends Controller
                 $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
                 $srvcReq->srDepartment = $request['department'];
                 $srvcReq->srStatus = $request['srStatus'];
+                $srvcReq->srConfirmationSentByAdmin = 'N';
+                $srvcReq->srMailSmsSent = Carbon::now();
+                $srvcReq->srDocumentUploadedFlag = 'N';
+                $srvcReq->srStatus = "NEW";
                 $srvcReq->save();
                 $srvcReq->srId = "SR".$srvcReq->id."AAQ";
                 $srvcReq->update();
@@ -119,6 +126,17 @@ class AskDoctorController extends Controller
                     $asaq->aaqQuestionText = $request['patient_question'];
                     $asaq->aaqDocResponseUploaded = 'N';
                     $asaq->save();
+                    
+
+                    SendEmail::dispatch($patient, $srvcReq, $asaq);
+                    // if($patient->patEmail){
+                    //     Mail::to(Auth::user()->userEmail)
+                    //         ->cc($patient->patEmail)
+                    //         ->send(new AAQEmail($patient, $srvcReq ,$asaq));
+                    // }else{
+                    //     Mail::to(Auth::user()->userEmail)
+                    //         ->send(new AAQEmail($patient, $srvcReq ,$asaq));
+                    // }
                     return view('/ask-doctor.thank-you');
                     // return redirect()->route('confirm-service-request', $srvdID);
                     // ->with('success', 'Your Booking is done, Please pay to confirm.');

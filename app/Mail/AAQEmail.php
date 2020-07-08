@@ -11,14 +11,20 @@ class AAQEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $patient;
+    public $srvcReq;
+    public $asaq;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($patient, $srvcReq, $asaq)
     {
-        //
+        $this->patient = $patient;
+        $this->srvcReq = $srvcReq;
+        $this->asaq = $asaq;
     }
 
     /**

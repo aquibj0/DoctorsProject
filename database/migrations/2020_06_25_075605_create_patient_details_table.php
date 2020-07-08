@@ -27,9 +27,14 @@ class CreatePatientDetailsTable extends Migration
             $table->string("patMobileCC");
             $table->string("patMobileNo");
             $table->string("patEmail");
-            $table->integer("patAddrId");
+            $table->string("patAddrLine1");
+            $table->string("patAddrLine2")->nullable();
+            $table->string("patCity");
+            $table->string("patDistrict");
+            $table->string("patState");
+            $table->string("patCountry");
             $table->text("patBackground");
-            $table->text("patPhotoFileNameLink");
+            $table->text("patPhotoFileNameLink")->nullable();
             $table->timestamps();
         });
     }

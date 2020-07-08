@@ -32,7 +32,7 @@ class CreateServiceRequestTable extends Migration
             $table->string("srDepartment");
             $table->string("srAssignedIntUserId")->nullable();
             $table->string("srConfirmationSentByAdmin");
-            $table->datetime("srMail-SmsSent");
+            $table->datetime("srMailSmsSent");
             $table->datetime("srConfMailSent")->nullable();
             $table->string("srStatus");
             $table->string("srDocumentUploadedFlag");
