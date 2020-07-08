@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/service-request/{id}', 'UserController@userServiceRequest');
     Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail');
 
+    // File Upload
+    Route::post('/upload-documents/{id}', 'PatientDocumentController@store');
+
 
     Route::get('/service-booking/{srvdID}', 'AskDoctorController@serviceBooking')->name('confirm-service-request');
     // Route::get('product', 'RazorpayController@index'); 
@@ -79,6 +82,13 @@ Route::group(['middleware' => ['auth']], function () {
     // Clinic Apoointment
     Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
     // Route::get('/admin', 'AdminAppController@index');
+
+
+    // Update ServiceRequest Staus
+    Route::post('/request-cancellation/{id}', 'AskDoctorController@updateServiceStatus');
+
+
+
 
 
     //

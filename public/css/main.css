@@ -244,3 +244,11 @@ html, body{
     font-size: 1.4rem;
     text-transform: uppercase;
 }
+
+
+/* Modal */
+.btn-grouped .modal-content{
+    border-radius: 0;
+    color: rgb(97, 13, 13);
+    background: rgb(242, 170, 168);
+}

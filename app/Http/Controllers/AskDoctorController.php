@@ -102,7 +102,10 @@ class AskDoctorController extends Controller
                 $srvcReq->srRecievedDateTime = Carbon::now();
                 $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
                 $srvcReq->srDepartment = $request['department'];
+                $srvcReq->srStatus = $request['srStatus'];
                 $srvcReq->save();
+                $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+                $srvcReq->update();
                 
 
 
@@ -116,10 +119,6 @@ class AskDoctorController extends Controller
                     $asaq->aaqQuestionText = $request['patient_question'];
                     $asaq->aaqDocResponseUploaded = 'N';
                     $asaq->save();
-                
-                    $srvcReq->srId = "SR".$srvcReq->id."AAQ";
-                    $srvcReq->servSpecificId = $asaq->id;
-                    $srvcReq->update();
                     return view('/ask-doctor.thank-you');
                     // return redirect()->route('confirm-service-request', $srvdID);
                     // ->with('success', 'Your Booking is done, Please pay to confirm.');
@@ -168,6 +167,16 @@ class AskDoctorController extends Controller
         $srvcReq = ServiceRequest::find($aaq->service_req_id);
         $patient = Patient::find($srvcReq->patient_id);
         return view('ask-doctor.admin_show')->with('aaq', $aaq)->with('srvcReq', $srvcReq)->with('patient', $patient);
+    }
+
+
+    public function updateServiceStatus(Request $request, $id){
+        $serviceReq = ServiceRequest::find($id);
+        if($request){
+            $serviceReq->srStatus = $request['srStatus'];
+            $serviceReq->update();
+            return redirect()->back()->with('success', 'Cancellation Requested');
+        }
     }
     /**
      * Show the form for editing the specified resource.

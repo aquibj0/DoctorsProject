@@ -11,7 +11,7 @@ class PatientDocument extends Model
     public $timestamp = true;
 
 
-    public function patient(){
-        return $this->beongsTo('App\Patient');
+    public function serviceRequest(){
+        return $this->beongsTo('App\ServieRequest');
     }
 }

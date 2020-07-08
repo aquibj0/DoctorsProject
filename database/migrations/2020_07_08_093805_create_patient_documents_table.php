@@ -15,11 +15,15 @@ class CreatePatientDocumentsTable extends Migration
     {
         Schema::create('patient_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
-            $table->string('patient_document');
-            $table->string('document_description');
-            $table->timestamps();
+            $table->string('documentType', 16);
+            $table->string('documentDescription', 35)->nullable();
+            $table->date('documentDate');
+            $table->string('documentFileName', 255);
+            $table->date('documentUploadDate');
+            $table->string('documentUploadedBy', 16);
+            $table->unsignedBigInteger("service_request_id");
+            $table->foreign('service_request_id')->references('id')->on('service_request')->onDelete('cascade');
+            $table->timestamps(); 
         });
     }
 

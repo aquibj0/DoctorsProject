@@ -39,9 +39,9 @@
                                         <td> 
 
                                             <a href="/service-request/{{Auth::user()->id}}/{{$serviceRequest->srId}}" class="btn btn-maroon btn-sm">View Details</a>
-                                            <button class="btn btn-maroon btn-sm" type="button" data-toggle="modal" data-target="#{{ 'serviceDetails'.$loop->iteration }}" aria-expanded="false" aria-controls="collapseExample">
+                                            {{-- <button class="btn btn-maroon btn-sm" type="button" data-toggle="modal" data-target="#{{ 'serviceDetails'.$loop->iteration }}" aria-expanded="false" aria-controls="collapseExample">
                                                 Show Details
-                                            </button> 
+                                            </button>  --}}
                                         </td>
 
                                     </tr>
@@ -49,7 +49,7 @@
 
 
 
-                                    <div class="modal fade bd-example-modal-lg" id="{{ 'serviceDetails'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    {{-- <div class="modal fade bd-example-modal-lg" id="{{ 'serviceDetails'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -72,11 +72,10 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    {{-- <button type="button" class="btn btn-primary">Send message</button> --}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     
                                 @endforeach
