@@ -15,7 +15,7 @@ class CreatePatientDetailsTable extends Migration
     {
         Schema::create('patient', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('patId')->unique();
+            $table->string('patId')->unique()->nullable();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

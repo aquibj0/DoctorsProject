@@ -21,13 +21,9 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
 
         if(Auth::user()->id == $id){
+
             $serviceRequests = ServiceRequest::where('user_id', '=', $id)->get();
-            if(isset($serviceRequests)){
                 return view('user.service_request', compact('serviceRequests'));
-            }
-            else{
-                return 'No Data FOund';
-            }
         }
 
 
