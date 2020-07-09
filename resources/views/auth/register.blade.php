@@ -135,7 +135,7 @@
                                     </script>
                                 </div>
                                 <div class="col-md-12 ">
-                                    <button type="submit" style="width:100%" id="submit" class="btn btn-maroon" onclick="return Validate()">
+                                    <button type="submit" style="width:100%" id="submit" class="btn btn-maroon  " onclick="return Validate()" disabled>
                                         {{ __('Register') }}
                                     </button>
                                 </div>

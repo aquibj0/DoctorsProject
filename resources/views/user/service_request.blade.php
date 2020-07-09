@@ -15,6 +15,9 @@
                 <div class="card">
                     @include('layouts.message')
                     <div class="card-body">
+                        @if(count($serviceRequests) == 0)
+                            <h2 style="text-align: center"><b>No services created</b></h2>
+                        @else
                         <table class="table table-bordered table-responsive">
                             <thead class="thead-dark">
                                 <tr>
@@ -83,6 +86,7 @@
                                 
                             </tbody>
                         </table>
+                        @endif
                     </div>
                 </div>
                    

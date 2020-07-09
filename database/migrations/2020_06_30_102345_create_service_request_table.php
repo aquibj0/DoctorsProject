@@ -15,7 +15,7 @@ class CreateServiceRequestTable extends Migration
     {
         Schema::create('service_request', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("srId")->unique();
+            $table->string("srId")->unique()->nullable();
 
             $table->unsignedBigInteger("service_id");
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
@@ -28,16 +28,16 @@ class CreateServiceRequestTable extends Migration
 
             $table->datetime("srRecievedDateTime");
             $table->datetime("srDueDateTime");
-            $table->datetime("srResponseDateTime");
+            $table->datetime("srResponseDateTime")->nullable();
             $table->string("srDepartment");
-            $table->string("srAssignedIntUserId");
+            $table->string("srAssignedIntUserId")->nullable();
             $table->string("srConfirmationSentByAdmin");
-            $table->datetime("srMail-SmsSent");
-            $table->datetime("srConfMailSent");
+            $table->datetime("srMailSmsSent");
+            $table->datetime("srConfMailSent")->nullable();
             $table->string("srStatus");
             $table->string("srDocumentUploadedFlag");
-            $table->integer("srAppmntId");
-            $table->string("srCancelFlag");
+            $table->integer("srAppmntId")->nullable();
+            $table->string("srCancelFlag")->nullable();
             $table->timestamps();
         });
     }

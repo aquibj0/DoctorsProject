@@ -19,7 +19,7 @@ class CreateAskAQuestionTable extends Migration
             $table->foreign('service_req_id')->references('id')->on('service_request')->onDelete('cascade');
             $table->string("aaqPatientBackground");
             $table->string("aaqQuestionText");
-            $table->string("aaqDocResponse");
+            $table->string("aaqDocResponse")->nullable();
             $table->string("aaqDocResponseUploaded");
             $table->timestamps();
         });

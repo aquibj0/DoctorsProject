@@ -15,7 +15,7 @@ class CreatePatientDetailsTable extends Migration
     {
         Schema::create('patient', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('patId')->unique();
+            $table->string('patId')->unique()->nullable();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -27,9 +27,14 @@ class CreatePatientDetailsTable extends Migration
             $table->string("patMobileCC");
             $table->string("patMobileNo");
             $table->string("patEmail");
-            $table->integer("patAddrId");
+            $table->string("patAddrLine1");
+            $table->string("patAddrLine2")->nullable();
+            $table->string("patCity");
+            $table->string("patDistrict");
+            $table->string("patState");
+            $table->string("patCountry");
             $table->text("patBackground");
-            $table->text("patPhotoFileNameLink");
+            $table->text("patPhotoFileNameLink")->nullable();
             $table->timestamps();
         });
     }
