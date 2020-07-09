@@ -14,11 +14,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
-    {{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <!-- Include whatever JQuery which you are using -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> --}}
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--Custom Styles --}}
@@ -28,12 +24,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/admin') }}">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <p class="maroon mb-0"><b>DR-ONLINE</b></p> 
-                    <small class="maroon mt-0 mb-0">Exceptional Care you choose</small>
-                    
-                </a>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <p class="mb-0"><span class="maroon">DR-ONLINE</span></p>
+                        <small class="maroon">Exceptional Care you choose</small>
+                        
+                    </a>
                
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,16 +44,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">Home </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/about" class="nav-link">About </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/services" class="nav-link">Services </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/contact-us" class="nav-link">Contact Us </a>
+                            {{-- <a href="/" class="nav-link">Home </a> --}}
                         </li>
                         
                         <!-- Authentication Links -->
@@ -78,8 +64,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     {{-- <a class="dropdown-item" href=" /service-request/{{Auth::user()->id}}">My Services </a> --}}
-                                    <a class="dropdown-item" href="/admin/">Dashboard </a>
-                                    <a class="dropdown-item" href="/admin/setting/{{Auth::user()->id}}">My Profile </a>
+                                    <a class="dropdown-item" href="/admin">Dashboard </a>
+                                    {{-- <a class="dropdown-item" href="/admin/setting/{{Auth::user()->id}}">My Profile </a> --}}
 
 
                                        
@@ -92,15 +78,6 @@
                                     <form id="logout-form" action="{{ route('admin.auth.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                    {{-- <a href="{{ route('admin.auth.logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('admin.auth.logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form> --}}
                                 </div>
                             </li>
                         @endguest

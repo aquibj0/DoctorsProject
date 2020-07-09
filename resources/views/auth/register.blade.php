@@ -42,7 +42,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-6 form-group">
-                                    <input id="userMobileNo" type="number" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                    <input id="userMobileNo" type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                     @error('userMobileNo')
                                         <span class="invalid-feedback" role="alert">

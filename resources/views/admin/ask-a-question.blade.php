@@ -96,7 +96,7 @@
                                         </tr>        
                                     </tbody>
                                 </table>
-
+                                
                                 <div class="group-buttons float-right mt-4">
                                     <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>
                                     <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>

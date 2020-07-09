@@ -101,7 +101,7 @@
                                        <input type="number" class="form-control" id="mobileCC" placeholder="+91" name="mobileCC" value="{{ old('mobileCC') }}" required>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input type="number" class="form-control" id="mobileNo" placeholder="Mobile No." name="mobileNo" value="{{ old('mobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <input type="text" class="form-control" id="mobileNo" placeholder="Mobile No." name="mobileNo" value="{{ old('mobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old('email') }}" required>

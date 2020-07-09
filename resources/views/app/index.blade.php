@@ -49,57 +49,41 @@
 
 <section id="services" class="service-section">
     <div class="container">
-        <div class="heading text-center mb-5">
+        <div class="heading text-center mb-3">
             <h2 class="maroon"><b>NEED TO CONSULT AN EXPERT</b></h2>
         </div>
-        <div class="row">
-{{--           
-            @if (!empty($services))
-                @foreach ($services as $service) --}}
-                    <div class="col-md-4 mb-5">
-                        <div class="service-card card mb-3">
-                            <div class="card-body">
-                                <h2>Ask a doctor</h2>
-                            </div>
-                        </div>
-                        <a href="/user-patients/AAQ" class="btn btn-primary ">Submit</a>
+        <div class="row ">
+            <div class="col-md-4 mb-2">
+                <div class="service-card card mb-3">
+                    <div class="card-body">
+                        <h2>Ask a doctor</h2>
                     </div>
+                </div>
+                <a href="/user-patients/AAQ" class="btn btn-primary ">Submit</a>
+            </div>
 
-                    <div class="col-md-4 mb-5">
-                        <div class="service-card card mb-3">
-                            <div class="card-body">
-                                <h2>Video Consultation</h2>
-                            </div>
-                        </div>
-                        <a href="/video-consultation" class="btn btn-primary ">Submit</a>
+            <div class="col-md-4 mb-2">
+                <div class="service-card card mb-3">
+                    <div class="card-body">
+                        <h2>Video Consultation</h2>
                     </div>
+                </div>
+                <a href="/video-consultation" class="btn btn-primary ">Submit</a>
+            </div>
 
-                    <div class="col-md-4 mb-5">
-                        <div class="service-card card mb-3">
-                            <div class="card-body">
-                                <h2>Clinic Appointment</h2>
-                            </div>
-                        </div>
-                        <a href="/clinic-appointment" class="btn btn-primary ">Submit</a>
+            <div class="col-md-4 mb-2">
+                <div class="service-card card mb-3">
+                    <div class="card-body">
+                        <h2>Clinic Appointment</h2>
                     </div>
-                {{-- @endforeach
-            @endif --}}
+                </div>
+                <a href="/clinic-appointment" class="btn btn-primary ">Submit</a>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <p class="maroon">For General Queries <a href="/contact-us" ><u>Contact Us</u></a></p>
+            </div>
         </div>
     </div>
 </section>
-
-{{-- <div class="container">
-
-
-    <h2>
-        <b>
-
-            This is landing page
-        </b>
-    </h2>
-    <div>
-       
-        
-    </div>
-</div> --}}
 @endsection
