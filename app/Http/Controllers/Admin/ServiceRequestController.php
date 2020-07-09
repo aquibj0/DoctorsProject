@@ -20,7 +20,7 @@ class ServiceRequestController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     public function response($id, Request $request){
