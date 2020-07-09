@@ -32,25 +32,25 @@ class AskDoctorController extends Controller
     }
 
 
-    public function doctor_index(){
-        $aaq_srvcReq = AskAQuestion::all()->pluck('service_req_id');
-        $aaq = AskAQuestion::all();
-        $srvcReq = ServiceRequest::whereIn('id', $aaq_srvcReq)->get();
-        return view('ask-doctor.admin_index')->with('aaq', $aaq)->with('srvcReq', $srvcReq);
-    }
+    // public function doctor_index(){
+    //     $aaq_srvcReq = AskAQuestion::all()->pluck('service_req_id');
+    //     $aaq = AskAQuestion::all();
+    //     $srvcReq = ServiceRequest::whereIn('id', $aaq_srvcReq)->get();
+    //     return view('ask-doctor.admin_index')->with('aaq', $aaq)->with('srvcReq', $srvcReq);
+    // }
 
 
-    public function doctor_respones($id, Request $request){
-        $aaq = AskAQuestion::find($id);
-        $aaq->aaqDocResponse = $request['response'];
-        $aaq->update();
+    // public function doctor_respones($id, Request $request){
+    //     $aaq = AskAQuestion::find($id);
+    //     $aaq->aaqDocResponse = $request['response'];
+    //     $aaq->update();
 
-        $srvcReq = ServiceRequest::find($aaq->service_req_id);
-        $srvcReq->srResponseDateTime = Carbon::now();
-        $srvcReq->update();
+    //     $srvcReq = ServiceRequest::find($aaq->service_req_id);
+    //     $srvcReq->srResponseDateTime = Carbon::now();
+    //     $srvcReq->update();
 
-        return array($aaq, $srvcReq);
-    }
+    //     return array($aaq, $srvcReq);
+    // }
     /**
      * Show the form for creating a new resource.
      *
