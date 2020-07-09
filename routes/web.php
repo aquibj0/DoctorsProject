@@ -115,4 +115,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/create/internal-user/store', 'Admin\AdminController@store_user')->name('admin.register.user.store');
     Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
     Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
+
+    Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
+    Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
+
   });

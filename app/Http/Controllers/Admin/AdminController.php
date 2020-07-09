@@ -9,6 +9,7 @@ use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
+use App\PatientDocument;
 
 class AdminController extends Controller
 {
@@ -147,5 +148,17 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function respond($id){
+        $srvcReq = ServiceRequest::where('id', $id)->first();
+        return view('admin.aaq-respond', compact('srvcReq'));
+    }
+
+    public function downloadReport($id){
+        $srvcReq = ServiceRequest::where('id', $id)->first();
+        $patDocs = PatientDocument::where('service_request_id', '=', $srvcReq->id)->get();
+        return view('admin.download-reports', compact('srvcReq', 'patDocs'));
     }
 }
