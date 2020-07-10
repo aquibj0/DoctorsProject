@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     //patients route
     Route::get('/user-patients/create', 'PatientController@create');
     Route::get('/user-patients/{service}', 'PatientController@index');
+    
     // Route::get('/user-patients/create', 'PatientController@create');
 
 
@@ -62,19 +63,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/service-request/{id}', 'UserController@userServiceRequest');
-    Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail');
+    Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail')->name('servicereq-details');
 
     // File Upload
     Route::post('/upload-documents/{id}', 'PatientDocumentController@store');
 
 
-    Route::get('/service-booking/{srvdID}', 'AskDoctorController@serviceBooking')->name('confirm-service-request');
-    // Route::get('product', 'RazorpayController@index'); 
 
-    Route::post('/payment-inititate-request', 'PaymentController@Initiate');
-
-
-    Route::post('razor-thank-you', 'PaymentController@thankYou');
+    // Payment Initiate
+    Route::get('/payment-initiate/{srvdID}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
+    // Route::post('/payment-complete','PaymentController@Complete');
+    Route::post('/payment-initiate-request','PaymentController@Initiate');
+    Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete');
     // Route::post('/change-user-to-internal', 'AppController@internal_user');
 
 

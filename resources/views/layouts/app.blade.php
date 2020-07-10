@@ -19,6 +19,7 @@
     <!-- Include whatever JQuery which you are using -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> --}}
 
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--Custom Styles --}}
@@ -106,5 +107,8 @@
             @yield('content')
         </main>
     </div>
+
+
+    @yield('page-js')
 </body>
 </html>

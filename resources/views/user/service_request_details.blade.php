@@ -140,7 +140,7 @@
                                 
 
                                 {{-- Request Cancellation Button will only be available on below condiions. --}}
-                                @if ($serviceRequests->srStatus != 'Cancelled' && $serviceRequests->askQuestion->aaqDocResponse === null)
+                                @if ($serviceRequests->srStatus != 'Cancelled')
                                    
                                     
                                     {{-- Upload Document Button --}}

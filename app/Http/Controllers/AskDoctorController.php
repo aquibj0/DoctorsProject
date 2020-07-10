@@ -12,6 +12,8 @@ use Mail;
 use App\Mail\AAQEmail;
 use App\Service;
 use App\Jobs\SendEmail;
+use Razorpay\Api\Api;
+use Illuminate\Support\Str;
 // use Carbon\Carbon;
 
 class AskDoctorController extends Controller
@@ -21,6 +23,7 @@ class AskDoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index($id)
     {
         $patient = Patient::find($id);
@@ -137,8 +140,8 @@ class AskDoctorController extends Controller
                     //     Mail::to(Auth::user()->userEmail)
                     //         ->send(new AAQEmail($patient, $srvcReq ,$asaq));
                     // }
-                    return view('/ask-doctor.thank-you');
-                    // return redirect()->route('confirm-service-request', $srvdID);
+                    // return view('/ask-doctor.thank-you');
+                    return redirect()->route('confirm-service-request', $srvdID);
                     // ->with('success', 'Your Booking is done, Please pay to confirm.');
                 }
             }
@@ -161,9 +164,44 @@ class AskDoctorController extends Controller
 
 
 
-    public function serviceBooking($srvdID){
+    public function serviceBooking(Request $request, $srvdID){
+
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
-        return view('ask-doctor.booking', compact('serviceRequest'));
+        // Let's see the documentation for creating the order
+
+        // Generate random receipt id
+        $receiptId = Str::random(20);
+
+        $api = new Api($this->razorpayId, $this->razorpayKey);
+
+        // In razorpay you have to convert rupees into paise we multiply by 100
+        // Currency will be INR
+        // Creating order
+        $order = $api->order->create(array(
+            'receipt' => $srvdID,
+            'amount' => $serviceRequest->service->srvcPrice * 100,
+            'currency' => 'INR'
+            )
+        );
+
+        // Let's return the response 
+
+        // Let's create the razorpay payment page
+        $response = [
+            'orderId' => $order['id'],
+            'razorpayId' => $this->razorpayId,
+            'amount' => $serviceRequest->service->srvcPrice * 100,
+            'name' => $serviceRequest->patient->userFirstName,
+            'currency' => 'INR',
+            'email' =>  $serviceRequest->patient->userEmail,
+            'contactNumber' =>  $serviceRequest->patient->userMobileNo,
+            'address' => $serviceRequest->patient->userLastName,
+            'description' => 'Testing description',
+        ];
+
+        // Let's checkout payment page is it working
+        
+        return view('ask-doctor.booking', compact('serviceRequest', 'response'));
     }
 
     
