@@ -127,8 +127,9 @@ class AskDoctorController extends Controller
                     $asaq->aaqDocResponseUploaded = 'N';
                     $asaq->save();
                     
-
-                    SendEmail::dispatch($patient, $srvcReq, $asaq);
+                    //1 is the status for sending confirmation mail
+                    //
+                    SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                     // if($patient->patEmail){
                     //     Mail::to(Auth::user()->userEmail)
                     //         ->cc($patient->patEmail)

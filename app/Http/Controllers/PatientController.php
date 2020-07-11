@@ -15,11 +15,19 @@ class PatientController extends Controller
      */
     public function index($service)
     {
+        
         $patients = Patient::where('user_id', Auth::user()->id)->get();
         if(count($patients) != 0){
             return view('patient.index')->with('patients', $patients)->with('service', $service);
         }else{
-            return redirect('/ask-a-doctor/0');
+            if($service == "AAQ")
+                return redirect('/ask-a-doctor/0');
+            else if($service == "VED")
+                return redirect('/video-consultation/0');
+            else if($service == "CLI")
+                return redirect('/clinic-appointment/0');
+            else
+                return redirect()->back()->with('error', 'Something went wrong!');
         }
             // return count($patients);
     }

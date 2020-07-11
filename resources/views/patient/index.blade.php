@@ -37,12 +37,15 @@
                                             <td>{{$patient->patLastName}}</td>
                                             <td>{{$patient->patGender}}</td>
                                             <td>{{$patient->patAge}}</td>
-                                            @if($service == "AAQ")
                                             <td>
+                                            @if($service == "AAQ")
                                                 <a href="{{ url('/ask-a-doctor/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
-                                            </td>
-                                            {{-- @elseif($service == "") --}}
+                                            @elseif($service == "VED")
+                                                <a href="{{ url('/video-consultation/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
+                                            @elseif($service == "CLI")
+                                                <a href="{{ url('/clinic-appointment/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
                                             @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                     
@@ -55,7 +58,17 @@
 
 
                     <div class="text-center mb-5">
-                            <h3 class="maroon mt-4"><b>New patient ?</b> &nbsp; <span><a href="{{ url('/ask-a-doctor/0') }}" ><u>Click here</u></a></span> </h3>
+                            <h3 class="maroon mt-4"><b>New patient ?</b> &nbsp; <span>
+                                @if($service == "AAQ")
+                                    <a href="{{ url('/ask-a-doctor/0') }}" ><u>Click here</u></a>
+                                @elseif($service == "VED")
+                                    <a href="{{ url('/video-consultation/0') }}"><u>Click here</u></a>
+                                @elseif($service == "CLI")
+                                    <a href="{{ url('/clinic-appointment/0') }}"><u>Click here</u></a>
+                                @else
+                                    <a href="{{ url('/') }}"><u>Click here</u></a>
+                                @endif
+                            </span> </h3>
                         </div>
                    
 

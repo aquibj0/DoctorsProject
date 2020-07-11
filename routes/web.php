@@ -24,6 +24,7 @@ Route::post('/contact-us', 'ContactUsController@store');
 Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
 // Auth::routes();
+Route::get('/getSlots/{date}', 'VideoConsulationController@getSlots');
 
 
 
@@ -44,9 +45,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ask-a-doctor/{id}', 'AskDoctorController@index');
     Route::post('/ask-a-doctor/store', 'AskDoctorController@store')->name('ask_a_doctor.store');
 
-    Route::get('/video-consultation', 'VideoConsultationController@index');
-    Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
-
+    Route::get('/video-consultation/{id}', 'VideoConsultationController@index');
+    Route::post('/video-consultation', 'VideoConsultationController@store');
+    Route::get('/thank-you', 'AppController@thank_you');
+    Route::get('/clinic-appointment/{id}', 'ClinicAppointmentController@index');
+    Route::post('/clinic-appointment', 'ClinicAppointmentController@store');
     // Route::post('/register-user', 'Auth\RegisterController@create_user')->name('register_user');
     // Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
 
@@ -102,7 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::post('paysuccess', 'RazorpayController@paysuccess');
 // Route::post('razor-thank-you', 'RazorpayController@thankYou');
 
-
+Route::group(['middleware' => 'web'], function(){
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
     // Route::get('dashboard', 'Admin\AdminController@index')->name('admin.dashboard');
@@ -115,4 +118,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/create/internal-user/store', 'Admin\AdminController@store_user')->name('admin.register.user.store');
     Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
     Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
+    Route::get('/appointment/create', 'Admin\AppointmentController@create');
+    Route::post('/appointment/store', 'Admin\AppointmentController@store');
   });
+});

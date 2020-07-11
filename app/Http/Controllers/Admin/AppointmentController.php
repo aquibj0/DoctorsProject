@@ -1,33 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Service;
-use Auth;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\AppointmentSchedule;
 
-class AppController extends Controller
+class AppointmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function thank_you(){
-        return view('ask-doctor.thank-you');
-    }
-
     public function index()
     {
-        if(Auth::user()){
-            if(Auth::user()->userType == 'A'){
-                return view('admin.home');
-            }
-        }
-        $services = Service::all();
-        return view('app.index', compact('services'));
-        // return Auth::user()->id;
+        //
     }
 
     /**
@@ -37,7 +30,7 @@ class AppController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.appointment');
     }
 
     /**
@@ -48,7 +41,17 @@ class AppController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach($request->time as $time){
+            $app = new AppointmentSchedule;
+            $app->appmntType = $request->appType;
+            // $app->appmntClinicid = 
+            $app->appmntDate = $request->date;
+            $app->appmntSlot = $time;
+            $app->appmntSlotMaxCount = 5;
+            $app->appmntSlotFreeCount = 5;
+            $app->save();
+        }
+        return redirect('/admin')->with('success', 'Appointment Added/Updated Successfully!');
     }
 
     /**

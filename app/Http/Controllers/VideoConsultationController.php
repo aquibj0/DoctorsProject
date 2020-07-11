@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Patient;
+use Carbon\Carbon;
+use App\AppointmentSchedule;
 
 class VideoConsultationController extends Controller
 {
@@ -11,9 +14,21 @@ class VideoConsultationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $patient = Patient::find($id);
+        $slot = AppointmentSchedule::where('appmntSlotFreeCount','>', 0)->get();
+        if($patient)
+            return view('VideoConsultation.index')->with('patient', $patient)->with('slot', $slot);
+        else
+            return view('VideoConsultation.index')->with('patient', null)->with('slot', $slot);
+    }
+
+    public function getSlots($date){
+        $slot['data'] = AppointmentSchedule::where('appmntDate', $date)->pluck('id', 'appmntSlot');
+        echo json_encode($slot);
+        exit;
+        // return $slot;
     }
 
     /**
@@ -34,7 +49,7 @@ class VideoConsultationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return array($request,AppointmentSchedule::where('appmntDate', $request->date)->pluck('id', 'appmntSlot'));
     }
 
     /**

@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-8">
 
-                        @include('layouts.message')
+                        {{-- @include('layouts.message') --}}
 
                         <div class="user-login-form">
                             <div class="register-block mt-5">

@@ -71,7 +71,7 @@
                                 <h2>Video Consultation</h2>
                             </div>
                         </div>
-                        <a href="/video-consultation" class="btn btn-primary ">Submit</a>
+                        <a href="/user-patients/VED" class="btn btn-primary ">Submit</a>
                     </div>
 
                     <div class="col-md-4 mb-5">
@@ -80,7 +80,7 @@
                                 <h2>Clinic Appointment</h2>
                             </div>
                         </div>
-                        <a href="/clinic-appointment" class="btn btn-primary ">Submit</a>
+                        <a href="/user-patients/CLI" class="btn btn-primary ">Submit</a>
                     </div>
                 {{-- @endforeach
             @endif --}}

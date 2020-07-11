@@ -14,10 +14,15 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
-    {{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    {{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> --}}
     <!-- Include whatever JQuery which you are using -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -49,7 +54,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">Home </a>
+                            <a href="/admin" class="nav-link">Home </a>
                         </li>
                         <li class="nav-item">
                             <a href="/about" class="nav-link">About </a>
@@ -62,7 +67,7 @@
                         </li>
                         
                         <!-- Authentication Links -->
-                        @guest
+                        @guest('admin')
                             
 
                             <li class="nav-item">
@@ -74,6 +79,9 @@
                                 </li>
                             @endif --}}
                         @else
+                            <li class="nav-item">
+                                <a href="/admin/appointment/create" class="nav-link">Appointment</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>

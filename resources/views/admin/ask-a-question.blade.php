@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-8 mt-4">
                                 <div>
-                                    <h5  class="maroon text-center"><b><u>PATIENT DETAILS</u></b></h5>
+                                    <h5  class="maroon text-center"><b><u>PATIENT DETAILS </u></b></h5>
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <table class="table table-bordered table-responsive ">

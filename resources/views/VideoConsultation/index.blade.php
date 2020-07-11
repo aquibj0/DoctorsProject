@@ -14,7 +14,7 @@
                            <h2> Ask a doctor</h2>
                         </div> 
                         <div>
-                            <form action="{{ route('ask_a_doctor.store') }}" method="POST">
+                            <form action="{{ url('/video-consultation') }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="mb-2">
                                     <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
@@ -171,40 +171,26 @@
                                 {{-- </div>
                                 <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
-                                        <input type="date" placeholder="Pick a date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                        <input type="date" id="date" name="date" class="form-control" id="my_date_picker" value="{{ old('date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="appointmentLoc" id="appointmentLoc" required>
-                                            <option selected disabled>Select Location</option>
-                                            <option value="kolkata">Kolkata</option>
-                                            <option value="malda">Malda</option>
-                                            <option value="kalyani">Kalyani</option>
+                                        <select class="form-control" name="appointmentType" id="appointmentType" >
+                                            <option selected disabled>Team Doctor or Expert</option>
+                                            <option value="Value 1">Team Doctor</option>
+                                            <option value="value 2">Expert Doctor</option>
+
                                         </select>
                                     </div>
-                                {{-- </div>
-                                <div class="form-row"> --}}
+
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="department" id="department" required>
-                                            @for(;$time < $end;$time->addMinutes(15))
-                                                <option>{{ $time->toTimeString() }}</option>
-                                            @endfor
+                                        <select class="form-control" name="slot" id="slot" >
+                                            <option disabled selected>Select Time</option>\
+                                            <option value="#">Something</option>
                                         </select>
                                     </div>
                                 </div>
-
-
-
-                                {{-- <div class="form-row">
-                                    <div class="mb-3">
-                                        <h2 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h2>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <input type="file" class="form-control" >
-                                    </div>
-                                </div> --}}
-
 
                                 <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
                             </form>
@@ -218,9 +204,46 @@
     </div>
 
 
-</section>
+</section >
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //date change
+        $('#date').change(function(){
+            var date = $(this).val();
+            console.log(date);
+            $('#slot').find('option').not(':first').remove();
 
+            //AJAX request
+            $.ajax({
+                url: 'getSlots/'+date,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
 
+                    var len = 0;
+                    if(response['data'] != null){
+                        len = response['data'].length;
+                    }
+                    if(len > 0){
+                        //read data and create option
+                        for(var i=0;i<len;i++){
+                            var id = response['data'][i].id;
+                            var name = response['data'][i].appmntSlot;
+                            var option = "<option value='"+id+"'>"+name+"</option>";
+                            $('#slot').append(option);
+                            console.log(id);
+                        }
+                    }else{
+                        var option = "<option>Not available</option>";
+                        $('#slot').append(option);
+                    }
 
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

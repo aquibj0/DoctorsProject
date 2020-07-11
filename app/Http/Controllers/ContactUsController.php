@@ -39,7 +39,7 @@ class ContactUsController extends Controller
             $msg = new ContactUs;
             $msg->name = $request->name;
             $msg->email = $request->email;
-            $msg->phone = $request->phone;
+            $msg->phoneNo = $request->phone;
             $msg->address = $request->address;
             $msg->subject = $request->subject;
             $msg->message = $request->message;
