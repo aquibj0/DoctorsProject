@@ -112,8 +112,8 @@ html, body{
     /* font-size: 18px; */
 }
 .img{
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
     background-color: #142CD6;
     margin-bottom: 20px;
@@ -132,7 +132,7 @@ html, body{
 
 
 .service-section{
-    margin: 0 auto 50px;
+    margin: 0 auto
 }
 .service-section .col-md-4{
     text-align: center;
@@ -145,7 +145,7 @@ html, body{
     border: 2px solid rgb(97, 13, 13);
     background: rgb(97, 13, 13);
     color: #fff;
-    height: 140px;
+    height: 110px;
    
     display: grid;
     place-content: center;
@@ -217,14 +217,11 @@ html, body{
     box-shadow: none;
 }
 
-
-
 /* Clinic Appointment */
 .clinic-appointment-form{
     margin: 50px auto;
   
 }
-
 .clinic-appointment-form .register-block{
 
     background: rgb(97, 13, 13);
@@ -235,8 +232,6 @@ html, body{
     text-align: center;
     text-align: -moz-center;
 }
-
-
 .clinic-appointment-form .register-block h2{
     margin-bottom: 0;
     color: #fff;
@@ -244,11 +239,27 @@ html, body{
     font-size: 1.4rem;
     text-transform: uppercase;
 }
-
-
 /* Modal */
 .btn-grouped .modal-content{
     border-radius: 0;
     color: rgb(97, 13, 13);
     background: rgb(242, 170, 168);
+}
+
+.table .thead-dark th{
+    background: rgb(97, 13, 13);
+    color: #fff;
+}
+
+.table th, .table td{
+    padding: 0.2rem;
+    border-color: rgb(97, 13, 13)
+}
+/* Service Request Details */
+.service-request-details h4{
+    font-size: 1.1rem;
+}
+.service-request-details table th, .service-request-details table td{
+    padding: 0.2rem;
+    border-color: rgb(97, 13, 13)
 }

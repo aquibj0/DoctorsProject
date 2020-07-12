@@ -5,13 +5,13 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row service-request-details">
                         <div class="col-md-12">
                             @include('layouts.message')
 
-                            <h4 class="maroon mb-3"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
+                            <h4 class="maroon mb-2"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
 
-                            <table class="table table-bordered table-responsive mb-4">
+                            <table class="table table-bordered table-responsive mb-3">
                                 <thead class="thead-dark">
                                     <th scope="col">Sr Id</th>
                                     <th scope="col">Sr Type</th>
@@ -49,9 +49,9 @@
 
                             </table>
 
-                            <h4 class="maroon mb-3"><b><u>PATIENT DETAILS</u></b></h4>
+                            <h4 class="maroon mb-2"><b><u>PATIENT DETAILS</u></b></h4>
  
-                            <table class="table table-bordered table-responsive mb-4">
+                            <table class="table table-bordered table-responsive mb-3">
                                 <thead class="thead-dark">
                                     <th scope="col">Patient ID</th>
                                     <th scope="col">Patient Name</th>
@@ -72,7 +72,7 @@
                             </table>
 
 
-                            <h4 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h4>
+                            <h4 class="maroon mb-2"><u><b>SERVICE DETAILS</b></u></h4>
 
                             @if ($serviceRequests->service_id === 1)
                                 <table class="table table-bordered table-responsive mb-4">
@@ -105,8 +105,8 @@
                                 $patDocs = App\PatientDocument::where('documentUploadedBy', '=', Auth::user()->id)->get();
                             @endphp
                             @if (isset($patDocs))
-                                <h4 class="maroon mb-3"><u><b>PATIENT DOCUMENTS</b></u></h4>
-                                <table class="table table-bordered table-responsive mb-4">
+                                <h4 class="maroon mb-2"><u><b>PATIENT DOCUMENTS</b></u></h4>
+                                <table class="table table-bordered table-responsive mb-3">
                                     <thead class="thead-dark">
                                         {{-- <th scope="col">Sr. No</th> --}}
                                         <th scope="col">File Type</th>
@@ -144,150 +144,165 @@
                                    
                                     
                                     {{-- Upload Document Button --}}
-                                @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
-                                <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Upload Document</a>     
-                                <div class="modal fade" id="uploadDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content " >
+                                    @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
+                                        <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Upload Document</a>     
+                                        <div class="modal fade" id="uploadDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content " >
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Upload Patient Document</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/upload-documents/{{$serviceRequests->id}}" method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-body ">
+                                                            
+                                                        
+                                                            
+                                                            <div class="form-group ">
+                                                                @csrf
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="documentType">Docuement Type</label>
+                                                                        <select name="documentType" id="documentType" class="form-control @error('documentType') is-invalid @enderror" required>
+                                                                            <option value="Report">Report</option>
+                                                                            <option value="Prescription">Prescription</option>
+                                                                        </select>
+
+                                                                        
+                                        
+                                                                        @error('documentType')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="documentDescription"> Document Description</label>
+                                                                        <textarea name="documentDescription" id="documentDescription" cols="30" rows="4" placeholder="Document Description" class="form-control @error('documentDescription') is-invalid @enderror"  value="{{ old('documentDescription') }}" autocomplete="documentDescription" autofocus></textarea>
+                                                                        
+                                        
+                                                                        @error('documentDescription')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="documentFileName">Upload Docuement</label>
+                                                                        <input id="documentFileName" type="file" placeholder="Document Filename" class="form-control @error('documentFileName') is-invalid @enderror" name="documentFileName" value="{{ old('documentFileName') }}" required autocomplete="documentFileName" autofocus>
+                                        
+                                                                        @error('documentFileName')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="documentDate">Date of Report/Prescription</label>
+                                                                        <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
+                                        
+                                                                        @error('documentDate')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+                                                                <input type="hidden" name="documentUploadedBy" id="documentUploadedBy" value="{{Auth::user()->id}}">
+                                                                <input type="hidden" name="service_request_id" id="service_request_id" value="{{$serviceRequests->id}}">
+                                                            </div>
+                                                            
+                                                    
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-maroon btn-sm">Save</button>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    @endif
+                                
+                                    {{-- View Response Button --}}
+                                    @if ($serviceRequests->service_id === 1)
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-maroon btn-md mb-2">View Response</a>
+                                    
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">View Response</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @if ($serviceRequests->askQuestion->aaqDocResponse === null)
+                                                        <h5 class="maroon">Doctor Not responded yet.</h5>
+
+                                                    @else
+                                                        <h5 class="maroon"> {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
+                                                    @endif
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
+                                                    
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+                                    
+                                    <a href="#" data-toggle="modal" data-target="#requestCancellation" class="btn btn-maroon btn-md mb-2">Request Cancellation</a>                                
+                                
+                                    <div class="modal fade" id="requestCancellation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Upload Patient Document</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Request Cancellation</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="/upload-documents/{{$serviceRequests->id}}" method="POST" enctype="multipart/form-data">
-                                                <div class="modal-body ">
-                                                    
-                                                
-                                                    
-                                                    <div class="form-group ">
-                                                        @csrf
+                                            <form  action="/request-cancellation/{{$serviceRequests->id}}" method="POST">
 
-                                                        <div class="form-group row">
-                                                            <div class="col-md-12">
-                                                                <label for="documentType">Docuement Type</label>
-                                                                <select name="documentType" id="documentType" class="form-control @error('documentType') is-invalid @enderror" required>
-                                                                    <option value="Report">Report</option>
-                                                                    <option value="Prescription">Prescription</option>
-                                                                </select>
-
-                                                                
-                                
-                                                                @error('documentType')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-12">
-                                                                <label for="documentDescription"> Document Description</label>
-                                                                <textarea name="documentDescription" id="documentDescription" cols="30" rows="4" placeholder="Document Description" class="form-control @error('documentDescription') is-invalid @enderror"  value="{{ old('documentDescription') }}" autocomplete="documentDescription" autofocus></textarea>
-                                                                
-                                
-                                                                @error('documentDescription')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-12">
-                                                                <label for="documentFileName">Upload Docuement</label>
-                                                                <input id="documentFileName" type="file" placeholder="Document Filename" class="form-control @error('documentFileName') is-invalid @enderror" name="documentFileName" value="{{ old('documentFileName') }}" required autocomplete="documentFileName" autofocus>
-                                
-                                                                @error('documentFileName')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-12">
-                                                                <label for="documentDate">Date of Report/Prescription</label>
-                                                                <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
-                                
-                                                                @error('documentDate')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <input type="hidden" name="documentUploadedBy" id="documentUploadedBy" value="{{Auth::user()->id}}">
-                                                        <input type="hidden" name="service_request_id" id="service_request_id" value="{{$serviceRequests->id}}">
-                                                    </div>
-                                                    
-                                            
+                                                <div class="modal-body">
+                                                    @csrf
+                                                    <input type="hidden" name="srStatus" id="srStatus" value="Cancelled">
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-maroon btn-sm">Save</button>
+                                                    <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-maroon btn-md mb-2" onclick="return confirm('Are you sure you want to cancel?')">Request Cancellation</button>
+                                                    
                                                 </div>
-                                                
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            @endif
-                            
-                            {{-- View Response Button --}}
-                            @if ($serviceRequests->service_id === 1)
-                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-maroon btn-md mb-2">View Response</a>
-                            
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">View Response</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @if ($serviceRequests->askQuestion->aaqDocResponse === null)
-                                                <h5 class="maroon">Doctor Not responded yet.</h5>
-
-                                            @else
-                                                <h5 class="maroon"> {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
-                                            @endif
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
-                                            
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-
-
-                                
-                                
-                                    <form  action="/request-cancellation/{{$serviceRequests->id}}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="srStatus" id="srStatus" value="Cancelled">
-                                        <button type="submit" class="btn btn-maroon btn-md mb-2" onclick="return confirm('Are you sure you want to cancel?')">Request Cancellation</button>
                                     </form>
-                                    
-                                @endif
-
-
-
-
-                                 
+                                @endif                                 
                             </div>
                             
 

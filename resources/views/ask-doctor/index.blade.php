@@ -68,7 +68,11 @@
                                         <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
                                     </div>
                                 </div>
-
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
+                                    </div>
+                                </div>
                                 @else <!-- without patient data -->
                                 <div class="form-row">
                                     <div class="form-group col-md-6">

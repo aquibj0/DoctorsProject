@@ -62,9 +62,7 @@ class PaymentController extends Controller
         );
 
         // If Signature status is true We will save the payment response in our database
-        if($signatureStatus == true)
-        {
-
+        if($signatureStatus == true){
             $payment = new Payment;
             $payment->user_id = Auth::user()->id;
             $payment->service_req_id = $request['service_req_id'];
@@ -82,8 +80,6 @@ class PaymentController extends Controller
                 // return redirect()->back()->with('success', 'Thank you for the order');
                 return redirect()->route('servicereq-details', [$id, $serviceRequest->srId])->with('success', 'Thank you for the order');
             }
-           
-            
         }
         else{
 
