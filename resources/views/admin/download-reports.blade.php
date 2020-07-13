@@ -55,7 +55,6 @@
                                 </tr>
 
                             @endforeach
-                            {{-- {{$patDocs}} --}}
                             
                         </tbody>
                     </table>

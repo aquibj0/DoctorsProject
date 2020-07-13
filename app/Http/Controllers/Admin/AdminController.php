@@ -15,8 +15,8 @@ class AdminController extends Controller
 {
 
     public function __construct()
-    {
-        $this->middleware('auth:admin',['only' => 'index','edit']);
+    {   
+        $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -153,7 +153,7 @@ class AdminController extends Controller
 
     public function respond($id){
         $srvcReq = ServiceRequest::where('id', $id)->first();
-        return view('admin.aaq-respond', compact('srvcReq'));
+        return view('admin.respond', compact('srvcReq'));
     }
 
     public function downloadReport($id){

@@ -10,6 +10,8 @@ class ServiceRequest extends Model
     public $primarykey = 'is';
     public $timestamp = true;
 
+    
+
     public function user(){
         return $this->belongsTo('App\User', 'user_id');
     }
@@ -27,6 +29,15 @@ class ServiceRequest extends Model
 
     public function askQuestion(){
         return $this->hasOne('App\AskAQuestion', 'service_req_id');
+    }
+
+    public function videoCall(){
+        return $this->hasOne('App\VideoCall', 'service_req_id');
+    }
+
+
+    public function patientDocuments(){
+        return $this->hasMany('App\PatientDocument', 'service_request_id');
     }
 
 

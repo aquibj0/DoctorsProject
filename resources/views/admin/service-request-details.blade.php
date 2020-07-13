@@ -18,8 +18,6 @@
 
                 @include('layouts.message')
 
-
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -76,36 +74,64 @@
                             </div>
                             <div class="col-md-4">
                                 <h5 class="maroon mb-3"><u><b>PAYMENT STATUS</b></u></h5>
-                                <table class="table table-responsive table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">Payment Status</th>
-                                            <td>Paid</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Payment Mode</th>
-                                            <td>Lorem</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Payment Time</th>
-                                            <td>lorem</td>
-                                        </tr> 
-                                        <tr>
-                                            <th scope="row">Payment ID</th>
-                                            <td>loremIpsums565</td>
-                                        </tr>        
-                                    </tbody>
-                                </table>
-                                
-                                <div class="group-buttons float-right mt-4">
-                                    <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>
-                                    <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
-                                </div>
-                            </div>
 
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6 mt-3">
+                                @php
+                                    $paymentDetails = App\Payment::where('service_req_id', '=', $srvcReq->id)->first();
+                                @endphp
                                 
+                                @if ($srvcReq->paymentStatus == true)
+                                    <table class="table table-responsive table-bordered">
+                                        <tbody>
+                                        
+                                            <tr>
+                                                <th scope="row">Payment Status</th>
+                                                <td>Paid</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Payment ID</th>
+                                                <td>{{$paymentDetails->payment_transaction_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Payment Time</th>
+                                                <td>{{$paymentDetails->created_at}}</td>
+                                            </tr> 
+                                                                                        
+                                        
+                                            
+
+                                        
+                                            
+                                        </tbody>
+                                    </table>
+
+
+                                    
+                                    <div class="group-buttons float-right mt-4">
+                                        
+                                        {{-- @if (!empty($srvcReq->askQuestion)) --}}
+                                            {{-- Show Respond Button where service request is AAQ --}}
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>                                
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
+                                        {{-- @elseif(!empty($srvcReq->videoCall)) --}}
+        
+                                            {{--  --}}
+
+                                        {{-- @endif --}}
+
+                                    </div>
+                                @else
+                                    <table class="table table-responsive table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Payment Status</th>
+                                                <td>Not Paid</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                   
+
+                                @endif
                             </div>
                         </div>
                     </div>

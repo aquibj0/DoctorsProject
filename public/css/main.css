@@ -247,8 +247,8 @@ html, body{
 }
 
 .table .thead-dark th{
-    background: rgb(97, 13, 13);
-    color: #fff;
+    background: #eeeeee ;
+    color: rgb(97, 13, 13);
 }
 
 .table th, .table td{
