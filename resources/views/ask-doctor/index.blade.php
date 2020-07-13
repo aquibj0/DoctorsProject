@@ -97,7 +97,14 @@
 
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}" required>
+                                        {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}" required> --}}
+                                        <select name="age" id="age" class="form-control">
+                                            <option disabled selected>Select age</option>
+                                            @for($i=10; $i<90 ;$i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="form-row">

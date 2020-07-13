@@ -13,6 +13,11 @@ class AppController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function thank_you(){
+        return view('ask-doctor.thank-you');
+    }
+
     public function index()
     {
         if(Auth::user()){

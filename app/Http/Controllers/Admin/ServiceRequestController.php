@@ -9,10 +9,17 @@ use App\Service;
 use App\Patient;
 use App\AskAQuestion;
 use App\User;
+use App\Admin;
+use Auth;
 use Carbon\Carbon;
+use App\Jobs\SendEmail;
 
 class ServiceRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +38,13 @@ class ServiceRequestController extends Controller
         $srvcReq = ServiceRequest::find($aaq->service_req_id);
         $srvcReq->srResponseDateTime = Carbon::now();
         $srvcReq->update();
+
+        // $patient = $srvcReq->patient();
+        $patient = Patient::find($srvcReq->patient_id);
+
+        $user = User::find($srvcReq->user_id);
+
+        SendEmail::dispatch($patient, $srvcReq, $aaq, $user, 2)->delay(now()->addMinutes(1));
 
         return redirect()->back()->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
     }

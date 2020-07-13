@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Patient;
+use Carbon\Carbon;
 
 class ClinicAppointmentController extends Controller
 {
@@ -11,9 +13,15 @@ class ClinicAppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return  view('clinic-appointment.index');
+    public function index($id)
+    {   
+        $patient = Patient::find($id);
+        $time = Carbon::createFromFormat('H:i:s', '09:00:00');
+        $end = Carbon::createFromFormat('H:i:s', '17:00:00');
+        if($patient)
+            return view('clinic-appointment.index')->with('patient', $patient)->with('time', $time)->with('end', $end);
+        else
+            return view('clinic-appointment.index')->with('patient', null)->with('time', $time)->with('end', $end);
     }
 
     /**

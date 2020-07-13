@@ -14,7 +14,20 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+<<<<<<< HEAD
     
+=======
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+    {{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> --}}
+    <!-- Include whatever JQuery which you are using -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
+
+>>>>>>> anik-06-07-2020
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--Custom Styles --}}
@@ -44,17 +57,29 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            {{-- <a href="/" class="nav-link">Home </a> --}}
+                            <a href="/admin" class="nav-link">Home </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/about" class="nav-link">About </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/services" class="nav-link">Services </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/contact-us" class="nav-link">Contact Us </a>
                         </li>
                         
                         <!-- Authentication Links -->
-                        @if(!Auth::user())
+                        @guest('admin')
                             
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.auth.login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
+                            <li class="nav-item">
+                                <a href="/admin/appointment/create" class="nav-link">Appointment</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>

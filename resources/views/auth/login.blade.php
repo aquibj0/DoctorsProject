@@ -9,7 +9,7 @@
             <div class="col-md-8">
                 <div class="user-login-form">
                     <div class="register-block mt-4">
-                        <h2 class="mb-0"> <b>REGISTER</b></h2> 
+                        <h2 class="mb-0"> <b>LOGIN</b></h2> 
                     </div>
                     @include('layouts.message')
 
