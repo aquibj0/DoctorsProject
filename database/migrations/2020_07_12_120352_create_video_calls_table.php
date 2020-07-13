@@ -19,7 +19,7 @@ class CreateVideoCallsTable extends Migration
             $table->string('vcCallScheduled', 2);
             $table->string('vcDocInternalNotesText', 1024)->nullable();
             $table->string('vcDocPrescriptionUploaded', 2);
-            $table->string('vcCallScheduledDtl', 255);
+            $table->string('vcCallScheduledDtl', 255)->nullable();
             $table->timestamps();
         });
     }

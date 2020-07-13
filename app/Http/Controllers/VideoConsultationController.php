@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use App\AppointmentSchedule;
 use App\ServiceRequest;
 use App\VideoCall;
+use App\Service;
+use Auth;
+use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -66,7 +69,50 @@ class VideoConsultationController extends Controller
                 // 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
             if(!$validator->fails()){
-                // if()
+                $patient = Patient::find($request->patient_id);
+                if($patient){
+                    $app = AppointmentSchedule::find($request->slot);
+                    $srvcReq = new ServiceRequest;
+                    $srvcReq->service_id = Service::where('srvcShortName', 'VED')->first()->id;
+                    $srvcReq->patient_id = $patient->id;
+                    $srvcReq->user_id = Auth::user()->id;
+                    $srvcReq->srRecievedDateTime = Carbon::now();
+                    $srvcReq->srDueDateTime = $request->date;
+                    $srvcReq->srDepartment = $request['department'];
+                    $srvcReq->srStatus = 'New'; 
+                    $srvcReq->srAppmntId = $app->id;
+                    $srvcReq->srConfirmationSentByAdmin = 'N';
+                    $srvcReq->srMailSmsSent = Carbon::now();
+                    $srvcReq->srDocumentUploadedFlag = 'N';
+                    $srvcReq->srStatus = "NEW";
+                    $srvcReq->save();
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
+                    $srvcReq->update();
+                    // $srvdID = $srvcReq->srId ;
+                    if($srvcReq->save()){
+                        
+                        $vc = new VideoCall;
+                        $vc->vcSrId = $srvcReq->srId;
+                        $vc->vcCallScheduled = 'N';
+                        $vc->vcDocPrescriptionUploaded = 'N';
+                        // $vc->vcCallScheduledDtl = 'N';
+                        $vc->save();
+                        if($vc->save()){
+                            $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                            $app->update();
+                            SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                            return redirect()->route('confirm-service-request', $srvcReq->srId);
+                        }else{
+                            $vc->delete();
+                            return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                        }
+                    }else{
+                        $srvcReq->delete();
+                        return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                    }
+                }else{
+                    return redirect()->back()->with('error', 'Something went wrong!');
+                }
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
@@ -91,13 +137,76 @@ class VideoConsultationController extends Controller
                 'slot' => ['required']
             ]);
             if(!$validator->fails()){
-                // if()
+                $patient = new Patient;
+                $patient->patId = str_random(15);
+                $patient->user_id = Auth::user()->id;
+                $patient->patFirstName = $request['firstName'];
+                $patient->patLastName = $request['lastName'];
+                $patient->patGender = $request['gender'];
+                $patient->patAge = $request['age'];
+                $patient->patBackground = $request['patient_background'];
+                if(!empty($request->email)){
+                    $patient->patEmail = $request['email'];
+                }
+                $patient->patMobileCC = $request['mobileCC'];
+                $patient->patMobileNo = $request['mobileNo']; 
+                $patient->patAddrLine1 = $request['addressLine1'];
+                $patient->patAddrLine2 = $request['addressLine2'];
+                $patient->patCity = $request['city'];
+                $patient->patDistrict = $request['district'];
+                $patient->patState = $request['state'];
+                $patient->patCountry = $request['country'];
+                $patient->save();
+                $patient->patId = Auth::user()->userId."-".$patient->id;
+                $patient->update();
+
+                if($patient){
+                    $app = AppointmentSchedule::find($request->slot);
+                    $srvcReq = new ServiceRequest;
+                    $srvcReq->service_id = Service::where('srvcShortName', 'VED')->first()->id;
+                    $srvcReq->patient_id = $patient->id;
+                    $srvcReq->user_id = Auth::user()->id;
+                    $srvcReq->srRecievedDateTime = Carbon::now();
+                    $srvcReq->srDueDateTime = $request->date;
+                    $srvcReq->srDepartment = $request['department'];
+                    $srvcReq->srStatus = 'New'; 
+                    $srvcReq->srAppmntId = $app->id;
+                    $srvcReq->srConfirmationSentByAdmin = 'N';
+                    $srvcReq->srMailSmsSent = Carbon::now();
+                    $srvcReq->srDocumentUploadedFlag = 'N';
+                    $srvcReq->srStatus = "NEW";
+                    $srvcReq->save();
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
+                    $srvcReq->update();
+                    // $srvdID = $srvcReq->srId ;
+                    if($srvcReq->save()){
+                        
+                        $vc = new VideoCall;
+                        $vc->vcSrId = $srvcReq->srId;
+                        $vc->vcCallScheduled = 'N';
+                        $vc->vcDocPrescriptionUploaded = 'N';
+                        // $vc->vcCallScheduledDtl = 
+                        $vc->save();
+                        if($vc->save()){
+                            $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                            $app->update();
+                            SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                            return redirect()->route('confirm-service-request', $srvcReq->srId);
+                        }else{
+                            $vc->delete();
+                            return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                        }
+                    }else{
+                        $srvcReq->delete();
+                        return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                    }
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
         }
-        return $request;
+        // return $request;
     }
+}
 
     /**
      * Display the specified resource.
