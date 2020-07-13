@@ -41,17 +41,28 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $errors = array();
         foreach($request->time as $time){
-            $app = new AppointmentSchedule;
-            $app->appmntType = $request->appType;
-            // $app->appmntClinicid = 
-            $app->appmntDate = $request->date;
-            $app->appmntSlot = $time;
-            $app->appmntSlotMaxCount = 5;
-            $app->appmntSlotFreeCount = 5;
-            $app->save();
+            // $appmnt = AppointmentSchedule::where('appmntDate', $request->date)->where('appmntSlot', $time)->where('appmntType', $request->appType)->where('appmntSlotFreeCount','<', 5)->get();
+            // if($appmnt){
+                $app = new AppointmentSchedule;
+                $app->appmntType = $request->appType;
+                // $app->appmntClinicid = 
+                $app->appmntDate = $request->date;
+                $app->appmntSlot = $time;
+                $app->appmntSlotMaxCount = 5;
+                $app->appmntSlotFreeCount = 5;
+                $app->save();
+            // }else{
+            //     $msg = "Cannot Update!! Appointment exists on ".$request->date." ".$time." for ".$request->appType.".";
+            //     array_push($errors, $msg);
+            // }
         }
-        return redirect('/admin')->with('success', 'Appointment Added/Updated Successfully!');
+        if(!$errors){
+            return redirect('/admin')->with('success', 'Appointment Added/Updated Successfully!');
+        }else{
+            return redirect('/admin/appointment/create')->with('error', $errors)->withInputs();
+        }
     }
 
     /**

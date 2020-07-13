@@ -11,8 +11,17 @@
                 <div class="col-md-8">
                     <div class="ask-dcotor-form">
                         <div class="register-block">
-                           <h2> Ask a doctor</h2>
+                           <h2> Video Consultation</h2>
                         </div> 
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div>
                             <form action="{{ url('/video-consultation') }}" method="POST">
                                 {{ csrf_field() }}
@@ -108,10 +117,10 @@
                                        <input type="hidden" class="form-control" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
                                     {{-- </div> --}}
                                     <div class="form-group col-md-6">
-                                        <input type="number" class="form-control" id="mobileNo" placeholder="Mobile No." name="mobileNo" value="{{ old('mobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <input type="number" class="form-control" id="mobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('mobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old('email') }}" required>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" name="patEmail" value="{{ old('email') }}" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -168,25 +177,23 @@
                                             <option value="value 3">Value 3</option>
                                         </select>
                                     </div>
-                                {{-- </div>
-                                <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
                                         <input type="date" id="date" name="date" class="form-control" id="my_date_picker" value="{{ old('date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="appointmentType" id="appointmentType" >
+                                        <select class="form-control" name="appointmentType" id="appointmentType" required>
                                             <option selected disabled>Team Doctor or Expert</option>
-                                            <option value="Value 1">Team Doctor</option>
-                                            <option value="value 2">Expert Doctor</option>
+                                            <option value="VTD">Team Doctor</option>
+                                            <option value="VED">Expert Doctor</option>
 
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="slot" id="slot" >
-                                            <option disabled selected>Select Time</option>\
+                                        <select class="form-control" name="slot" id="slot" required>
+                                            <option disabled selected>Select Time</option>
                                             <option value="#">Something</option>
                                         </select>
                                     </div>
@@ -210,38 +217,31 @@
 <script type="text/javascript">
     $(document).ready(function(){
         //date change
-        $('#date').change(function(){
-            var date = $(this).val();
+
+        $('#appointmentType').on('change', function(){
+            var appType = $(this).val();
+            var date = $("#date").val();
+            console.log(appType);
             console.log(date);
             $('#slot').find('option').not(':first').remove();
-
-            //AJAX request
-            $.ajax({
-                url: 'getSlots/'+date,
-                type: 'get',
-                dataType: 'json',
-                success: function(response){
-
-                    var len = 0;
-                    if(response['data'] != null){
-                        len = response['data'].length;
-                    }
-                    if(len > 0){
-                        //read data and create option
-                        for(var i=0;i<len;i++){
-                            var id = response['data'][i].id;
-                            var name = response['data'][i].appmntSlot;
-                            var option = "<option value='"+id+"'>"+name+"</option>";
-                            $('#slot').append(option);
-                            console.log(id);
+            if(date){
+                $.ajax({
+                    url: '/getSlots/'+date+'/'+appType,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        if(data){
+                            $.each(data, function(key, value){
+                                $("#slot").append("<option value='"+value+"'>"+key+"</option>");
+                            });
                         }
-                    }else{
-                        var option = "<option>Not available</option>";
-                        $('#slot').append(option);
+                    },
+                    error: function(){
+                        console.log('error');
                     }
-
-                }
-            });
+                });
+            }
         });
     });
 </script>

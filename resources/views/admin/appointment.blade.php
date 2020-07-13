@@ -50,20 +50,20 @@
                                     </div>
                                     <div class="form-row form-group">
                                         <div class="col-md">
-                                            @for($i = Carbon\Carbon::createFromFormat('H:i', '09:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '17:00');$i->addMinute(15))
+                                            @for($i = Carbon\Carbon::createFromFormat('H:i', '09:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '17:00');$i->addMinute(30))
                                             <div class="row">    
                                                 <div class="col-md">
                                                 
                                                 <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
                                                 </div>
                                             </div>
                                                 <br>

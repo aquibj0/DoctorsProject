@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Patient;
 use Carbon\Carbon;
 use App\AppointmentSchedule;
+use App\ServiceRequest;
+use App\VideoCall;
+use Illuminate\Support\Facades\Validator;
+
 
 class VideoConsultationController extends Controller
 {
@@ -24,11 +28,14 @@ class VideoConsultationController extends Controller
             return view('VideoConsultation.index')->with('patient', null)->with('slot', $slot);
     }
 
-    public function getSlots($date){
-        $slot['data'] = AppointmentSchedule::where('appmntDate', $date)->pluck('id', 'appmntSlot');
-        echo json_encode($slot);
-        exit;
-        // return $slot;
+    public function getSlots($date, $appType){
+        // if(request()->ajax()){
+            $slot = AppointmentSchedule::where('appmntDate', '=',  $date)
+                    ->where('appmntType', $appType)
+                    ->where('appmntSlotFreeCount', '>', 0)->pluck('id', 'appmntSlot');
+            // return response()->json($slot);
+            return $slot;
+        // }
     }
 
     /**
@@ -49,7 +56,47 @@ class VideoConsultationController extends Controller
      */
     public function store(Request $request)
     {
-        return array($request,AppointmentSchedule::where('appmntDate', $request->date)->pluck('id', 'appmntSlot'));
+        if($request->patient_id){
+            $validator = Validator::make($request->all(), [
+                // 'patient_id' => ['required', 'string', 'max:40'],
+                'department' => ['required'],
+                'date' => ['required'],
+                'appointmentType' => ['required', 'min:3', 'max:3'],
+                'slot' => ['required']
+                // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+            if(!$validator->fails()){
+                // if()
+            }else{
+                return redirect()->back()->withInput()->withErrors($validator);
+            }
+        }else{
+            $validator = Validator::make($request->all(),[
+                'firstName' => ['required', 'string', 'max:35'],
+                'lastName' => ['required', 'string', 'max:35'],
+                'gender' => ['required', 'string'],
+                'age' => ['required', 'numeric', 'min:10', 'max:90', 'digits:2'],
+                'mobileCC' => ['required'],
+                'patMobileNo' => ['required', 'digits:10', 'unique:patient'],
+                'patEmail' => ['required', 'string', 'unique:patient'],
+                'addressLine1' => ['required', 'string', 'max:64'],
+                'addressLine2' => ['string', 'max:64'],
+                'city' => ['required', 'string', 'max:35'],
+                'district' => ['required', 'string', 'max:35'],
+                'state' => ['required', 'string', 'max:35'],
+                'country' => ['required', 'string', 'max:35'],
+                'department' => ['required'],
+                'date' => ['required'],
+                'appointmentType' => ['required', 'min:3', 'max:3'],
+                'slot' => ['required']
+            ]);
+            if(!$validator->fails()){
+                // if()
+            }else{
+                return redirect()->back()->withInput()->withErrors($validator);
+            }
+        }
+        return $request;
     }
 
     /**
