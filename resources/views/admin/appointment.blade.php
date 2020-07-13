@@ -22,16 +22,18 @@
                                     
                                     <div class="form-row form-group">
                                         {{-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> --}}
-            
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label for="date" class="form-control-label">Schedule</label>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-sm">
-                                                    <label for="date" class="form-control-label">Schedule</label>
-                                                </div>
-                                                <div class="col-sm">
+                                                
+                                                <div class="col-md-4">
                                                     <input type="date" name="date" class="form-control" id="my_date_picker" value="date" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}" required>         
                                                 </div>
-                                                <div class="col-sm">
+                                                <div class="col-md-4">
                                                     {{-- <input type="date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">          --}}
                                                     <select name="appType" id="appType" class="form-control" required>
                                                         <option disabled selected>Select One</option>
@@ -39,6 +41,14 @@
                                                         <option value="VTD">Video Call with Team Doctor</option>
                                                         <option value="CLI">Clinic Appointment</option>
                                                     </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select name="location" class="form-control" id="location">
+                                                        {{-- <option value="kolkata">kolkata</option>
+                                                        <option value="malda">Malda</option>
+                                                        <option value="kalyani">Kalyani</option> --}}
+                                                    </select>
+                                                    <span id="location"></span>
                                                 </div>
                                             </div>
                                             @if ($errors->has('date'))
@@ -90,8 +100,27 @@
 
 
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //date change
+        $('#appType').on('change', function(){
 
+            var cli = $(this).val();
 
+            if(cli == 'CLI'){
+
+                var html = '<option value="kolkata">kolkata</option><option value="malda">Malda</option><option value="kalyani">Kalyani</option>';
+                $("#location").append(html);
+            }else{
+                if($('#location')){
+                    $("#location").empty();
+                }
+            }
+            
+        });
+    });
+</script>
 
 
 @endsection

@@ -24,11 +24,11 @@ class VideoConsultationController extends Controller
     public function index($id)
     {
         $patient = Patient::find($id);
-        $slot = AppointmentSchedule::where('appmntSlotFreeCount','>', 0)->get();
+        // $slot = AppointmentSchedule::where('appmntSlotFreeCount','>', 0)->get();
         if($patient)
-            return view('VideoConsultation.index')->with('patient', $patient)->with('slot', $slot);
+            return view('VideoConsultation.index')->with('patient', $patient);
         else
-            return view('VideoConsultation.index')->with('patient', null)->with('slot', $slot);
+            return view('VideoConsultation.index')->with('patient', null);
     }
 
     public function getSlots($date, $appType){

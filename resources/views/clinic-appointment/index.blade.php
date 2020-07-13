@@ -11,7 +11,7 @@
                 <div class="col-md-8">
                     <div class="ask-dcotor-form">
                         <div class="register-block">
-                           <h2> Ask a doctor</h2>
+                           <h2>Clinic Appointment</h2>
                         </div> 
                         <div>
                             <form action="{{ route('ask_a_doctor.store') }}" method="POST">
@@ -171,7 +171,7 @@
                                 {{-- </div>
                                 <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
-                                        <input type="date" placeholder="Pick a date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                        <input type="date" name="date" id="date" placeholder="Pick a date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -186,10 +186,8 @@
                                 {{-- </div>
                                 <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
-                                        <select class="form-control" name="department" id="department" required>
-                                            @for(;$time < $end;$time->addMinutes(15))
-                                                <option>{{ $time->toTimeString() }}</option>
-                                            @endfor
+                                        <select class="form-control" name="slot" id="slot" required>
+                                            <option disabled selected>Select One</option>
                                         </select>
                                     </div>
                                 </div>
@@ -219,7 +217,38 @@
 
 
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //date change
 
+        $('#date').on('change', function(){
+            // var appType = $(this).val();
+            var date = $("#date").val();
+            // console.log(appType);
+            console.log(date);
+            $('#slot').find('option').not(':first').remove();
+            if(date){
+                $.ajax({
+                    url: '/getSlots/'+date+'/CLI',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        if(data){
+                            $.each(data, function(key, value){
+                                $("#slot").append("<option value='"+value+"'>"+key+"</option>");
+                            });
+                        }
+                    },
+                    error: function(){
+                        console.log('error');
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 
 

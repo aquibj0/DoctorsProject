@@ -194,7 +194,7 @@
                                     <div class="form-group col-md-6">
                                         <select class="form-control" name="slot" id="slot" required>
                                             <option disabled selected>Select Time</option>
-                                            <option value="#">Something</option>
+                                            {{-- <option value="#">Something</option> --}}
                                         </select>
                                     </div>
                                 </div>

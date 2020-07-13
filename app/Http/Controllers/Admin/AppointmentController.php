@@ -48,6 +48,8 @@ class AppointmentController extends Controller
                 $app = new AppointmentSchedule;
                 $app->appmntType = $request->appType;
                 // $app->appmntClinicid = 
+                if($request->appType == "CLI")
+                    $app->
                 $app->appmntDate = $request->date;
                 $app->appmntSlot = $time;
                 $app->appmntSlotMaxCount = 5;
