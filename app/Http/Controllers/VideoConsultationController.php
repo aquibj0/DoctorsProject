@@ -92,7 +92,7 @@ class VideoConsultationController extends Controller
                     if($srvcReq->save()){
                         
                         $vc = new VideoCall;
-                        $vc->vcSrId = $srvcReq->srId;
+                        $vc->service_req_id = $srvcReq->id;
                         $vc->vcCallScheduled = 'N';
                         $vc->vcDocPrescriptionUploaded = 'N';
                         // $vc->vcCallScheduledDtl = 'N';
@@ -182,7 +182,7 @@ class VideoConsultationController extends Controller
                     if($srvcReq->save()){
                         
                         $vc = new VideoCall;
-                        $vc->vcSrId = $srvcReq->srId;
+                        $vc->service_req_id = $srvcReq->id;
                         $vc->vcCallScheduled = 'N';
                         $vc->vcDocPrescriptionUploaded = 'N';
                         // $vc->vcCallScheduledDtl = 

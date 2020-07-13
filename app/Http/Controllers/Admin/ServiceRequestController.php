@@ -74,7 +74,7 @@ class ServiceRequestController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show($id)
     {
@@ -85,10 +85,11 @@ class ServiceRequestController extends Controller
             // return strpos($srvcReq->srId, "AAQ");
             if(strpos($srvcReq->srId, "AAQ") == true){
                 $asaq = AskAQuestion::find($srvcReq->servSpecificId);
-                return view('admin.ask-a-question')->with('srvcReq', $srvcReq)->with('patient', $patient)->with('aaq', $asaq);
+                return view('admin.service-request-details')->with('srvcReq', $srvcReq)->with('patient', $patient)->with('aaq', $asaq);
             }
             // $asaq = AskAQuestion::find($srvcReq->)
-        }else{
+        }
+        else{
             return redirect('/admin/dashboard')->with('error', 'Service Request not found!');
         }
     }

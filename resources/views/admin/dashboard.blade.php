@@ -32,9 +32,30 @@
                                         <th scope="row"> {{$serviceReq->srId}} </th>
                                         <td>{{$serviceReq->service->srvcName}}</td>
                                         <td>{{$serviceReq->srRecievedDateTime}}</td>
-                                        <td>{{$serviceReq->srStatus}}</td>
+                                        <td> 
+                                            @if ($serviceReq->paymentStatus == true)
+                                            Paid
+                                            @else
+                                            Not Paid
+                                            @endif
+                                        
+                                        </td>
                                         <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
-                                        <td><a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a>                                        </td>
+                                        <td>
+                                            
+                                            <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 
+                                            
+                                            @if ($serviceReq->paymentStatus == true)
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm">Respond</a>  
+                                                
+                                                
+                                                
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                            @endif
+                                           
+                                            
+                                            
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

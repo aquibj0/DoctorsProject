@@ -15,7 +15,10 @@ class CreateVideoCallsTable extends Migration
     {
         Schema::create('video_calls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("vcSrId")->unique();
+            $table->unsignedBigInteger("service_req_id");
+            $table->foreign('service_req_id')->references('id')->on('service_request')->onDelete('cascade');
+            
+            // $table->string("vcSrId")->unique();
             $table->string('vcCallScheduled', 2);
             $table->string('vcDocInternalNotesText', 1024)->nullable();
             $table->string('vcDocPrescriptionUploaded', 2);
