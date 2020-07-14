@@ -79,7 +79,7 @@ class VideoConsultationController extends Controller
                     $srvcReq->srRecievedDateTime = Carbon::now();
                     $srvcReq->srDueDateTime = $request->date;
                     $srvcReq->srDepartment = $request['department'];
-                    $srvcReq->srStatus = 'New'; 
+                    $srvcReq->srStatus = 'New';
                     $srvcReq->srAppmntId = $app->id;
                     $srvcReq->srConfirmationSentByAdmin = 'N';
                     $srvcReq->srMailSmsSent = Carbon::now();
@@ -146,10 +146,10 @@ class VideoConsultationController extends Controller
                 $patient->patAge = $request['age'];
                 $patient->patBackground = $request['patient_background'];
                 if(!empty($request->email)){
-                    $patient->patEmail = $request['email'];
+                    $patient->patEmail = $request['patEmail'];
                 }
                 $patient->patMobileCC = $request['mobileCC'];
-                $patient->patMobileNo = $request['mobileNo']; 
+                $patient->patMobileNo = $request['patMobileNo']; 
                 $patient->patAddrLine1 = $request['addressLine1'];
                 $patient->patAddrLine2 = $request['addressLine2'];
                 $patient->patCity = $request['city'];

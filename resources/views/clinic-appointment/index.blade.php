@@ -38,7 +38,16 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="patient_id" value="{{$patient->id}}">
-
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ $patient->patAddrLine1 }}" required disabled>
@@ -68,6 +77,7 @@
                                         <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
                                     </div>
                                 </div>
+                                
 
                                 @else <!-- without patient data -->
                                 <div class="form-row">
@@ -101,6 +111,16 @@
                                             @endfor
                                         </select>
 
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required></textarea>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-row">
