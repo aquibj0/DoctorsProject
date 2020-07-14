@@ -25,6 +25,8 @@ Route::post('/register-user', 'Auth\RegisterController@create_user')->name('regi
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
 // Auth::routes();
 Route::get('/getSlots/{date}/{appType}', 'VideoConsultationController@getSlots');
+Route::get('/getLocSlots/{date}/CLI/{id}', 'ClinicAppointmentController@getLocSLots');
+Route::get('/getLocation', 'Admin\AppointmentController@getLocation');
 
 
 
@@ -83,7 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Clinic Apoointment
-    Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
+    // Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
     // Route::get('/admin', 'AdminAppController@index');
 
 

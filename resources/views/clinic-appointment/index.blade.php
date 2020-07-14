@@ -14,7 +14,7 @@
                            <h2>Clinic Appointment</h2>
                         </div> 
                         <div>
-                            <form action="{{ route('ask_a_doctor.store') }}" method="POST">
+                            <form action="{{ url('/clinic-appointment') }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="mb-2">
                                     <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
@@ -178,9 +178,9 @@
                                     <div class="form-group col-md-6">
                                         <select class="form-control" name="appointmentLoc" id="appointmentLoc" required>
                                             <option selected disabled>Select Location</option>
-                                            <option value="kolkata">Kolkata</option>
-                                            <option value="malda">Malda</option>
-                                            <option value="kalyani">Kalyani</option>
+                                            @foreach ($location as $item)
+                                                <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 {{-- </div>
@@ -222,15 +222,17 @@
     $(document).ready(function(){
         //date change
 
-        $('#date').on('change', function(){
+        $('#appointmentLoc').on('change', function(){
             // var appType = $(this).val();
             var date = $("#date").val();
-            // console.log(appType);
+            var loc = $(this).val();
+            console.log(loc);
             console.log(date);
+
             $('#slot').find('option').not(':first').remove();
             if(date){
                 $.ajax({
-                    url: '/getSlots/'+date+'/CLI',
+                    url: '/getLocSlots/'+date+'/CLI/'+loc,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){

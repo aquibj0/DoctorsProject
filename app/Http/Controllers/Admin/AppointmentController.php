@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Clinic;
 use App\AppointmentSchedule;
 
 class AppointmentController extends Controller
@@ -23,6 +24,10 @@ class AppointmentController extends Controller
         //
     }
 
+    public function getLocation(){
+        $loc = Clinic::all()->pluck('id', 'clinicName');
+        return $loc;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -48,8 +53,10 @@ class AppointmentController extends Controller
                 $app = new AppointmentSchedule;
                 $app->appmntType = $request->appType;
                 // $app->appmntClinicid = 
-                if($request->appType == "CLI")
-                    $app->
+                if($request->appType == "CLI"){
+                    $cli = Clinic::find($request->location);
+                    $app->appmntClinicid = $cli->id;
+                }
                 $app->appmntDate = $request->date;
                 $app->appmntSlot = $time;
                 $app->appmntSlotMaxCount = 5;

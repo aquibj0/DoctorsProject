@@ -73,6 +73,23 @@ class AskDoctorController extends Controller
     public function store(Request $request)
     {
         if($request){
+            $validator = Validator::make($request->all(), [
+                'firstName' => ['string', 'max:35'],
+                'lastName' => ['string', 'max:35'],
+                'gender' => ['string', 'min:4', 'max:6'],
+                'age' => ['numeric', 'min:10', 'max:90'],
+                'patient_background' => ['string', 'max:1024'],
+                'patEmail' => ['email', 'max:255', 'unique:patient'],
+                'patMobileNo' => ['numeric', 'digits:10', 'unique:patient'],
+                'addressLine1' => ['string', 'max:64'],
+                'addressLine2' => ['string', 'max:64'],
+                'city' => ['string', 'max:35'],
+                'district' => ['string', 'max:35'],
+                'state' => ['string', 'max:35'],
+                'country' => ['string', 'max:35'],
+                'department' => ['string'],
+                'patient_question' => ['string', 'max:1024']
+            ]);
             if($request['patient_id']){
                 $patient = Patient::find($request['patient_id']);
             }else{
@@ -85,10 +102,10 @@ class AskDoctorController extends Controller
                 $patient->patAge = $request['age'];
                 $patient->patBackground = $request['patient_background'];
                 if(!empty($request->email)){
-                    $patient->patEmail = $request['email'];
+                    $patient->patEmail = $request['patEmail'];
                 }
                 $patient->patMobileCC = $request['mobileCC'];
-                $patient->patMobileNo = $request['mobileNo']; 
+                $patient->patMobileNo = $request['patMobileNo']; 
                 $patient->patAddrLine1 = $request['addressLine1'];
                 $patient->patAddrLine2 = $request['addressLine2'];
                 $patient->patCity = $request['city'];

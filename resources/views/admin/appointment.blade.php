@@ -23,8 +23,8 @@
                                     <div class="form-row form-group">
                                         {{-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> --}}
                                         <div class="row">
-                                            <div class="col-md-2">
-                                                <label for="date" class="form-control-label">Schedule</label>
+                                            <div class="col-md">
+                                                <h2> Schedule</h2>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -36,7 +36,7 @@
                                                 <div class="col-md-4">
                                                     {{-- <input type="date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">          --}}
                                                     <select name="appType" id="appType" class="form-control" required>
-                                                        <option disabled selected>Select One</option>
+                                                        <option disabled selected>Select Type</option>
                                                         <option value="VED">Video Call with Expert Doctor</option>
                                                         <option value="VTD">Video Call with Team Doctor</option>
                                                         <option value="CLI">Clinic Appointment</option>
@@ -44,6 +44,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <select name="location" class="form-control" id="location">
+                                                        <option disabled selected>Select Location</option>
                                                         {{-- <option value="kolkata">kolkata</option>
                                                         <option value="malda">Malda</option>
                                                         <option value="kalyani">Kalyani</option> --}}
@@ -109,12 +110,26 @@
             var cli = $(this).val();
 
             if(cli == 'CLI'){
-
-                var html = '<option value="kolkata">kolkata</option><option value="malda">Malda</option><option value="kalyani">Kalyani</option>';
-                $("#location").append(html);
+                $.ajax({
+                    url: '/getLocation',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data){
+                            $.each(data, function(key, value){
+                                $("#location").append("<option value='"+value+"'>"+key+"</option>");
+                            });
+                        }
+                    },
+                    error: function(){
+                        console.log('error');
+                    }
+                
+                });
             }else{
                 if($('#location')){
                     $("#location").empty();
+                    $("#location").append("<option selected disabled>Select Location</option>");
                 }
             }
             

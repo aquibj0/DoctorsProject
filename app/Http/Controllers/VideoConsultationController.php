@@ -73,7 +73,7 @@ class VideoConsultationController extends Controller
                 if($patient){
                     $app = AppointmentSchedule::find($request->slot);
                     $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', 'VED')->first()->id;
+                    $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
                     $srvcReq->patient_id = $patient->id;
                     $srvcReq->user_id = Auth::user()->id;
                     $srvcReq->srRecievedDateTime = Carbon::now();
@@ -86,7 +86,7 @@ class VideoConsultationController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request->appointmentType;
                     $srvcReq->update();
                     // $srvdID = $srvcReq->srId ;
                     if($srvcReq->save()){
@@ -163,7 +163,7 @@ class VideoConsultationController extends Controller
                 if($patient){
                     $app = AppointmentSchedule::find($request->slot);
                     $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', 'VED')->first()->id;
+                    $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
                     $srvcReq->patient_id = $patient->id;
                     $srvcReq->user_id = Auth::user()->id;
                     $srvcReq->srRecievedDateTime = Carbon::now();
@@ -176,7 +176,7 @@ class VideoConsultationController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request->appointmentType;
                     $srvcReq->update();
                     // $srvdID = $srvcReq->srId ;
                     if($srvcReq->save()){
