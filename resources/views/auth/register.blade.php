@@ -51,7 +51,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group"> 
-                                    <input id="userLandLineNo" type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                    <input id="userLandLineNo" type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" >
 
                                     @error('userLandLineNo')
                                         <span class="invalid-feedback" role="alert">

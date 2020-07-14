@@ -35,6 +35,7 @@ class PatientDocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id){
+        
         $serviceReq = ServiceRequest::where('id', $id)->first();
         if($request){
             $patientDocument = new PatientDocument;
@@ -96,26 +97,19 @@ class PatientDocumentController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+
+    //  Function to delete Document
     public function destroy($id)
     {
-        //
+        PatientDocument::destroy($id);
+        return 'Deleted';
+        // return redirect()->back()->with('success', 'Deleted');
     }
 }
