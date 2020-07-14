@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
 use App\PatientDocument;
 
+
 class AdminController extends Controller
 {
 
@@ -45,8 +46,8 @@ class AdminController extends Controller
         ]);
         if(!$validator->fails()){
         $intUser = new Admin;
-        $intUser->userFirstName = $request->firstName;
-        $intUser->userLastName = $request->lastName;
+        $intUser->firstName = $request->firstName;
+        $intUser->lastName = $request->lastName;
         $intUser->phoneNo = $request->phoneNo;
         $intUser->category = $request->category;
         $intUser->department = $request->department;
@@ -60,6 +61,7 @@ class AdminController extends Controller
         $intUser->save();
         $intUser->intuId = "IID".$intUser->id;
         $intUser->update();
+        
         return redirect('/admin')->with('success', 'User created successfully!');
         }else{
             return redirect()->back()->withErrors($validator)->withInput();

@@ -42,7 +42,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-6 form-group">
-                                    <input id="userMobileNo" type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                    <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                     @error('userMobileNo')
                                         <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group"> 
-                                    <input id="userLandLineNo" type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" >
+                                    <input id="userLandLineNo" onkeypress='validate(event)' type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" >
 
                                     @error('userLandLineNo')
                                         <span class="invalid-feedback" role="alert">
@@ -162,5 +162,22 @@
             return false;
         }
         return true;
+    }
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+        // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+        }
     }
 </script>

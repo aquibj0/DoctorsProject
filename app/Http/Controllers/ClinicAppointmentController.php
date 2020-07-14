@@ -157,10 +157,10 @@ class ClinicAppointmentController extends Controller
                 $patient->patId = Auth::user()->userId."-".$patient->id;
                 $patient->update();
 
-                if($patient){
+                if($patient->save()){
                     $app = AppointmentSchedule::find($request->slot);
                     $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
+                    $srvcReq->service_id = Service::where('srvcShortName', 'CLI')->first()->id;
                     $srvcReq->patient_id = $patient->id;
                     $srvcReq->user_id = Auth::user()->id;
                     $srvcReq->srRecievedDateTime = Carbon::now();
@@ -173,7 +173,7 @@ class ClinicAppointmentController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request->appointmentType;
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."CLI";
                     $srvcReq->update();
                     // $srvdID = $srvcReq->srId ;
                     if($srvcReq->save()){
@@ -194,10 +194,12 @@ class ClinicAppointmentController extends Controller
                         $srvcReq->delete();
                         return redirect()->back()->with('error', 'Something went wrong')->withInputs();
                     }
+                }else{
+                    return redirect()->back()->withInput()->withErrors($validator);
+                }
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
-        }
             // return $request;
         }
         

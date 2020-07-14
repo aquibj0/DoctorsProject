@@ -14,6 +14,15 @@
                            <h2>Clinic Appointment</h2>
                         </div> 
                         <div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                             <form action="{{ url('/clinic-appointment') }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="mb-2">
@@ -115,7 +124,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required></textarea>
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -128,10 +137,10 @@
                                        <input type="hidden" class="form-control" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
                                     {{-- </div> --}}
                                     <div class="form-group col-md-6">
-                                        <input type="number" class="form-control" id="mobileNo" placeholder="Mobile No." name="mobileNo" value="{{ old('mobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old('email') }}" required>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -140,7 +149,7 @@
                                     </div>
                                
                                     <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}" required>
+                                        <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}">
                                     </div>
                                 </div>
 
@@ -270,6 +279,23 @@
             }
         });
     });
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+        // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
 </script>
 
 

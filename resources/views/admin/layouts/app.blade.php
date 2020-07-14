@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}&nbsp;Admin</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script> 
@@ -56,7 +56,7 @@
                             <a href="/admin" class="nav-link">Home </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/about" class="nav-link">About </a>
+                            <a href="/admin/create/internal-user" class="nav-link">Create User </a>
                         </li>
                         <li class="nav-item">
                             <a href="/services" class="nav-link">Services </a>
