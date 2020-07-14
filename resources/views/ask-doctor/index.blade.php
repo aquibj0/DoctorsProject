@@ -14,6 +14,7 @@
                            <h2> Ask a doctor</h2>
                         </div> 
                         <div>
+                            @include('layouts.message')
                             <form action="{{ route('ask_a_doctor.store') }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="mb-2">
