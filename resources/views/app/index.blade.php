@@ -62,7 +62,7 @@
                 <a href="/user-patients/AAQ" class="btn btn-primary ">Submit</a>
             </div>
 
-            <div class="col-md-4 mb-5">
+            <div class="col-md-4 mb-2">
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Video Consultation</h2>
@@ -71,7 +71,7 @@
                 <a href="/user-patients/VED" class="btn btn-primary ">Submit</a>
             </div>
 
-            <div class="col-md-4 mb-5">
+            <div class="col-md-4 mb-2">
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Clinic Appointment</h2>
@@ -81,7 +81,7 @@
             </div>
 
             <div class="col-md-12 text-center">
-                <p class="maroon">For General Queries <a href="/contact-us" ><u>Contact Us</u></a></p>
+                <p class="mb-0 maroon">For General Queries <a href="/contact-us" ><u>Contact Us</u></a></p>
             </div>
         </div>
     </div>

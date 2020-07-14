@@ -154,8 +154,9 @@ html, body{
     box-shadow: 0px 0px 8px 12px rgba(97,13,13,0.75);
 }
 .service-section .card h2{
+    font-size: 1.4rem;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
