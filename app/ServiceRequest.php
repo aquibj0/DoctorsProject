@@ -41,5 +41,10 @@ class ServiceRequest extends Model
     }
 
 
+    public function appointmentSchedule(){
+        return $this->belongsTo('App\AppointmentSchedule', 'srAppmntId');
+    }
+
+
 
 }
