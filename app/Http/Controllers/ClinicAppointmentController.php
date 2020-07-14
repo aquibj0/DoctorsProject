@@ -110,7 +110,7 @@ class ClinicAppointmentController extends Controller
                 return redirect()->back()->withInput()->withErrors($validator);
             }
         }else{
-
+            
         }
         return $request;
     }

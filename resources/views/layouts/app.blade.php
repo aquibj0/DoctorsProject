@@ -34,9 +34,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     <span class="maroon">DR-ONLINE</span> <br>
-                    <small class="maroon">Exceptional Care you choose</small>
-                    
+                    <p style="margin-top:-15px; font-size:14px" class=" text-center maroon mb-0">Exceptional Care you choose</p>
                 </a>
+                
                
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -94,8 +94,8 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf_token
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                                        @csrf
                                     </form>
                                 </div>
                             </li>

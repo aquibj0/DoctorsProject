@@ -14,6 +14,7 @@ use App\Service;
 use App\Jobs\SendEmail;
 use Razorpay\Api\Api;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 // use Carbon\Carbon;
 
 class AskDoctorController extends Controller
@@ -32,28 +33,9 @@ class AskDoctorController extends Controller
         }else{
             return view('ask-doctor.index')->with('patient', null);
         }
-    }
+    } 
 
 
-    // public function doctor_index(){
-    //     $aaq_srvcReq = AskAQuestion::all()->pluck('service_req_id');
-    //     $aaq = AskAQuestion::all();
-    //     $srvcReq = ServiceRequest::whereIn('id', $aaq_srvcReq)->get();
-    //     return view('ask-doctor.admin_index')->with('aaq', $aaq)->with('srvcReq', $srvcReq);
-    // }
-
-
-    // public function doctor_respones($id, Request $request){
-    //     $aaq = AskAQuestion::find($id);
-    //     $aaq->aaqDocResponse = $request['response'];
-    //     $aaq->update();
-
-    //     $srvcReq = ServiceRequest::find($aaq->service_req_id);
-    //     $srvcReq->srResponseDateTime = Carbon::now();
-    //     $srvcReq->update();
-
-    //     return array($aaq, $srvcReq);
-    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -72,6 +54,24 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'firstName' => ['required', 'string', 'max:40'],
+            'lastName' => ['required', 'string', 'max:40'],
+            'gender' => ['required'],
+            'age' => ['required'],
+            'background' => ['required'],
+            'email' => ['string', 'email', 'max:100'],
+            'mobileCC' => ['required'],
+            'mobileNo' => ['required', 'numeric',  'digits:10', 'unique:users', 'regex:/(01)[0-9]{9}/'],
+            'addrLine1' => ['required', 'string', 'max:100'],
+            'addrLine2' => [ 'string', 'max:100'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'state' => ['required'],
+            'country' => ['required'],
+        ]);
+
         if($request){
             $validator = Validator::make($request->all(), [
                 'firstName' => ['string', 'max:35'],
@@ -170,25 +170,13 @@ class AskDoctorController extends Controller
         }else{
             return redirect()->back()->withInputs()->with('error', 'Something went wrong!');
         }
-   
-
-
-
-        
-        
-
-        
-
-        
-        // $asaq->update();
-        // return array($asaq, $patient, $srvcReq);
     }
 
 
 
     public function serviceBooking(Request $request, $srvdID){
 
-        $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
+        $serviceRequest = ServiceRequest::where('srId', $srvdID )->first(); 
         // Let's see the documentation for creating the order
 
         // Generate random receipt id

@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@section('content')
 
+
+@section('content')
     <section class="mt-4">
         <div class="container">
             <div class="card">
@@ -101,8 +102,13 @@
                             @endif
 
 
+
+                            {{-- Check where patient has uploaded any document againts the service request --}}
                             @php
-                                $patDocs = App\PatientDocument::where('documentUploadedBy', '=', Auth::user()->id)->get();
+                                $patDocs = App\PatientDocument::where([
+                                    ['documentUploadedBy', '=', Auth::user()->id],
+                                    ['service_request_id', '=', $serviceRequests->id]
+                                ])->get();
                             @endphp
                             @if (isset($patDocs))
                                 <h4 class="maroon mb-2"><u><b>PATIENT DOCUMENTS</b></u></h4>
@@ -313,10 +319,4 @@
             </div>
         </div>
     </section>
-
-
-    
-
-
-
 @endsection

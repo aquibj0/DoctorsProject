@@ -79,32 +79,25 @@ class RegisterController extends Controller
 
     public function create_user(Request $request){
 
-        // $addr = new Address;
-        // $addr->addrLine_1 = $request['addressLine1'];
-        // if($request['addressLine2'])
-        //     $addr->addrLine_2 = $request['addressLine2'];
-        // $addr->addrCity = $request['city'];
-        // $addr->addrDistrict = $request['district'];
-        // $addr->addrPincode = $request['pincode'];
-        // $addr->addrState = $request['state'];
-        // $addr->addrCountry = $request['country'];
-        // $addr->save();
+        
         $validator = Validator::make($request->all(), [
             'firstName' => ['required', 'string', 'max:40'],
             'lastName' => ['required', 'string', 'max:40'],
             'userEmail' => ['string', 'email', 'max:100', 'unique:users'],
-            'userMobileNo' => ['required', 'numeric',  'digits:10', 'unique:users'],
+            'userMobileNo' => ['required', 'numeric',  'digits:10', 'unique:users', 'regex:/(01)[0-9]{9}/'],
+            'userLandLineNo'  => ['required', 'numeric',  'digits:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        // return $validator->fails();
+
+        
         if(!$validator->fails()){
             $user = new User;
             $user->userFirstName = $request['firstName'];
             $user->userLastName = $request['lastName'];
             $user->userMobileNo = $request['userMobileNo'];
+            $user->userLandLineNo = $request['userLandLineNo'];
             $user->userEmail = $request['userEmail'];
             $user->userType = "E";
-            // $user->userAddress = $addr->id;
             $user->userPassword = Hash::make($request['password']);
             $user->save();
             $user->userId = "UID".$user->id;
