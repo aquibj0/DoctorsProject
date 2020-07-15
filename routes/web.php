@@ -126,11 +126,18 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/appointment/create', 'Admin\AppointmentController@create');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
 
-
+        // Department
         Route::get('/departments', 'Admin\DepartmentController@index');
         Route::post('/department/store', 'Admin\DepartmentController@store')->name('department.store');
         Route::post('/department/{id}', 'Admin\DepartmentController@update')->name('department.edit');
         Route::delete('/department/{id}', 'Admin\DepartmentController@destroy')->name('department.delete');
+
+
+        // Services
+        Route::get('/services', 'Admin\ServiceController@index');
+        Route::post('/services/store', 'Admin\ServiceController@store')->name('service.store');
+        Route::post('/services/{id}', 'Admin\ServiceController@update')->name('service.edit');
+        Route::delete('/services/{id}', 'Admin\ServiceController@destroy')->name('service.delete');
     });
 });
 
