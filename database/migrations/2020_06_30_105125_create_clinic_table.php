@@ -15,11 +15,17 @@ class CreateClinicTable extends Migration
     {
         Schema::create('clinic', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("clinicType");
+            $table->string("clinicType")->nullable();
             $table->string("clinicName");
-            $table->string("clinicMobileNo");
+            $table->string("clinicMobileNo", 10);
             $table->string("clinicLandLineNo");
-            $table->string("clinicAddressId");
+            $table->string("clinicAddressLine1", 64);
+            $table->string("clinicAddressLine2", 64)->nullable();
+            $table->string("clinicCity", 35);
+            $table->string("clinicDistrict", 35);
+            $table->string("clinicState", 35);
+            $table->string("clinicCountry", 35);
+            $table->integer("clinicPincode");
             $table->timestamps();
         });
     }

@@ -115,8 +115,10 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
         Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
         Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
+        Route::get('/internal-user', 'Admin\AdminController@create_user_index');
         Route::get('/create/internal-user', 'Admin\AdminController@create_user');
         Route::post('/create/internal-user/store', 'Admin\AdminController@store_user')->name('admin.register.user.store');
+        Route::get('/admin/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
         Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
         Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
 
@@ -125,6 +127,10 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::get('/appointment/create', 'Admin\AppointmentController@create');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
+        Route::get('/clinic', 'Admin\ClinicController@index');
+        Route::get('/clinic/create', 'Admin\ClinicController@create');
+        Route::post('/clinic', 'Admin\ClinicController@store');
+        Route::get('/clinic/{id}/delete', 'Admin\ClinicController@destroy');
 
         // Department
         Route::get('/departments', 'Admin\DepartmentController@index');

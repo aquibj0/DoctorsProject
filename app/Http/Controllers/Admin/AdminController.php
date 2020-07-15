@@ -30,8 +30,13 @@ class AdminController extends Controller
         return view('admin.dashboard')->with('servReq', $servReq);
     }
 
+    public function create_user_index(){
+        $users = Admin::all();
+        return view('admin.auth.index-user')->with('users', $users);
+    }
 
     public function create_user(){
+        $dept = Department::all()->pluck('id', '');
         return view('admin.auth.create-user');
     }
 
@@ -52,6 +57,7 @@ class AdminController extends Controller
         $intUser->category = $request->category;
         $intUser->department = $request->department;
         $intUser->email = $request->email;
+        $intUser->gender = $request->gender;
         if($request->category == 'doc'){
             $intUser->salutation = 'Dr.';
         }else{
@@ -66,6 +72,10 @@ class AdminController extends Controller
         }else{
             return redirect()->back()->withErrors($validator)->withInput();
         }   
+    }
+
+    public function delete_user($id){
+
     }
     /**
      * Show the form for creating a new resource.
