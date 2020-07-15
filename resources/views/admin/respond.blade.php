@@ -12,11 +12,8 @@
                     <h2>RESPONSE ASK A DOCTOR</h2>
                 </div>
             </div>
-            
         </div>
-    
-    
-    
+
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -88,9 +85,6 @@
                                 </div>
                             </form>
                         @endif
-    
-    
-                     
                     </div>
                 </div>
             </div>
