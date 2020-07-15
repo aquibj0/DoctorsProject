@@ -17,7 +17,7 @@ class CreateClinicTable extends Migration
             $table->bigIncrements('id');
             $table->string("clinicType")->nullable();
             $table->string("clinicName");
-            $table->integer("clinicMobileNo");
+            $table->string("clinicMobileNo", 10);
             $table->string("clinicLandLineNo");
             $table->string("clinicAddressLine1", 64);
             $table->string("clinicAddressLine2", 64)->nullable();

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>admin Dashboard</h2>
+                        <h2>Clinic Dashboard</h2>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    
+                    @if($clinics)
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
@@ -76,6 +76,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <h2>No Clinic added!</h2>
+                    @endif
                 </div>
             </div>
         </div>
