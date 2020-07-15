@@ -59,7 +59,7 @@
                             <a href="/admin/create/internal-user" class="nav-link">Create User </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/services" class="nav-link">Services </a>
+                            <a href="/admin/clinic" class="nav-link">Clinic </a>
                         </li>
                         <li class="nav-item">
                             <a href="/contact-us" class="nav-link">Contact Us </a>

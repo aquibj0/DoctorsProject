@@ -125,6 +125,10 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::get('/appointment/create', 'Admin\AppointmentController@create');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
+        Route::get('/clinic', 'Admin\ClinicController@index');
+        Route::get('/clinic/create', 'Admin\ClinicController@create');
+        Route::post('/clinic', 'Admin\ClinicController@store');
+        Route::get('/clinic/{id}/delete', 'Admin\ClinicController@destroy');
     });
 });
 
