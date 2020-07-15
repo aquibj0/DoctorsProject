@@ -59,11 +59,14 @@
                             <a href="/admin/create/internal-user" class="nav-link">Create User </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/admin/departments" class="nav-link">Departments</a>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="/services" class="nav-link">Services </a>
                         </li>
                         <li class="nav-item">
                             <a href="/contact-us" class="nav-link">Contact Us </a>
-                        </li>
+                        </li> --}}
                         
                         <!-- Authentication Links -->
                         @guest('admin')

@@ -109,7 +109,6 @@ class PatientDocumentController extends Controller
     public function destroy($id)
     {
         PatientDocument::destroy($id);
-        return 'Deleted';
-        // return redirect()->back()->with('success', 'Deleted');
+        return redirect()->back()->with('success', 'Deleted');
     }
 }
