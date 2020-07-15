@@ -59,10 +59,10 @@
                                             Landline:{{ $clinic->clinicLandLineNo }}
                                         @endif
                                     </td>
-                                    <td>{{ $clinic->addressLine }}
-                                        @if($clinic->addressLine2)
+                                    <td>{{ $clinic->clinicAddressLine1 }}
+                                        @if($clinic->clinicAddressLine2)
                                             <br>
-                                            {{ $clinic->addressLine2 }}
+                                            {{ $clinic->clinicAddressLine2 }}
                                         @endif
                                         <br>
                                         {{ $clinic->clinicCity }}, {{ $clinic->clinicDistrict }}
