@@ -14,15 +14,7 @@
                            <h2>Clinic Appointment</h2>
                         </div> 
                         <div>
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                            
                             <form action="{{ url('/clinic-appointment') }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="mb-2">
@@ -50,7 +42,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
-                                        @error('email')
+                                        @error('patient_background')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -92,10 +84,20 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
+                                        @error('firstName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
+                                        @error('lastName')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -109,7 +111,11 @@
                                             <option value="Transgender">Transgender</option>
                                         </select>
                                         {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled> --}}
-
+                                        @error('gender')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6">
                                         {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}" required> --}}
@@ -119,13 +125,17 @@
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endfor
                                         </select>
-
+                                        @error('age')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
-                                        @error('email')
+                                        @error('patient_background')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -138,39 +148,89 @@
                                     {{-- </div> --}}
                                     <div class="form-group col-md-6">
                                         <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        @error('patMobileNo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="email" class="form-control" id="email" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
+                                        @error('patEmail')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ old('addressLine1') }}" required>
+                                        @error('addressLine1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}">
+                                        @error('addressLine2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
+                                            @error('city')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                 
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ old('district') }}" required>
+                                            @error('district')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                 </div>
 
                                 <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
+                                            @error('state')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                 
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
+                                            @error('country')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        @error('patMobileNo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 @endif
@@ -196,11 +256,21 @@
                                             <option value="value 2">Value 2</option>
                                             <option value="value 3">Value 3</option>
                                         </select>
+                                        @error('department')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 {{-- </div>
                                 <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
                                         <input type="date" name="date" id="date" placeholder="Pick a date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                        @error('date')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -211,6 +281,11 @@
                                                 <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
                                             @endforeach
                                         </select>
+                                        @error('apointmentLoc')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 {{-- </div>
                                 <div class="form-row"> --}}
@@ -218,6 +293,11 @@
                                         <select class="form-control" name="slot" id="slot" required>
                                             <option disabled selected>Select One</option>
                                         </select>
+                                        @error('slot')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
