@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\AskAQuestion;
 use App\Patient;
 use App\ServiceRequest;
+use App\Department;
 use Auth;
 use Mail;
 use App\Mail\AAQEmail;
@@ -28,10 +29,11 @@ class AskDoctorController extends Controller
     public function index($id)
     {
         $patient = Patient::find($id);
+        $depts = Department::all();
         if(!empty($patient)){
-            return view('ask-doctor.index')->with('patient', $patient);
+            return view('ask-doctor.index')->with('patient', $patient)->with('depts', $depts);
         }else{
-            return view('ask-doctor.index')->with('patient', null);
+            return view('ask-doctor.index')->with('patient', null)->with('depts', $depts);
         }
     } 
 

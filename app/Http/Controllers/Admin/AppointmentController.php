@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Clinic;
+use App\Service;
 use App\AppointmentSchedule;
 
 class AppointmentController extends Controller
@@ -35,7 +36,8 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('admin.appointment');
+        $services = Service::all();
+        return view('admin.appointment.appointment')->with('services', $services);
     }
 
     /**

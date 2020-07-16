@@ -241,9 +241,9 @@
                                     <div class="form-group col-md-6">
                                         <select class="form-control" name="department" id="department" required>
                                             <option selected disabled>Department </option>
-                                            <option value="Value 1">Value 1</option>
-                                            <option value="value 2">Value 2</option>
-                                            <option value="value 3">Value 3</option>
+                                            @foreach($depts as $dept)
+                                                <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('department')
                                             <span class="invalid-feedback" role="alert">
@@ -263,7 +263,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <select class="form-control" name="appointmentType" id="appointmentType" required>
-                                            <option selected disabled>Team Doctor or Expert</option>
+                                            <option selected disabled>Team  or Expert</option>
                                             <option value="VTD">Team Doctor</option>
                                             <option value="VED">Expert Doctor</option>
 

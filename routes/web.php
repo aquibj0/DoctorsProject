@@ -100,10 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Admin
 
-
-// Route::get('product', 'RazorpayController@index');
-// Route::post('paysuccess', 'RazorpayController@paysuccess');
-// Route::post('razor-thank-you', 'RazorpayController@thankYou');
+Route::get('/query/{query}', 'Admin\ServiceRequestController@query');
 
 Route::group(['middleware' => 'web'], function(){
     Route::prefix('admin')->group(function () {

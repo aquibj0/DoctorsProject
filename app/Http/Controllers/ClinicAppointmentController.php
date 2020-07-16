@@ -11,6 +11,7 @@ use App\VideoCall;
 use App\Service;
 use App\Clinic;
 use App\ClinicAppointment;
+use App\Department;
 use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
@@ -25,11 +26,12 @@ class ClinicAppointmentController extends Controller
     public function index($id)
     {   
         $patient = Patient::find($id);
+        $depts = Department::all();
         $location = Clinic::all();
         if($patient)
-            return view('clinic-appointment.index')->with('patient', $patient)->with('location', $location);
+            return view('clinic-appointment.index')->with('patient', $patient)->with('location', $location)->with('depts', $depts);
         else
-            return view('clinic-appointment.index')->with('patient', null)->with('location', $location);
+            return view('clinic-appointment.index')->with('patient', null)->with('location', $location)->with('depts', $depts);
     }
 
 
