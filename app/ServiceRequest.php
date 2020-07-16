@@ -35,6 +35,9 @@ class ServiceRequest extends Model
         return $this->hasOne('App\VideoCall', 'service_req_id');
     }
 
+    public function clinicAppointment(){
+        return $this->hasOne('App\ClinicAppointment', 'service_reqest_id');
+    }
 
     public function patientDocuments(){
         return $this->hasMany('App\PatientDocument', 'service_request_id');

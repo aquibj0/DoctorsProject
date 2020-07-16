@@ -19,15 +19,24 @@
                         <thead class="thead-dark">
                             <th scope="col">Service Req ID</th>
                             <th scope="col">Patient ID</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Patient Age</th>
+                            <th scope="col">Patient Gender</th>
+                            
 
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{{$srvcReq->srId}}</td>
                                 <td>{{$srvcReq->patient->patId}}</td>
+                                <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>
+                                <td>{{ $srvcReq->patient->patAge}}</td> 
+                                <td>{{ $srvcReq->patient->patGender }}</td>
                             </tr>
                         </tbody>
                     </table>
+
+                
 
                     <br>
 

@@ -265,13 +265,8 @@
                                 @if($patient)
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-<<<<<<< HEAD
                                         <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
                                         @error('patient_background')
-=======
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
-                                        @error('email')
->>>>>>> e2f14c53516c53ea9a21bd6a87c45ad9710a3133
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -282,7 +277,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
-                                        @error('email')
+                                        @error('patient_background')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
 use App\Department;
 use App\PatientDocument;
-use App\Department;
 
 
 class AdminController extends Controller
@@ -34,22 +33,19 @@ class AdminController extends Controller
 
     public function create_user_index(){
         $users = Admin::all();
-<<<<<<< HEAD
         return view('admin.internal-user.index')->with('users', $users);
     }
 
     public function create_user(){
         $dept = Department::all()->pluck('id', '');
         return view('admin.internal-user.create');
-=======
-        return view('admin.auth.internal_user.index-user')->with('users', $users);
+        // return view('admin.auth.internal_user.index-user')->with('users', $users);
     }
 
-    public function create_user(){
-        $dept = Department::all()->pluck('id', 'department_name');
-        return view('admin.auth.internal_user.create-user')->with('dept', $dept);
->>>>>>> e2f14c53516c53ea9a21bd6a87c45ad9710a3133
-    }
+    // public function create_user(){
+    //     $dept = Department::all()->pluck('id', 'department_name');
+    //     return view('admin.auth.internal_user.create-user')->with('dept', $dept);
+    // }
 
     public function store_user(Request $request){
         // return $request;

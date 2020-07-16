@@ -29,6 +29,9 @@ Route::get('/getLocSlots/{date}/CLI/{id}', 'ClinicAppointmentController@getLocSL
 Route::get('/getLocation', 'Admin\AppointmentController@getLocation');
 
 
+//Upload Image
+Route::post("/userImage/{id}", 'UserController@updateImage')->name('image.upload');
+
 Route::group(['middleware' => ['auth']], function () {
     // User Setting
     Route::get('/setting/{id}', 'UserController@show');
@@ -94,7 +97,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-    //
 });
 
 
@@ -152,3 +154,4 @@ Route::group(['middleware' => 'web'], function(){
 // PRescription & Reports Upload
 Route::post('/upload-documents/{id}', 'PatientDocumentController@store');
 Route::delete('/upload-documents/delete/{id}', 'PatientDocumentController@destroy');
+
