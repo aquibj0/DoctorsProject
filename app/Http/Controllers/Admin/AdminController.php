@@ -37,8 +37,8 @@ class AdminController extends Controller
     }
 
     public function create_user(){
-        $dept = Department::all()->pluck('id', 'department_name');
-        return view('admin.auth.internal_user.create-user')->with('dept', $dept);
+        $dept = Department::all();
+        return view('admin.auth.internal_user.create-user')->with('depts', $dept);
     }
 
     public function store_user(Request $request){

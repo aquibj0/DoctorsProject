@@ -61,6 +61,7 @@ class VideoConsultationController extends Controller
      */
     public function store(Request $request)
     {
+        DB::transaction(function(){
         if($request->patient_id){
             $validator = Validator::make($request->all(), [
                 // 'patient_id' => ['required', 'string', 'max:40'],
@@ -202,13 +203,14 @@ class VideoConsultationController extends Controller
                         $srvcReq->delete();
                         return redirect()->back()->with('error', 'Something went wrong')->withInputs();
                     }
-            }else{
-                return redirect()->back()->withInput()->withErrors($validator);
+                }else{
+                    return redirect()->back()->withInput()->withErrors($validator);
+                }
             }
-        }
         // return $request;
+        }
+        });
     }
-}
 
     /**
      * Display the specified resource.

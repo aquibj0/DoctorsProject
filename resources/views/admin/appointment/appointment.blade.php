@@ -24,12 +24,17 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="row">
-                                                
-                                                <div class="col-md-4">
-                                                    <input type="date" name="date" class="form-control" id="my_date_picker" value="date" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}" required>         
+                                            <div class="form-group form-row">
+                                                <div class="col-md-6">
+                                                    <input type="date" name="start-date" class="form-control" id="start-date" value="date" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
+                                                    <input type="date" name="end-date" class="form-control" id="end-date" value="date" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group form-row">
+                                                <div class="col-md-6">
                                                     {{-- <input type="date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">          --}}
                                                     <select name="appType" id="appType" class="form-control" required>
                                                         <option disabled selected>Select Type</option>
@@ -38,7 +43,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <select name="location" class="form-control" id="location">
                                                         <option disabled selected>Select Location</option>
                                                         {{-- <option value="kolkata">kolkata</option>
