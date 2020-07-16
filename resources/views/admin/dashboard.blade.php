@@ -13,23 +13,32 @@
             </div>
             <div class="card">
                 @include('layouts.message')
-                <div class="card-body">
+                <div class="card-header">
                     <div class="row">
                         <div class="col-md">
+                            <div class="date-range">
+
+                            </div>
                             <span style="float: right">
                                 <select name="filter" id="filter" class="form-control">
+                                    <option disabled selected>Filters</option>
                                     <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option>
                                     <option disabled>-Service Type-</option>
-                                    <option value="AAQ">AAQ</option>
-                                    <option value="VED">VED</option>
-                                    <option value="VTD">VTD</option>
-                                    <option value="CLI">CLI</option>
+                                    <option value="AAQ">Ask A Question</option>
+                                    <option value="VED">Video call with Expert Doctor</option>
+                                    <option value="VTD">Video call with Team Doctor</option>
+                                    <option value="CLI">Clinic Appointment</option>
+                                    <option disabled>-Others-</option>
+                                    <option value="date">Date</option>
                                 </select>
                             </span>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
+                    
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
@@ -41,7 +50,7 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             @if (!empty($servReq))
                                 @foreach ($servReq as $serviceReq)
                                     <tr>
@@ -81,8 +90,44 @@
         </div>
     </div>
 
-
+    {{-- <input type="date" name="start-date" id="start-date" class="form-control">
+    <input type="date" name="end-date" id="end-date" class="form-control">
+ --}}
 
 
 </div>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //date change
+
+        $('#filter').on('change', function(){
+            // var appType = $(this).val();
+            var filter = $(this).val();
+            // console.log(appType);
+            console.log(filter);
+            // $('#slot').find('option').not(':first').remove();
+            if(filter != "date"){
+                $.ajax({
+                    url: '/query/'+filter,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        $('#table').empty();
+                        $.each(data, function(srId, ) )
+                    },
+                    error: function(){
+                        console.log('error');
+                    }
+                });
+            }else{
+                console.log("date section");
+                var html = '<input type="date" name="start-date" id="start-date" class="form-control">';
+                html += '<input type="date" name="end-date" id="end-date" class="form-control">';
+                $('#date-range').append(html);
+            }
+        });
+    });
+</script> --}}
 @endsection

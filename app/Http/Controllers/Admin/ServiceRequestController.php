@@ -30,6 +30,22 @@ class ServiceRequestController extends Controller
         // 
     }
 
+    public function query($query){
+        if($query == "paid"){
+            $result = ServiceRequest::where('paymentStatus', 1)->get();
+            return $result;
+        }
+        if($query == "unpaid"){
+            $result = ServiceRequest::whereNull('paymentStatus')->get();
+            return $result;
+        }
+        if($query == "AAQ" || $query == "VED" || $query == "VTD" || $query == "CLI"){
+            $service = Service::where('srvcShortName', $query)->first(); 
+            $result = ServiceRequest::where('service_id', $service->id)->get();
+            return $result;
+        }
+    }
+
     public function response($id, Request $request){
         $aaq = AskAQuestion::find($id);
         $aaq->aaqDocResponse = $request['response'];

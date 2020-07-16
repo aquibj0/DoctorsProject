@@ -9,6 +9,7 @@ use App\AppointmentSchedule;
 use App\ServiceRequest;
 use App\VideoCall;
 use App\Service;
+use App\Department;
 use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
@@ -25,10 +26,11 @@ class VideoConsultationController extends Controller
     {
         $patient = Patient::find($id);
         // $slot = AppointmentSchedule::where('appmntSlotFreeCount','>', 0)->get();
+        $depts = Department::all();
         if($patient)
-            return view('VideoConsultation.index')->with('patient', $patient);
+            return view('VideoConsultation.index')->with('patient', $patient)->with('depts', $depts);
         else
-            return view('VideoConsultation.index')->with('patient', null);
+            return view('VideoConsultation.index')->with('patient', null)->with('depts', $depts);
     }
 
     public function getSlots($date, $appType){

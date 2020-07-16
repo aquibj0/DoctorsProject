@@ -37,9 +37,9 @@
                                                     {{-- <input type="date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">          --}}
                                                     <select name="appType" id="appType" class="form-control" required>
                                                         <option disabled selected>Select Type</option>
-                                                        <option value="VED">Video Call with Expert Doctor</option>
-                                                        <option value="VTD">Video Call with Team Doctor</option>
-                                                        <option value="CLI">Clinic Appointment</option>
+                                                        @foreach($services as $service)
+                                                            <option value="{{ $service->id }}">{{ $service->srvcName }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
@@ -109,7 +109,7 @@
 
             var cli = $(this).val();
 
-            if(cli == 'CLI'){
+            if(cli == '4'){
                 $.ajax({
                     url: '/getLocation',
                     type: 'get',

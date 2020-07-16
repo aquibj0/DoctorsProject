@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container">
@@ -113,9 +113,9 @@
                                         {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
                                         <select name="department" id="department" class="form-control">
                                             <option selected disabled>Select one</option>
-                                            <option value="value1">value 1</option>
-                                            <option value="value2">value 2</option>
-                                            <option value="value3">value 3</option>
+                                            @foreach($dept as $item)
+                                                <option value="{{ $item->id }}">{{ $item->department_name }}</option>
+                                            @endforeach
                                         </select>
                                         @if ($errors->has('category'))
                                             <span class="help-block">

@@ -73,11 +73,11 @@
                                             <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
                                         </div>
                                     </div>
-                                    <div class="form-row">
+                                    {{-- <div class="form-row">
                                         <div class="form-group col-md-12">
                                             <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                 @else <!-- without patient data -->
@@ -251,9 +251,9 @@
                                     <div class="form-group col-md-6">
                                         <select class="form-control" name="department" id="department" required>
                                             <option selected disabled>Department </option>
-                                            <option value="Value 1">Value 1</option>
-                                            <option value="value 2">Value 2</option>
-                                            <option value="value 3">Value 3</option>
+                                            @foreach($depts as $dept)
+                                                <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -262,9 +262,10 @@
                                         @enderror
                                     </div>
                                 </div>
+                                @if($patient)
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -272,6 +273,19 @@
                                         @enderror
                                     </div>
                                 </div>
+                                @else
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                @endif
 
 
                                 <div class="mb-3">
