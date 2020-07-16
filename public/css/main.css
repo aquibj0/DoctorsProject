@@ -114,11 +114,17 @@ html, body{
 .img{
     height: 150px;
     width: 150px;
-    border-radius: 50%;
-    background-color: #142CD6;
+    /* border-radius: 50%; */
+    /* background-color: #142CD6; */
     margin-bottom: 20px;
 }
-
+.img img{
+    max-width: 100%;
+}
+.img img.image-round{
+    border-radius: 50%;
+    box-shadow:  0 7px 21px rgba(0, 0, 0, 0.2);
+}
 .header-brief{
     text-align: -webkit-center;
     text-align: center;

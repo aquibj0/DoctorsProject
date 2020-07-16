@@ -7,20 +7,15 @@
     <div class="container">
             @include('layouts.message')
         <div class="row mt-4">
-
-           
             <div class="col-md-4">
                 <div class="card">
-                    
-
-
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->userImage)
                                 <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:70%" alt="">
 
                             @else
-                                <img src="https://image.flaticon.com/icons/svg/2948/2948035.svg" style="max-width:60%" alt="">
+                                <img src="{{asset('image/user-profile.png')}}" style="max-width:60%" alt="">
                             @endisset
                         </div>
                         <a href="#" data-toggle="modal" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
@@ -49,7 +44,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">

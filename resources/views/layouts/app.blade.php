@@ -32,9 +32,12 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{asset('image/logo.png')}}" style="max-width:50px;" alt="">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <span class="maroon">DR-ONLINE</span> <br>
-                    <p style="margin-top:-15px; font-size:14px" class=" text-center maroon mb-0">Exceptional Care you choose</p>
+                    <span>
+                        <span class="maroon">DR-ONLINE</span> <br>
+                        <p style="margin-top:-15px; font-size:14px" class=" text-right maroon mb-0">Exceptional Care you choose</p>
+                    </span>
                 </a>
                 
                

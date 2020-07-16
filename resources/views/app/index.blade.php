@@ -7,27 +7,35 @@
             <div class="col-md-3">
                 <h2 class="maroon"><b>Dr. FFFFF LLLLL</b></h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque doloremque, nihil est ipsa nemo similique repellendus nisi, veniam fugit ullam ad odit fuga magnam vero asperiores placeat aut quam aperiam?</p>
-                <div class="img"></div>
+                <div class="img">
+                    <img src="{{asset('image/IMAGE2.png')}}" alt="">
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="round-img">
                             <h4 class="maroon">Location 1</h4>
-                            <div class="img"></div>
+                            <div class="img">
+                                <img class="image-round " src="{{asset('image/IMAGE1A.png')}}" alt="">
+                            </div>
                         </div>
                         
                     </div>
                     <div class="col-md-4">
                         <div class="round-img">
-                            <div class="img"></div>
+                            <div class="img">
+                                <img class="image-round " src="{{asset('image/IMAGE1B.png')}}" alt="">
+                            </div>
                             <h4 class="maroon">Location 2</h4>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="round-img">
                                 <h4 class="maroon">Location 3</h4>
-                                <div class="img"></div>
+                                <div class="img">
+                                    <img class="image-round " src="{{asset('image/IMAGE1C.png')}}" alt="">
+                                </div>
                         </div>
                     </div>
                     <div class="col-md-12">
