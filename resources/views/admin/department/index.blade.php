@@ -13,13 +13,14 @@
                 </div>
             </div>
             <div class="card">
+                <div class="card-header">
+                        <a href="#" data-toggle="modal" data-target="#createDepartment" class="btn btn-maroon btn-md float-right" >Add Department</a>
+                </div>
                 <div class="card-body">
                     @include('layouts.message')
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="float-right mb-3">
-                                <a href="#" data-toggle="modal" data-target="#createDepartment" class="btn btn-maroon btn-sm" >Add Department</a>
-                            </div>
+                
                             @if (!empty($departments))
                                 <table class="table table-responsive table-bordered">
                                     <thead class="thead-dark">
@@ -72,7 +73,7 @@
 
 
                                                     <a href="#" data-toggle="modal" data-target="#{{ 'deleteDepartment'.$loop->iteration }}" class="btn btn-maroon btn-sm">Delete</a>
-                                                    <!--Edit Department Modal -->
+                                                    <!--Delete Department Modal -->
                                                     <div class="modal fade" id="{{ 'deleteDepartment'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">

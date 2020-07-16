@@ -167,9 +167,9 @@
 
                                     {{-- Patient Email Input --}}
                                     <div class="form-group col-md-6">
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" name="patEmail" value="{{ old('email') }}" required>
+                                        <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
                                        
-                                        @error('email')
+                                        @error('patEmail')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -255,7 +255,7 @@
                                             <option value="value 2">Value 2</option>
                                             <option value="value 3">Value 3</option>
                                         </select>
-                                        @error('email')
+                                        @error('department')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -265,7 +265,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
-                                        @error('email')
+                                        @error('patient_background')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -282,7 +282,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required></textarea>
-                                        @error('email')
+                                        @error('patient_question')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

@@ -29,7 +29,6 @@ Route::get('/getLocSlots/{date}/CLI/{id}', 'ClinicAppointmentController@getLocSL
 Route::get('/getLocation', 'Admin\AppointmentController@getLocation');
 
 
-
 Route::group(['middleware' => ['auth']], function () {
     // User Setting
     Route::get('/setting/{id}', 'UserController@show');
@@ -125,22 +124,27 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
 
+        // Appointment
         Route::get('/appointment/create', 'Admin\AppointmentController@create');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
+
+        // Clinic Route
         Route::get('/clinic', 'Admin\ClinicController@index');
         Route::get('/clinic/create', 'Admin\ClinicController@create');
         Route::post('/clinic', 'Admin\ClinicController@store');
-        Route::get('/clinic/{id}/delete', 'Admin\ClinicController@destroy');
+        Route::delete('/clinic/{id}/delete', 'Admin\ClinicController@destroy');
 
         // Department
         Route::get('/departments', 'Admin\DepartmentController@index');
+        Route::get('/departments/create', 'Admin\DepartmentController@create');
         Route::post('/department/store', 'Admin\DepartmentController@store')->name('department.store');
         Route::post('/department/{id}', 'Admin\DepartmentController@update')->name('department.edit');
         Route::delete('/department/{id}', 'Admin\DepartmentController@destroy')->name('department.delete');
 
 
         // Services
-        Route::get('/services', 'Admin\ServiceController@index');
+        Route::get('/services', 'Admin\ServiceController@index')->name('service.home');
+        Route::get('/services/create', 'Admin\ServiceController@create');
         Route::post('/services/store', 'Admin\ServiceController@store')->name('service.store');
         Route::post('/services/{id}', 'Admin\ServiceController@update')->name('service.edit');
         Route::delete('/services/{id}', 'Admin\ServiceController@destroy')->name('service.delete');

@@ -107,6 +107,7 @@ class AskDoctorController extends Controller
                     }
                     $patient->patMobileCC = $request['mobileCC'];
                     $patient->patMobileNo = $request['patMobileNo']; 
+                    $patient->patEmail = $request['patEmail']; 
                     $patient->patAddrLine1 = $request['addressLine1'];
                     $patient->patAddrLine2 = $request['addressLine2'];
                     $patient->patCity = $request['city'];

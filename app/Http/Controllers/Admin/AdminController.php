@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
 use App\PatientDocument;
+use App\Department;
 
 
 class AdminController extends Controller
@@ -32,12 +33,12 @@ class AdminController extends Controller
 
     public function create_user_index(){
         $users = Admin::all();
-        return view('admin.auth.index-user')->with('users', $users);
+        return view('admin.internal-user.index')->with('users', $users);
     }
 
     public function create_user(){
         $dept = Department::all()->pluck('id', '');
-        return view('admin.auth.create-user');
+        return view('admin.internal-user.create');
     }
 
     public function store_user(Request $request){
