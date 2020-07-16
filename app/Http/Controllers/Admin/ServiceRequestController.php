@@ -99,10 +99,12 @@ class ServiceRequestController extends Controller
             // $service = Service::find($srvcReq->service_id);
             $patient = Patient::find($srvcReq->patient_id);
             // return strpos($srvcReq->srId, "AAQ");
-            if(strpos($srvcReq->srId, "AAQ") == true){
-                $asaq = AskAQuestion::find($srvcReq->servSpecificId);
-                return view('admin.service-request-details')->with('srvcReq', $srvcReq)->with('patient', $patient)->with('aaq', $asaq);
-            }
+            // if(strpos($srvcReq->srId, "AAQ") == true){
+            //     $asaq = AskAQuestion::find($srvcReq->servSpecificId);
+            return view('admin.service-request-details')->with('srvcReq', $srvcReq)
+                ->with('patient', $patient);
+                // ->with('aaq', $asaq);
+            // }
             // $asaq = AskAQuestion::find($srvcReq->)
         }
         else{

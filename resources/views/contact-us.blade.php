@@ -9,14 +9,9 @@
             <div class="register-block mt-4 mb-4">
                 <h2>Contact Us</h2>
             </div>
-                
             <div class="card">
-
                 <div class="card-body user-login-form">
                     @include('layouts.message')
-
-
-
                     <form action="{{ url('/contact-us') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-row">
