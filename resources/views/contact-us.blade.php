@@ -3,12 +3,20 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-8">
-
             <div class="register-block mt-4 mb-4">
                 <h2>Contact Us</h2>
             </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <img  src="{{asset('image/contact.png')}}" style="max-width:100%;" alt="">
+        </div>
+        <div class="col-md-8">
+
+            
             <div class="card">
                 <div class="card-body user-login-form">
                     @include('layouts.message')
