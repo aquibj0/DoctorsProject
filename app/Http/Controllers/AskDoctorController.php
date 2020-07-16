@@ -135,7 +135,7 @@ class AskDoctorController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
                     $srvcReq->update();
                     
 
