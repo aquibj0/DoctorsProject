@@ -34,8 +34,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <p class="mb-0"><span class="maroon">DR-ONLINE</span></p>
-                        <small class="maroon">Exceptional Care you choose</small>
+                        <span class="maroon">DR-ONLINE</span> <br>
+                        <p style="margin-top:-15px; font-size:14px" class=" text-center maroon mb-0">Exceptional Care you choose</p>
                         
                     </a>
                
@@ -63,6 +63,9 @@
                         </li>
                         <li class="nav-item">
                             <a href="/admin/departments" class="nav-link">Departments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/services" class="nav-link">Services</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a href="/services" class="nav-link">Services </a>
