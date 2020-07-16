@@ -2,11 +2,7 @@
 @section('content')
 
 <section class="ask-doctor" style="padding-top:0">
-    
     <div class="row">
-        {{-- <div class="col-md-4" style="background:#142cd6; height:100vh;"></div>
-        <div class="col-md-8" style=" height:100vh;">
-             --}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="ask-dcotor-form">
@@ -38,7 +34,7 @@
                                                     <select name="appType" id="appType" class="form-control" required>
                                                         <option disabled selected>Select Type</option>
                                                         @foreach($services as $service)
-                                                            <option value="{{ $service->id }}">{{ $service->srvcName }}</option>
+                                                            <option value="{{ $service->srvcShortName }}">{{ $service->srvcName }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -65,16 +61,16 @@
                                             <div class="row">    
                                                 <div class="col-md">
                                                 
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
                                                 </div>
                                                 <div class="col-md">
-                                                <input type="checkbox" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>{{ $i->toTimeString() }}&nbsp;
+                                                <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
                                                 </div>
                                             </div>
                                                 <br>
@@ -109,13 +105,15 @@
 
             var cli = $(this).val();
 
-            if(cli == '4'){
+            if(cli == 'CLI'){
                 $.ajax({
                     url: '/getLocation',
                     type: 'get',
                     dataType: 'json',
                     success: function(data){
                         if(data){
+                            $("#location").empty();
+                            $("#location").append("<option selected disabled>Select one</option>");
                             $.each(data, function(key, value){
                                 $("#location").append("<option value='"+value+"'>"+key+"</option>");
                             });
@@ -129,7 +127,7 @@
             }else{
                 if($('#location')){
                     $("#location").empty();
-                    $("#location").append("<option selected disabled>Select Location</option>");
+                    $("#location").append("<option selected disabled>Not Applicable</option>");
                 }
             }
             
