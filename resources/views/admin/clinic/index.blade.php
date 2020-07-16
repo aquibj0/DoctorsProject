@@ -18,7 +18,7 @@
                         <div class="col-md">
 
                             <span style="float: right">
-                                <a href="/admin/clinic/create" class="btn btn-md btn-success">Add new clinic</a>
+                                <a href="/admin/clinic/create" class="btn btn-md btn-maroon">Add new clinic</a>
                             </span>
                             {{-- <span style="float: right">
                                 <select name="filter" id="filter" class="form-control">

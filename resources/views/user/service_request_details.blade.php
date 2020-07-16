@@ -430,7 +430,7 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Request Cancellation</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"><b>Request Cancellation</b></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -438,13 +438,15 @@
                                             <form  action="/request-cancellation/{{$serviceRequests->id}}" method="POST">
 
                                                 <div class="modal-body">
+
+                                                    Cancell Request No {{$serviceRequests->srId}} ?
                                                     @csrf
                                                     <input type="hidden" name="srStatus" id="srStatus" value="Cancelled">
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-maroon btn-md mb-2" onclick="return confirm('Are you sure you want to cancel?')">Request Cancellation</button>
+                                                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure you want to cancel?')">Request Cancellation</button>
                                                     
                                                 </div>
                                             </div>

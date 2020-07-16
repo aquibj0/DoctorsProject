@@ -36,7 +36,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage. 
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -66,7 +66,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.department.create');
     }
 
     /**

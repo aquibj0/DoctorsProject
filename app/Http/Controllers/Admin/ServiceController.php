@@ -32,7 +32,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        
+        return view('admin.service.create');
     }
 
     /**
@@ -44,21 +44,22 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'srvcName' => ['required', 'string', 'max:40'],
+            'srvcName' => ['required', 'max:40'],
             'srvcShortName' => ['required', 'string', 'max:6'],
-            'srvcPrice' =>['required', 'numeric'],
+            'srvcPrice' =>['required', 'regex:/^\d*(\.\d{2})?$/'],
         ]);
         if(!$validator->fails()){
             $service = new Service;
             $service->srvcName = $request['srvcName'];
             $service->srvcShortName = $request['srvcShortName'];
             $service->srvcPrice = $request['srvcPrice'];
-            return $service;
-            // $service->save();
+            // return $service;
+            $service->save();
+            return redirect()->route('service.home')->with('success', 'Service Added');
             // return redirect()->back()->with('success', 'Service Added');
         }
         else{
-            return redirect()->back()->withErrors($validator);
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 
@@ -81,7 +82,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -93,7 +94,14 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request){
+            $service = Service::find($id);
+            $service->srvcName = $request['srvcName'];
+            $service->srvcShortName = $request['srvcShortName'];
+            $service->srvcPrice = $request['srvcPrice'];
+            $service->save();
+            return redirect()->back()->with('success', 'Service Added');
+        }
     }
 
     /**
@@ -104,6 +112,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Service::destroy($id);
+        return redirect()->back()->with('success', 'Deleted');
     }
 }

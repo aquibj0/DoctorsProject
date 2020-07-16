@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>
                 <div class="row">
@@ -17,7 +17,7 @@
                     @include('layouts.message')
                     <div class="card">
                         <div class="card-body">
-                            {{-- @if ($errors->any())
+                            @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
                                         @foreach ($errors->all() as $error)
@@ -25,9 +25,9 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif --}}
+                            @endif
 
-                            <form class="form-horizontal" method="POST" action="{{ route('admin.register.user.store') }}">
+                            <form  method="POST" action="{{ route('admin.register.user.store') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('firstName') ? ' has-error' : '' }}">
                                     <label for="firstName" class="col-md-4 control-label">First Name</label>

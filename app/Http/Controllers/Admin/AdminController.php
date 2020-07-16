@@ -33,13 +33,19 @@ class AdminController extends Controller
 
     public function create_user_index(){
         $users = Admin::all();
-        return view('admin.auth.internal_user.index-user')->with('users', $users);
+        return view('admin.internal-user.index')->with('users', $users);
     }
 
     public function create_user(){
         $dept = Department::all();
-        return view('admin.auth.internal_user.create-user')->with('depts', $dept);
+        return view('admin.internal-user.create')->with('depts', $dept);
+        // return view('admin.auth.internal_user.index-user')->with('users', $users);
     }
+
+    // public function create_user(){
+    //     $dept = Department::all()->pluck('id', 'department_name');
+    //     return view('admin.auth.internal_user.create-user')->with('dept', $dept);
+    // }
 
     public function store_user(Request $request){
         // return $request;
@@ -51,25 +57,29 @@ class AdminController extends Controller
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         if(!$validator->fails()){
-        $intUser = new Admin;
-        $intUser->firstName = $request->firstName;
-        $intUser->lastName = $request->lastName;
-        $intUser->phoneNo = $request->phoneNo;
-        $intUser->category = $request->category;
-        $intUser->department = $request->department;
-        $intUser->email = $request->email;
-        $intUser->gender = $request->gender;
-        if($request->category == 'doc'){
-            $intUser->salutation = 'Dr.';
-        }else{
-            $intUser->salutation = 'Mr./Ms.';
-        }
-        $intUser->password = Hash::make('password');
-        $intUser->save();
-        $intUser->intuId = "IID".$intUser->id;
-        $intUser->update();
-        
-        return redirect('/admin')->with('success', 'User created successfully!');
+            $intUser = new Admin;
+            $intUser->firstName = $request->firstName;
+            $intUser->lastName = $request->lastName;
+            $intUser->phoneNo = $request->phoneNo;
+            $intUser->category = $request->category;
+            $intUser->department = $request->department;
+            $intUser->email = $request->email;
+            $intUser->gender = $request->gender;
+            if($request->category == 'doc'){
+                $intUser->salutation = 'Dr.';
+            }else{
+                if($request->gender == "Male"){
+                    $intUser->salutation = 'Mr.';
+                }else{
+                    $intUser->salutation = 'Ms./Mrs.';
+                }
+            }
+            $intUser->password = Hash::make('password');
+            $intUser->save();
+            $intUser->intuId = "IID".$intUser->id;
+            $intUser->update();
+            
+            return redirect('/admin')->with('success', 'User created successfully!');
         }else{
             return redirect()->back()->withErrors($validator)->withInput();
         }   

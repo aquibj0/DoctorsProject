@@ -5,18 +5,47 @@
 
 
     <div class="container">
+            @include('layouts.message')
         <div class="row mt-4">
+
+           
             <div class="col-md-4">
                 <div class="card">
-                    @include('layouts.message')
+                    
 
 
                     <div class="card-body text-center">
-                        <div class="user-image" style="background:#142cd6; height:200px; width:100%; border-radius:12px">
-                            <img src="'storage/.'{{Auth::user()->userImage}}" style="max-width:100%" alt="">
+                        <div class="user-image" style="height:200px; width:100%; border-radius:12px">
+                            @isset(Auth::user()->userImage)
+                                <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:70%" alt="">
 
+                            @else
+                                <img src="https://image.flaticon.com/icons/svg/2948/2948035.svg" style="max-width:60%" alt="">
+                            @endisset
                         </div>
-                        <a href="#" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
+                        <a href="#" data-toggle="modal" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
+                        <div class="modal fade" id="uploadImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{route('image.upload',Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="file" name="userImage" id="userImage" class="form-control">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-maroon btn-sm" >Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

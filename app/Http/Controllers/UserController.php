@@ -47,13 +47,6 @@ class UserController extends Controller
 
 
     public function update(Request $request, $id){
-        $user = Auth::user()->where('id', $id)->first();
-        // if(Auth::user()->id == $user->id && $request){
-            
-
-        // }
-
-
     }
 
 
@@ -82,6 +75,17 @@ class UserController extends Controller
 
         return redirect()->back()->with("success","Password changed successfully !");
 
+    }
+
+    public function updateImage( Request $request, $id){
+        if($request){
+            $user = Auth::user()->where('id', $id)->first();
+            if($request->hasFile('userImage')){
+                $user->userImage = $request->file('userImage')->store('userImage','public');
+            }
+            $user->update();
+            return redirect()->back()->with('success', 'Image successfull Uploaded');
+        }
     }
 
 
