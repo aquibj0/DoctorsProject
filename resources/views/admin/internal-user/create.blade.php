@@ -96,7 +96,8 @@
                                         <select name="category" id="category" class="form-control">
                                             <option selected disabled>Select one</option>
                                             <option value="doc">Doctor</option>
-                                            <option value="asis">Assistance</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="others">Others Staff</option>
                                         </select>
                                         @if ($errors->has('category'))
                                             <span class="help-block">
@@ -113,9 +114,9 @@
                                         {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
                                         <select name="department" id="department" class="form-control">
                                             <option selected disabled>Select one</option>
-                                            <option value="value1">value 1</option>
-                                            <option value="value2">value 2</option>
-                                            <option value="value3">value 3</option>
+                                            @foreach($depts as $dept)
+                                                <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                            @endforeach
                                         </select>
                                         @if ($errors->has('category'))
                                             <span class="help-block">
