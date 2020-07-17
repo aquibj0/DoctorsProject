@@ -23,10 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->id == 8){
-            return view(admin.home);
-        }else{
-            return view('home');
-        }
+            return view('app.index');
+        // }
     }
 }

@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+DoctorsProject-1.rar
+DoctorsProject.rar
 .env
 .env.backup
 .phpunit.result.cache

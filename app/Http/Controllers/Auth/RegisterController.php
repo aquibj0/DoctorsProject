@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
+use App\Mail\auth\RegisterEmail;
 
 class RegisterController extends Controller
 {
@@ -31,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -85,7 +87,7 @@ class RegisterController extends Controller
             'lastName' => ['required', 'string', 'max:40'],
             'userEmail' => ['string', 'email', 'max:100', 'unique:users'],
             'userMobileNo' => ['required', 'numeric',  'digits:10', 'unique:users'],
-            'userLandLineNo'  => ['numeric',  'digits:10', 'unique:users'],
+            'userLandLineNo'  => ['numeric', 'nullable', 'digits:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -103,6 +105,7 @@ class RegisterController extends Controller
             $user->userId = "UID".$user->id;
             $user->update();
             Auth::login($user);
+            Mail::to($user->userEmail)->send(new RegisterEmail($user));
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
             return redirect('/register')->withErrors($validator)->withInput();

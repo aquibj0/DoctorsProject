@@ -22,12 +22,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AskDoctorController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index($id)
     {
         $patient = Patient::find($id);
@@ -59,22 +59,22 @@ class AskDoctorController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'firstName' => ['required', 'string', 'max:40'],
-            'lastName' => ['required', 'string', 'max:40'],
-            'gender' => ['required'],
-            'age' => ['required'],
-            'background' => ['required'],
-            'email' => ['string', 'email', 'max:100'],
-            'mobileCC' => ['required'],
-            'mobileNo' => ['required', 'numeric',  'digits:10', 'unique:users', 'regex:/(01)[0-9]{9}/'],
-            'addrLine1' => ['required', 'string', 'max:100'],
-            'addrLine2' => [ 'string', 'max:100'],
-            'city' => ['required'],
-            'district' => ['required'],
-            'state' => ['required'],
-            'country' => ['required'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'firstName' => ['required', 'string', 'max:40'],
+        //     'lastName' => ['required', 'string', 'max:40'],
+        //     'gender' => ['required'],
+        //     'age' => ['required'],
+        //     'background' => ['required'],
+        //     'email' => ['string', 'email', 'max:100'],
+        //     'mobileCC' => ['required'],
+        //     'mobileNo' => ['required', 'numeric',  'digits:10', 'unique:users', 'regex:/(01)[0-9]{9}/'],
+        //     'addrLine1' => ['required', 'string', 'max:100'],
+        //     'addrLine2' => [ 'string', 'max:100'],
+        //     'city' => ['required'],
+        //     'district' => ['required'],
+        //     'state' => ['required'],
+        //     'country' => ['required'],
+        // ]);
 
         if($request){
             $validator = Validator::make($request->all(), [
@@ -137,7 +137,7 @@ class AskDoctorController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".$srvcReq->id."AAQ";
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
                     $srvcReq->update();
                     
 
@@ -154,7 +154,6 @@ class AskDoctorController extends Controller
                         $asaq->save();
                         
                         //1 is the status for sending confirmation mail
-                        //
                         SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                         
                         // Sms::send("This is test message")->to(Auth::user()->userPhoneNo)->dispatch();
