@@ -32,11 +32,12 @@ return [
 
         'textlocal' => [
             'url' => 'http://api.textlocal.in/send/', // Country Wise this may change.
-            'username' => 'Your Username',
-            'hash' => 'Your Hash',
-            'sender' => 'Sender Name',
+            'username' => 'aquib_j@yahoo.com',
+            'hash' => '3991b99966d92e8ddf69d03eef7a213a35fa4e926256054abfdc133dda3153fb',
+            'sender' => 'Aquib Jawed',
+            'key' => 'R8RFqjVOeyo-0nynR3xarHyg4w3Ua93Xkuzi7IPelL',
         ],
-        
+
         'nexmo' => [ // Install: composer require nexmo/client
             'key' => 'Your Nexmo API Key',
             'secret' => 'Your Nexmo API Secret',

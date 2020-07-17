@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+// use Tzsk\Sms\Facade\Sms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\AskAQuestion;
@@ -16,6 +17,7 @@ use App\Jobs\SendEmail;
 use Razorpay\Api\Api;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+
 // use Carbon\Carbon;
 
 class AskDoctorController extends Controller
@@ -154,6 +156,13 @@ class AskDoctorController extends Controller
                         //1 is the status for sending confirmation mail
                         //
                         SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                        
+                        // Sms::send("This is test message")->to(Auth::user()->userPhoneNo)->dispatch();
+
+                        // Sms::send("this message", function($sms) {
+                        //     $sms->to('9576477595'); # The numbers to send to.
+                        // });
+
 
                         return redirect()->route('confirm-service-request', $srvdID);
                         // ->with('success', 'Your Booking is done, Please pay to confirm.');
