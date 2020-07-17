@@ -22,13 +22,10 @@ class PaymentController extends Controller
 
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
 
-        
-        $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
-
         $api = new Api($this->razorpayId, $this->razorpayKey);
 
         // In razorpay you have to convert rupees into paise we multiply by 100
-        // Currency will be INR
+        // Currency will be INR 
         // Creating order
         $order = $api->order->create(array(
             'receipt' => $srvdID,
