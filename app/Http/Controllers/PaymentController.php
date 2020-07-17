@@ -22,30 +22,8 @@ class PaymentController extends Controller
 
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
 
-        $api = new Api($this->razorpayId, $this->razorpayKey);
-
-        // In razorpay you have to convert rupees into paise we multiply by 100
-        // Currency will be INR 
-        // Creating order
-        $order = $api->order->create(array(
-            'receipt' => $srvdID,
-            'amount' => $serviceRequest->service->srvcPrice * 100,
-            'currency' => 'INR'
-            )
-        );
-
-        $response = [
-            'orderId' => $order['id'],
-            'razorpayId' => $this->razorpayId,
-            'amount' => $serviceRequest->service->srvcPrice * 100,
-            'name' => $serviceRequest->patient->userFirstName,
-            'currency' => 'INR',
-            'email' =>  $serviceRequest->patient->userEmail,
-            'contactNumber' =>  $serviceRequest->patient->userMobileNo,
-            'address' => $serviceRequest->patient->userLastName,
-            'description' => 'Testing description',
-        ];        
-        return view('ask-doctor.booking', compact('serviceRequest', 'response'));
+        
+        
     }
 
 

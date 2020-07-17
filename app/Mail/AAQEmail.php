@@ -33,7 +33,7 @@ class AAQEmail extends Mailable
      * @return $this
      */
     public function build()
-    {
+    { 
         return $this->view('mail.user.ask-doctor.confirm');
     }
 }

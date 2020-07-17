@@ -2,11 +2,19 @@
 @section('content')
 
 <section class="header">
-    <div class="container">
-        <div class="row" >
+    <div class="">
+        <div class="row mt-3" >
             <div class="col-md-3">
-                <h2 class="maroon"><b>Dr. FFFFF LLLLL</b></h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque doloremque, nihil est ipsa nemo similique repellendus nisi, veniam fugit ullam ad odit fuga magnam vero asperiores placeat aut quam aperiam?</p>
+                <h3 class="maroon"><b>Dr Gautam Khastgir</h3>
+                <p>
+                    <span><b>MBBS, MD, MRCOG</b></span>
+                    MD, FRCS, FRCOG, FICOG
+                    Medical Director
+                    Subspecialty in Reproductive
+                    Medicine and Surgery
+                    Gynecological Endoscopic
+                    Surgery
+                </p>
                 <div class="img">
                     <img src="{{asset('image/IMAGE2.png')}}" alt="">
                 </div>
@@ -15,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="round-img">
-                            <h4 class="maroon">Location 1</h4>
+                            <h4 class="maroon"><b>Salt Lake, Kolkata</b></h4>
                             <div class="img">
                                 <img class="image-round " src="{{asset('image/IMAGE1A.png')}}" alt="">
                             </div>
@@ -27,12 +35,12 @@
                             <div class="img">
                                 <img class="image-round " src="{{asset('image/IMAGE1B.png')}}" alt="">
                             </div>
-                            <h4 class="maroon">Location 2</h4>
+                            <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="round-img">
-                                <h4 class="maroon">Location 3</h4>
+                                <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
                                 <div class="img">
                                     <img class="image-round " src="{{asset('image/IMAGE1C.png')}}" alt="">
                                 </div>
@@ -40,19 +48,14 @@
                     </div>
                     <div class="col-md-12">
                         <div class="header-brief">
-                            <h4><b>Exceptional Care Close To You</b></h4>
+                            <h4><b>Delivering GOD’s Creation to Mankind</b></h4>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
 </section>
-
 
 
 <section id="services" class="service-section">
