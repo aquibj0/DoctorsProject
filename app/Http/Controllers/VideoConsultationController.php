@@ -13,7 +13,7 @@ use App\Department;
 use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
-
+use DB;
 
 class VideoConsultationController extends Controller
 {
@@ -61,7 +61,7 @@ class VideoConsultationController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function(){
+        // DB::transaction(function(){
         if($request->patient_id){
             $validator = Validator::make($request->all(), [
                 // 'patient_id' => ['required', 'string', 'max:40'],
@@ -209,7 +209,7 @@ class VideoConsultationController extends Controller
             }
         // return $request;
         }
-        });
+        // });
     }
 
     /**
