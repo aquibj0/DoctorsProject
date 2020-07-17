@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use App\ServiceRequest;
 use App\Department;
 use App\PatientDocument;
+use Mail;
+use Illuminate\Support\Facades\DB;
+use App\Mail\auth\InternalUserRegisterEmail;
 
 
 class AdminController extends Controller
@@ -25,6 +28,17 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function random_strings($length_of_string) 
+    { 
+        // String of all alphanumeric character 
+        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
+    
+        // Shufle the $str_result and returns substring 
+        // of specified length 
+        return substr(str_shuffle($str_result), 0, $length_of_string); 
+    } 
+
     public function index()
     {
         $servReq = ServiceRequest::all();
@@ -57,29 +71,39 @@ class AdminController extends Controller
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         if(!$validator->fails()){
-            $intUser = new Admin;
-            $intUser->firstName = $request->firstName;
-            $intUser->lastName = $request->lastName;
-            $intUser->phoneNo = $request->phoneNo;
-            $intUser->category = $request->category;
-            $intUser->department = $request->department;
-            $intUser->email = $request->email;
-            $intUser->gender = $request->gender;
-            if($request->category == 'doc'){
-                $intUser->salutation = 'Dr.';
-            }else{
-                if($request->gender == "Male"){
-                    $intUser->salutation = 'Mr.';
-                }else{
-                    $intUser->salutation = 'Ms./Mrs.';
+            DB::beginTransaction();
+                try{
+                    $intUser = new Admin;
+                    $intUser->firstName = $request->firstName;
+                    $intUser->lastName = $request->lastName;
+                    $intUser->phoneNo = $request->phoneNo;
+                    $intUser->category = $request->category;
+                    $department = Department::find($request->department);
+                    $intUser->department = $department->department_name;
+                    $intUser->email = $request->email;
+                    $intUser->gender = $request->gender;
+                    if($request->category == 'doc'){
+                        $intUser->salutation = 'Dr.';
+                    }else{
+                        if($request->gender == "Male"){
+                            $intUser->salutation = 'Mr.';
+                        }else{
+                            $intUser->salutation = 'Ms./Mrs.';
+                        }
+                    }
+                    $password = $this->random_strings(10);
+                    $intUser->password = Hash::make($password);
+                    $intUser->save();
+                    $intUser->intuId = "IID".$intUser->id;
+                    $intUser->update();
+                    Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
+                    
+                } catch(\Exception $e){
+                    DB::rollback();
+                    return redirect()->back()->with('error', 'Something went wrong!')->withInput();
                 }
-            }
-            $intUser->password = Hash::make('password');
-            $intUser->save();
-            $intUser->intuId = "IID".$intUser->id;
-            $intUser->update();
-            
-            return redirect('/admin')->with('success', 'User created successfully!');
+                DB:commit();
+                return redirect('/admin/internal-user')->with('success', 'User created successfully!');
         }else{
             return redirect()->back()->withErrors($validator)->withInput();
         }   
