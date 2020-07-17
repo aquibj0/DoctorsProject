@@ -10,8 +10,14 @@
                     <h2>My Service Requests</h2>
                 </div>
             </div>
-
-            <div class="col-md-12">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{asset('image/IMAGE8.png')}}" style="max-width:100%" alt="">
+                <img src="{{asset('image/IMAGE9.png')}}" style="max-width:100%" alt="">
+            </div>
+            <div class="col-md-8">
                 <div class="card">
                     @include('layouts.message')
                     <div class="card-body">

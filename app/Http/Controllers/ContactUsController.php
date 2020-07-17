@@ -40,7 +40,7 @@ class ContactUsController extends Controller
             $msg->name = $request->name;
             $msg->email = $request->email;
             $msg->phoneNo = $request->phone;
-            $msg->address = $request->address;
+            // $msg->address = $request->address;
             $msg->topic = $request->subject;
             $msg->message = $request->message;
             $msg->save();

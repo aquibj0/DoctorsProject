@@ -65,13 +65,61 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-md-4">
-                                <h5 class="maroon mb-3"><u><b>PATIENT HISTORY</b></u></h5>
-                                <div class="patient-history">
-                                    <h5 class="maroon"><b>No History FOund</b></h5>
+                            @if (isset($srvcReq->clinicAppointment))
+                                <div class="col-md-4">
+                                    <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
+                                    <div class="patient-history">
+                                        <table class="table table-responsive table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Appointment ID</th>
+                                                    <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Clinic Type</th>
+                                                    <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Clinic Name</th>
+                                                    <td>{{$srvcReq->clinicAppointment->clinic->clinicName }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Clinic Contact</th>
+                                                    <td>
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicMobileNo }}
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicLandLineNo }}
+                                                    </td>
+                                                </tr>        
+        
+                                                <tr>
+                                                    <th scope="row">Clinic Location</th>
+                                                    <td>
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicAddressLine1 }},     
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicAddressLine2 }},    
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicCity }},
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicDistrict}},
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicState }},
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicCountry }}, 
+                                                        {{$srvcReq->clinicAppointment->clinic->clinicPincode }} 
 
+
+
+                                                    </td>
+                                                </tr>
+        
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+
+                                @else
+
+                                <div class="col-md-4">
+                                    <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
+                                    <p class="maroon"><b>No History Found</b></p>
+                                </div>
+                            @endif
+                        
                             <div class="col-md-4">
                                 <h5 class="maroon mb-3"><u><b>PAYMENT STATUS</b></u></h5>
 
@@ -106,19 +154,21 @@
 
 
                                     
+                                   @if (!$srvcReq->clinicAppointment)
                                     <div class="group-buttons float-right mt-4">
-                                        
-                                        {{-- @if (!empty($srvcReq->askQuestion)) --}}
-                                            {{-- Show Respond Button where service request is AAQ --}}
-                                            <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>                                
-                                            <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
-                                        {{-- @elseif(!empty($srvcReq->videoCall)) --}}
-        
-                                            {{--  --}}
+                                            
+                                            {{-- @if (!empty($srvcReq->askQuestion)) --}}
+                                                {{-- Show Respond Button where service request is AAQ --}}
+                                                <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>                                
+                                                <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
+                                            {{-- @elseif(!empty($srvcReq->videoCall)) --}}
+            
+                                                {{--  --}}
 
-                                        {{-- @endif --}}
+                                            {{-- @endif --}}
 
-                                    </div>
+                                        </div>
+                                   @endif
                                 @else
                                     <table class="table table-responsive table-bordered">
                                         <tbody>
@@ -302,4 +352,4 @@
 
 
 
-@endsection
+@endsection 

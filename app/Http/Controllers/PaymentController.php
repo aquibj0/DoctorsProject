@@ -22,6 +22,9 @@ class PaymentController extends Controller
 
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
 
+        
+        $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
+
         $api = new Api($this->razorpayId, $this->razorpayKey);
 
         // In razorpay you have to convert rupees into paise we multiply by 100
@@ -82,16 +85,14 @@ class PaymentController extends Controller
             }
         }
         else{
-
             
-
             $serviceReq = ServiceRequest::where('srId', '=',$serviceRequest->srId )->first();
             $serviceReq->paymentStatus = false;
             $serviceReq->update();
             // return $serviceReq;
             // return redirect()->back()->with('success', 'Thank you for the order');
             return redirect()->route('servicereq-details', [$id, $serviceRequest->srId])->with('error', 'Payment Failed, Please try again Later.');
-
+            // DB::rollback();
         }
     }
 

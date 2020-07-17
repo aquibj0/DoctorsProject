@@ -73,10 +73,10 @@ var rzp1 = new Razorpay(options);
 // window.onload = function(){
 //     document.getElementById('rzp-button1').click();
 // };
-$( "#target" ).submit(function( event ) {
-    rzp1.open();
-    event.preventDefault();
-});
+// $( "#target" ).submit(function( event ) {
+//     rzp1.open();
+//     event.preventDefault();
+// });
 document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();

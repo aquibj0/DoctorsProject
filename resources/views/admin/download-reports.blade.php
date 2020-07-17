@@ -12,9 +12,13 @@
         </div>
     </div>
     <div class="row ">
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <img src="{{asset('image/IMAGE11.png')}}" style="max-width:100%" alt="">
+        </div>
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="maroon mb-2"><b><u>PATIENT DETAILS</u></b></h5>
                     <table class="table table-responsive table-bordered">
                         <thead class="thead-dark">
                             <th scope="col">Service Req ID</th>
@@ -39,6 +43,7 @@
                 
 
                     <br>
+                    <h5 class="maroon mb-2"><b><u>PATIENT'S PRESCRIPTION</u></b></h5>
 
                     <table class="table table-responsive table-bordered" style="max-width:100%; overflow-x:scroll;">
                         <thead class="thead-dark">

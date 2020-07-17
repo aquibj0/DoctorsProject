@@ -172,7 +172,7 @@ class AskDoctorController extends Controller
 
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first(); 
         // Let's see the documentation for creating the order
-
+ 
         // Generate random receipt id
         $receiptId = Str::random(20);
 

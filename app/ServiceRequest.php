@@ -36,7 +36,7 @@ class ServiceRequest extends Model
     }
 
     public function clinicAppointment(){
-        return $this->hasOne('App\ClinicAppointment', 'service_reqest_id');
+        return $this->hasOne('App\ClinicAppointment', 'service_request_id');
     }
 
     public function patientDocuments(){
