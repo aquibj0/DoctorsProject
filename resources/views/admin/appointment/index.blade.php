@@ -56,7 +56,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $appointment->appmntSlotMaxCount }}</td>
-                                    <td>{{ $appointment->appmntSlotMaxCount-$appointment->appmntSlotFreeCount- }}</td>
+                                    <td>{{ $appointment->appmntSlotMaxCount-$appointment->appmntSlotFreeCount }}</td>
                                     <td>
                                         <button type="button" class="btn btn-maroon" data-toggle="modal" data-target="#exampleModalCenter">
                                             Edit
