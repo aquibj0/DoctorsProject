@@ -16,7 +16,7 @@
                     Surgery
                 </p>
                 <div class="img">
-                    <img src="{{asset('image/IMAGE2.png')}}" alt="">
+                    <img src="{{asset('image/IMAGE2.jpg')}}" alt="">
                 </div>
             </div>
             <div class="col-md-9">
@@ -25,7 +25,7 @@
                         <div class="round-img">
                             <h4 class="maroon"><b>Salt Lake, Kolkata</b></h4>
                             <div class="img">
-                                <img class="image-round " src="{{asset('image/IMAGE1A.png')}}" alt="">
+                                <img class="image-round " src="{{asset('image/IMAGE1A.jpg')}}" alt="">
                             </div>
                         </div>
                         
@@ -33,7 +33,7 @@
                     <div class="col-md-4">
                         <div class="round-img">
                             <div class="img">
-                                <img class="image-round " src="{{asset('image/IMAGE1B.png')}}" alt="">
+                                <img class="image-round " src="{{asset('image/IMAGE1B.jpg')}}" alt="">
                             </div>
                             <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
                         </div>
@@ -42,7 +42,7 @@
                         <div class="round-img">
                                 <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
                                 <div class="img">
-                                    <img class="image-round " src="{{asset('image/IMAGE1C.png')}}" alt="">
+                                    <img class="image-round " src="{{asset('image/IMAGE1C.jpg')}}" alt="">
                                 </div>
                         </div>
                     </div>

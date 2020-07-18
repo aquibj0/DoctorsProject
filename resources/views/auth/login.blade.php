@@ -4,7 +4,7 @@
 
 <div class="row" >
     <div class="col-md-4" >
-        <img src="{{asset('image/IMAGE4.png')}}" style="max-width:100%" alt="">
+        <img src="{{asset('image/IMAGE4.jpg')}}" style="max-width:100%" alt="">
     </div>
     <div class="col-md-8">
         <div class="container">

@@ -15,7 +15,7 @@
                                 <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:70%" alt="">
 
                             @else
-                                <img src="{{asset('image/user-profile.png')}}" style="max-width:60%" alt="">
+                                <img src="{{asset('image/user-profile.jpg')}}" style="max-width:60%" alt="">
                             @endisset
                         </div>
                         <a href="#" data-toggle="modal" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>

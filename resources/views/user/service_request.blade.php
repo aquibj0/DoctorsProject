@@ -13,11 +13,11 @@
             <br>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <img src="{{asset('image/IMAGE8.png')}}" style="max-width:100%" alt="">
-                <img src="{{asset('image/IMAGE9.png')}}" style="max-width:100%" alt="">
+            <div class="col-md-3">
+                <img src="{{asset('image/IMAGE8.jpg')}}" style="max-width:100%" alt="">
+                <img src="{{asset('image/IMAGE9.jpg')}}" style="max-width:100%" alt="">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card">
                     @include('layouts.message')
                     <div class="card-body">
@@ -31,6 +31,7 @@
                                     <th scope="col">Sr Type</th>
                                     <th scope="col">Sr Date Time</th>
                                     <th scope="col">Patient Name</th>
+                                    <th scope="col">Payment Status</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
@@ -45,6 +46,14 @@
                                         <td style="text-transform:uppercase">{{$serviceRequest->service->srvcName}}
                                         <td> {{$serviceRequest->srRecievedDateTime}} </td>
                                         <td>{{$serviceRequest->patient->patFirstName}} {{$serviceRequest->patient->patLastName}}</td>
+                                        <td>
+                                            @if ($serviceRequest->paymentStatus == true)
+                                                Paid
+                                            @else
+                                                Not Paid
+                                            @endif
+                                            
+                                        </td>
                                         <td> 
 
                                             <a href="/service-request/{{Auth::user()->id}}/{{$serviceRequest->srId}}" class="btn btn-maroon btn-sm">View Details</a>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use Tzsk\Sms\Facade\Sms;
+use Tzsk\Sms\Facade\Sms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\AskAQuestion;
@@ -158,11 +158,8 @@ class AskDoctorController extends Controller
                         
                         // Sms::send("This is test message")->to(Auth::user()->userPhoneNo)->dispatch();
 
-                        // Sms::send("this message", function($sms) {
-                        //     $sms->to('9576477595'); # The numbers to send to.
-                        // });
-
-
+                        sms()->via('nexmo')->send($srvcReq->srId)->to('919708106258')->dispatch();
+                        
                         return redirect()->route('confirm-service-request', $srvdID);
                         // ->with('success', 'Your Booking is done, Please pay to confirm.');
                     }

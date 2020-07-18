@@ -39,9 +39,9 @@ return [
         ],
 
         'nexmo' => [ // Install: composer require nexmo/client
-            'key' => 'Your Nexmo API Key',
-            'secret' => 'Your Nexmo API Secret',
-            'from' => 'Your Nexmo From Number',
+            'key' => '9bbc7a4e',
+            'secret' => 'gQgVe0s1VImIMG6N',
+            'from' => '9576477595',
         ],
         'twilio' => [ // Install: composer require twilio/sdk
             'sid' => 'Your SID',
