@@ -124,7 +124,9 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
 
         // Appointment
-        Route::get('/appointment/create', 'Admin\AppointmentController@create');
+        Route::get('/appointment', 'Admin\AppointmentController@index');
+        Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
+        Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
 
         // Clinic Route

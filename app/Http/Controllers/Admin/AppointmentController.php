@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Clinic;
 use App\Service;
 use App\AppointmentSchedule;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -22,7 +23,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = AppointmentSchedule::orderBy('created_at', 'desc')->get();
+        return view('admin.appointment.index')->with('appointments', $appointments);
     }
 
     public function getLocation(){
@@ -39,6 +41,14 @@ class AppointmentController extends Controller
         $services = Service::all();
         return view('admin.appointment.appointment')->with('services', $services);
     }
+    public function create_video(){
+        return view('admin.appointment.appointment_video');
+    }
+
+    public function create_clinic(){
+        $clinics = Clinic::all();
+        return view('admin.appointment.appointment_clinic')->with('clinics', $clinics);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,33 +58,58 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $errors = array();
-        foreach($request->time as $time){
-            // $appmnt = AppointmentSchedule::where('appmntDate', $request->date)->where('appmntSlot', $time)->where('appmntType', $request->appType)->where('appmntSlotFreeCount','<', 5)->get();
-            // if($appmnt){
-                $app = new AppointmentSchedule;
-                $app->appmntType = $request->appType;
-                // $app->appmntClinicid = 
-                if($request->appType == "CLI"){
-                    $cli = Clinic::find($request->location);
-                    $app->appmntClinicid = $cli->id;
+        DB::beginTransaction();
+        try{
+            if($request->docType == "CTD" || $request->docTYpe == "CED"){
+                for($i = 0; $i<12;$i++){
+                    $app = AppointmentSchedule::where('appmntType', $request->docType)
+                                                ->where('appmntDate', $request->date)
+                                                ->where('appmntSlot', $request->time[$i])
+                                                ->where('appmntClinicid', $request->clinic_id)
+                                                ->first();
+                    if(!$app){
+                        $app = new AppointmentSchedule;
+                        $app->appmntType = $request->docType;
+                        $app->appmntDate = $request->date;
+                        $app->appmntSlot = $request->time[$i];
+                        $app->appmntSlotMaxCount = $request->freecount[$i];
+                        $app->appmntSlotFreeCount = $request->freecount[$i];
+                        if($request->docType == "CTD" || $request->docType == "CED"){
+                            $app->appmntClinicid = $request->clinic_id;
+                        }
+                        $app->save();
+                    }else{
+                        return redirect()->back()->with('error', 'Appointment for '.$request->time[$i].' on '.$request->date.' of '.$request->docType.' has been created earlier.');
+                    }
                 }
-                $app->appmntDate = $request->date;
-                $app->appmntSlot = $time;
-                $app->appmntSlotMaxCount = 5;
-                $app->appmntSlotFreeCount = 5;
-                $app->save();
-            // }else{
-            //     $msg = "Cannot Update!! Appointment exists on ".$request->date." ".$time." for ".$request->appType.".";
-            //     array_push($errors, $msg);
-            // }
+            }else{
+                for($i = 0; $i<24;$i++){
+                    $app = AppointmentSchedule::where('appmntType', $request->docType)
+                                                ->where('appmntDate', $request->date)
+                                                ->where('appmntSlot', $request->time[$i])
+                                                ->first();
+                    if(!$app){
+                        $app = new AppointmentSchedule;
+                        $app->appmntType = $request->docType;
+                        $app->appmntDate = $request->date;
+                        $app->appmntSlot = $request->time[$i];
+                        $app->appmntSlotMaxCount = $request->freecount[$i];
+                        $app->appmntSlotFreeCount = $request->freecount[$i];
+                        $app->save();
+                    }else{
+                        return redirect()->back()->with('error', 'Appointment for '.$request->time[$i].' on '.$request->date.' of '.$request->docType.' has been created earlier.');
+                    }
+                }  
+            }
+        } catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('error', $e->getMessage());
         }
-        if(!$errors){
-            return redirect('/admin')->with('success', 'Appointment Added/Updated Successfully!');
-        }else{
-            return redirect('/admin/appointment/create')->with('error', $errors)->withInputs();
-        }
+        DB::commit();
+        return redirect('/admin/appointment')->with('success', 'Appointment for '.$request->date.' added successfully');
+        // return $request;
     }
+
 
     /**
      * Display the specified resource.

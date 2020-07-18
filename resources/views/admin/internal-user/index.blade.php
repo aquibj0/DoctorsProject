@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>Clinic Dashboard</h2>
+                        <h2>Internal Users</h2>
                     </div>
                 </div>
             </div>
