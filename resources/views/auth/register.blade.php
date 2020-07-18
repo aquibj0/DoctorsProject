@@ -4,7 +4,7 @@
 
 <div class="row" >
     <div class="col-md-4">
-        <img style="max-width:100%" src="{{asset('image/IMAGE3.png')}}" alt="">
+        <img style="max-width:100%" src="{{asset('image/IMAGE3.jpg')}}" alt="">
     </div>
     <div class="col-md-8">
         <div class="container">
@@ -19,7 +19,6 @@
                         <div class="mt-3">
                             <form method="POST" action="{{ route('register_user') }}">
                                 @csrf
-        
                                 <div class="form-row">
 
                                     <div class="col-md-6 form-group">
@@ -45,7 +44,7 @@
 
                                 <div class="form-row">
                                     <div class="col-md-6 form-group">
-                                        <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('mobile') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('userMobileNo') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                         @error('userMobileNo')
                                             <span class="invalid-feedback" role="alert">
@@ -78,7 +77,7 @@
         
                                 <div class="form-group row">
                                     <div class="col-md-11">
-                                        <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                        <input id="password" placeholder="Password" value="{{ old('password') }}" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

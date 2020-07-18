@@ -32,12 +32,13 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{asset('image/logo.png')}}" style="max-width:50px;" alt="">
+                    <img src="{{asset('image/logo.jpg')}}" style="max-width:45px;" alt="">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    <span>
+                    <img src="{{asset('image/logo2.jpg')}}" alt="" style="max-width:55%">
+                    {{-- <span>
                         <span class="maroon">DR-ONLINE</span> <br>
                         <p style="margin-top:-15px; font-size:14px" class=" text-right maroon mb-0">Exceptional Care you choose</p>
-                    </span>
+                    </span> --}}
                 </a>
                 
                
@@ -58,13 +59,10 @@
                             <a href="/" class="nav-link">Home </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/about" class="nav-link">About </a>
+                            <a href="/#services"  class="nav-link">Services </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#services" class="nav-link">Services </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/contact-us" class="nav-link">Contact Us </a>
+                            <a href="/contact-us"  class="nav-link">Contact Us </a>
                         </li>
                         <!-- Authentication Links -->
                         @guest

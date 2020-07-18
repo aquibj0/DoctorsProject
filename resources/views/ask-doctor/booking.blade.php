@@ -2,7 +2,7 @@
 @section('content')
 
 
-<section class="booking-confirmed mt-4">
+{{-- <section class="booking-confirmed mt-4">
     <div class="container">
 
         
@@ -30,10 +30,10 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 @endsection
-<button id="rzp-button1">Pay</button> 
+<button id="rzp-button1" hidden>Pay</button> 
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
@@ -70,13 +70,10 @@ var options = {
     }
 };
 var rzp1 = new Razorpay(options);
-// window.onload = function(){
-//     document.getElementById('rzp-button1').click();
-// };
-// $( "#target" ).submit(function( event ) {
-//     rzp1.open();
-//     event.preventDefault();
-// });
+window.onload = function(){
+    document.getElementById('rzp-button1').click();
+};
+
 document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();

@@ -22,7 +22,7 @@
 <body>  
     <div class="container">
         <div class="jumbotron">
-            <img src="{{asset('image/logo2.png')}}" class="mt-4" alt="">
+            <img src="{{asset('image/logo2.jpg')}}" class="mt-4" alt="">
             <p class="lead mb-5">
                 Dear <span class="maroon"><b>{{$user->firstName}} {{$user->lastName}}</b></span>, <br>
                 Your account has been created with Birth.
