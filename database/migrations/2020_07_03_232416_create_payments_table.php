@@ -23,6 +23,10 @@ class CreatePaymentsTable extends Migration
  
             $table->string('payment_transaction_id');
             $table->string('payment_amount');
+
+            $table->string('order_id')->nullable();
+            $table->text('signature')->nullable();
+
             $table->timestamps();
         });
     }

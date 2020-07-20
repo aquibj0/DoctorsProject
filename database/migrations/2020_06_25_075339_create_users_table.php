@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('userMobileNo')->unique();
             $table->string('userStatus')->nullable();
             $table->string('userLandLineNo')->nullable();
+            $table->string('userImage')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });

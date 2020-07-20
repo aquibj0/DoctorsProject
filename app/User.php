@@ -48,8 +48,8 @@ class User extends Authenticatable
     /**
     * The patients() function defines, user has many patients.
     */
-    // public function patients(){
-    //     return $this->hasMany('App\PatientDetail');
-    // }
+    public function patients(){
+        return $this->hasMany('App\PatientDetail');
+    }
     
 }
