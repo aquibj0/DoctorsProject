@@ -154,10 +154,10 @@ class AskDoctorController extends Controller
                         $asaq->save();
                         
                         //1 is the status for sending confirmation mail
-                        SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
-                        
+                        // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                        // 
                         // Send Confirmation Message using textlocal
-                        Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('919708106258')->dispatch();
+                        // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('919708106258')->dispatch();
 
                         return redirect()->route('confirm-service-request', $srvdID);
                         // ->with('success', 'Your Booking is done, Please pay to confirm.');

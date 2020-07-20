@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>Internal Users</h2>
+                        <h2>Appointment Schedules</h2>
                     </div>
                 </div>
             </div>
@@ -20,10 +20,10 @@
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-5">
-                                        <a href="/admin/appointment/create/video" class="btn btn-maroon btn-md float-right">Add Video Appointment</a>
+                                        <a href="/admin/appointment/create/video" class="btn btn-maroon btn-md float-right">Create Video Appointment</a>
                                     </div>
                                     <div class="col-md-5">
-                                        <a href="/admin/appointment/create/clinic" class="btn btn-maroon btn-md float-right">Add Clinic Appointment</a>
+                                        <a href="/admin/appointment/create/clinic" class="btn btn-maroon btn-md float-right">Create Clinic Appointment</a>
                                     </div>
                                 </div>
                             </span>
