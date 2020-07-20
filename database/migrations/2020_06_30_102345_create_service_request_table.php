@@ -24,7 +24,7 @@ class CreateServiceRequestTable extends Migration
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
 
             $table->unsignedBigInteger("user_id");
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->datetime("srRecievedDateTime");
             $table->datetime("srDueDateTime");

@@ -41,15 +41,15 @@ class User extends Authenticatable
     /**
     * The role() function defines, user belongs to a role.
     */
-    public function role(){
-        return $this->belongsTo('App\UserRole');
-    }
+    // public function role(){
+    //     return $this->belongsTo('App\UserRole');
+    // }
 
     /**
     * The patients() function defines, user has many patients.
     */
-    public function patients(){
-        return $this->hasMany('App\PatientDetail');
-    }
+    // public function patients(){
+    //     return $this->hasMany('App\PatientDetail');
+    // }
     
 }

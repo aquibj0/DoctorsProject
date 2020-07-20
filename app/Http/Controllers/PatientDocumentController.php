@@ -8,7 +8,6 @@ use App\PatientDocument;
 use App\ServiceRequest;
 use Illuminate\Support\Facades\Storage;
 
-
 class PatientDocumentController extends Controller
 {
     /**
@@ -38,7 +37,7 @@ class PatientDocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id){
-        
+
         $serviceReq = ServiceRequest::where('id', $id)->first();
         if($request){
             $patientDocument = new PatientDocument;
@@ -66,13 +65,13 @@ class PatientDocumentController extends Controller
             $patientDocument->service_request_id = $request['service_request_id'];
             $patientDocument->documentFileName = $fileNameToStore;
             $patientDocument->save();
-            // return $request;
-
             return redirect()->back()->with('success', 'Document Uploaded');
 
         }
 
     }
+
+
 
     /**
      * Display the specified resource.
@@ -80,6 +79,8 @@ class PatientDocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function show($id)
     {
         //
@@ -90,7 +91,9 @@ class PatientDocumentController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
+
+
     public function edit($id)
     {
         //
