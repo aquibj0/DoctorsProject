@@ -104,6 +104,10 @@ class VideoConsultationController extends Controller
                             $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                             $app->update();
                             SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                            
+                            // Send Confirmation Message using textlocal
+                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userPhoneNo)->dispatch();
+
                             return redirect()->route('confirm-service-request', $srvcReq->srId);
                         }else{
                             $vc->delete();
