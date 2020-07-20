@@ -142,7 +142,25 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request){
+            $app = AppointmentSchedule::find($id);
+            if($request->appmntSlotMaxCount != $app->appmntSlotMaxCount){
+                if($request->appmntSlotMaxCount >= ($app->appmntSlotMaxCount-$app->appmntSlotFreeCount)){
+                    $booked = $app->appmntSlotMaxCount - $app->appmntSlotFreeCount;
+                    $app->appmntSlotMaxCount = $request->appmntSlotMaxCount;
+                    $app->update();
+                    $app->appmntSlotFreeCount = $app->appmntSlotMaxCount-$booked;
+                    $app->update();
+                    return redirect('/admin/appointment')->with('success', 'Apoointment updated successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error', 'Enter a value greater than or equal to Appointment booked count.');
+                }
+            }else{
+                return redirect()->back()->withInput()->with('error', 'Appointment max value entered already exists.');
+            }
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -153,6 +171,8 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $app = AppointmentSchedule::find($id);
+        $app->delete();
+        return redirect('/admin/appointment')->with('success', 'Appointment deleted successfully!');
     }
 }

@@ -128,6 +128,8 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
         Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
+        Route::post('/appointment/update/{id}', 'Admin\AppointmentController@update');
+        Route::delete('/appointment/delete/{id}', 'Admin\AppointmentController@destroy');
 
         // Clinic Route
         Route::get('/clinic', 'Admin\ClinicController@index');
