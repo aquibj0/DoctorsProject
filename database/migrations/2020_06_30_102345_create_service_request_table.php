@@ -24,20 +24,21 @@ class CreateServiceRequestTable extends Migration
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
 
             $table->unsignedBigInteger("user_id");
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->datetime("srRecievedDateTime");
             $table->datetime("srDueDateTime");
             $table->datetime("srResponseDateTime")->nullable();
             $table->string("srDepartment");
             $table->string("srAssignedIntUserId")->nullable();
-            $table->string("srConfirmationSentByAdmin");
+            $table->string("srConfirmationSentByAdmin")->nullable();
             $table->datetime("srMailSmsSent")->nullable();
             $table->datetime("srConfMailSent")->nullable();
             $table->string("srStatus");
-            $table->string("srDocumentUploadedFlag");
+            $table->string("srDocumentUploadedFlag")->nullable();
             $table->integer("srAppmntId")->nullable();
             $table->string("srCancelFlag")->nullable();
+            $table->boolean('paymentStatus')->nullable()->default(false);
             $table->timestamps();
         });
     }
