@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete');
     // Route::post('/change-user-to-internal', 'AppController@internal_user');
 
-
+ 
 
     // Clinic Apoointment
     // Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
@@ -122,6 +122,8 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
+        
+      
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
@@ -159,3 +161,6 @@ Route::group(['middleware' => 'web'], function(){
 Route::post('/upload-documents/{id}', 'PatientDocumentController@store');
 Route::delete('/upload-documents/delete/{id}', 'PatientDocumentController@destroy');
 
+
+// Download File
+Route::get('/downloadDoc/{id}', 'PatientDocumentController@downloadFile');

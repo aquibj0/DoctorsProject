@@ -135,7 +135,13 @@
                                                     <td>{{ $patDoc->documentDate }}</td>
                                                     <td>{{ $patDoc->documentUploadDate }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-maroon btn-sm">Detele</a>                                                   
+                                                        <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
+
+
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                        </form>                                                  
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\PatientDocument;
 use App\ServiceRequest;
+use Illuminate\Support\Facades\Storage;
+
+
 class PatientDocumentController extends Controller
 {
     /**
@@ -42,30 +45,26 @@ class PatientDocumentController extends Controller
             $patientDocument->documentType = $request['documentType'];
             $patientDocument->documentDescription = $request['documentDescription'];
 
-            // if($request->hasFile('documentFileName')) {
-            //     //get filename with extension
-            //     $filenamewithextension = $request->file('documentFileName')->getClientOriginalName();
-         
-            //     //get filename without extension
-            //     $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-         
-            //     //get file extension
-            //     $extension = $request->file('documentFileName')->getClientOriginalExtension();
-         
-            //     //filename to store
-            //     $filenametostore = $filename.'_'.time().'.'.$extension;
-         
-            //     //Upload File
-            //     $request->file('documentFileName')->storeAs('public', $filenametostore);
-
-            // }
             if($request->hasFile('documentFileName')){
-                $patientDocument->documentFileName= $request->file('documentFileName')->store('documentFileName','public');
+                //Get filename with extension
+                $fileNameWithExt = $request->file('documentFileName')->getCLientOriginalName();
+                // Get just filename
+                $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('documentFileName')->getClientOriginalExtension();
+                //File name to Store
+                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                //Upload File
+                $path = $request->file('documentFileName')->storeAs('public/documentFileName',$fileNameToStore);
+            }
+            else{
+                $fileNameToStore = 'nofile.img';
             }
             $patientDocument->documentDate = $request['documentDate'];
             $patientDocument->documentUploadDate = Carbon::now()->toDateString(); 
             $patientDocument->documentUploadedBy = $request['documentUploadedBy'];
             $patientDocument->service_request_id = $request['service_request_id'];
+            $patientDocument->documentFileName = $fileNameToStore;
             $patientDocument->save();
             // return $request;
 
@@ -110,5 +109,13 @@ class PatientDocumentController extends Controller
     {
         PatientDocument::destroy($id);
         return redirect()->back()->with('success', 'Deleted');
+    }
+
+
+    // Download Reports
+    public function downloadFile($id){
+        $document = PatientDocument::findOrFail($id);
+        $url = storage_path($document->documentFileName);
+        return Storage::download($url, $document->documentFileName);
     }
 }

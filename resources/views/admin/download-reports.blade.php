@@ -43,7 +43,7 @@
                 
 
                     <br>
-                    <h5 class="maroon mb-2"><b><u>PATIENT'S PRESCRIPTION</u></b></h5>
+                    <h5 class="maroon mb-2"><b><u>PATIENT'S PRESCRIPTION hello</u></b></h5>
 
                     <table class="table table-responsive table-bordered" style="max-width:100%; overflow-x:scroll;">
                         <thead class="thead-dark">
@@ -53,6 +53,7 @@
                             <th scope="col">Status</th>
                             <th scope="col">Uploaded On</th>
                             <th scope="col">Action</th>
+
 
 
                         </thead>
@@ -65,7 +66,7 @@
                                     <td>{{$patDoc->documentDescription}}</td>
                                     <td>Uploaded</td>
                                     <td>{{$patDoc->documentUploadDate}}</td>
-                                    <td><a href="#" class="btn btn-maroon btn-sm">Download</a></td>
+                                    <td><a href="{{url('downloadDoc/'.$patDoc->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
                                 </tr>
 
                             @endforeach
