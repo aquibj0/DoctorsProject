@@ -54,7 +54,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md">
-                                        @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '15:00');$i->addMinute(30))
+                                        @foreach($appointments as $item)
                                         <div class="row">    
                                             <div class="col-md">
                                                 <div class="form-group form-check">
@@ -64,7 +64,23 @@
                                                             <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
                                                         </div>
                                                         <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <input type="text" name="booked[]" id="Booked" class="form-control" value="{{ $item-> }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-group form-check">
+                                                    <div class="row">
+                                                        <div class="col-md">
+                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>
+                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" >
                                                         </div>
                                                         <div class="col-md"></div>
                                                     </div>
@@ -78,21 +94,7 @@
                                                             <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
                                                         </div>
                                                         <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
-                                                        </div>
-                                                        <div class="col-md"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group form-check">
-                                                    <div class="row">
-                                                        <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked>
-                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" >
                                                         </div>
                                                         <div class="col-md"></div>
                                                     </div>
@@ -105,14 +107,14 @@
                                                             <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
                                                         </div>
                                                         <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" >
                                                         </div>
                                                         <div class="col-md"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

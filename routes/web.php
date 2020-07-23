@@ -127,8 +127,10 @@ Route::group(['middleware' => 'web'], function(){
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
-        Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
-        Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
+        Route::post('/appointment/check', 'Admin\AppointmentController@check');
+        Route::get('/appointment/{date}/{appmntType}', 'Admin\AppointmentController@show');
+        // Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
+        // Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
         Route::post('/appointment/store', 'Admin\AppointmentController@store');
         Route::post('/appointment/update/{id}', 'Admin\AppointmentController@update');
         Route::delete('/appointment/delete/{id}', 'Admin\AppointmentController@destroy');

@@ -13,29 +13,133 @@
             </div>
             <div class="card">
                 @include('layouts.message')
-                <div class="card-header">
-                    {{-- <div class="row">
-                        <div class="col-md"> --}}
-                            <span style="float: right">
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-5">
-                                        <a href="/admin/appointment/create/video" class="btn btn-maroon btn-md float-right">Create Video Appointment</a>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <a href="/admin/appointment/create/clinic" class="btn btn-maroon btn-md float-right">Create Clinic Appointment</a>
-                                    </div>
-                                </div>
-                            </span>
-                        {{-- </div>
-                    </div> --}}
-                </div>
+                {{-- <div class="card-header">
+                </div> --}}
                 <div class="card-body">
-                    @if($appointments)
-                    <table class="table table-bordered table-responsive">
+                    <div class="container">
+                        <form action="{{ url('/admin/appointment/check') }}" method="POST">
+                            {{csrf_field()}}
+                            <div class="form-row form-group">
+                                <div class="col-md-">
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ old('start_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
+                                    @if ($errors->has('start_date'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('start_date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="date" name="end_date" class="form-control" id="end_date" value="{{ old('end_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
+                                    @if ($errors->has('end_date'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('end_date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="doctor_type" id="doctor_type" class="form-control">
+                                        <option disabled selected>Select one</option>
+                                        <option value="ED">Dr. Khastgir</option>
+                                        <option value="TD">Birth Team Doctor</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="appointment_type" id="appointment_type" class="form-control">
+                                        <option disabled selected>Select one</option>
+                                        <option value="VED">Video Appointment</option>
+                                        @foreach($clinics as $clinic)
+                                            <option value="{{ $clinic->id }}">{{ $clinic->clinicName }}-Clinic</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                {{-- <div class="container"> --}}
+                                    <div class="form-row form-group">
+                                        <div class="col-md">
+                                            <button type="sbumit" class="form-control btn-maroon btn-md">Add appointments</button>
+                                        </div>
+                                        {{-- <div class="col-md">
+                                            <button class="form-control btn-maroon" disabled>Reset</button>
+                                        </div> --}}
+                                    </div>
+                                {{-- </div> --}}
+                            </div>
+                        </form>
+                    </div>
+                    @if($show == 1)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="register-block">
+                                    <h2>Appointment Schedules for 
+                                        @if($appointmentType == "VED")
+                                            video
+                                        @else 
+                                            clinic
+                                        @endif
+                                        with
+                                        @if($docType == "ED")
+                                            Dr. Khastgir
+                                        @else
+                                            Birth Team Doctor
+                                        @endif
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table table-bordered table-responsive">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Day</th>
+                                        <th scope="col">Schedule Exists?</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    
+                                    
+                                        @for ($i = 0;$i < count($data);$i++)
+                                        <tr>
+                                            <td>{{ $data[$i]['date'] }}</td>
+                                            <td>{{ $data[$i]['day'] }}</td>
+                                            <td>
+                                                @if($data[$i]['created'] == 1)
+                                                    Created
+                                                @else
+                                                    None
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($appointmentType == "VED")
+                                                    @if($docType == "TD")
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD" class="btn btn-md btn-maroon">Add/Edit</a>
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                    @else
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED" class="btn btn-md btn-maroon">Add/Edit</a>
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                    @endif
+                                                {{-- @else
+                                                    @if($docType == "TD")
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{}" class="btn btn-md btn-maroon">Add/Edit</a>
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                    @else
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED" class="btn btn-md btn-maroon">Add/Edit</a>
+                                                        <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                    @endif --}}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endfor
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @endif
+                    {{-- <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">SR No. <span style="float: right">{{--<a href="#">&#9650;</a><a href="#">&#9660;</a></span>--}}</th>
+                                <th scope="col">SR No. <span style="float: right"></th>
                                 <th scope="col">Appointment Date</th>
                                 <th scope="col">Appointment Time</th>
                                 <th scope="col">Appointment Type & Clinic</th>
@@ -75,7 +179,7 @@
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            {{-- department_name Input --}}
+                                                            <!-- department_name Input -->
                                                             <label for="appmntSlotMaxCount" class="maroon">Appointment Slot Max Count</label>
                                                             <input type="text" class="form-control"class="form-control @error('appmntSlotMaxCount') is-invalid @enderror" id="appmntSlotMaxCount"  name="appmntSlotMaxCount" maxlength="2" value="{{$appointment->appmntSlotMaxCount}}" onkeypress="return onlyNumberKey(event)">
                                                             @error('appmntSlotMaxCount')
@@ -127,10 +231,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
-                    @else
-                        <h2>No User added!</h2>
-                    @endif
+                    </table> --}}
                 </div>
             </div>
         </div>

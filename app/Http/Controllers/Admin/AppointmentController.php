@@ -23,8 +23,43 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = AppointmentSchedule::orderBy('created_at', 'desc')->get();
-        return view('admin.appointment.index')->with('appointments', $appointments);
+        // $appointments = AppointmentSchedule::orderBy('created_at', 'desc')->get();
+        // return $appointments;
+        $clinics = Clinic::all();
+        return view('admin.appointment.index')->with('clinics', $clinics)->with('show', 0);
+    }
+
+    public function check(Request $request){
+        $start = Carbon::parse($request->start_date)->toDateString();
+        $end = Carbon::parse($request->end_date)->toDateString();
+        $docType = $request->doctor_type;
+        $appmntType = $request->appointment_type;
+        $data = array();
+        for($date = Carbon::parse($request->start_date), $i=0 ; $date <= Carbon::parse($request->end_date); $date->addDays(1), $i++){
+            $data[$i]['date'] = $date->isoFormat('D MMMM YYYY');
+            $data[$i]['day'] = Carbon::parse($date)->isoFormat('dddd');
+            if($appmntType == "VED"){
+                if($docType == "ED"){
+                    if(AppointmentSchedule::where('appmntType', 'VED')->where('appmntDate', $date->toDateString())->first()){
+                        $data[$i]['created'] = 1;
+                    }else{
+                        $data[$i]['created'] = 0;
+                    }
+                }else if($docType == "TD"){
+                    if(AppointmentSchedule::where('appmntType', 'VTD')->where('appmntDate', $date->toDateString())->first()){
+                        $data[$i]['created'] = 1;
+                    }else{
+                        $data[$i]['created'] = 0;
+                    }
+                }
+            }
+        }
+        $clinics = Clinic::all();
+        return view('admin.appointment.index')
+            ->with('clinics', $clinics)
+            ->with('data', $data)
+            ->with('show', 1)->with('docType', $docType)->with('appointmentType', $appmntType);
+        // return $data;
     }
 
     public function getLocation(){
@@ -82,6 +117,7 @@ class AppointmentController extends Controller
                         return redirect()->back()->with('error', 'Appointment for '.$request->time[$i].' on '.$request->date.' of '.$request->docType.' has been created earlier.');
                     }
                 }
+                // return $request;
             }else{
                 for($i = 0; $i<24;$i++){
                     $app = AppointmentSchedule::where('appmntType', $request->docType)
@@ -117,9 +153,23 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($date, $appmntType)
     {
-        //
+        $appointments = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())->where('appmntType', $appmntType)->get();
+        if($appmntType == "VTD"){
+            return view('admin.appointment.appointment')
+                    ->with('appointments', $appointments)
+                    ->with('appointmentType', 'VED')
+                    ->with('docType', 'TD')
+                    ->with('date', $date);
+        }else if($appmnetType == "VED"){
+            return view('admin.appointment.appointment')
+                    ->with('appointments', $appointments)
+                    ->with('appointmentType', 'VED')
+                    ->with('docType', 'ED')
+                    ->with('date', $date);
+        }
+        
     }
 
     /**
