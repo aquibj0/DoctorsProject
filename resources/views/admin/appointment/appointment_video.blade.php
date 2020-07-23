@@ -52,7 +52,7 @@
                                                 <div class="form-group form-check">
                                                     <div class="row">
                                                         <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>
+                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->toTimeString() }}" checked>
                                                             <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
                                                         </div>
                                                         <div class="col-md">
