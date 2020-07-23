@@ -131,7 +131,7 @@
                     </table>
 
                     <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
-                    <div class="mb-3" style="max-height:200px; overflow-y:scroll; border:1px solid rgb(97, 13, 13);"> 
+                    <div class="mb-3" style="padding:8px;max-height:200px; overflow-y:scroll; border:1px solid rgb(97, 13, 13);"> 
                         {{$srvcReq->patient->patBackground}}
                     </div>
 
@@ -144,7 +144,8 @@
 
 
                     @if (isset($prescriptions))
-                        <h5 class="mt-3 maroon"><b><u>PATIENT DETAILS</u> </b></h5>
+                        <h5 class="mt-3 maroon"><b><u>PATIENT PRESCRIPTIONS</u> </b></h5>
+                        <small>*Uploaded by doctor</small>
                         <table class="mt-2 table table-responsive table-bordered">
                             <thead class="thead-dark">
                                 <th scope="col">File Name</th>
