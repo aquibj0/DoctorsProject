@@ -85,6 +85,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-1">
+                                        <label for=""></label>
                                         <input type="checkbox" class="form-control" onclick="myFunction()">
                                         <script>
                                             function myFunction() {
@@ -121,7 +122,8 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-12 mb-2">
                                         <input type="checkbox" id="terms" onchange="confirm()">
-                                        <label for="">I Agree with all the statements in <a href="{{ url('/terms-and-condition') }}"><u>Terms of Services</u></a></label>
+                                        <label for="">I Agree with all the statements in <a href="#" data-toggle="modal" data-target="#termsandconditions"><u>Terms of Services</u></a></label>
+                                        
                                         <script>
                                             function confirm(){
                                                 var checkbox = document.getElementById('terms');
@@ -135,6 +137,34 @@
                                                 }
                                             }
                                         </script>
+
+
+
+
+
+
+                                        <div class="modal fade bd-example-modal-lg" id="termsandconditions" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title maroon"><b>TERMS AND CONDITIONS</b></h5>
+                                                            {{-- <h5 class="modal-title" id="exampleModalLabel">New message</h5> --}}
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    <div class="modal-body">
+                                                        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab incidunt, quam velit aliquam fuga quos eveniet molestias doloremque expedita quibusdam pariatur quae ipsa maiores nulla cumque porro numquam ducimus quia. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit dolore dolor asperiores, ipsam culpa et atque maiores porro cupiditate doloribus dicta delectus eos numquam quaerat voluptates cumque deleniti placeat dolores!</p>
+                                                        <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda ipsam odio harum voluptates earum sed debitis vero est pariatur, commodi possimus sequi porro doloribus excepturi consectetur minima necessitatibus perspiciatis cum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque ea, placeat facilis ab aperiam quam repudiandae explicabo ipsum eum, vitae illum alias facere fugiat non repellat dolorum. Fugit, facere velit.</p>
+                                                        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. In possimus exercitationem quisquam id inventore libero odio atque? Sapiente, accusantium incidunt magnam fugiat quibusdam rem quo architecto similique fuga, maxime laboriosam? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure quam aut ex fugiat facere dignissimos magni minus placeat. Aliquam veniam voluptas optio adipisci nesciunt libero consectetur minus deserunt quam illum.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        {{-- <button type="button" class="btn btn-primary">Send message</button> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-12 ">
                                         <button type="submit" style="width:100%" id="submit" class="btn btn-maroon  " onclick="return Validate()" disabled>

@@ -47,6 +47,7 @@
                                 <th scope="col">Sr Date<span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Patient Name</th>
+                                <th scope="col">Service Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -58,7 +59,7 @@
                                             <input type="checkbox">
                                             {{$serviceReq->srId}} </th>
                                         <td>{{$serviceReq->service->srvcName}}</td>
-                                        <td>{{$serviceReq->srRecievedDateTime}}</td>
+                                        <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
                                         <td> 
                                             @if ($serviceReq->paymentStatus == true)
                                             Paid
@@ -68,6 +69,7 @@
                                         
                                         </td>
                                         <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
+                                        <td>{{$serviceReq->srStatus}}</td>
                                         <td>
                                             
                                             <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 

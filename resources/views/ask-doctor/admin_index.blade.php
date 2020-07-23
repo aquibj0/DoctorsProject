@@ -14,33 +14,25 @@
                            <h2> Ask a doctor</h2>
                         </div>
                         @foreach($aaq as $item)
-                        <div class="card">
-                            <div class="card-body">
-                              <h5 class="card-title">{{ $item->id }}</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">{{ $item->updated_at }}</h6>
-                              <p class="card-text">
-                                @foreach($srvcReq as $x)
-                                @if($item->aaqSrId == $x->id)
-                                {{ $item }}
-                                <br>
-                                <br>
-                                {{ $x }}
-                                @endif
-                                @endforeach
-                              </p>
-                              <a href="{{ url('/doctor/ask-a-doctor/'.$item->id) }}" class="btn btn-primary btn-md">Card link</a>
-                              {{-- <a href="#" class="card-link">Another link</a> --}}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->id }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $item->updated_at }}</h6>
+                                    <p class="card-text">
+                                        @foreach($srvcReq as $x)
+                                            @if($item->aaqSrId == $x->id)
+                                                {{ $item }}
+                                                <br>
+                                                <br>
+                                                {{ $x }}
+                                            @endif
+                                        @endforeach
+                                    </p>
+                                    <a href="{{ url('/doctor/ask-a-doctor/'.$item->id) }}" class="btn btn-primary btn-md">Card link</a>
+                                    {{-- <a href="#" class="card-link">Another link</a> --}}
+                                </div>
                             </div>
-                        </div>
                         @endforeach
-                        {{-- <div class="">
-                            
-                            {{ $item }}
-                            <br>
-                            <br>
-                            
-                            
-                        </div> --}}
                     </div>
                 </div>
             </div>     

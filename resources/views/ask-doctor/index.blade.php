@@ -158,7 +158,7 @@
 
                                         {{-- Patient Phone No Input --}}
                                         <div class="form-group col-md-4">
-                                            <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ old('mobileNo') }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                            <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ Auth::user()->userMobileNo }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             
                                             @error('mobileNo')
                                                 <span class="invalid-feedback" role="alert">
@@ -169,7 +169,7 @@
 
                                         {{-- Patient Email Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
+                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ Auth::user()->userEmail }}" required>
                                             
                                             @error('patEmail')
                                                 <span class="invalid-feedback" role="alert">
@@ -236,7 +236,10 @@
                                     
                                             <div class="form-group col-md-6">
                                                 {{-- Patient Country Input --}}
-                                                <input type="text" class="form-control"class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
+
+                                                <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}" >
+                                                    <option value="India" selected>India</option>
+                                                </select>
                                                 @error('country')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -267,7 +270,7 @@
                                     @if($patient)
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024"></textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -278,7 +281,8 @@
                                     @else
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
+                                            <small class="form-text text-muted">Maximun 1024 Characters.</small>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -298,6 +302,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
                                             <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required></textarea>
+                                            <small class="form-text text-muted">Maximun 1024 Characters.</small>                                            
                                             @error('patient_question')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

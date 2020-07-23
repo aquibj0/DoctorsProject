@@ -36,7 +36,8 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Booking Date</th>
-                                            <td>{{ $srvcReq->srRecievedDateTime }}</td>
+                                            
+                                            <td>{{date('d-m-Y ', strtotime($srvcReq->srRecievedDateTime))}} </td>
                                         </tr>        
 
                                         <tr>
@@ -141,7 +142,7 @@
                                             </tr>
                                             <tr>
                                                 <th scope="row">Payment Time</th>
-                                                <td>{{$paymentDetails->created_at}}</td>
+                                                <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
                                             </tr> 
                                                                                         
                                         

@@ -45,7 +45,7 @@ class ClinicController extends Controller
         $validator = Validator::make($request->all(), [
             'clinicName' => ['required', 'string', 'max:32'],
             'clinicMobileNo' => ['required', 'numeric', 'digits:10', 'unique:clinic'],
-            'clinicLandLineNo' => ['numeric', 'digits:12', 'unique:clinic'],
+            'clinicLandLineNo' => ['nullable', 'numeric', 'digits:12', 'unique:clinic'],
             'clinicAddressLine1' => ['required', 'string', 'max:64'],
             'clinicAddressLine2' => ['max:64'],
             'clinicCity' => ['required', 'string', 'max:35'],
@@ -71,7 +71,8 @@ class ClinicController extends Controller
             if($clinic->save()){
                 
                 return redirect('/admin/clinic')->with('success', 'Clinic added successfully!');
-            }else{
+            }
+            else{
                 $clinic->delete();
                 return redirect()->back()->with('error', 'Something went wrong!')->withInput();
             }

@@ -15,38 +15,30 @@
 
                             <table class="table table-bordered table-responsive mb-3">
                                 <thead class="thead-dark">
-                                    <th scope="col">Sr Id</th>
+                                    <th scope="col">Service Req Id</th>
                                     <th scope="col">Service Type</th>
-                                    <th scope="col">Sr Time</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">Sr Department</th>
-                                    <th scope="col">Expected Response Time</th>
-                                    {{-- <th scope="col">Assigned Doctor</th> --}}
+                                    <th scope="col">Expected Response</th>
                                     <th scope="col">Status</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ $serviceRequests->srId }}</td>
                                         <td>{{ $serviceRequests->service->srvcName }}</td>
-                                        <td>{{ $serviceRequests->srRecievedDateTime }}</td>
-                                        <td>{{ $serviceRequests->srDepartment }}</td>
+                                        <td>
+                                            {{ date('d-m-Y', strtotime($serviceRequests->srRecievedDateTime)) }}
+                                        </td>
+                                        <td>
+                                            @php
+                                                $dept = App\Department::select('department_name')->where('id', '=', $serviceRequests->srDepartment)->first() 
+                                            @endphp
+                                            {{ $dept->department_name }}
                                         
-                                        {{-- @if ($serviceRequests->srResponseDateTime === null)
-                                            <td>Not Responded yet</td>
+                                        </td>
 
-                                        @else
-                                            <td>
-                                                {{ $serviceRequests->srResponseDateTime}}
-                                                <br>
-                                                <a href="#" data-toggle="modal" data-target="#patientResponse" class="btn btn-maroon btn-sm">View Response</a>
-                                            
-                                            </td>
-                                        @endif --}}
-
-                                        <td>{{$serviceRequests->srDueDateTime}}</td>
-                                        {{-- <td>{{ $serviceRequests->srResponseDateTime}}</td> --}}
-                                        {{-- @if ($serviceRequests->srAssignedIntUserId === null)
-                                            <td>Doctor</td>
-                                        @endif --}}
+                                        <td>{{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }}</td>
+                                        
                                         <td>{{$serviceRequests->srStatus}}</td>
                                     </tr>
                                 </tbody>
@@ -93,9 +85,9 @@
                                         <td>{{ $serviceRequests->askQuestion->aaqPatientBackground }}</td>
                                         <td>{{ $serviceRequests->askQuestion->aaqQuestionText }}</td>
                                         @if ($serviceRequests->askQuestion->aaqDocResponse != null)
-                                            <td>Responded at {{ $serviceRequests->srResponseDateTime}}</td>
+                                            <td>Responded at {{ date('d-m-Y H:i:s', strtotime($serviceRequests->srResponseDateTime))}}</td>
                                         @else
-                                            <td>Not Responded</td>
+                                            <td>No Response yet</td>
                                         @endif
                                     </tbody>
     
@@ -132,8 +124,8 @@
                                                     <td>{{ $patDoc->documentType }}</td>
                                                     <td>{{ $patDoc->documentFileName }} </td>
                                                     <td>{{ $patDoc->documentDescription }}</td>
-                                                    <td>{{ $patDoc->documentDate }}</td>
-                                                    <td>{{ $patDoc->documentUploadDate }}</td>
+                                                    <td>{{ date('d-m-Y ', strtotime($patDoc->documentDate))  }}</td>
+                                                    <td>{{ date('d-m-Y ', strtotime($patDoc->documentUploadDate))  }}</td>
                                                     <td>
                                                         <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
 

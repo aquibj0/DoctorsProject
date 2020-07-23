@@ -119,7 +119,7 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/admin/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
         Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
         Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
-
+ 
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
         
@@ -148,13 +148,16 @@ Route::group(['middleware' => 'web'], function(){
         Route::post('/department/{id}', 'Admin\DepartmentController@update')->name('department.edit');
         Route::delete('/department/{id}', 'Admin\DepartmentController@destroy')->name('department.delete');
 
-
+ 
         // Services
         Route::get('/services', 'Admin\ServiceController@index')->name('service.home');
         Route::get('/services/create', 'Admin\ServiceController@create');
         Route::post('/services/store', 'Admin\ServiceController@store')->name('service.store');
         Route::post('/services/{id}', 'Admin\ServiceController@update')->name('service.edit');
         Route::delete('/services/{id}', 'Admin\ServiceController@destroy')->name('service.delete');
+    
+        // Internal Notes
+        ROute::post('/internalnotes/{id}', 'Admin\ServiceRequestController@internalNotes');
     });
 });
 

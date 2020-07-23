@@ -4,9 +4,14 @@
 <section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row" style="height:auto">
-        <div class="col-md-4" style="background:#142cd6; min-height:100%;">
-        <div style="background:#142cd6;"></div>
-    </div>
+        <div class="col-md-4">
+            <div style="background:#142cd6;">
+
+                <img src="{{asset('image/IMAGE6.jpg')}}" style="max-width:100%" alt="">
+            </div>
+        </div>
+
+
         <div class="col-md-8" >
             
             <div class="container">
@@ -21,7 +26,6 @@
                                 <form action="{{ url('/admin/clinic') }}" method="POST">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
-                                        <h2 class="maroon MB-3"><b>Clinic DETAILS</b></h2>
                                     </div>
     
                                     <div class="form-row">
@@ -34,17 +38,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    
-                                        {{-- Clinic mobile number Input --}}
-                                        {{-- <div class="form-group col-md-6">
-                                            <input type="text" placeholder="Mobile No" id="clinicMobileNo" class="form-control @error('clinicMobileNo') is-invalid @enderror" name="clinicMobileNo" value="{{ old('clinicMobileNo') }}" autocomplete="clinicMobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
-                                            
-                                            @error('clinicMobileNo')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div> --}}
                                     </div>
     
                                     <div class="form-row">
@@ -61,7 +54,17 @@
                                         
                                         {{-- Clinic Landline No Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" placeholder="Landline No" id="clinicLandLineNo" class="form-control @error('clinicLandLineNo') is-invalid @enderror" name="clinicLandLineNo" value="{{ old('clinicLandLineNo') }}" autocomplete="clinicLandLineNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12">
+                                            <input type="text" 
+                                                placeholder="Landline No" 
+                                                id="clinicLandLineNo" 
+                                                class="form-control @error('clinicLandLineNo') is-invalid @enderror" 
+                                                name="clinicLandLineNo" 
+                                                value="{{ old('clinicLandLineNo') }}" 
+                                                autocomplete="clinicLandLineNo" 
+                                                oninput="javascript: 
+                                                    if (this.value.length > this.maxLength) 
+                                                        this.value = this.value.slice(0, this.maxLength);" 
+                                                maxlength="12">
                                             
                                             @error('clinicLandLineNo')
                                                 <span class="invalid-feedback" role="alert">
