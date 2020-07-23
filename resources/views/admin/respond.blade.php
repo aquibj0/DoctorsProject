@@ -270,14 +270,32 @@
                         
                     </div>
                 </div>
+
+                
                 <div class="col-md-5" style="border:1px solid #000; padding: 15px">
                     <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
-                    <form action="#" method="POST">
-                        <textarea  class="form-control" name="" id="" cols="30" rows="10"></textarea>
-                        <div class="form-group text-center mb-0">
-                            <input type="submit" class=" mt-2 btn btn-maroon">
-                        </div>
-                    </form>
+
+
+                    @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                        <form action="/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                            @csrf
+                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10"></textarea>
+                            <div class="form-group text-center mb-0">
+                                <input type="submit" class=" mt-2 btn btn-maroon">
+                            </div>
+                        </form>
+
+                    @else
+
+                        <form action="/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                            @csrf
+                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                            <div class="form-group text-center mb-0">
+                                <input type="submit" class=" mt-2 btn btn-maroon">
+                            </div>
+                        </form>
+                    @endif
+                    
 
                     
                 </div>

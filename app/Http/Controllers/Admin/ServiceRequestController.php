@@ -66,6 +66,22 @@ class ServiceRequestController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
     }
 
+
+
+
+
+      // Store doctor internal notes
+      public function internalNotes($id, Request $request){
+        $internalNotes = VideoCall::where('id', $id)->first();
+        if($request){
+            $internalNotes->vcDocInternalNotesText = $request['vcDocInternalNotesText'];
+            // $internalNotes->update();
+
+            // return redirect()->back()->with('success', 'Internal Notes Saved');
+            return $internalNotes;
+        }
+    } 
+
     /**
      * Show the form for creating a new resource.
      *

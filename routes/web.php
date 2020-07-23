@@ -153,6 +153,9 @@ Route::group(['middleware' => 'web'], function(){
         Route::post('/services/store', 'Admin\ServiceController@store')->name('service.store');
         Route::post('/services/{id}', 'Admin\ServiceController@update')->name('service.edit');
         Route::delete('/services/{id}', 'Admin\ServiceController@destroy')->name('service.delete');
+    
+        // Internal Notes
+        ROute::post('/internalnotes/{id}', 'Admin\ServiceRequestController@internalNotes');
     });
 });
 

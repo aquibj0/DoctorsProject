@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Tzsk\Sms\Facade\Sms;
 use Illuminate\Http\Request;
 use App\Patient;
 use Carbon\Carbon;
@@ -106,7 +107,7 @@ class VideoConsultationController extends Controller
                             SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
                             
                             // Send Confirmation Message using textlocal
-                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userPhoneNo)->dispatch();
+                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
 
                             return redirect()->route('confirm-service-request', $srvcReq->srId);
                         }else{
@@ -215,6 +216,11 @@ class VideoConsultationController extends Controller
         }
         // });
     }
+
+
+
+  
+
 
     /**
      * Display the specified resource.
