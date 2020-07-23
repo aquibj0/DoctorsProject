@@ -70,7 +70,33 @@
                                         {{ $clinic->clinicState }}, {{ $clinic->clinicCountry }}, {{ $clinic->clinicPincode }}
                                     </td>
                                     <td>
-                                        <a href="{{ url('/admin/clinic/'.$clinic->id.'/delete') }}" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>  
+                                        <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal" data-target="#{{ 'deleteClinic'.$loop->iteration }}">Delete</a>  
+                                   
+                                        <div class="modal fade" id="{{ 'deleteClinic'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title maroon" id="exampleModalLongTitle"><b>Create Department</b></h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <form action="{{ url('/admin/clinic/'.$clinic->id.'/delete') }}" method="post">
+                                                        @csrf
+                                                        
+                                                        <div class="modal-body">
+                                                            <h5 > Confirm Delete <b class="maroon">{{ $clinic->clinicName }} ?</b></h5>
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

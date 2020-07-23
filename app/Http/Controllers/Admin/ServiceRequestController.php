@@ -53,6 +53,7 @@ class ServiceRequestController extends Controller
 
         $srvcReq = ServiceRequest::find($aaq->service_req_id);
         $srvcReq->srResponseDateTime = Carbon::now();
+        $srvcReq->srStatus = 'Closed';
         $srvcReq->update();
 
         // $patient = $srvcReq->patient();
@@ -62,7 +63,7 @@ class ServiceRequestController extends Controller
 
         SendEmail::dispatch($patient, $srvcReq, $aaq, $user, 2)->delay(now()->addMinutes(1));
 
-        return redirect()->back()->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
+        return redirect()->route('admin.dashboard')->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
     }
 
     /**

@@ -17,10 +17,10 @@ class CreateAskAQuestionTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger("service_req_id");
             $table->foreign('service_req_id')->references('id')->on('service_request')->onDelete('cascade');
-            $table->string("aaqPatientBackground");
-            $table->string("aaqQuestionText");
-            $table->string("aaqDocResponse")->nullable();
-            $table->string("aaqDocResponseUploaded");
+            $table->longText("aaqPatientBackground");
+            $table->longText("aaqQuestionText");
+            $table->longText("aaqDocResponse")->nullable();
+            $table->text("aaqDocResponseUploaded");
             $table->timestamps();
         });
     }

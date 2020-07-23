@@ -46,12 +46,12 @@
                         </table>
 
                         <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
-                        <div class="mb-3" style="border:1px solid rgb(97, 13, 13);"> 
+                        <div class="mb-3" style="padding:8px;max-height:200px; overflow-y:scroll;border:1px solid rgb(97, 13, 13);"> 
                             {{$srvcReq->patient->patBackground}}
                         </div>
 
                         <h5 class="maroon"><b><u>PATIENT QUESTION</u> </b></h5>
-                        <div style="border:1px solid rgb(97, 13, 13);"> 
+                        <div style="padding:8px;max-height:200px; overflow-y:scroll;border:1px solid rgb(97, 13, 13);"> 
                             {{$srvcReq->askQuestion->aaqQuestionText}}
                         </div>
 
@@ -64,7 +64,7 @@
 
                     </div>
                     <div class="col-md-6" style="border:1px solid #000; padding: 15px">
-    
+                        <h5 class="maroon"><b><u>DOCTOR'S RESPONSE</u> </b></h5>
                         @if ($srvcReq->askQuestion->aaqDocResponse != null)
                             <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
     
@@ -74,7 +74,7 @@
                     
                                 <div class="form-row mt-1">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="response" id="response" cols="30" rows="5" placeholder="Response"></textarea>
+                                        <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response"></textarea>
                                     </div>
                                 </div>
                                 <div class="text-center">
@@ -126,16 +126,12 @@
                                 <td>{{$srvcReq->patient->patGender}}</td>        
                             </tr>
                                 
-                            {{-- <tr>
-                                <th>Patient Background</th>
-                                <td>{{$srvcReq->patient->patBackground}}</td>        
-                            </tr> --}}
                         </tbody>
                         
                     </table>
 
                     <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
-                    <div class="mb-3" style="border:1px solid rgb(97, 13, 13);"> 
+                    <div class="mb-3" style="max-height:200px; overflow-y:scroll; border:1px solid rgb(97, 13, 13);"> 
                         {{$srvcReq->patient->patBackground}}
                     </div>
 
