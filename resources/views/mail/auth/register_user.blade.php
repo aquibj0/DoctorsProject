@@ -8,11 +8,6 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
     <style>
-    .jumbotron{
-        background: rgb(242, 170, 168);
-        border: none;
-        border-radius: 6px;
-    }
     .jumbotron img{
         border-radius: 8px;
         margin-bottom: 8px;
@@ -24,9 +19,8 @@
         <div class="jumbotron">
             <img src="{{asset('image/logo2.jpg')}}" class="mt-4" alt="">
             <p class="lead mb-5">
-                Dear <span class="maroon">{{$user->userFirstName}} {{$user->userLastName}}</span>, <br>Your has been 
-                created with the following details:
-                <br>
+                Dear <span class="maroon">{{$user->userFirstName}} {{$user->userLastName}}</span>, <br>
+                Thank you for registering on Birth.           
                 
             </p>
         </div>

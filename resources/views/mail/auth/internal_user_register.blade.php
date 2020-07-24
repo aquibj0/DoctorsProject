@@ -8,12 +8,9 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
     <style>
-    .jumbotron{
-        background: rgb(242, 170, 168);
-        border: none;
-        border-radius: 6px;
-    }
+ 
     .jumbotron img{
+        max-width: 180px;
         border-radius: 8px;
         margin-bottom: 8px;
     }
