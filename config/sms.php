@@ -29,7 +29,7 @@ return [
             'sender' => 'Your AWS SNS Sender ID',
             'type' => 'Tansactional', // Or: 'Promotional'
         ],
-
+        
         'textlocal' => [
             'url' => 'http://api.textlocal.in/send/', // Country Wise this may change.
             'username' => 'aquib_j@yahoo.com',
@@ -103,6 +103,8 @@ return [
     | Tzsk\Sms\Abstracts\Driver in your driver.
     |
     */
+
+
     'map' => [
         'sns' => \Tzsk\Sms\Drivers\Sns::class,
         'textlocal' => \Tzsk\Sms\Drivers\Textlocal::class,
