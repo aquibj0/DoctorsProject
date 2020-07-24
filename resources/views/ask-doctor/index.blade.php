@@ -16,7 +16,7 @@
                                 <h2> Ask a doctor</h2>
                             </div>   
                             <div>
-                                {{-- @include('layouts.message') --}}
+                                @include('layouts.message')
                                 <form action="{{ route('ask_a_doctor.store') }}" method="POST">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
@@ -255,7 +255,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <select class="form-control" name="department" id="department" required>
-                                                <option selected disabled>Department </option>
+                                                {{-- <option selected disabled>Department </option> --}}
                                                 @foreach($depts as $dept)
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
                                                 @endforeach
@@ -270,7 +270,7 @@
                                     @if($patient)
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024"></textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -301,7 +301,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required></textarea>
+                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>
                                             <small class="form-text text-muted">Maximun 1024 Characters.</small>                                            
                                             @error('patient_question')
                                                 <span class="invalid-feedback" role="alert">

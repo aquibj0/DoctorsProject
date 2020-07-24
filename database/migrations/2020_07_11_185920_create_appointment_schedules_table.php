@@ -21,6 +21,7 @@ class CreateAppointmentSchedulesTable extends Migration
             $table->time('appmntSlot');
             $table->integer('appmntSlotMaxCount');
             $table->integer('appmntSlotFreeCount');
+            $table->integer('appmntFlag');
             $table->timestamps();
         });
     }

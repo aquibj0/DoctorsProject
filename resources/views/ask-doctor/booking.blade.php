@@ -81,12 +81,13 @@ document.getElementById('rzp-button1').onclick = function(e){
 </script>
 
 
-<form action="/payment-complete/{{Auth::user()->id}}/{{$serviceRequest->srId}}" method="POST" hidden>
+<form action="/payment-complete/{{Auth::user()->id}}/{{$data['srvdID']}}" method="POST" hidden>
     <input type="hidden" value="{{csrf_token()}}" name="_token" /> 
     <input type="text" class="form-control" id="rzp_paymentid"  name="rzp_paymentid">
     <input type="text" class="form-control" id="rzp_orderid" name="rzp_orderid">
     <input type="text" class="form-control" id="rzp_signature" name="rzp_signature">
-    <input type="text" id="service_req_id" name="service_req_id" value="{{$serviceRequest->id}}">
+    <input type="text" id="service_req_id" name="service_req_id" value="{{$data['srId']}}">
+    <input type="text" name="amount" value="{{ $data['amount'] }}">
     <button type="submit" id="rzp-paymentresponse" class="btn btn-primary">Submit</button>
 </form>
 

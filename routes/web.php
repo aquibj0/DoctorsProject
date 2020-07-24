@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Payment Initiate
-    Route::get('/payment-initiate/{srvdID}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
+    Route::get('/payment-initiate/{data}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
     // Route::post('/payment-complete','PaymentController@Complete');
     Route::post('/payment-initiate-request','PaymentController@Initiate');
     Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete');
@@ -128,10 +128,11 @@ Route::group(['middleware' => 'web'], function(){
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
         Route::post('/appointment/check', 'Admin\AppointmentController@check');
-        Route::get('/appointment/{date}/{appmntType}', 'Admin\AppointmentController@show');
+        Route::get('/appointment/{date}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@show');
+        Route::get('/appointment/{date}/{appmntType}/{clinic_id}/{start_date}/{end_date}', 'Admin\AppointmentController@show_clinic');
         // Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
         // Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
-        Route::post('/appointment/store', 'Admin\AppointmentController@store');
+        Route::post('/appointment/store/{start_date}/{end_date}', 'Admin\AppointmentController@store');
         Route::post('/appointment/update/{id}', 'Admin\AppointmentController@update');
         Route::delete('/appointment/delete/{id}', 'Admin\AppointmentController@destroy');
 

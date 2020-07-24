@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use App\Patient;
 use App\ServiceRequest;
+// use App\Patient
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -22,8 +23,14 @@ class UserController extends Controller
 
         if(Auth::user()->id == $id){
 
+            // $serviceRequests = ServiceRequest::where('user_id', '=', $id)->get();
+            // foreach($serviceRequests as $item){
+            //     if($item->paymentStatus == 0){
+            //         $item->delete();
+            //     }
+            // }
             $serviceRequests = ServiceRequest::where('user_id', '=', $id)->get();
-                return view('user.service_request', compact('serviceRequests'));
+            return view('user.service_request', compact('serviceRequests'));
         }
 
 

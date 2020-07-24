@@ -52,38 +52,57 @@ class AppointmentController extends Controller
                         $data[$i]['created'] = 0;
                     }
                 }
+            }else{
+                if($docType == "ED"){
+                    if(AppointmentSchedule::where('appmntType', 'CED')->where('appmntDate', $date->toDateString())->where('appmntClinicid',  $request->appointment_type)->first()){
+                        $data[$i]['created'] = 1;
+                    }else{
+                        $data[$i]['created'] = 0;
+                    }
+                }else if($docType == "TD"){
+                    if(AppointmentSchedule::where('appmntType', 'CTD')->where('appmntDate', $date->toDateString())->where('appmntClinicid',  $request->appointment_type)->first()){
+                        $data[$i]['created'] = 1;
+                    }else{
+                        $data[$i]['created'] = 0;
+                    }
+                }
+                // return $request;
             }
         }
         $clinics = Clinic::all();
         return view('admin.appointment.index')
             ->with('clinics', $clinics)
             ->with('data', $data)
-            ->with('show', 1)->with('docType', $docType)->with('appointmentType', $appmntType);
+            ->with('show', 1)
+            ->with('docType', $docType)
+            ->with('appointmentType', $appmntType)
+            ->with('start_date', $request->start_date)
+            ->with('end_date', $request->end_date);
         // return $data;
     }
 
-    public function getLocation(){
-        $loc = Clinic::all()->pluck('id', 'clinicName');
-        return $loc;
-    }
+    // public function getLocation(){
+    //     $loc = Clinic::all()->pluck('id', 'clinicName');
+    //     return $loc;
+    // }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $services = Service::all();
-        return view('admin.appointment.appointment')->with('services', $services);
-    }
-    public function create_video(){
-        return view('admin.appointment.appointment_video');
-    }
+    // public function create()
+    // {
+    //     $services = Service::all();
+    //     return view('admin.appointment.appointment')->with('services', $services);
+    // }
+    // public function create_video(){
+    //     return view('admin.appointment.appointment_video');
+    // }
 
-    public function create_clinic(){
-        $clinics = Clinic::all();
-        return view('admin.appointment.appointment_clinic')->with('clinics', $clinics);
-    }
+    // public function create_clinic(){
+    //     $clinics = Clinic::all();
+    //     return view('admin.appointment.appointment_clinic')->with('clinics', $clinics);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -91,59 +110,135 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $start_date, $end_date)
     {
         DB::beginTransaction();
         try{
-            if($request->docType == "CTD" || $request->docTYpe == "CED"){
-                for($i = 0; $i<12;$i++){
-                    $app = AppointmentSchedule::where('appmntType', $request->docType)
-                                                ->where('appmntDate', $request->date)
-                                                ->where('appmntSlot', $request->time[$i])
-                                                ->where('appmntClinicid', $request->clinic_id)
-                                                ->first();
-                    if(!$app){
+            if($request->submit_type == "new"){
+                if($request->appointmentType == "VED"){
+                    $flagCount = 0;
+                    if($request->docType == "TD")
+                        $appmntType = "VTD";
+                    else if($request->docType == "ED")
+                        $appmntType = "VED";
+                    for($i=0;$i<28;$i++){
+                        if(!AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->first()){
+                            $app = new AppointmentSchedule;
+                            $app->appmntType = $appmntType;
+                            $app->appmntDate = Carbon::parse($request->date)->toDateString();
+                            $app->appmntSlot = $request->time[$i];
+                            $app->appmntSlotMaxCount = $request->freecount[$i];
+                            $app->appmntSlotFreeCount = $request->booked[$i];
+                            // if(){
+                                if($request->time[$i] == $request->flag[$flagCount]){
+                                    $app->appmntFlag = 1;
+                                    if($flagCount < count($request->flag)-1){
+                                        $flagCount++;
+                                        // echo $flagCount.' '.count($request->flag);
+                                    }
+                                }else{
+                                    $app->appmntFlag = 0;
+                                }
+                            // }
+                            $app->save();
+                        }else{
+                            return redirect()->back()->with('error', 'Appointment already created!');
+                        }
+                    }
+                }else{
+                    $flagCount = 0;
+                    if($request->docType == "TD")
+                            $appmntType = "CTD";
+                        else if($request->docType == "ED")
+                            $appmntType = "CED";
+                    for($i=0;$i<12;$i++){
                         $app = new AppointmentSchedule;
-                        $app->appmntType = $request->docType;
-                        $app->appmntDate = $request->date;
+                        $app->appmntType = $appmntType;
+                        $app->appmntClinicid = $request->appointmentType;
+                        $app->appmntDate = Carbon::parse($request->date)->toDateString();
                         $app->appmntSlot = $request->time[$i];
                         $app->appmntSlotMaxCount = $request->freecount[$i];
-                        $app->appmntSlotFreeCount = $request->freecount[$i];
-                        if($request->docType == "CTD" || $request->docType == "CED"){
-                            $app->appmntClinicid = $request->clinic_id;
+                        $app->appmntSlotFreeCount = $request->booked[$i];
+                        if($request->time[$i] == $request->flag[$flagCount]){
+                            $app->appmntFlag = 1;
+                            if($flagCount < count($request->flag)-1){
+                                $flagCount++;
+                            }
+                        }else{
+                            $app->appmntFlag = 0;
                         }
                         $app->save();
-                    }else{
-                        return redirect()->back()->with('error', 'Appointment for '.$request->time[$i].' on '.$request->date.' of '.$request->docType.' has been created earlier.');
                     }
                 }
-                // return $request;
-            }else{
-                for($i = 0; $i<24;$i++){
-                    $app = AppointmentSchedule::where('appmntType', $request->docType)
-                                                ->where('appmntDate', $request->date)
-                                                ->where('appmntSlot', $request->time[$i])
-                                                ->first();
-                    if(!$app){
-                        $app = new AppointmentSchedule;
-                        $app->appmntType = $request->docType;
-                        $app->appmntDate = $request->date;
-                        $app->appmntSlot = $request->time[$i];
-                        $app->appmntSlotMaxCount = $request->freecount[$i];
-                        $app->appmntSlotFreeCount = $request->freecount[$i];
-                        $app->save();
-                    }else{
-                        return redirect()->back()->with('error', 'Appointment for '.$request->time[$i].' on '.$request->date.' of '.$request->docType.' has been created earlier.');
+            }else if($request->submit_type == "old"){
+                if($request->appointmentType == "VED"){
+                    $flagCount = 0;
+                    if($request->docType == "TD")
+                        $appmntType = "VTD";
+                    else if($request->docType == "ED")
+                        $appmntType = "VED";
+                        // return $request;
+                    for($i=0;$i<28;$i++){
+                        $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->first();
+                        if($app){
+                            // echo $reques;
+                            if($request->time[$i] == $request->flag[$flagCount]){
+                                $app->appmntFlag = 1;
+                                if($flagCount < count($request->flag)-1){
+                                    $flagCount++;
+                                }
+                            }else{
+                                $app->appmntFlag = 0;
+                            }
+                            $app->update();
+                        }else{
+                            return redirect()->back()->withInput()->with('error', 'Something went wrong!');
+                        }
                     }
-                }  
+                }else{
+                    $flagCount = 0;
+                    if($request->docType == "TD")
+                            $appmntType = "CTD";
+                        else if($request->docType == "ED")
+                            $appmntType = "CED";
+                    for($i=0;$i<12;$i++){
+                        $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->where('appmntClinicid', $request->appointmentType)->first();
+                        if($request->time[$i] == $request->flag[$flagCount]){
+                            $app->appmntFlag = 1;
+                            if($flagCount < count($request->flag)-1){
+                                $flagCount++;
+                            }
+                        }else{
+                            $app->appmntFlag = 0;
+                        }
+                        $app->update();
+                    }
+                }
+            }else{
+                return redirect()->back()->with('error', 'Something went wrong!');
             }
+
         } catch(\Exception $e){
             DB::rollback();
             return redirect()->back()->with('error', $e->getMessage());
         }
         DB::commit();
-        return redirect('/admin/appointment')->with('success', 'Appointment for '.$request->date.' added successfully');
-        // return $request;
+        $clinics = Clinic::all();
+        if($request->submit_type == "old")
+            $message = 'Appointment for '.$request->date.' added successfully';
+        else if($request->submit_type == "new")
+            $message = 'Appointment for '.$request->date.' updated successfully';
+        return redirect('/admin/appointment')
+            ->with('clinics', $clinics)
+            ->with('show', 1)
+            ->with('docType', $request->docType)
+            ->with('appointmentType', $request->appointmentType)
+            ->with('start_date', $start_date)
+            ->with('end_date', $end_date)
+            ->with('show', 0)
+            ->with('success', $message);
+
+        // return count($request->flag);
     }
 
 
@@ -153,7 +248,7 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($date, $appmntType)
+    public function show($date, $appmntType, $start_date, $end_date)
     {
         $appointments = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())->where('appmntType', $appmntType)->get();
         if($appmntType == "VTD"){
@@ -161,15 +256,40 @@ class AppointmentController extends Controller
                     ->with('appointments', $appointments)
                     ->with('appointmentType', 'VED')
                     ->with('docType', 'TD')
-                    ->with('date', $date);
-        }else if($appmnetType == "VED"){
+                    ->with('date', $date)
+                    ->with('start_date', $start_date)
+                    ->with('end_date', $end_date);
+        }else if($appmntType == "VED"){
             return view('admin.appointment.appointment')
                     ->with('appointments', $appointments)
                     ->with('appointmentType', 'VED')
                     ->with('docType', 'ED')
-                    ->with('date', $date);
+                    ->with('date', $date)
+                    ->with('start_date', $start_date)
+                    ->with('end_date', $end_date);
         }
         
+    }
+
+    public function show_clinic($date, $appmntType, $clinic_id, $start_date, $end_date){
+        $appointments = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())->where('appmntType', $appmntType)->where('appmntClinicid',  $clinic_id)->get();
+        if($appmntType == "CTD"){
+            return view('admin.appointment.appointment')
+                    ->with('appointments', $appointments)
+                    ->with('appointmentType', $clinic_id)
+                    ->with('docType', 'TD')
+                    ->with('date', $date)
+                    ->with('start_date', $start_date)
+                    ->with('end_date', $end_date);
+        }else if($appmntType == "CED"){
+            return view('admin.appointment.appointment')
+                    ->with('appointments', $appointments)
+                    ->with('appointmentType', $clinic_id)
+                    ->with('docType', 'ED')
+                    ->with('date', $date)
+                    ->with('start_date', $start_date)
+                    ->with('end_date', $end_date);
+        }
     }
 
     /**

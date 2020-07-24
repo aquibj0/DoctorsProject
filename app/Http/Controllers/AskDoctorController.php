@@ -14,15 +14,20 @@ use Mail;
 use App\Mail\AAQEmail;
 use App\Service;
 use App\Jobs\SendEmail;
+use App\Http\Controllers\PaymentController;
 use Razorpay\Api\Api;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 // use Carbon\Carbon;
 
 class AskDoctorController extends Controller
 {
-    
+    public $payments;
+    public function __construct(){
+        $this->payments = new PaymentController;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -59,23 +64,6 @@ class AskDoctorController extends Controller
     public function store(Request $request)
     {
 
-        // $validator = Validator::make($request->all(), [
-        //     'firstName' => ['required', 'string', 'max:40'],
-        //     'lastName' => ['required', 'string', 'max:40'],
-        //     'gender' => ['required'],
-        //     'age' => ['required'],
-        //     'background' => ['required'],
-        //     'email' => ['string', 'email', 'max:100'],
-        //     'mobileCC' => ['required'],
-        //     'mobileNo' => ['required', 'numeric',  'digits:10', 'unique:users', 'regex:/(01)[0-9]{9}/'],
-        //     'addrLine1' => ['required', 'string', 'max:100'],
-        //     'addrLine2' => [ 'string', 'max:100'],
-        //     'city' => ['required'],
-        //     'district' => ['required'],
-        //     'state' => ['required'],
-        //     'country' => ['required'],
-        // ]);
-
         if($request){
             $validator = Validator::make($request->all(), [
                 'firstName' => ['string', 'max:35'],
@@ -83,10 +71,10 @@ class AskDoctorController extends Controller
                 'gender' => ['string', 'min:4', 'max:6'],
                 'age' => ['numeric', 'min:10', 'max:90'],
                 'patient_background' => ['string', 'max:1024'],
-                'patEmail' => ['email', 'max:255', 'unique:patient'],
-                'patMobileNo' => ['numeric', 'digits:10', 'unique:patient'],
+                // 'patEmail' => ['email', 'max:255', 'unique:patient'],
+                // 'patMobileNo' => ['numeric', 'digits:10', 'unique:patient'],
                 'addressLine1' => ['string', 'max:64'],
-                'addressLine2' => ['string', 'max:64'],
+                'addressLine2' => ['string', 'nullable', 'max:64'],
                 'city' => ['string', 'max:35'],
                 'district' => ['string', 'max:35'],
                 'state' => ['string', 'max:35'],
@@ -95,74 +83,104 @@ class AskDoctorController extends Controller
                 'patient_question' => ['string', 'max:1024']
             ]);
             if(!$validator->fails()){
-                if($request['patient_id']){
-                    $patient = Patient::find($request['patient_id']);
-                }else{
-                    $patient = new Patient;
-                    $patient->patId = str_random(15);
-                    $patient->user_id = Auth::user()->id;
-                    $patient->patFirstName = $request['firstName'];
-                    $patient->patLastName = $request['lastName'];
-                    $patient->patGender = $request['gender'];
-                    $patient->patAge = $request['age'];
-                    $patient->patBackground = $request['patient_background'];
-                    if(!empty($request->email)){
-                        $patient->patEmail = $request['patEmail'];
+                DB::beginTransaction();
+                try{
+                    if($request['patient_id']){
+                        $patient = Patient::find($request['patient_id']);
+                    }else{
+                        $patient = new Patient;
+                        $patient->patId = str_random(15);
+                        $patient->user_id = Auth::user()->id;
+                        $patient->patFirstName = $request['firstName'];
+                        $patient->patLastName = $request['lastName'];
+                        $patient->patGender = $request['gender'];
+                        $patient->patAge = $request['age'];
+                        $patient->patBackground = $request['patient_background'];
+                        if(!empty($request->email)){
+                            $patient->patEmail = $request['patEmail'];
+                        }
+                        $patient->patMobileCC = $request['mobileCC'];
+                        $patient->patMobileNo = $request['patMobileNo']; 
+                        $patient->patEmail = $request['patEmail']; 
+                        $patient->patAddrLine1 = $request['addressLine1'];
+                        $patient->patAddrLine2 = $request['addressLine2'];
+                        $patient->patCity = $request['city'];
+                        $patient->patDistrict = $request['district'];
+                        $patient->patState = $request['state'];
+                        $patient->patCountry = $request['country'];
+                        $patient->save();
+                        $patient->patId = Auth::user()->userId."-".$patient->id;
+                        $patient->update();
                     }
-                    $patient->patMobileCC = $request['mobileCC'];
-                    $patient->patMobileNo = $request['patMobileNo']; 
-                    $patient->patEmail = $request['patEmail']; 
-                    $patient->patAddrLine1 = $request['addressLine1'];
-                    $patient->patAddrLine2 = $request['addressLine2'];
-                    $patient->patCity = $request['city'];
-                    $patient->patDistrict = $request['district'];
-                    $patient->patState = $request['state'];
-                    $patient->patCountry = $request['country'];
-                    $patient->save();
-                    $patient->patId = Auth::user()->userId."-".$patient->id;
-                    $patient->update();
-                }
 
-                if($patient->save()){
-                    $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', 'AAQ')->first()->id;
-                    $srvcReq->patient_id = $patient->id;
-                    $srvcReq->user_id = Auth::user()->id;
-                    $srvcReq->srRecievedDateTime = Carbon::now();
-                    $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
-                    $srvcReq->srDepartment = $request['department'];
-                    $srvcReq->srStatus = $request['srStatus'];
-                    $srvcReq->srConfirmationSentByAdmin = 'N';
-                    $srvcReq->srMailSmsSent = Carbon::now();
-                    $srvcReq->srDocumentUploadedFlag = 'N';
-                    $srvcReq->srStatus = "NEW";
-                    $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
-                    $srvcReq->update();
-                    
-
-
-                    $srvdID = $srvcReq->srId ;
-
-
-                    if($srvcReq->save()){
-                        $asaq = new AskAQuestion;
-                        $asaq->service_req_id = $srvcReq->id;
-                        $asaq->aaqPatientBackground = $request['patient_background'];
-                        $asaq->aaqQuestionText = $request['patient_question'];
-                        $asaq->aaqDocResponseUploaded = 'N';
-                        $asaq->save();
+                    if($patient->save()){
+                        $srvcReq = new ServiceRequest;
+                        // $id = Service::where('srvcShortName', 'AAQ')->first()->id;       
+                        // if(!empty($id))
+                        //     $srvcReq->service_id = $id;
+                        // else
+                        //     return redrect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');    
+                        $srvcReq->service_id = Service::where('srvcShortName', 'AAQ')->first()->id;
+                        $srvcReq->patient_id = $patient->id;
+                        $srvcReq->user_id = Auth::user()->id;
+                        $srvcReq->srRecievedDateTime = Carbon::now();
+                        $srvcReq->srDueDateTime = Carbon::now()->addHours(24);
+                        $srvcReq->srDepartment = $request['department'];
+                        $srvcReq->srStatus = $request['srStatus'];
+                        $srvcReq->srConfirmationSentByAdmin = 'N';
+                        $srvcReq->srMailSmsSent = Carbon::now();
+                        $srvcReq->srDocumentUploadedFlag = 'N';
+                        $srvcReq->srStatus = "NEW";
+                        $srvcReq->save();
+                        $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
+                        $srvcReq->update();
                         
-                        //1 is the status for sending confirmation mail
-                        // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
-                        // 
-                        // Send Confirmation Message using textlocal
-                        Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
 
-                        return redirect()->route('confirm-service-request', $srvdID);
-                        // ->with('success', 'Your Booking is done, Please pay to confirm.');
+
+                        $srvdID = $srvcReq->srId ;
+
+
+                        if($srvcReq->save()){
+                            $asaq = new AskAQuestion;
+                            $asaq->service_req_id = $srvcReq->id;
+                            $asaq->aaqPatientBackground = $request['patient_background'];
+                            $asaq->aaqQuestionText = $request['patient_question'];
+                            $asaq->aaqDocResponseUploaded = 'N';
+                            $asaq->save();
+                            
+                            //1 is the status for sending confirmation mail
+                            // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                            // 
+                            // Send Confirmation Message using textlocal
+                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
+                            
+                            
+                            $data = array();
+                            $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
+                            $data['check_amount'] = $data['amount'];
+                            $data['srvdID'] = $srvdID;
+                            $data['srId'] = $srvcReq->id;
+                            $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+                            $data['contactNumber'] = Auth::user()->userMobileNo;
+                            $data['email'] = Auth::user()->userEmail;
+                            
+                            return $this->payments->paymentInitiate($data);
+                            // return redirect()->route('confirm-service-request', $data);
+                            // return redirect('/payment-initiate/'.$data)->with('data', $data);
+                            // ->with('success', 'Your Booking is done, Please pay to confirm.');
+                            // DB::commit();            
+                        }
                     }
+
+
+                    
+                } catch(\Exception $e){
+                    DB::rollback();
+                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+                    // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
+                DB::commit();
+                return $res."hhehe";
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
