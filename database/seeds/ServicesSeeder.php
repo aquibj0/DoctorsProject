@@ -32,7 +32,7 @@ class ServicesSeeder extends Seeder
         DB::table('services')->insert(
             [
                 'srvcName' => 'Video Call with Expert Doctor',
-                'srvcShortName' => 'VTD',
+                'srvcShortName' => 'VED',
                 'srvcPrice' => 700.00,
             ]
         );
@@ -46,7 +46,7 @@ class ServicesSeeder extends Seeder
         DB::table('services')->insert(
             [
                 'srvcName' => 'Clinic Appointment with Expert Doctor',
-                'srvcShortName' => 'CTD',
+                'srvcShortName' => 'CED',
                 'srvcPrice' => 800.00,
             ]
         );

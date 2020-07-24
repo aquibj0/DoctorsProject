@@ -23,13 +23,11 @@ class PaymentController extends Controller
     public function paymentInitiate($data){
 
         // $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
-        // DB::beginTransaction();
         $api = new Api($this->razorpayId, $this->razorpayKey);
 
         // In razorpay you have to convert rupees into paise we multiply by 100
         // Currency will be INR 
         // Creating order
-        // try{
             $this->data = $data;
             $order = $api->order->create(array(
                 'receipt' => $data['srvdID'],
@@ -50,12 +48,6 @@ class PaymentController extends Controller
                 'description' => 'Testing description',
             ];        
             return view('ask-doctor.booking', compact('data', 'response'));
-        // } catch(\Exception $e){
-        //     DB::rollback();
-        //     return redirect()->back()->with('error', $e->getMessage());
-        // }
-        
-        // return "yes";
     }
 
 
@@ -80,21 +72,13 @@ class PaymentController extends Controller
             $payment->order_id = $request['rzp_orderid'];
             $payment->payment_transaction_id = $request['rzp_paymentid'];
             $payment->signature = $request['rzp_signature'];
-            // if($this->data['check_amount'] == $request['amount'])
-                $payment->payment_amount = $request['amount'];
-            // else{
-            //     return 'dhokha!';
-            // }
+            $payment->payment_amount = $request['amount'];
             $payment->save();
 
             if($payment->save()){
-                // return array(true, $id, $this->data['srvdID']);
                 $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
-                // return $serviceReq;
                 $serviceReq->paymentStatus = true;
                 $serviceReq->update();
-                // return $serviceReq;
-                // return redirect()->back()->with('success', 'Thank you for the order');
                 return redirect()->route('servicereq-details', [$id, $this->data['srvdID']])->with('success', 'Thank you for the order');
             }
         }
@@ -103,7 +87,7 @@ class PaymentController extends Controller
             $serviceReq = ServiceRequest::where('srId', '=',$serviceRequest->srId )->first();
             // $serviceReq->paymentStatus = false;
             $serviceReq->delete();
-            // return $serviceReq;
+
             // return redirect()->back()->with('success', 'Thank you for the order');
             return redirect()->route('servicereq-details', [$id, $serviceRequest->srId])->with('error', 'Payment Failed, Please try again Later.');
             // DB::rollback();

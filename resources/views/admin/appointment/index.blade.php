@@ -21,7 +21,7 @@
                             {{csrf_field()}}
                             @if(!empty($start_date) && !empty($end_date))
                                 <div class="form-row form-group">
-                                    <div class="col-md-">
+                                    <div class="col-md">
                                         <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date }}">         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">
@@ -29,7 +29,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md">
                                         <input type="date" name="end_date" class="form-control" id="end_date" value="{{ $end_date }}">         
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
@@ -37,33 +37,50 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="col-md-3">
-                                        {{-- <select name="doctor_type" id="doctor_type" class="form-control">
-                                            <option disabled selected>Select one</option>
-                                            <option value="ED">Dr. Khastgir</option>
-                                            <option value="TD">Birth Team Doctor</option>
-                                        </select> --}}
-                                        <input type="text" name="doctor_type" id="doctor_type" value="{{ $docType }}">
+                                    <div class="col-md">
+                                        <select name="doctor_type" id="doctor_type" class="form-control">
+                                            {{-- <option disabled selected>Select one</option> --}}
+                                            @if($docType == "ED")
+                                                <option value="ED" selected>Dr. Khastgir</option>
+                                                <option value="TD">Birth Team Doctor</option>
+                                            @else
+                                                <option value="ED">Dr. Khastgir</option>
+                                                <option value="TD" selected>Birth Team Doctor</option>
+                                            @endif
+                                        </select>
+                                        {{-- <input type="text" name="doctor_type" id="doctor_type" value="{{ $docType }}"> --}}
                                     </div>
-                                    <div class="col-md-3">
-                                        {{-- <select name="appointment_type" id="appointment_type" class="form-control">
-                                            <option disabled selected>Select one</option>
-                                            <option value="VED">Video Appointment</option>
-                                            @foreach($clinics as $clinic)
-                                                <option value="{{ $clinic->id }}">{{ $clinic->clinicName }}-Clinic</option>
-                                            @endforeach
-                                        </select> --}}
-                                        <input type="text" name="appointment_type" id="appointment_type" value="{{ $appointmentType }}">
+                                    <div class="col-md">
+                                        <select name="appointment_type" id="appointment_type" class="form-control">
+                                            {{-- <option disabled>Select one</option> --}}
+                                            @if($appointmentType == "VED")
+                                                <option value="VED" selected>Video Appointment</option>
+                                                @foreach($clinics as $clinic)
+                                                    <option value="{{ $clinic->id }}">{{ $clinic->clinicName }}-Clinic</option>
+                                                @endforeach
+                                            @else
+                                                <option value="VED">Video Appointment</option>
+                                                @foreach($clinics as $clinic)
+                                                    @if($appointmentType == $clinic->id)
+                                                        <option value="{{ $clinic->id }}" selected>{{ $clinic->clinicName }}-Clinic</option>
+                                                    @else
+                                                        <option value="{{ $clinic->id }}" selected>{{ $clinic->clinicName }}-Clinic</option>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        {{-- <input type="text" name="appointment_type" id="appointment_type" value="{{ $appointmentType }}"> --}}
                                     </div>
-                                    <div class="form-row form-group">
-                                        <div class="col-md">
-                                            <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button>
-                                        </div>
+                                    {{-- <div class="form-row form-group"> --}}
+                                    <div class="col-md">
+                                        {{-- <input type="submit" class="submit-btn"> --}}
+                                        <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button>
                                     </div>
+                                    {{-- </div> --}}
                                 </div>
                             @else
                                 <div class="form-row form-group">
-                                    <div class="col-md-">
+                                    <div class="col-md-3">
                                         <input type="date" name="start_date" class="form-control" id="start_date" value="{{ old('start_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">

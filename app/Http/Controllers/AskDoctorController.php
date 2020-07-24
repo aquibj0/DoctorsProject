@@ -71,8 +71,8 @@ class AskDoctorController extends Controller
                 'gender' => ['string', 'min:4', 'max:6'],
                 'age' => ['numeric', 'min:10', 'max:90'],
                 'patient_background' => ['string', 'max:1024'],
-                // 'patEmail' => ['email', 'max:255', 'unique:patient'],
-                // 'patMobileNo' => ['numeric', 'digits:10', 'unique:patient'],
+                'patEmail' => ['email', 'max:255'],
+                'patMobileNo' => ['numeric', 'digits:10'],
                 'addressLine1' => ['string', 'max:64'],
                 'addressLine2' => ['string', 'nullable', 'max:64'],
                 'city' => ['string', 'max:35'],
@@ -149,10 +149,10 @@ class AskDoctorController extends Controller
                             $asaq->save();
                             
                             //1 is the status for sending confirmation mail
-                            // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                            SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                             // 
                             // Send Confirmation Message using textlocal
-                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
+                            Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
                             
                             
                             $data = array();
@@ -164,7 +164,7 @@ class AskDoctorController extends Controller
                             $data['contactNumber'] = Auth::user()->userMobileNo;
                             $data['email'] = Auth::user()->userEmail;
                             
-                            return $this->payments->paymentInitiate($data);
+                            $res = $this->payments->paymentInitiate($data);
                             // return redirect()->route('confirm-service-request', $data);
                             // return redirect('/payment-initiate/'.$data)->with('data', $data);
                             // ->with('success', 'Your Booking is done, Please pay to confirm.');
@@ -180,7 +180,7 @@ class AskDoctorController extends Controller
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
-                return $res."hhehe";
+                return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
