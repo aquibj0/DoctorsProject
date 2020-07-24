@@ -42,7 +42,7 @@
                         <div class="round-img">
                                 <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
                                 <div class="img">
-                                    <img class="image-round " src="{{asset('image/IMAGE1C.jpg')}}" alt="">
+                                    <img class="image-round " src="{{asset('image/Image1C.jpg')}}" alt="">
                                 </div>
                         </div>
                     </div>

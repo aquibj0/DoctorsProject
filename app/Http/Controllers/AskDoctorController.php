@@ -149,13 +149,21 @@ class AskDoctorController extends Controller
                             $asaq->save();
                             
                             //1 is the status for sending confirmation mail
-                            // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                            SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                             // 
                             // Send Confirmation Message using textlocal
-                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
-                            
-                            
+                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to(Auth::user()->userMobileNo)->dispatch();
+                            // Sms::send("This is test message 2")->to('919708106258')->dispatch();
+
+                            Sms::send("This is test message with service RequestID ".$srvcReq->srId, function($sms) {
+                                $sms->to('919708106258'); # The numbers to send to.
+                            });
+                            // Sms::via('textlocal')->send("test message", function($sms) {
+                            //     $sms->to('+917463947243');
+                            // });
+
                             $data = array();
+                            
                             $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
                             $data['check_amount'] = $data['amount'];
                             $data['srvdID'] = $srvdID;
@@ -164,23 +172,21 @@ class AskDoctorController extends Controller
                             $data['contactNumber'] = Auth::user()->userMobileNo;
                             $data['email'] = Auth::user()->userEmail;
                             
-                            return $this->payments->paymentInitiate($data);
+                            $res =  $this->payments->paymentInitiate($data);
                             // return redirect()->route('confirm-service-request', $data);
                             // return redirect('/payment-initiate/'.$data)->with('data', $data);
                             // ->with('success', 'Your Booking is done, Please pay to confirm.');
                             // DB::commit();            
                         }
                     }
-
-
                     
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+                    return redirect()->back()->withInput()->with('error', getMessage());
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
-                return $res."hhehe";
+                return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }
