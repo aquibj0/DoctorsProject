@@ -45,7 +45,15 @@
                                             </div>
                                         </div>
                                         <input type="hidden" name="patient_id" value="{{$patient->id}}">
-
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ $patient->patMobileNo }}" required disabled>
+                                            </div>
+                                    
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ $patient->patEmail }}" required disabled>
+                                            </div>
+                                        </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ $patient->patAddrLine1 }}" required disabled>
@@ -158,7 +166,7 @@
 
                                         {{-- Patient Phone No Input --}}
                                         <div class="form-group col-md-4">
-                                            <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ Auth::user()->userMobileNo }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                            <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ old('patMobileNo') }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             
                                             @error('mobileNo')
                                                 <span class="invalid-feedback" role="alert">
@@ -169,7 +177,7 @@
 
                                         {{-- Patient Email Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ Auth::user()->userEmail }}" required>
+                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
                                             
                                             @error('patEmail')
                                                 <span class="invalid-feedback" role="alert">

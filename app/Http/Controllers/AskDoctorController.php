@@ -71,8 +71,8 @@ class AskDoctorController extends Controller
                 'gender' => ['string', 'min:4', 'max:6'],
                 'age' => ['numeric', 'min:10', 'max:90'],
                 'patient_background' => ['string', 'max:1024'],
-                // 'patEmail' => ['email', 'max:255', 'unique:patient'],
-                // 'patMobileNo' => ['numeric', 'digits:10', 'unique:patient'],
+                'patEmail' => ['email', 'max:255'],
+                'patMobileNo' => ['numeric', 'digits:10'],
                 'addressLine1' => ['string', 'max:64'],
                 'addressLine2' => ['string', 'nullable', 'max:64'],
                 'city' => ['string', 'max:35'],
@@ -162,6 +162,9 @@ class AskDoctorController extends Controller
                             //     $sms->to('+917463947243');
                             // });
 
+                            Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
+                            
+                            
                             $data = array();
                             
                             $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
@@ -172,7 +175,7 @@ class AskDoctorController extends Controller
                             $data['contactNumber'] = Auth::user()->userMobileNo;
                             $data['email'] = Auth::user()->userEmail;
                             
-                            $res =  $this->payments->paymentInitiate($data);
+                            $res = $this->payments->paymentInitiate($data);
                             // return redirect()->route('confirm-service-request', $data);
                             // return redirect('/payment-initiate/'.$data)->with('data', $data);
                             // ->with('success', 'Your Booking is done, Please pay to confirm.');
