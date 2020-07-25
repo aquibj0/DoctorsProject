@@ -25,7 +25,7 @@ Route::post('/register-user', 'Auth\RegisterController@create_user')->name('regi
 Route::post('/login-user', "Auth\LoginController@login_user")->name('login_user');
 // Auth::routes();
 Route::get('/getSlots/{date}/{appType}', 'VideoConsultationController@getSlots');
-Route::get('/getLocSlots/{date}/CLI/{id}', 'ClinicAppointmentController@getLocSLots');
+Route::get('/getLocSlots/{date}/{service}/{id}', 'ClinicAppointmentController@getLocSlots');
 Route::get('/getLocation', 'Admin\AppointmentController@getLocation');
 
 

@@ -291,11 +291,23 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    {{-- </div>
-                                    <div class="form-row"> --}}
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control" name="service" id="service" required>
+                                                <option disabled selected>Select Type</option>
+                                                <option value="CED">Dr. Khastgir</option>
+                                                <option value="CTD">Birth Team Doctor</option>
+                                            </select>
+                                            @error('service')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <select class="form-control" name="slot" id="slot" required>
-                                                <option disabled selected>Select One</option>
+                                                <option disabled selected>Select Time</option>
                                             </select>
                                             @error('slot')
                                                 <span class="invalid-feedback" role="alert">
@@ -336,17 +348,19 @@
     $(document).ready(function(){
         //date change
 
-        $('#appointmentLoc').on('change', function(){
+        $('#service').on('change', function(){
             // var appType = $(this).val();
             var date = $("#date").val();
-            var loc = $(this).val();
+            var loc = $("#appointmentLoc").val();
+            var service = $(this).val();
             console.log(loc);
             console.log(date);
+            console.log(service);
 
             $('#slot').find('option').not(':first').remove();
-            if(date){
+            if(service){
                 $.ajax({
-                    url: '/getLocSlots/'+date+'/CLI/'+loc,
+                    url: '/getLocSlots/'+date+'/'+service+'/'+loc,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){
