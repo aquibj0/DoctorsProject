@@ -39,9 +39,40 @@ class AdminController extends Controller
         return substr(str_shuffle($str_result), 0, $length_of_string); 
     } 
 
-    public function index()
+    public function index($sort = 0, $filter = 0)
     {
-        $servReq = ServiceRequest::all();
+        if($sort==0 && $filter==0)
+            $servReq = ServiceRequest::all();
+        else if($sort == 1 && $filter==0)
+            $servReq = ServiceRequest::orderBy('srId', 'desc')->get();
+        else if($sort == 2 && $filter==0)
+            $servReq = ServiceRequest::orderBy('srId', 'asc')->get();
+        else if($sort == 3 && $filter==0)
+            $servReq = ServiceRequest::latest('created_at')->get();
+        else if($sort == 4 && $filter==0)
+            $servReq = ServiceRequest::oldest('created_at')->get();
+        // else if($sort == 0 && $filter==1)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->get();
+        // else if($sort == 1 && $filter==1)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->orderBy('srId', 'desc')->get();
+        // else if($sort == 2 && $filter==1)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->orderBy('srId', 'asc')->get();
+        // else if($sort == 3 && $filter==1)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->latest('created_at')->get();
+        // else if($sort == 4 && $filter==1)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->oldest('created_at')->get();
+        // else if($sort == 0 && $filter==2)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->get();
+        // else if($sort == 1 && $filter==2)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->orderBy('srId', 'desc')->get();
+        // else if($sort == 2 && $filter==2)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->orderBy('srId', 'asc')->get();
+        // else if($sort == 3 && $filter==2)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->latest('created_at')->get();
+        // else if($sort == 4 && $filter==2)
+        //     $servReq = ServiceRequest::where('srId','like', '%AAQ')->oldest('created_at')->get();
+        else
+            return redirect()->back()->with('error', 'Something went wrong!');
         return view('admin.dashboard')->with('servReq', $servReq);
     }
 

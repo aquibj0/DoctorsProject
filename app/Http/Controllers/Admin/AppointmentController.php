@@ -128,7 +128,7 @@ class AppointmentController extends Controller
                             $app->appmntDate = Carbon::parse($request->date)->toDateString();
                             $app->appmntSlot = $request->time[$i];
                             $app->appmntSlotMaxCount = $request->freecount[$i];
-                            $app->appmntSlotFreeCount = $request->booked[$i];
+                            $app->appmntSlotFreeCount = $request->freecount[$i]-$request->booked[$i];
                             // if(){
                                 if($request->time[$i] == $request->flag[$flagCount]){
                                     $app->appmntFlag = 1;
@@ -158,7 +158,7 @@ class AppointmentController extends Controller
                         $app->appmntDate = Carbon::parse($request->date)->toDateString();
                         $app->appmntSlot = $request->time[$i];
                         $app->appmntSlotMaxCount = $request->freecount[$i];
-                        $app->appmntSlotFreeCount = $request->booked[$i];
+                        $app->appmntSlotFreeCount = $request->freecount[$i]-$request->booked[$i];
                         if($request->time[$i] == $request->flag[$flagCount]){
                             $app->appmntFlag = 1;
                             if($flagCount < count($request->flag)-1){

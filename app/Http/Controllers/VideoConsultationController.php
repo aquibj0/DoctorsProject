@@ -15,9 +15,14 @@ use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use App\Http\Controllers\PaymentController;
 
 class VideoConsultationController extends Controller
 {
+    public $payments;
+    public function __construct(){
+        $this->payments = new PaymentController;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +41,7 @@ class VideoConsultationController extends Controller
 
     public function getSlots($date, $appType){
         // if(request()->ajax()){
-            $slot = AppointmentSchedule::where('appmntDate', '=',  $date)
+            $slot = AppointmentSchedule::where('appmntDate',  $date)
                     ->where('appmntType', $appType)
                     ->where('appmntFlag', 1)
                     ->where('appmntSlotFreeCount', '>', 0)->pluck('id', 'appmntSlot');
@@ -74,8 +79,8 @@ class VideoConsultationController extends Controller
                 // 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
             if(!$validator->fails()){
-                DB::beginTransaction();
-                try{
+                // DB::beginTransaction();
+                // try{
                     $patient = Patient::find($request->patient_id);
                     if($patient){
                         $app = AppointmentSchedule::find($request->slot);
@@ -135,11 +140,11 @@ class VideoConsultationController extends Controller
                     }else{
                         return redirect()->back()->with('error', 'Something went wrong!');
                     }
-                } catch(\Exception $e){
-                    DB::rollback();
-                    return redirect()->back()->withInput()->with('error', $e->getMessage());
-                }
-                DB::commit();
+                // } catch(\Exception $e){
+                //     DB::rollback();
+                //     return redirect()->back()->withInput()->with('error', $e->getMessage());
+                // }
+                // DB::commit();
                 return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);

@@ -29,7 +29,7 @@
                                     <option value="AAQ">Ask A Question</option>
                                     <option value="VED">Video call with Expert Doctor</option>
                                     <option value="VTD">Video call with Team Doctor</option>
-                                    <option value="CLI">Clinic Appointment</option>
+                                    <option value="CED">Clinic AppointmentExpert Doctor</option>
                                     <option disabled>-Others-</option>
                                     <option value="date">Date</option>
                                 </select>
@@ -42,9 +42,9 @@
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">SR No. <span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
-                                <th scope="col">Sr Type<span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
-                                <th scope="col">Sr Date<span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
+                                <th scope="col">SR No. <span style="float: right"><a href="/admin/1">&#9650;</a><a href="/admin/2">&#9660;</a></span></th>
+                                <th scope="col">Sr Type</th>
+                                <th scope="col">Sr Date<span style="float: right"><a href="/admin/3">&#9650;</a><a href="/admin/4">&#9660;</a></span></th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Patient Name</th>
                                 <th scope="col">Service Status</th>

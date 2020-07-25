@@ -71,12 +71,10 @@
                                         </select>
                                         {{-- <input type="text" name="appointment_type" id="appointment_type" value="{{ $appointmentType }}"> --}}
                                     </div>
-                                    {{-- <div class="form-row form-group"> --}}
                                     <div class="col-md">
                                         {{-- <input type="submit" class="submit-btn"> --}}
                                         <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button>
                                     </div>
-                                    {{-- </div> --}}
                                 </div>
                             @else
                                 <div class="form-row form-group">
