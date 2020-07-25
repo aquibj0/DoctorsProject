@@ -226,6 +226,11 @@ class VideoConsultationController extends Controller
                             $vc->vcDocPrescriptionUploaded = 'N';
                             // $vc->vcCallScheduledDtl = 
                             $vc->save();
+
+
+                            // Send Confirmation Message using textlocal
+                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            
                             if($vc->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
