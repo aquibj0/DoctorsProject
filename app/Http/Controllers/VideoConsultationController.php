@@ -63,6 +63,7 @@ class VideoConsultationController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         // DB::transaction(function(){
         if($request->patient_id){
             $validator = Validator::make($request->all(), [
@@ -104,13 +105,16 @@ class VideoConsultationController extends Controller
                             $vc->vcDocPrescriptionUploaded = 'N';
                             // $vc->vcCallScheduledDtl = 'N';
                             $vc->save();
+
+                            // Send Confirmation Message using textlocal
+                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
                             if($vc->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
                                 SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
                                 
-                                // Send Confirmation Message using textlocal
-                                Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
+                               
 
 
                                 $data = array();

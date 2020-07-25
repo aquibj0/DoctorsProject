@@ -47,8 +47,8 @@ var options = {
     "description": "{{$response['description']}}",
     "image": "https://example.com/your_logo", // You can give your logo url
     "order_id": "{{$response['orderId']}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "/payment-complete/{{Auth::user()->id}}/{{$data['srvdID']}}",
-    "redirect": "true",
+    // "callback_url": "/payment-complete/{{Auth::user()->id}}/{{$data['srvdID']}}",
+    // "redirect": "true",
 
 
     
@@ -68,9 +68,6 @@ var options = {
         "name": "{{$response['name']}}",
         "email": "{{$response['email']}}",
         "contact": "{{$response['contactNumber']}}"
-    },
-    "notes": {
-        "address": "{{$response['address']}}"
     },
     "theme": {
         "color": "#F37254"

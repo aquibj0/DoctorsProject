@@ -65,6 +65,8 @@ class ClinicAppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         if($request->patient_id){
             $validator = Validator::make($request->all(), [
                 // 'patient_id' => ['required', 'string', 'max:40'],
@@ -100,14 +102,19 @@ class ClinicAppointmentController extends Controller
                         $clinicAppointment->clinic_id = $request->appointmentLoc;
                         $clinicAppointment->service_request_id = $srvcReq->id;
                         $clinicAppointment->save();
+
+
+                        // Send Confirmation Message using textlocal
+                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            
+
                         if($clinicAppointment->save()){
                             $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                             $app->update();
                             SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
                             
-                            // Send Confirmation Message using textlocal
-                            Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
-
+                           
+                            
                             $data = array();
                             $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
                             $data['check_amount'] = $data['amount'];

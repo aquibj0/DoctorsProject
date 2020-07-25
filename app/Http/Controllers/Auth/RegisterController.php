@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Tzsk\Sms\Facade\Sms;
 use Auth;
 use App\User;
 use App\Address;
@@ -102,10 +103,17 @@ class RegisterController extends Controller
             $user->userType = "E";
             $user->userPassword = Hash::make($request['password']);
             $user->save();
+
+            Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
+
             $user->userId = "UID".$user->id;
             $user->update();
+
+
             Auth::login($user);
             Mail::to($user->userEmail)->send(new RegisterEmail($user));
+
+
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
             return redirect('/register')->withErrors($validator)->withInput();

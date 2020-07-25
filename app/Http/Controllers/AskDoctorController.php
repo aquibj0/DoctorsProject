@@ -63,7 +63,7 @@ class AskDoctorController extends Controller
      */
     public function store(Request $request)
     {
-
+        $user = Auth::user();
         if($request){
             $validator = Validator::make($request->all(), [
                 'firstName' => ['string', 'max:35'],
@@ -83,6 +83,7 @@ class AskDoctorController extends Controller
                 'patient_question' => ['string', 'max:1024']
             ]);
             if(!$validator->fails()){
+                
                 DB::beginTransaction();
                 try{
                     if($request['patient_id']){
@@ -148,16 +149,13 @@ class AskDoctorController extends Controller
                             $asaq->aaqDocResponseUploaded = 'N';
                             $asaq->save();
                             
-                            // Sms::via('nexmo')->send("this message via nexmo")->to('919708106258')->dispatch();
+                            // Send Confirmation Message using textlocal
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
+
                             //1 is the status for sending confirmation mail
                             SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
-                            // 
-                            // Send Confirmation Message using textlocal
-                            // Sms::send("This is test message 2")->to('919708106258')->dispatch();
-                            Sms::send("This is test message with service RequestID".$srvcReq->srId)->to('917463947243')->dispatch();
-
-
-                            
+                           
                            
                             $data = array();
                             
@@ -179,7 +177,7 @@ class AskDoctorController extends Controller
                     
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', getMessage());
+                    return redirect()->back()->withInput()->with('error', $e->getMessage());
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
