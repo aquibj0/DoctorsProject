@@ -152,10 +152,21 @@ class AskDoctorController extends Controller
                             SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                             // 
                             // Send Confirmation Message using textlocal
+                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to(Auth::user()->userMobileNo)->dispatch();
+                            // Sms::send("This is test message 2")->to('919708106258')->dispatch();
+
+                            Sms::send("This is test message with service RequestID ".$srvcReq->srId, function($sms) {
+                                $sms->to('919708106258'); # The numbers to send to.
+                            });
+                            // Sms::via('textlocal')->send("test message", function($sms) {
+                            //     $sms->to('+917463947243');
+                            // });
+
                             Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
                             
                             
                             $data = array();
+                            
                             $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
                             $data['check_amount'] = $data['amount'];
                             $data['srvdID'] = $srvdID;
@@ -171,12 +182,10 @@ class AskDoctorController extends Controller
                             // DB::commit();            
                         }
                     }
-
-
                     
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+                    return redirect()->back()->withInput()->with('error', getMessage());
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
