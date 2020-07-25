@@ -44,7 +44,7 @@
                                     <input type="hidden" name="patient_id" value="{{$patient->id}}">
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patient_background }}</textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

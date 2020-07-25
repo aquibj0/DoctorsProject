@@ -16,6 +16,7 @@ use App\Department;
 use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ClinicAppointmentController extends Controller
 {
@@ -36,11 +37,14 @@ class ClinicAppointmentController extends Controller
     }
 
 
-    public function getLocSLots($date, $id){
+    public function getLocSlots($date, $service, $id){
         $res = AppointmentSchedule::where('appmntDate', $date)
                                     ->where('appmntClinicid', $id)
+                                    ->where('appmntType', $service)
+                                    ->where('appmntFlag', 1)
                                     ->where('appmntSlotFreeCount', '>', 0)
                                     ->get()->pluck('id', 'appmntSlot');
+        // return array($date, $service, $id);
         return $res;
     }
     /**
@@ -75,7 +79,7 @@ class ClinicAppointmentController extends Controller
                 if($patient){
                     $app = AppointmentSchedule::find($request->slot);
                     $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', 'CLI')->first()->id;
+                    $srvcReq->service_id = Service::where('srvcShortName', $request['service'])->first()->id;
                     $srvcReq->patient_id = $patient->id;
                     $srvcReq->user_id = Auth::user()->id;
                     $srvcReq->srRecievedDateTime = Carbon::now();
@@ -88,7 +92,7 @@ class ClinicAppointmentController extends Controller
                     $srvcReq->srDocumentUploadedFlag = 'N';
                     $srvcReq->srStatus = "NEW";
                     $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."CLI";
+                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request['service'];
                     $srvcReq->update();
                     // $srvdID = $srvcReq->srId ;
                     if($srvcReq->save()){
@@ -104,7 +108,17 @@ class ClinicAppointmentController extends Controller
                             // Send Confirmation Message using textlocal
                             Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
 
-                            return redirect()->route('confirm-service-request', $srvcReq->srId);
+                            $data = array();
+                            $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
+                            $data['check_amount'] = $data['amount'];
+                            $data['srvdID'] = $srvcReq->srId;
+                            $data['srId'] = $srvcReq->id;
+                            $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+                            $data['contactNumber'] = Auth::user()->userMobileNo;
+                            $data['email'] = Auth::user()->userEmail;
+                            
+                            $res = $this->payments->paymentInitiate($data);
+                            // return redirect()->route('confirm-service-request', $srvcReq->srId);
                         }else{
                             $vc->delete();
                             return redirect()->back()->with('error', 'Something went wrong')->withInputs();
@@ -141,69 +155,88 @@ class ClinicAppointmentController extends Controller
                 'slot' => ['required']
             ]);
             if(!$validator->fails()){
-                $patient = new Patient;
-                $patient->patId = str_random(15);
-                $patient->user_id = Auth::user()->id;
-                $patient->patFirstName = $request['firstName'];
-                $patient->patLastName = $request['lastName'];
-                $patient->patGender = $request['gender'];
-                $patient->patAge = $request['age'];
-                $patient->patBackground = $request['patient_background'];
-                if(!empty($request->email)){
-                    $patient->patEmail = $request['patEmail'];
-                }
-                $patient->patMobileCC = $request['mobileCC'];
-                $patient->patMobileNo = $request['patMobileNo']; 
-                $patient->patAddrLine1 = $request['addressLine1'];
-                $patient->patAddrLine2 = $request['addressLine2'];
-                $patient->patCity = $request['city'];
-                $patient->patDistrict = $request['district'];
-                $patient->patState = $request['state'];
-                $patient->patCountry = $request['country'];
-                $patient->save();
-                $patient->patId = Auth::user()->userId."-".$patient->id;
-                $patient->update();
+                DB::beginTransaction();
+                try{
+                    $patient = new Patient;
+                    $patient->patId = str_random(15);
+                    $patient->user_id = Auth::user()->id;
+                    $patient->patFirstName = $request['firstName'];
+                    $patient->patLastName = $request['lastName'];
+                    $patient->patGender = $request['gender'];
+                    $patient->patAge = $request['age'];
+                    $patient->patBackground = $request['patient_background'];
+                    if(!empty($request->email)){
+                        $patient->patEmail = $request['patEmail'];
+                    }
+                    $patient->patMobileCC = $request['mobileCC'];
+                    $patient->patMobileNo = $request['patMobileNo']; 
+                    $patient->patAddrLine1 = $request['addressLine1'];
+                    $patient->patAddrLine2 = $request['addressLine2'];
+                    $patient->patCity = $request['city'];
+                    $patient->patDistrict = $request['district'];
+                    $patient->patState = $request['state'];
+                    $patient->patCountry = $request['country'];
+                    $patient->save();
+                    $patient->patId = Auth::user()->userId."-".$patient->id;
+                    $patient->update();
 
-                if($patient->save()){
-                    $app = AppointmentSchedule::find($request->slot);
-                    $srvcReq = new ServiceRequest;
-                    $srvcReq->service_id = Service::where('srvcShortName', 'CLI')->first()->id;
-                    $srvcReq->patient_id = $patient->id;
-                    $srvcReq->user_id = Auth::user()->id;
-                    $srvcReq->srRecievedDateTime = Carbon::now();
-                    $srvcReq->srDueDateTime = $request->date;
-                    $srvcReq->srDepartment = $request['department'];
-                    $srvcReq->srStatus = 'New'; 
-                    $srvcReq->srAppmntId = $app->id;
-                    $srvcReq->srConfirmationSentByAdmin = 'N';
-                    $srvcReq->srMailSmsSent = Carbon::now();
-                    $srvcReq->srDocumentUploadedFlag = 'N';
-                    $srvcReq->srStatus = "NEW";
-                    $srvcReq->save();
-                    $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."CLI";
-                    $srvcReq->update();
-                    // $srvdID = $srvcReq->srId ;
-                    if($srvcReq->save()){
-                        $clinicAppointment = new ClinicAppointment;
-                        $clinicAppointment->clinic_id = $request->appointmentLoc;
-                        $clinicAppointment->service_request_id = $srvcReq->id;
-                        $clinicAppointment->save();
-                        if($clinicAppointment->save()){
-                            $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                            $app->update();
-                            SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
-                            return redirect()->route('confirm-service-request', $srvcReq->srId);
+                    if($patient->save()){
+                        $app = AppointmentSchedule::find($request->slot);
+                        $srvcReq = new ServiceRequest;
+                        $srvcReq->service_id = Service::where('srvcShortName', $request['service'])->first()->id;
+                        $srvcReq->patient_id = $patient->id;
+                        $srvcReq->user_id = Auth::user()->id;
+                        $srvcReq->srRecievedDateTime = Carbon::now();
+                        $srvcReq->srDueDateTime = $request->date;
+                        $srvcReq->srDepartment = $request['department'];
+                        $srvcReq->srStatus = 'New'; 
+                        $srvcReq->srAppmntId = $app->id;
+                        $srvcReq->srConfirmationSentByAdmin = 'N';
+                        $srvcReq->srMailSmsSent = Carbon::now();
+                        $srvcReq->srDocumentUploadedFlag = 'N';
+                        $srvcReq->srStatus = "NEW";
+                        $srvcReq->save();
+                        $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."CLI";
+                        $srvcReq->update();
+                        // $srvdID = $srvcReq->srId ;
+                        if($srvcReq->save()){
+                            $clinicAppointment = new ClinicAppointment;
+                            $clinicAppointment->clinic_id = $request->appointmentLoc;
+                            $clinicAppointment->service_request_id = $srvcReq->id;
+                            $clinicAppointment->save();
+                            if($clinicAppointment->save()){
+                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                $app->update();
+                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                
+                                $data = array();
+                                $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
+                                $data['check_amount'] = $data['amount'];
+                                $data['srvdID'] = $srvcReq->srId;
+                                $data['srId'] = $srvcReq->id;
+                                $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+                                $data['contactNumber'] = Auth::user()->userMobileNo;
+                                $data['email'] = Auth::user()->userEmail;
+                                
+                                $res = $this->payments->paymentInitiate($data);
+                                // return redirect()->route('confirm-service-request', $srvcReq->srId);
+                            }else{
+                                $vc->delete();
+                                return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                            }
                         }else{
-                            $vc->delete();
+                            $srvcReq->delete();
                             return redirect()->back()->with('error', 'Something went wrong')->withInputs();
                         }
                     }else{
-                        $srvcReq->delete();
-                        return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                        return redirect()->back()->withInput()->withErrors($validator);
                     }
-                }else{
-                    return redirect()->back()->withInput()->withErrors($validator);
+                } catch(\Exception $e){
+                    DB::rollback();
+                    return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
+                DB::commit();
+                return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
             }

@@ -80,7 +80,7 @@
                                 </div>
                             @else
                                 <div class="form-row form-group">
-                                    <div class="col-md-3">
+                                    <div class="col-md">
                                         <input type="date" name="start_date" class="form-control" id="start_date" value="{{ old('start_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">
@@ -88,7 +88,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md">
                                         <input type="date" name="end_date" class="form-control" id="end_date" value="{{ old('end_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
@@ -96,14 +96,14 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md">
                                         <select name="doctor_type" id="doctor_type" class="form-control">
                                             <option disabled selected>Select one</option>
                                             <option value="ED">Dr. Khastgir</option>
                                             <option value="TD">Birth Team Doctor</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md">
                                         <select name="appointment_type" id="appointment_type" class="form-control">
                                             <option disabled selected>Select one</option>
                                             <option value="VED">Video Appointment</option>
@@ -112,10 +112,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-row form-group">
-                                        <div class="col-md">
-                                            <button type="sbumit" class="form-control btn-maroon btn-md">Search appointments</button>
-                                        </div>
+                                    <div class="col-md">
+                                        <button type="sbumit" class="form-control btn-maroon btn-md">Search appointments</button>
                                     </div>
                                 </div>
                             @endif
