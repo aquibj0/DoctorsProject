@@ -79,7 +79,7 @@ class PaymentController extends Controller
                 $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
                 $serviceReq->paymentStatus = true;
                 $serviceReq->update();
-                return redirect()->route('servicereq-details', [$id, $this->data['srvdID']])->with('success', 'Thank you for the order');
+                return redirect()->route('servicereq-details', [$id, $serviceReq->srId])->with('success', 'Thank you for the order');
             }
         }
         else{

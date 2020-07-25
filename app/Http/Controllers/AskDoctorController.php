@@ -130,7 +130,7 @@ class AskDoctorController extends Controller
                         $srvcReq->srConfirmationSentByAdmin = 'N';
                         $srvcReq->srMailSmsSent = Carbon::now();
                         $srvcReq->srDocumentUploadedFlag = 'N';
-                        $srvcReq->srStatus = "NEW";
+                        $srvcReq->srStatus = "ACTIVE";
                         $srvcReq->save();
                         $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
                         $srvcReq->update();
@@ -148,23 +148,17 @@ class AskDoctorController extends Controller
                             $asaq->aaqDocResponseUploaded = 'N';
                             $asaq->save();
                             
+                            // Sms::via('nexmo')->send("this message via nexmo")->to('919708106258')->dispatch();
                             //1 is the status for sending confirmation mail
                             SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
                             // 
                             // Send Confirmation Message using textlocal
-                            // Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to(Auth::user()->userMobileNo)->dispatch();
                             // Sms::send("This is test message 2")->to('919708106258')->dispatch();
+                            Sms::send("This is test message with service RequestID".$srvcReq->srId)->to('917463947243')->dispatch();
 
-                            Sms::send("This is test message with service RequestID ".$srvcReq->srId, function($sms) {
-                                $sms->to('919708106258'); # The numbers to send to.
-                            });
-                            // Sms::via('textlocal')->send("test message", function($sms) {
-                            //     $sms->to('+917463947243');
-                            // });
 
-                            Sms::send("This is test message with service RequestID ".$srvcReq->srId)->to('91'.Auth::user()->userMobileNo)->dispatch();
                             
-                            
+                           
                             $data = array();
                             
                             $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
