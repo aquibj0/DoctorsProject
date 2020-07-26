@@ -127,6 +127,7 @@ Route::group(['middleware' => 'web'], function(){
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
+        Route::get('/appointment/{docType}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@index');
         Route::post('/appointment/check', 'Admin\AppointmentController@check');
         Route::get('/appointment/{date}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@show');
         Route::get('/appointment/{date}/{appmntType}/{clinic_id}/{start_date}/{end_date}', 'Admin\AppointmentController@show_clinic');

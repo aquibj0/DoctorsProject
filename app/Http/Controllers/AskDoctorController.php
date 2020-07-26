@@ -82,8 +82,7 @@ class AskDoctorController extends Controller
                 'department' => ['string'],
                 'patient_question' => ['string', 'max:1024']
             ]);
-            if(!$validator->fails()){
-                
+            if(!$validator->fails()){                
                 DB::beginTransaction();
                 try{
                     if($request['patient_id']){
@@ -113,7 +112,6 @@ class AskDoctorController extends Controller
                         $patient->patId = Auth::user()->userId."-".$patient->id;
                         $patient->update();
                     }
-
                     if($patient->save()){
                         $srvcReq = new ServiceRequest;
                         // $id = Service::where('srvcShortName', 'AAQ')->first()->id;       
@@ -136,10 +134,7 @@ class AskDoctorController extends Controller
                         $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
                         $srvcReq->update();
                         
-
-
                         $srvdID = $srvcReq->srId ;
-
 
                         if($srvcReq->save()){
                             $asaq = new AskAQuestion;
@@ -152,10 +147,8 @@ class AskDoctorController extends Controller
                             // Send Confirmation Message using textlocal
                             Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
-
                             //1 is the status for sending confirmation mail
                             SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
-                           
                            
                             $data = array();
                             
@@ -174,7 +167,6 @@ class AskDoctorController extends Controller
                             // DB::commit();            
                         }
                     }
-                    
                 } catch(\Exception $e){
                     DB::rollback();
                     return redirect()->back()->withInput()->with('error', $e->getMessage());

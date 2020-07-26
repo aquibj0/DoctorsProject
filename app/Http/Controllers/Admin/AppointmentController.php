@@ -21,12 +21,17 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($docType=0, $appmntType=0, $start_date=0, $end_date=0)
     {
-        // $appointments = AppointmentSchedule::orderBy('created_at', 'desc')->get();
-        // return $appointments;
+        // return array($docType, $appmntType, $start_date, $end_date);
         $clinics = Clinic::all();
-        return view('admin.appointment.index')->with('clinics', $clinics)->with('show', 0);
+        return view('admin.appointment.index')->with('clinics', $clinics)
+                                            ->with('show', 0)
+                                            ->with('docType', $docType)
+                                            ->with('appointmentType', $appmntType)
+                                            ->with('start_date', $start_date)
+                                            ->with('end_date', $end_date)
+                                            ->with('counter', 0);
     }
 
     public function check(Request $request){
@@ -74,6 +79,7 @@ class AppointmentController extends Controller
             ->with('clinics', $clinics)
             ->with('data', $data)
             ->with('show', 1)
+            ->with('counter', 1)
             ->with('docType', $docType)
             ->with('appointmentType', $appmntType)
             ->with('start_date', $request->start_date)
@@ -228,17 +234,17 @@ class AppointmentController extends Controller
             $message = 'Appointment for '.$request->date.' added successfully';
         else if($request->submit_type == "new")
             $message = 'Appointment for '.$request->date.' updated successfully';
-        return redirect('/admin/appointment')
-            ->with('clinics', $clinics)
-            ->with('show', 1)
-            ->with('docType', $request->docType)
-            ->with('appointmentType', $request->appointmentType)
-            ->with('start_date', $start_date)
-            ->with('end_date', $end_date)
-            ->with('show', 0)
-            ->with('success', $message);
+        // return redirect('/admin/appointment')
+        //     ->with('clinics', $clinics)
+        //     ->with('show', 1)
+        //     ->with('docType', $request->docType)
+        //     ->with('appointmentType', $request->appointmentType)
+        //     ->with('start_date', $start_date)
+        //     ->with('end_date', $end_date)
+        //     ->with('show', 0)
+        //     ->with('success', $message);
 
-        // return count($request->flag);
+        return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date);
     }
 
 
