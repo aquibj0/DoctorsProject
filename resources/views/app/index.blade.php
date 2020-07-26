@@ -1,57 +1,49 @@
 @extends('layouts.app')
 @section('content')
 
-<section class="header">
-    <div class="">
-        <div class="row mt-3" >
-            <div class="col-md-3">
-                <h3 class="maroon"><b>Dr Gautam Khastgir</h3>
-                <p>
-                    <span><b>MBBS, MD, MRCOG</b></span>
-                    MD, FRCS, FRCOG, FICOG
+<section class="">
+    <div class="row mt-2" >
+        <div class="col-md" style="padding-left:30px;">
+            <h3 class="maroon"><b>Dr Gautam Khastgir </b></h3>
+            <p class="mb-0"><span><b>MBBS, MD, MRCOG</b></span>   </p>
+                <p>MD, FRCS, FRCOG, FICOG
                     Medical Director
                     Subspecialty in Reproductive
                     Medicine and Surgery
                     Gynecological Endoscopic
-                    Surgery
-                </p>
+                    Surgery</p>
+            <div class="img">
+                <img src="{{asset('image/IMAGE2.jpg')}}" alt="">
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="round-img">
+                <h4 class="maroon"><b>Salt Lake, Kolkata</b></h4>
                 <div class="img">
-                    <img src="{{asset('image/IMAGE2.jpg')}}" alt="">
+                    <img class="image-round " src="{{asset('image/IMAGE1A.jpg')}}" alt="">
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="round-img">
-                            <h4 class="maroon"><b>Salt Lake, Kolkata</b></h4>
-                            <div class="img">
-                                <img class="image-round " src="{{asset('image/IMAGE1A.jpg')}}" alt="">
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="col-md-4">
-                        <div class="round-img">
-                            <div class="img">
-                                <img class="image-round " src="{{asset('image/IMAGE1B.jpg')}}" alt="">
-                            </div>
-                            <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="round-img">
-                                <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
-                                <div class="img">
-                                    <img class="image-round " src="{{asset('image/Image1C.jpg')}}" alt="">
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="header-brief">
-                            <h4><b>Delivering GOD’s Creation to Mankind</b></h4>
-                        </div>
-                    </div>
+            
+        </div>
+        <div class="col-md">
+            <div class="round-img">
+                <div class="img">
+                    <img class="image-round " src="{{asset('image/IMAGE1B.jpg')}}" alt="">
                 </div>
+                <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="round-img">
+                    <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
+                    <div class="img">
+                        <img class="image-round " src="{{asset('image/Image1C.jpg')}}" alt="">
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="header-brief mb-3">
+                <h4><b>Delivering GOD’s Creation to Mankind</b></h4>
             </div>
         </div>
     </div>
@@ -60,11 +52,11 @@
 
 <section id="services" class="service-section">
     <div class="container">
-        <div class="heading text-center mb-3">
-            <h2 class="maroon"><b>NEED TO CONSULT AN EXPERT</b></h2>
+        <div class="heading text-center mt-2 mb-3">
+            <h2 class="maroon mb-3"><b>NEED TO CONSULT AN EXPERT</b></h2>
         </div>
-        <div class="row ">
-            <div class="col-md-4 mb-2">
+        <div class="row mt-5">
+            <div class="col-md-4  mb-2">
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Ask a doctor</h2>
