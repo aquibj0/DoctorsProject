@@ -348,7 +348,7 @@
     $(document).ready(function(){
         //date change
 
-        $('#service').on('change', function(){
+        $('#service', ).on('change', function(){
             // var appType = $(this).val();
             var date = $("#date").val();
             var loc = $("#appointmentLoc").val();

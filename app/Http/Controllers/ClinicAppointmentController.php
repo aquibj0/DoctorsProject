@@ -17,9 +17,14 @@ use Auth;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\PaymentController;
 
 class ClinicAppointmentController extends Controller
 {
+    public $payments;
+    public function __construct(){
+        $this->payments = new PaymentController;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -79,6 +84,8 @@ class ClinicAppointmentController extends Controller
             if(!$validator->fails()){
                 $patient = Patient::find($request->patient_id);
                 if($patient){
+                    DB::beginTransaction();
+                    try{
                     $app = AppointmentSchedule::find($request->slot);
                     $srvcReq = new ServiceRequest;
                     $srvcReq->service_id = Service::where('srvcShortName', $request['service'])->first()->id;
@@ -97,43 +104,46 @@ class ClinicAppointmentController extends Controller
                     $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request['service'];
                     $srvcReq->update();
                     // $srvdID = $srvcReq->srId ;
-                    if($srvcReq->save()){
-                        $clinicAppointment = new ClinicAppointment;
-                        $clinicAppointment->clinic_id = $request->appointmentLoc;
-                        $clinicAppointment->service_request_id = $srvcReq->id;
-                        $clinicAppointment->save();
+                        if($srvcReq->save()){
+                            $clinicAppointment = new ClinicAppointment;
+                            $clinicAppointment->clinic_id = $request->appointmentLoc;
+                            $clinicAppointment->service_request_id = $srvcReq->id;
+                            $clinicAppointment->save();
 
 
-                        // Send Confirmation Message using textlocal
-                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-                            
+                            // Send Confirmation Message using textlocal
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                                
 
-                        if($clinicAppointment->save()){
-                            $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                            $app->update();
-                            SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                            if($clinicAppointment->save()){
+                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                $app->update();
+                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                
                             
-                           
-                            
-                            $data = array();
-                            $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
-                            $data['check_amount'] = $data['amount'];
-                            $data['srvdID'] = $srvcReq->srId;
-                            $data['srId'] = $srvcReq->id;
-                            $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
-                            $data['contactNumber'] = Auth::user()->userMobileNo;
-                            $data['email'] = Auth::user()->userEmail;
-                            
-                            $res = $this->payments->paymentInitiate($data);
-                            // return redirect()->route('confirm-service-request', $srvcReq->srId);
-                        }else{
-                            $vc->delete();
-                            return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                                
+                                $data = array();
+                                $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
+                                $data['check_amount'] = $data['amount'];
+                                $data['srvdID'] = $srvcReq->srId;
+                                $data['srId'] = $srvcReq->id;
+                                $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+                                $data['contactNumber'] = Auth::user()->userMobileNo;
+                                $data['email'] = Auth::user()->userEmail;
+                                
+                                $res = $this->payments->paymentInitiate($data);
+                                // return redirect()->route('confirm-service-request', $srvcReq->srId);
+                            }else{
+                                $srvcReq->delete();
+                                return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                            }
                         }
-                    }else{
-                        $srvcReq->delete();
-                        return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                    } catch(\Exception $e){
+                        DB::rollback();
+                        return redirect()->back()->withInput()->with('error', $e->getMessage());
                     }
+                        DB::commit();
+                        return $res;
                 }else{
                     return redirect()->back()->with('error', 'Something went wrong!');
                 }
@@ -162,8 +172,8 @@ class ClinicAppointmentController extends Controller
                 'slot' => ['required']
             ]);
             if(!$validator->fails()){
-                DB::beginTransaction();
-                try{
+                // DB::beginTransaction();
+                // try{
                     $patient = new Patient;
                     $patient->patId = str_random(15);
                     $patient->user_id = Auth::user()->id;
@@ -211,9 +221,13 @@ class ClinicAppointmentController extends Controller
                             $clinicAppointment->clinic_id = $request->appointmentLoc;
                             $clinicAppointment->service_request_id = $srvcReq->id;
                             $clinicAppointment->save();
+                            // Send Confirmation Message using textlocal
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
                             if($clinicAppointment->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
+
                                 SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
                                 
                                 $data = array();
@@ -238,11 +252,11 @@ class ClinicAppointmentController extends Controller
                     }else{
                         return redirect()->back()->withInput()->withErrors($validator);
                     }
-                } catch(\Exception $e){
-                    DB::rollback();
-                    return redirect()->back()->withInput()->with('error', $e->getMessage());
-                }
-                DB::commit();
+                // } catch(\Exception $e){
+                //     DB::rollback();
+                //     return redirect()->back()->withInput()->with('error', $e->getMessage());
+                // }
+                // DB::commit();
                 return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);

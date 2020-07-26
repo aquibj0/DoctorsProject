@@ -107,7 +107,6 @@ Route::get('/query/{query}', 'Admin\ServiceRequestController@query');
 Route::group(['middleware' => 'web'], function(){
     Route::prefix('admin')->group(function () {
         Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
-        // Route::get('dashboard', 'Admin\AdminController@index')->name('admin.dashboard');
         Route::get('register', 'Admin\AdminController@create')->name('admin.register');
         Route::post('register', 'Admin\AdminController@store')->name('admin.register.store');
         Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
@@ -123,10 +122,12 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
         
+        // Route::get('/{sort}', 'Admin\AdminController@index');
       
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
+        Route::get('/appointment/{docType}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@index');
         Route::post('/appointment/check', 'Admin\AppointmentController@check');
         Route::get('/appointment/{date}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@show');
         Route::get('/appointment/{date}/{appmntType}/{clinic_id}/{start_date}/{end_date}', 'Admin\AppointmentController@show_clinic');

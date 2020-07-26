@@ -255,7 +255,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="date" id="date" name="date" class="form-control" id="my_date_picker" value="{{ old('date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                            <input type="date" id="date" name="date" class="some form-control" id="my_date_picker" value="{{ old('date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -265,7 +265,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <select class="form-control" name="appointmentType" id="appointmentType" required>
+                                            <select class="form-control some" name="appointmentType" id="appointmentType" required>
                                                 <option selected disabled>Team  or Expert</option>
                                                 <option value="VTD">Team Doctor</option>
                                                 <option value="VED">Expert Doctor</option>
@@ -311,8 +311,8 @@
     $(document).ready(function(){
         //date change
 
-        $('#appointmentType').on('change', function(){
-            var appType = $(this).val();
+        $('.some').on('change', function(){
+            var appType = $("#appointmentType").val();
             var date = $("#date").val();
             console.log(appType);
             console.log(date);
