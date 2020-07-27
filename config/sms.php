@@ -34,7 +34,7 @@ return [
             'url' => 'http://api.textlocal.in/send/', // Country Wise this may change.
             'username' => 'aquib_j@yahoo.com',
             'hash' => '3991b99966d92e8ddf69d03eef7a213a35fa4e926256054abfdc133dda3153fb',
-            'sender' => 'TXTLCL',
+            'sender' => 'TXTLCL'
             // 'key' => 'R8RFqjVOeyo-0nynR3xarHyg4w3Ua93Xkuzi7IPelL',
         ],
 
