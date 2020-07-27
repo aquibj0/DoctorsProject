@@ -70,8 +70,9 @@
                                         </select>
                                         {{-- <input type="text" name="appointment_type" id="appointment_type" value="{{ $appointmentType }}"> --}}
                                     </div>
-                                    <div class="col-md">
-                                        <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button>
+                                    <div class="col-md-1">
+                                        <button type="sbumit" id="self_submit" class="btn btn-submit icon-maroon"><i class="fa fa-search"></i></button>
+                                        {{-- <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button> --}}
                                     </div>
                                 </div>
                             @else
@@ -110,8 +111,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md">
-                                        <button type="sbumit" class="form-control btn-maroon btn-md">Search appointments</button>
+                                    <div class="col-md-1">
+                                        <button type="sbumit" class="btn"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             @endif
@@ -168,19 +169,19 @@
                                                 <td>
                                                     @if($appointmentType == "VED")
                                                         @if($docType == "TD")
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/{{ $start_date }}/{{$end_date}}" class="btn btn-md btn-maroon">Add/Edit</a>
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD//{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD//{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @else
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/{{ $start_date }}/{{$end_date}}" class="btn btn-md btn-maroon">Add/Edit</a>
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED//{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED//{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @endif
                                                     @else
                                                         @if($docType == "TD")
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md btn-maroon">Add/Edit</a>
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}delete" class="btn btn-md btn-maroon">Delete</a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}delete" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @else
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md btn-maroon">Add/Edit</a>
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md btn-maroon">Delete</a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}/delete" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @endif
                                                     @endif
                                                 </td>

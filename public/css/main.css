@@ -273,7 +273,7 @@ html, body{
 }
 .service-request-details table th, .service-request-details table td{
     padding: 0.2rem;
-    border-color: rgb(97, 13, 13)
+    border-color: #610d0d
 }
 
 
@@ -282,4 +282,31 @@ html, body{
     background: url('/public/image/loupe.png');
     background-size: contain;
     background-position: center;
+}
+
+.fa-search{
+    color: #610d0d;
+    border: none;
+    font-size: 2em;
+    background-color: white;
+    /* background-repeat: no-repeat; */
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.icon-maroon{
+    color: #610d0d;
+    border: none;
+    font-size: 1em;
+    background-color: white;
+    /* background-repeat: no-repeat; */
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+.btn-submit{
+    background: transparent;
 }

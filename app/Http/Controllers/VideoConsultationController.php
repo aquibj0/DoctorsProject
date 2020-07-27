@@ -201,69 +201,78 @@ class VideoConsultationController extends Controller
 
                     if($patient){
                         $app = AppointmentSchedule::find($request->slot);
-                        $srvcReq = new ServiceRequest;
-                        $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
-                        $srvcReq->patient_id = $patient->id;
-                        $srvcReq->user_id = Auth::user()->id;
-                        $srvcReq->srRecievedDateTime = Carbon::now();
-                        $srvcReq->srDueDateTime = $request->date;
-                        $srvcReq->srDepartment = $request['department'];
-                        $srvcReq->srStatus = 'New'; 
-                        $srvcReq->srAppmntId = $app->id;
-                        $srvcReq->srConfirmationSentByAdmin = 'N';
-                        $srvcReq->srMailSmsSent = Carbon::now();
-                        $srvcReq->srDocumentUploadedFlag = 'N';
-                        $srvcReq->srStatus = "NEW";
-                        $srvcReq->save();
-                        $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request->appointmentType;
-                        $srvcReq->update();
-                        // $srvdID = $srvcReq->srId ;
-                        if($srvcReq->save()){
-                            
-                            $vc = new VideoCall;
-                            $vc->service_req_id = $srvcReq->id;
-                            $vc->vcCallScheduled = 'N';
-                            $vc->vcDocPrescriptionUploaded = 'N';
-                            // $vc->vcCallScheduledDtl = 
-                            $vc->save();
-
-
-                            // Send Confirmation Message using textlocal
-                            Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-                            
-                            if($vc->save()){
-                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                                $app->update();
-                                SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
-
-                                $data = array();
-                                $data['amount'] = Service::where('srvcShortName', $request->appointmentType)->first()->srvcPrice;
-                                $data['check_amount'] = $data['amount'];
-                                $data['srvdID'] = $srvcReq->srId;
-                                $data['srId'] = $srvcReq->id;
-                                $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
-                                $data['contactNumber'] = Auth::user()->userMobileNo;
-                                $data['email'] = Auth::user()->userEmail;
+                        if($app->appmntSlotFreeCount > 0){
+                            $srvcReq = new ServiceRequest;
+                            $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
+                            $srvcReq->patient_id = $patient->id;
+                            $srvcReq->user_id = Auth::user()->id;
+                            $srvcReq->srRecievedDateTime = Carbon::now();
+                            $srvcReq->srDueDateTime = $request->date;
+                            $srvcReq->srDepartment = $request['department'];
+                            $srvcReq->srStatus = 'New'; 
+                            $srvcReq->srAppmntId = $app->id;
+                            $srvcReq->srConfirmationSentByAdmin = 'N';
+                            $srvcReq->srMailSmsSent = Carbon::now();
+                            $srvcReq->srDocumentUploadedFlag = 'N';
+                            $srvcReq->srStatus = "NEW";
+                            $srvcReq->save();
+                            $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT).$request->appointmentType;
+                            $srvcReq->update();
+                            // $srvdID = $srvcReq->srId ;
+                            if($srvcReq->save()){
                                 
-                                $res = $this->payments->paymentInitiate($data);
-                                // return redirect()->route('confirm-service-request', $srvcReq->srId);
-                            }else{
-                                $vc->delete();
-                                return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                                $vc = new VideoCall;
+                                $vc->service_req_id = $srvcReq->id;
+                                $vc->vcCallScheduled = 'N';
+                                $vc->vcDocPrescriptionUploaded = 'N';
+                                // $vc->vcCallScheduledDtl = 
+                                $vc->save();
+
+
+                                // Send Confirmation Message using textlocal
+                                Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                                
+                                if($vc->save()){
+                                    $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                    $app->update();
+                                    SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+
+                                    $data = array();
+                                    $data['amount'] = Service::where('srvcShortName', $request->appointmentType)->first()->srvcPrice;
+                                    $data['check_amount'] = $data['amount'];
+                                    $data['srvdID'] = $srvcReq->srId;
+                                    $data['srId'] = $srvcReq->id;
+                                    $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+                                    $data['contactNumber'] = Auth::user()->userMobileNo;
+                                    $data['email'] = Auth::user()->userEmail;
+                                    
+                                    $res = $this->payments->paymentInitiate($data);
+                                    // return redirect()->route('confirm-service-request', $srvcReq->srId);
+                                }else{
+                                    $vc->delete();
+                                    return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                                }
                             }
                         }else{
-                            $srvcReq->delete();
-                            return redirect()->back()->with('error', 'Something went wrong')->withInputs();
+                            DB::rollback();
+                            return redirect()->back()->withInput()->with('error', 'Appointment Slot not free!');
                         }
                     }else{
-                        return redirect()->back()->withInput()->withErrors($validator);
+                        $srvcReq->delete();
+                        return redirect()->back()->with('error', 'Something went wrong')->withInputs();
                     }
+                    // }else{
+                    //     return redirect()->back()->withInput()->withErrors($validator);
+                    // }
                 } catch(\Exception $e){
                     DB::rollback();
                     return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
                 return $res;
+            }
+            else{
+                return redirect()->back()->withInput()->withErrors($validator);
             }
         // return $request;
         }

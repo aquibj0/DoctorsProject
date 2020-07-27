@@ -14,37 +14,75 @@
             <div class="card">
                 @include('layouts.message')
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md">
-                            <div class="date-range">
-
+                    <form action="/admin/filter" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="form-row form-group">
+                            <div class="col-md">
                             </div>
-                            <span style="float: right">
+                            <div class="col-md">
+                            </div>
+                            @if($start != 0  && $end != 0)
+                                <div class="col-md" id="start_date">
+                                    <input type="date" name="start_date" id="start-date" value="{{ $start }}" class="form-control">
+                                </div>
+                                <div class="col-md" id="end_date">
+                                    <input type="date" name="end_date" id="end-date" value="{{ $end }}" onchange="clickSubmit()" class="form-control">
+                                </div>
+                            @else
+                                <div class="col-md" id="start_date">
+                                </div>
+                                <div class="col-md" id="end_date">
+                                </div>
+                            @endif
+                            <div class="col-md">
+                            @if($filter)
                                 <select name="filter" id="filter" class="form-control">
-                                    <option disabled selected>Filters</option>
-                                    <option disabled>-Payment Status-</option>
+                                    <option disabled selected>Filter By</option>
+                                    {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
-                                    <option value="unpaid">Not Paid</option>
+                                    <option value="unpaid">Not Paid</option> --}}
                                     <option disabled>-Service Type-</option>
-                                    <option value="AAQ">Ask A Question</option>
-                                    <option value="VED">Video call with Expert Doctor</option>
-                                    <option value="VTD">Video call with Team Doctor</option>
-                                    <option value="CED">Clinic AppointmentExpert Doctor</option>
+                                    @foreach($services as $service)
+                                        @if($filter == $service->id)
+                                            <option value="{{ $service->id }}" selected>{{ $service->srvcName }}</option>
+                                        @else
+                                            <option value="{{ $service->id }}">{{ $service->srvcName }}</option>
+                                        @endif
+                                    @endforeach
+                                    <option disabled>-Others-</option>
+                                    @if($filter == "date")
+                                        <option value="date" selected>Date</option>
+                                    @else
+                                        <option value="date">Date</option>
+                                    @endif
+                                </select>
+                            @else
+                                <select name="filter" id="filter" class="form-control">
+                                    <option disabled selected>Filter By</option>
+                                    {{-- <option disabled>-Payment Status-</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="unpaid">Not Paid</option> --}}
+                                    <option disabled>-Service Type-</option>
+                                    @foreach($services as $service)
+                                        <option value="{{ $service->id }}">{{ $service->srvcName }}</option>
+                                    @endforeach
                                     <option disabled>-Others-</option>
                                     <option value="date">Date</option>
                                 </select>
-                            </span>
+                            @endif
+                            </div>
+                            <input type="submit" id="self_submit" style="display: none;">
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">SR No. <span style="float: right"><a href="/admin/1">&#9650;</a><a href="/admin/2">&#9660;</a></span></th>
+                                <th scope="col">SR No. <span style="float: right"><a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/2/{{$start}}/{{$end}}">&#9660;</a></span></th>
                                 <th scope="col">Sr Type</th>
-                                <th scope="col">Sr Date<span style="float: right"><a href="/admin/3">&#9650;</a><a href="/admin/4">&#9660;</a></span></th>
+                                <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Patient Name</th>
                                 <th scope="col">Service Status</th>
@@ -98,38 +136,28 @@
 
 
 </div>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        //date change
-
         $('#filter').on('change', function(){
-            // var appType = $(this).val();
-            var filter = $(this).val();
-            // console.log(appType);
-            console.log(filter);
-            // $('#slot').find('option').not(':first').remove();
-            if(filter != "date"){
-                $.ajax({
-                    url: '/query/'+filter,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data){
-                        console.log(data);
-                        $('#table').empty();
-                        $.each(data, function(srId, ) )
-                    },
-                    error: function(){
-                        console.log('error');
-                    }
-                });
+            console.log($(this).val());
+            
+            if($(this).val() == "date"){
+                $("#start_date").append('<input type="date" name="start_date" id="start_date_input" class="form-control">');
+                $("#end_date").append('<input type="date" name="end_date" id="end_date_input" class="form-control" onchange="clickSubmit()">'); 
             }else{
-                console.log("date section");
-                var html = '<input type="date" name="start-date" id="start-date" class="form-control">';
-                html += '<input type="date" name="end-date" id="end-date" class="form-control">';
-                $('#date-range').append(html);
+                $("#start_date").empty();
+                $("#end_date").empty();
+                    $("#self_submit").click();
             }
         });
+        $("#end_date_input").on('change', function(){
+            console.log("redirecting...");
+            // $("#self_submit").click();
+        });
     });
-</script> --}}
+    function clickSubmit(){
+        document.getElementById('self_submit').click();
+    }
+</script>
 @endsection
