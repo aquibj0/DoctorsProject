@@ -49,7 +49,6 @@ class SendEmail implements ShouldQueue
             if($this->patient->patEmail){
                 
                 Mail::to(Auth::user()->userEmail)
-                    ->subject("BIRTH - ".$this->srvcReq->service->srvcName." - Service Request Created")
                     ->cc($this->patient->patEmail)
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq));
             }else{
@@ -60,7 +59,6 @@ class SendEmail implements ShouldQueue
         }else if($this->option == 2){
             if($this->patient->patEmail){
                 Mail::to($this->user->userEmail)
-                    ->subject("BIRTH - Service Response")
                     ->cc($this->patient->patEmail)
                     ->send(new AAQResponseEmail($this->patient, $this->srvcReq ,$this->asaq));
             }else{

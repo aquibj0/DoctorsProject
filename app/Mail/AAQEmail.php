@@ -34,6 +34,6 @@ class AAQEmail extends Mailable
      */
     public function build()
     { 
-        return $this->view('mail.user.ask-doctor.confirm');
+        return $this->subject("BIRTH - ".$this->srvcReq->service->srvcName." - Service Request Created")->view('mail.user.ask-doctor.confirm');
     }
 }
