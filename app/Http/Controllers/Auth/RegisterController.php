@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Mail;
+use Illuminate\Support\Facades\DB;
 use App\Mail\auth\RegisterEmail;
 
 class RegisterController extends Controller
@@ -94,26 +95,32 @@ class RegisterController extends Controller
 
         
         if(!$validator->fails()){
-            $user = new User;
-            $user->userFirstName = $request['firstName'];
-            $user->userLastName = $request['lastName'];
-            $user->userMobileNo = $request['userMobileNo'];
-            $user->userLandLineNo = $request['userLandLineNo'];
-            $user->userEmail = $request['userEmail'];
-            $user->userType = "E";
-            $user->userPassword = Hash::make($request['password']);
-            $user->save();
+            DB::beginTransaction();
+            try{
+                $user = new User;
+                $user->userFirstName = $request['firstName'];
+                $user->userLastName = $request['lastName'];
+                $user->userMobileNo = $request['userMobileNo'];
+                $user->userLandLineNo = $request['userLandLineNo'];
+                $user->userEmail = $request['userEmail'];
+                $user->userType = "E";
+                $user->userPassword = Hash::make($request['password']);
+                
 
-            Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
+                // Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
 
-            $user->userId = "UID".str_pad($user->id, 10, "0", STR_PAD_LEFT);
-            $user->update();
-
-
-            Auth::login($user);
-            Mail::to($user->userEmail)->send(new RegisterEmail($user));
+                Mail::to($user->userEmail)->send(new RegisterEmail($user));
+                $user->save();
+                $user->userId = "UID".str_pad($user->id, 10, "0", STR_PAD_LEFT);
+                $user->update();
 
 
+                Auth::login($user);
+            }catch(\Exception $e){
+                DB::rollback();
+                return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+            }
+            DB::commit();
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
         }else{
             return redirect('/register')->withErrors($validator)->withInput();

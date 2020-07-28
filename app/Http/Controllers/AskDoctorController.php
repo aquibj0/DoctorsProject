@@ -109,8 +109,8 @@ class AskDoctorController extends Controller
                         $patient->patState = $request['state'];
                         $patient->patCountry = $request['country'];
                         $patient->save();
-                        $patient_no = count(Auth::user()->patients())+1;
-                        $patient->patId = Auth::user()->userId."-".$patient_no;
+                        $patient_no = count(Patient::where('user_id', Auth::user()->id)->get())+1;
+                        $patient->patId = Auth::user()->userId."-".str_pad($patient_no, 2, "0", STR_PAD_LEFT);
                         $patient->update();
                     }
                     if($patient->save()){
@@ -146,10 +146,10 @@ class AskDoctorController extends Controller
                             $asaq->save();
                             
                             // Send Confirmation Message using textlocal
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             //1 is the status for sending confirmation mail
-                            SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(now()->addMinutes(1)); 
+                            SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(Carbon::now()->addSeconds(5)); 
                            
                             $data = array();
                             

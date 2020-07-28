@@ -119,28 +119,27 @@
                                 @endif
                             </tbody>
                         </table>
-                        <div class="container">
+                        {{-- <div class="container">
                             <div class="row">
                                 <div class="col-md">
                                     <select name="doctor" id="doctor" class="form-control">
                                         <option disabled selected>Select Doctor</option>
-                                        {{-- @foreach($doctors as $doctor)
+                                        @foreach($doctors as $doctor)
                                             <option value="{{ $doctor->id }}">{{}}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md">
                                     
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
