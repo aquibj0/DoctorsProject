@@ -44,14 +44,15 @@
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-3">
-                                <select name="" id="" class="form-control">
-                                    <option value="">Default Max</option>
+                                <select name="" id="manipulate-max" class="form-control">
+                                    <option selected disabled>Select one</option>
+                                    <option value="1">Default Max</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select name="" id="" class="form-control">
-                                    <option value="">Clear Flags</option>
-                                    <option value="">Set Flags</option>
+                                <select name="" id="manipulate-checkbox" class="form-control">
+                                    <option value="1">Clear Flags</option>
+                                    <option value="2">Set Flags</option>
                                 </select>
                             </div>
                         </div>
@@ -76,13 +77,13 @@
                                                         <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">
                                                     </td>
                                                     <td>    
-                                                        <input type="checkbox" id="flag" name="flag[]" class="form-check-input" value="{{ $i->toTimeString() }}" checked>
+                                                        <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="form-control" value="1" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="1" placeholder="" onkeypress="return onlyNumberKey(event)" readonly="readonly">
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="0" class="form-control">
+                                                        <input type="text" name="booked[]" id="booked" value="0" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endfor
@@ -93,13 +94,13 @@
                                                         <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">
                                                     </td>
                                                     <td>    
-                                                        <input type="checkbox" id="flag" name="flag[]" class="form-check-input" value="{{ $i->toTimeString() }}" checked>
+                                                        <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" readonly="readonly">
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="0" class="form-control">
+                                                        <input type="text" name="booked[]" id="booked" value="0" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endfor
@@ -114,9 +115,9 @@
                                                     </td>
                                                     <td>
                                                         @if($item->appmntFlag == 1)    
-                                                            <input type="checkbox" id="flag{{$loop->iteration}}" name="flag[]" class="form-check-input" value="{{ $item->appmntSlot}}" checked>
+                                                            <input type="checkbox" id="flag{{$loop->iteration}}" name="flag[]" class="flag form-check-input" value="{{ $item->appmntSlot}}" checked>
                                                         @else
-                                                            <input type="checkbox" id="flag{{$loop->iteration}}" name="flag[]" class="form-check-input" value="{{ $item->appmntSlot }}">
+                                                            <input type="checkbox" id="flag{{$loop->iteration}}" name="flag[]" class="flag form-check-input" value="{{ $item->appmntSlot }}">
                                                         @endif
                                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                                         <script>
@@ -130,10 +131,10 @@
                                                         </script>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" >
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotFreeCount }}" class="form-control">
+                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -145,16 +146,16 @@
                                                     </td>
                                                     <td>
                                                         @if($item->appmntFlag == 1)    
-                                                            <input type="checkbox" id="flag" name="flag[]" class="form-check-input" value="{{ $item->appmntSlot}}" checked>
+                                                            <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $item->appmntSlot}}" checked>
                                                         @else
-                                                            <input type="checkbox" id="flag" name="flag[]" class="form-check-input" value="{{ $item->appmntSlot }}">
+                                                            <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $item->appmntSlot }}">
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" min="{{ $item->appmntSlotMaxCount-$item->appmntSlotFreeCount }}">
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotFreeCount }}" class="form-control">
+                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotMaxCount-$item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -169,120 +170,20 @@
                                     <button type="submit" style="float:right" class="btn btn-maroon">Save</button>
                                 </div>
                                 <div class="col-md-6">
-                                    or <a href="/admin/appointiment">Cancel</a>
+                                    or <a href="/admin/appointment/{{ $docType }}/{{ $appointmentType }}/{{ $start_date }}/{{ $end_date }}/index">Cancel</a>
                                 </div>
                             </div>
                             <input type="hidden" name="appointmentType" value="{{$appointmentType}}">
                             <input type="hidden" name="docType" value="{{$docType}}">
                             <input type="hidden" name="date" value="{{$date}}">
                         </form>
-                        {{-- <form action="{{ url('/admin/appointment/store') }}" method="POST">
-                            {{ csrf_field() }}
-                            
-                            
-                            <div class="form-row form-group">
-                                
-                            </div>
-                            <div class="form-row form-group">
-                                <div class="col-md">                            
-                                    
-                                    @if($appointmentType == "VED")
-                                        @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '15:00');$i->addMinute(30))
-                                        <div class="row">    
-                                            <div class="col-md-4">
-                                                <div class="form-group form-check">
-                                                    <div class="row">
-                                                        <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->toTimeString() }}" checked>
-                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="booked[]" id="booked" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group form-check">
-                                                    <div class="row">
-                                                        <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>
-                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
-                                                        </div>
-                                                        <div class="col-md"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group form-check">
-                                                    <div class="row">
-                                                        <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>
-                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
-                                                        </div>
-                                                        <div class="col-md"></div>
-                                                    </div>
-                                                </div>
-                                            </div><div class="col-md">
-                                                <div class="form-group form-check">
-                                                    <div class="row">
-                                                        <div class="col-md">
-                                                            <input type="checkbox" id="time" name="time[]" class="form-check-input" id="time" value="{{ $i->addMinute(15)->toTimeString() }}" checked>
-                                                            <label class="form-check-label" for="time">{{ $i->toTimeString() }}</label>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <input type="text" name="freecount[]" id="freecount" class="form-control" value="5" placeholder="" onkeypress="return onlyNumberKey(event)" >
-                                                        </div>
-                                                        <div class="col-md"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            <br>
-                                        @endfor
-                                    @else 
-                                        @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '15:00');$i->addMinute(30))
-                                        <div class="row">    
-                                            <div class="col-md" style="border: 1px solid black; text-align: center">
-                                            <span><input type="checkbox" id="time" name="time[]" id="time" value="{{ $i->toTimeString() }}" checked>&nbsp;&nbsp;&nbsp;<label for="time">{{ $i->toTimeString() }}</label>&nbsp;&nbsp;&nbsp;</span>
-                                            </div>
-                                            <div class="col-md">
-                                            <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
-                                            </div>
-                                            <div class="col-md">
-                                            <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
-                                            </div>
-                                            <div class="col-md">
-                                            <input type="checkbox" id="time" name="time[]" class="form-control" id="time" value="{{ $i->addMinute(30)->toTimeString() }}" checked><label for="time">{{ $i->toTimeString() }}</label>&nbsp;
-                                            </div>
-                                        </div>
-                                            <br>
-                                        @endfor
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-row form-group">
-                                <div class="col-md">
-                                    <button type="sbumit" class="form-control">Add/Update</button>
-                                </div>
-                            </div>
-                        </form>
-                        {{ $appointments }} --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>     
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script> 
     function onlyNumberKey(evt) { 
           
@@ -292,6 +193,31 @@
             return false; 
         return true; 
     } 
+    $(document).ready(function(){
+        $("#manipulate-checkbox").on('change', function(){
+            console.log($(this).val());
+            if($(this).val() === '1'){
+                // console.log(false);
+                $(".flag").prop('checked', false);
+            }
+            if($(this).val() === '2'){
+                // console.log(true);
+                $(".flag").prop('checked', true);
+            }
+        });
+        $("#manipulate-max").on('change', function(){
+            // console.log(6);
+            if($(this).val() === '1'){
+                if("{{ $appointmentType }}" === "VED"){
+                    console.log("{{ $appointmentType }}");
+                    $(".freecount").val('1');
+                }
+                else{
+                    $(".freecount").val('6');
+                }
+            }
+        });
+    });
 </script> 
 
 

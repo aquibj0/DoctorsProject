@@ -244,7 +244,7 @@ class AppointmentController extends Controller
         //     ->with('show', 0)
         //     ->with('success', $message);
 
-        return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date);
+        return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date.'/index');
     }
 
 

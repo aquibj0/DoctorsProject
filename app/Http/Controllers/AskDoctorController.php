@@ -109,7 +109,8 @@ class AskDoctorController extends Controller
                         $patient->patState = $request['state'];
                         $patient->patCountry = $request['country'];
                         $patient->save();
-                        $patient->patId = Auth::user()->userId."-".$patient->id;
+                        $patient_no = count(Auth::user()->patients())+1;
+                        $patient->patId = Auth::user()->userId."-".$patient_no;
                         $patient->update();
                     }
                     if($patient->save()){

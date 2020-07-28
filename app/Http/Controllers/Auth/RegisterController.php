@@ -106,7 +106,7 @@ class RegisterController extends Controller
 
             Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
 
-            $user->userId = "UID".$user->id;
+            $user->userId = "UID".str_pad($user->id, 10, "0", STR_PAD_LEFT);
             $user->update();
 
 
