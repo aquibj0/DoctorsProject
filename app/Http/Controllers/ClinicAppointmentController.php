@@ -194,7 +194,8 @@ class ClinicAppointmentController extends Controller
                     $patient->patState = $request['state'];
                     $patient->patCountry = $request['country'];
                     $patient->save();
-                    $patient->patId = Auth::user()->userId."-".$patient->id;
+                    $patient_no = count(Patient::where('user_id', Auth::user()->id)->get())+1;
+                    $patient->patId = Auth::user()->userId."-".str_pad($patient_no, 2, "0", STR_PAD_LEFT);
                     $patient->update();
 
                     if($patient->save()){
