@@ -209,19 +209,17 @@
     }
     $(document).ready(function(){
 
-            var counter = $("#counter").val();
+        var counter = $("#counter").val();
 
-            if($("#start_date_self").val() != 0 && counter < 1){
-                // console.log(x);
-                
-                counter++;
-                $("#self_submit").click();
-            }else{
-                
-                console.log(counter);
-            }
-
+        if($("#start_date_self").val() != 0 && counter < 1){
+            // console.log(x);
             
+            counter++;
+            $("#self_submit").click();
+        }else{
+            
+            console.log(counter);
+        }   
     });
 </script> 
 @endsection

@@ -118,7 +118,7 @@
                                     <div class="form-row">
                                         {{-- Patient Gender Input --}}
                                         <div class="form-group col-md-6">
-                                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}">
+                                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}" required>
                                                 <option selected disabled>Gender </option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -134,7 +134,7 @@
 
                                         {{-- Patient Age Input --}}
                                         <div class="form-group col-md-6">
-                                            <select name="age" id="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age') }}">
+                                            <select name="age" id="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age') }}" required>
                                                 <option disabled selected>Select age</option>
                                                 @for($i=10; $i<90 ;$i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
