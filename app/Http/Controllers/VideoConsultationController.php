@@ -235,7 +235,7 @@ class VideoConsultationController extends Controller
                                 if($vc->save()){
                                     $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                     $app->update();
-                                    SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                    SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 2)->delay(now()->addMinutes(1)); 
 
                                     $data = array();
                                     $data['amount'] = Service::where('srvcShortName', $request->appointmentType)->first()->srvcPrice;

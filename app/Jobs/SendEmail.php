@@ -49,22 +49,35 @@ class SendEmail implements ShouldQueue
             if($this->patient->patEmail){
                 Mail::to(Auth::user()->userEmail)
                     ->cc($this->patient->patEmail)
+                    ->subject("BIRTH - Ask a Question - Service Request Created")
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq));
             }else{
                 Mail::to(Auth::user()->userEmail)
+                ->subject("BIRTH - Ask a Question - Service Request Created")
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq));
             }
         }else if($this->option == 2){
             if($this->patient->patEmail){
                 Mail::to($this->user->userEmail)
+                ->subject("BIRTH - Video Consulation - Service Request Created")
                     ->cc($this->patient->patEmail)
                     ->send(new AAQResponseEmail($this->patient, $this->srvcReq ,$this->asaq));
             }else{
                 Mail::to($this->user->userEmail)
+                ->subject("BIRTH - Video Consulation - Service Request Created")
                     ->send(new AAQResponseEmail($this->patient, $this->srvcReq ,$this->asaq));
             }
         }else{
-            //
+            iif($this->patient->patEmail){
+                Mail::to($this->user->userEmail)
+                ->subject("BIRTH - Clinic Appointment - Service Request Created")
+                    ->cc($this->patient->patEmail)
+                    ->send(new AAQResponseEmail($this->patient, $this->srvcReq ,$this->asaq));
+            }else{
+                Mail::to($this->user->userEmail)
+                ->subject("BIRTH - Clinic Appointment - Service Request Created")
+                    ->send(new AAQResponseEmail($this->patient, $this->srvcReq ,$this->asaq));
+            }
         }
     }
 }

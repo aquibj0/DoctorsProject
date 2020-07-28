@@ -118,7 +118,7 @@ class ClinicAppointmentController extends Controller
                             if($clinicAppointment->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
-                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
                                 
                             
                                 
@@ -172,8 +172,8 @@ class ClinicAppointmentController extends Controller
                 'slot' => ['required']
             ]);
             if(!$validator->fails()){
-                // DB::beginTransaction();
-                // try{
+                DB::beginTransaction();
+                try{
                     $patient = new Patient;
                     $patient->patId = str_random(15);
                     $patient->user_id = Auth::user()->id;
@@ -228,7 +228,7 @@ class ClinicAppointmentController extends Controller
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
 
-                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
                                 
                                 $data = array();
                                 $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
@@ -252,11 +252,11 @@ class ClinicAppointmentController extends Controller
                     }else{
                         return redirect()->back()->withInput()->withErrors($validator);
                     }
-                // } catch(\Exception $e){
-                //     DB::rollback();
-                //     return redirect()->back()->withInput()->with('error', $e->getMessage());
-                // }
-                // DB::commit();
+                } catch(\Exception $e){
+                    DB::rollback();
+                    return redirect()->back()->withInput()->with('error', $e->getMessage());
+                }
+                DB::commit();
                 return $res;
             }else{
                 return redirect()->back()->withInput()->withErrors($validator);
