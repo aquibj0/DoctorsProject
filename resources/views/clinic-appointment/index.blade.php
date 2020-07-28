@@ -269,7 +269,7 @@
                                     {{-- </div>
                                     <div class="form-row"> --}}
                                         <div class="form-group col-md-6">
-                                            <input type="date" name="date" id="date" placeholder="Pick a date" class="form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                            <input type="date" name="date" id="date" placeholder="Pick a date" class="some form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -279,7 +279,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <select class="form-control" name="appointmentLoc" id="appointmentLoc" required>
+                                            <select class="some form-control" name="appointmentLoc" id="appointmentLoc" required>
                                                 <option selected disabled>Select Location</option>
                                                 @foreach ($location as $item)
                                                     <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
@@ -292,7 +292,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <select class="form-control" name="service" id="service" required>
+                                            <select class="some form-control" name="service" id="service" required>
                                                 <option disabled selected>Select Type</option>
                                                 <option value="CED">Dr. Khastgir</option>
                                                 <option value="CTD">Birth Team Doctor</option>
@@ -316,19 +316,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
-
-
-                                    {{-- <div class="form-row">
-                                        <div class="mb-3">
-                                            <h2 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h2>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <input type="file" class="form-control" >
-                                        </div>
-                                    </div> --}}
-
-
                                     <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
                                 </form>
                             
@@ -348,7 +335,7 @@
     $(document).ready(function(){
         //date change
 
-        $('#service', ).on('change', function(){
+        $('.some').on('change', function(){
             // var appType = $(this).val();
             var date = $("#date").val();
             var loc = $("#appointmentLoc").val();
