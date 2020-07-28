@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/payment-initiate/{data}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
     // Route::post('/payment-complete','PaymentController@Complete');
     Route::post('/payment-initiate-request','PaymentController@Initiate');
-    Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete');
+    Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete')->name('payment');
     // Route::post('/change-user-to-internal', 'AppController@internal_user');
 
  

@@ -39,7 +39,7 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 var options = {
-   
+    // "callback_url": "/payment-initiate-request",   
     "key": "{{$response['razorpayId']}}", // Enter the Key ID generated from the Dashboard
     "amount": "{{$response['amount']}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "{{$response['currency']}}",
@@ -47,8 +47,8 @@ var options = {
     "description": "{{$response['description']}}",
     "image": "https://example.com/your_logo", // You can give your logo url
     "order_id": "{{$response['orderId']}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    // "callback_url": "/payment-complete/{{Auth::user()->id}}/{{$data['srvdID']}}",
-    // "redirect": "true",
+    "redirect": "false",
+    
 
 
     

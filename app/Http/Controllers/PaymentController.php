@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 { 
-    private $razorpayId = "rzp_test_Wq2JlvHGrZMLYz";
-    private $razorpayKey = "nuKhC4fnkUXZW8AzrroZ1gxs";
+    private $razorpayId = "rzp_test_PgfHGuxQeXGP14";
+    private $razorpayKey = "CyDWTmtUwE5PaI78yxrRpefq";
 
     public $data;
 
