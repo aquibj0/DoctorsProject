@@ -20,12 +20,12 @@ use App\Http\Controllers\PaymentController;
 class VideoConsultationController extends Controller
 {
     public $payments;
+    
     public function __construct(){
         $this->payments = new PaymentController;
     }
     /**
-     * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index($id)
