@@ -76,66 +76,71 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    
-                    <table class="table table-bordered table-responsive">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">SR No. <span style="float: right"><a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/2/{{$start}}/{{$end}}">&#9660;</a></span></th>
-                                <th scope="col">Sr Type</th>
-                                <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
-                                <th scope="col">Payment Status</th>
-                                <th scope="col">Patient Name</th>
-                                <th scope="col">Service Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table">
-                            @if (!empty($servReq))
-                                @foreach ($servReq as $serviceReq)
-                                    <tr>
-                                        <th scope="row">
-                                            <input type="checkbox">
-                                            {{$serviceReq->srId}} </th>
-                                        <td>{{$serviceReq->service->srvcName}}</td>
-                                        <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
-                                        <td> 
-                                            @if ($serviceReq->paymentStatus == true)
-                                            Paid
-                                            @else
-                                            Not Paid
-                                            @endif
-                                        
-                                        </td>
-                                        <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
-                                        <td>{{$serviceReq->srStatus}}</td>
-                                        <td>
-                                            
-                                            <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 
-                                            
-                                            @if ($serviceReq->paymentStatus == true)
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm">Response</a>  
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm">Download Report</a>                                          
-                                            @endif
-                                           
-                                            
-                                            
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                    <form action="/admin/assign/doctor" method="POST" enctype="multipart/form-data">
+                        <table class="table table-bordered table-responsive">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col"><input type="checkbox" id="select_all">SR No. <span style="float: right"><a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/2/{{$start}}/{{$end}}">&#9660;</a></span></th>
+                                    <th scope="col">Sr Type</th>
+                                    <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
+                                    <th scope="col">Payment Status</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Service Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table">
+                                @if (!empty($servReq))
+                                    @foreach ($servReq as $serviceReq)
+                                        <tr>
+                                            <th scope="row">
+                                                <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
+                                                {{$serviceReq->srId}} </th>
+                                            <td>{{$serviceReq->service->srvcName}}</td>
+                                            <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                            <td> 
+                                                @if ($serviceReq->paymentStatus == true)
+                                                Paid
+                                                @else
+                                                Not Paid
+                                                @endif
+                                            </td>
+                                            <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
+                                            <td>{{$serviceReq->srStatus}}</td>
+                                            <td>
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 
+                                                @if ($serviceReq->paymentStatus == true)
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm">Response</a>  
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                                @endif 
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md">
+                                    <select name="doctor" id="doctor" class="form-control">
+                                        <option disabled selected>Select Doctor</option>
+                                        {{-- @foreach($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}">{{}}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- <input type="date" name="start-date" id="start-date" class="form-control">
-    <input type="date" name="end-date" id="end-date" class="form-control">
- --}}
-
-
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
