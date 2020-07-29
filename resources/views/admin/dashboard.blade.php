@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>admin Dashboard</h2>
+                        <h2>BIRTH ECLINIC DASHBOARD</h2>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                             <div class="col-md">
                             @if($filter)
                                 <select name="filter" id="filter" class="form-control">
-                                    <option disabled selected>Filter By</option>
+                                    <option value="0" selected>No Filter</option>
                                     {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option> --}}
@@ -154,10 +154,6 @@
                 $("#end_date").empty();
                     $("#self_submit").click();
             }
-        });
-        $("#end_date_input").on('change', function(){
-            console.log("redirecting...");
-            // $("#self_submit").click();
         });
     });
     function clickSubmit(){

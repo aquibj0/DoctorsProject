@@ -123,9 +123,6 @@ Route::group(['middleware' => 'web'], function(){
  
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
-        
-        // Route::get('/{sort}', 'Admin\AdminController@index');
-      
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
