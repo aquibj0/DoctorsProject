@@ -112,7 +112,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-1">
-                                        <button type="sbumit" class="btn"><i class="fa fa-search"></i></button>
+                                        <button type="sbumit" class="btn btn-submit icon-maroon"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             @endif
@@ -212,13 +212,12 @@
         var counter = $("#counter").val();
 
         if($("#start_date_self").val() != 0 && counter < 1){
-            // console.log(x);
             
             counter++;
             $("#self_submit").click();
         }else{
             
-            console.log(counter);
+            // console.log(counter);
         }   
     });
 </script> 
