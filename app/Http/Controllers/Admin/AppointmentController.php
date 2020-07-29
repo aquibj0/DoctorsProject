@@ -187,9 +187,18 @@ class AppointmentController extends Controller
                     for($i=0;$i<28;$i++){
                         $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->first();
                         if($app){
-                            // echo $reques;
                             if($request->time[$i] == $request->flag[$flagCount]){
+                                $booked = $app->appmntSlotMaxCount - $app->appmntSlotFreeCount;
+                                $app->appmntSlotMaxCount = $request->freecount[$i];
+                                if($request->freecount[$i] - $booked > 0){
+                                    // echo $request->freecount[$i] - $booked, $app->appmntSlotMaxCount, $app->appmntSlotFreeCount;
+                                    $app->appmntSlotFreeCount = $request->freecount[$i] - $booked;
+                                }else{
+                                    DB::rollback();
+                                    return redirect()->back()->withInput()->with('error', 'Cannot update! As '.$app->appmntDate.' '.$app->appmntSlot.' is getting below booked count.');
+                                }
                                 $app->appmntFlag = 1;
+                                // echo $app, $booked;
                                 if($flagCount < count($request->flag)-1){
                                     $flagCount++;
                                 }
@@ -210,7 +219,17 @@ class AppointmentController extends Controller
                     for($i=0;$i<12;$i++){
                         $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->where('appmntClinicid', $request->appointmentType)->first();
                         if($request->time[$i] == $request->flag[$flagCount]){
+                            $booked = $app->appmntSlotMaxCount - $app->appmntSlotFreeCount;
+                            $app->appmntSlotMaxCount = $request->freecount[$i];
+                            if($request->freecount[$i] - $booked > 0){
+                                // echo $request->freecount[$i] - $booked, $app->appmntSlotMaxCount, $app->appmntSlotFreeCount;
+                                $app->appmntSlotFreeCount = $request->freecount[$i] - $booked;
+                            }else{
+                                DB::rollback();
+                                return redirect()->back()->withInput()->with('error', 'Cannot update! As '.$app->appmntDate.' '.$app->appmntSlot.' is getting below booked count.');
+                            }
                             $app->appmntFlag = 1;
+                            // echo $app;
                             if($flagCount < count($request->flag)-1){
                                 $flagCount++;
                             }
@@ -226,7 +245,7 @@ class AppointmentController extends Controller
 
         } catch(\Exception $e){
             DB::rollback();
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
         DB::commit();
         $clinics = Clinic::all();
@@ -234,17 +253,8 @@ class AppointmentController extends Controller
             $message = 'Appointment for '.$request->date.' added successfully';
         else if($request->submit_type == "new")
             $message = 'Appointment for '.$request->date.' updated successfully';
-        // return redirect('/admin/appointment')
-        //     ->with('clinics', $clinics)
-        //     ->with('show', 1)
-        //     ->with('docType', $request->docType)
-        //     ->with('appointmentType', $request->appointmentType)
-        //     ->with('start_date', $start_date)
-        //     ->with('end_date', $end_date)
-        //     ->with('show', 0)
-        //     ->with('success', $message);
 
-        return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date.'/index');
+        return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date.'/index')->with('success', $message);
     }
 
 
@@ -339,6 +349,9 @@ class AppointmentController extends Controller
         }
     }
 
+    public function down($date, $type, $clinic){
+        return array($date, $type, $clinic);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -347,8 +360,6 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $app = AppointmentSchedule::find($id);
-        $app->delete();
-        return redirect('/admin/appointment')->with('success', 'Appointment deleted successfully!');
+        //
     }
 }

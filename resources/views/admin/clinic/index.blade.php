@@ -70,13 +70,14 @@
                                         {{ $clinic->clinicState }}, {{ $clinic->clinicCountry }}, {{ $clinic->clinicPincode }}
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal" data-target="#{{ 'deleteClinic'.$loop->iteration }}">Delete</a>  
+                                        <a href="/admin/clinic/edit/{{ $clinic->id }}" class="btn btn-md btn-maroon">Edit</a>
+                                        <a href="#" class="btn btn-maroon btn-md" data-toggle="modal" data-target="#{{ 'deleteClinic'.$loop->iteration }}">Delete</a>  
                                    
                                         <div class="modal fade" id="{{ 'deleteClinic'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title maroon" id="exampleModalLongTitle"><b>Create Department</b></h5>
+                                                    <h5 class="modal-title maroon" id="exampleModalLongTitle"><b>Delete Clinic</b></h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>

@@ -101,7 +101,13 @@ class ClinicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $clinic = Clinic::find($id);
+        // return $clinic;
+        if(!empty($clinic)){
+            return view('admin.clinic.edit')->with('clinic', $clinic);
+        }else{
+            return redirect('/admin/clinic')->with('error', 'Something Went Wrong!');
+        }
     }
 
     /**
@@ -113,7 +119,48 @@ class ClinicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $clinic = Clinic::find($id);
+        if(!empty($clinic)){
+            $validator = Validator::make($request->all(), [
+                'clinicName' => ['required', 'string', 'max:32'],
+                'clinicMobileNo' => ['required', 'numeric', 'digits:10'],
+                'clinicLandLineNo' => ['nullable', 'numeric', 'digits:12'],
+                'clinicAddressLine1' => ['required', 'string', 'max:64'],
+                'clinicAddressLine2' => ['string', 'nullable', 'max:64'],
+                'clinicCity' => ['required', 'string', 'max:35'],
+                'clinicDistrict' => ['required', 'string', 'max:35'],
+                'clinicState' => ['required', 'string', 'max:35'],
+                'clinicCountry' => ['required', 'string', 'max:35'],
+                'clinicPincode' => ['required', 'numeric', 'digits:6'],
+            ]);
+            if(!$validator->fails()){
+                $clinic->clinicName = $request->clinicName;
+                $clinic->clinicMobileNo = $request->clinicMobileNo;
+                $clinic->clinicLandLineNo = $request->clinicLandLineNo;
+                $clinic->clinicAddressLine1 = $request->clinicAddressLine1;
+                if($request->clinicAddressLine2)
+                    $clinic->clinicAddressLine2 = $request->clinicAddressLine2;
+                $clinic->clinicCity = $request->clinicCity;
+                $clinic->clinicDistrict = $request->clinicDistrict;
+                $clinic->clinicState = $request->clinicState;
+                $clinic->clinicCountry = $request->clinicCountry;
+                $clinic->clinicPincode = $request->clinicPincode;
+                $clinic->update();
+                if($clinic->update()){
+                    
+                    return redirect('/admin/clinic')->with('success', 'Clinic added successfully!');
+                }
+                else{
+                    // $clinic->delete();
+                    return redirect()->back()->with('error', 'Something went wrong!')->withInput();
+                }
+            }else{
+                return redirect()->back()->withInput()->withErrors($validator);
+            }
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+        // return $request; 
     }
 
     /**

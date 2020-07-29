@@ -133,16 +133,16 @@ Route::group(['middleware' => 'web'], function(){
         Route::post('/appointment/check', 'Admin\AppointmentController@check');
         Route::get('/appointment/{date}/{appmntType}/{start_date}/{end_date}', 'Admin\AppointmentController@show');
         Route::get('/appointment/{date}/{appmntType}/{clinic_id}/{start_date}/{end_date}', 'Admin\AppointmentController@show_clinic');
-        // Route::get('/appointment/create/video', 'Admin\AppointmentController@create_video');
-        // Route::get('/appointment/create/clinic', 'Admin\AppointmentController@create_clinic');
         Route::post('/appointment/store/{start_date}/{end_date}', 'Admin\AppointmentController@store');
         Route::post('/appointment/update/{id}', 'Admin\AppointmentController@update');
-        Route::delete('/appointment/delete/{id}', 'Admin\AppointmentController@destroy');
+        Route::get('/appointment/delete/{date}/{type}/{clinic_id}', 'Admin\AppointmentController@down');
 
         // Clinic Route
         Route::get('/clinic', 'Admin\ClinicController@index');
         Route::get('/clinic/create', 'Admin\ClinicController@create');
         Route::post('/clinic', 'Admin\ClinicController@store');
+        Route::get('/clinic/edit/{id}', 'Admin\ClinicController@edit');
+        Route::post('/clinic/update/{id}', 'Admin\ClinicController@update');
         Route::delete('/clinic/{id}/delete', 'Admin\ClinicController@destroy');
 
         // Department
@@ -161,7 +161,8 @@ Route::group(['middleware' => 'web'], function(){
         Route::delete('/services/{id}', 'Admin\ServiceController@destroy')->name('service.delete');
     
         // Internal Notes
-        ROute::post('/internalnotes/{id}', 'Admin\ServiceRequestController@internalNotes');
+        Route::post('/internalnotes/{id}', 'Admin\ServiceRequestController@internalNotes');
+
     });
 });
 
