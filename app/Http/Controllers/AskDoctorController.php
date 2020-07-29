@@ -146,7 +146,7 @@ class AskDoctorController extends Controller
                             $asaq->save();
                             
                             // Send Confirmation Message using textlocal
-                            // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             //1 is the status for sending confirmation mail
                             SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1)->delay(Carbon::now()->addSeconds(5)); 

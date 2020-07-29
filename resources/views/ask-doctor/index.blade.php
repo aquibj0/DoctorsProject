@@ -4,8 +4,8 @@
 <section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row">
-        <div class="col-md-4" >
-            <img src="{{asset('image/IMAGE7.jpg')}}" style="max-width:100%" alt="">
+        <div class="col-md-4 text-center" >
+            <img  src="{{asset('image/IMAGE7.jpg')}}" class="block-img mt-4" alt="">
         </div>
         <div class="col-md-8">
             <div class="container">
@@ -80,7 +80,7 @@
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
+                                                <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
                                             </div>
                                         </div>
                                         {{-- <div class="form-row">
@@ -278,7 +278,7 @@
                                     @if($patient)
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -289,8 +289,8 @@
                                     @else
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
-                                            <small class="form-text text-muted">Maximun 1024 Characters.</small>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
+                                            
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -309,8 +309,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="5" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>
-                                            <small class="form-text text-muted">Maximun 1024 Characters.</small>                                            
+                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="3" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>                                          
                                             @error('patient_question')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -319,19 +318,7 @@
                                         </div>
                                     </div>
 
-
-
-                                    {{-- <div class="form-row">
-                                        <div class="mb-3">
-                                            <h2 class="maroon MB-3"><b>UPLOAD PRESCRIPTION</b></h2>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <input type="file" class="form-control" >
-                                        </div>
-                                    </div> --}}
-
-
-                                    <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
+                                        <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
                                 </form>
                                 
                             </div>
@@ -342,46 +329,4 @@
         </div>
     </div>
 </section>
-{{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-var options = {
-    "key": "{{$response['razorpayId']}}", // Enter the Key ID generated from the Dashboard
-    "amount": "{{$response['amount']}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "currency": "{{$response['currency']}}",
-    "name": "{{$response['name']}}",
-    "description": "{{$response['description']}}",
-    "image": "https://example.com/your_logo", // You can give your logo url
-    "order_id": "{{$response['orderId']}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "handler": function (response){
-        // After payment successfully made response will come here
-        // Let's send this response to Controller for update the payment response
-        // Create a form for send this data
-        // Set the data in form
-        document.getElementById('rzp_paymentid').value = response.razorpay_payment_id;
-        document.getElementById('rzp_orderid').value = response.razorpay_order_id;
-        document.getElementById('rzp_signature').value = response.razorpay_signature;
-
-        // // Let's submit the form automatically
-        document.getElementById('rzp-paymentresponse').click();
-    },
-    "prefill": {
-        "name": "{{$response['name']}}",
-        "email": "{{$response['email']}}",
-        "contact": "{{$response['contactNumber']}}"
-    },
-    "notes": {
-        "address": "{{$response['address']}}"
-    },
-    "theme": {
-        "color": "#F37254"
-    }
-};
-var rzp1 = new Razorpay(options);
-// window.onload = function(){
-//     document.getElementById('rzp-button1').click();
-// };
-$( "#target" ).submit(function( event ) {
-    rzp1.open();
-    event.preventDefault();
-}); --}}
 @endsection

@@ -27,10 +27,11 @@
         </div>
         <div class="col-md">
             <div class="round-img">
+                <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
                 <div class="img">
                     <img class="image-round " src="{{asset('image/IMAGE1B.jpg')}}" alt="">
                 </div>
-                <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
+                
             </div>
         </div>
         <div class="col-md">
@@ -62,7 +63,7 @@
                         <h2>Ask a doctor</h2>
                     </div>
                 </div>
-                <a href="/user-patients/AAQ" class="btn btn-primary ">Submit</a>
+                <a href="/user-patients/AAQ" class="btn btn-primary  mb-2">Submit</a>
             </div>
 
             <div class="col-md-4 mb-2">
@@ -71,7 +72,7 @@
                         <h2>Video Consultation</h2>
                     </div>
                 </div>
-                <a href="/user-patients/VED" class="btn btn-primary ">Submit</a>
+                <a href="/user-patients/VED" class="btn btn-primary  mb-2">Submit</a>
             </div>
 
             <div class="col-md-4 mb-2">
@@ -80,7 +81,7 @@
                         <h2>Clinic Appointment</h2>
                     </div>
                 </div>
-                <a href="/user-patients/CLI" class="btn btn-primary ">Submit</a>
+                <a href="/user-patients/CLI" class="btn btn-primary  mb-2">Submit</a>
             </div>
 
             <div class="col-md-12 text-center">
