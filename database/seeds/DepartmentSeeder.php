@@ -17,7 +17,7 @@ class DepartmentSeeder extends Seeder
     {
         DB::table('departments')->truncate();
         DB::table('departments')->insert([
-            'department_name' => 'Fertility',
+            'department_name' => 'Infertility',
         ]);
         DB::table('departments')->insert([
             'department_name' => 'Gynaecology',

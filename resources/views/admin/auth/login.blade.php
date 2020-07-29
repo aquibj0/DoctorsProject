@@ -11,14 +11,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-
-                        {{-- @include('layouts.message') --}}
-
                         <div class="user-login-form">
                             <div class="register-block mt-5">
                                 <h2 class="mb-0"> <b>Admin Login</b></h2> 
                             </div>
-            
                             <div class="mt-4">
                                 @include('layouts.message')
                                 <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
@@ -43,14 +39,13 @@
             
                                         <div class="col-md-11">
                                             <input id="password"  type="password" placeholder="Password" class="form-control" name="password" required>
-            
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="col-md-1">
+                                        <div class="col-md">
                                             <input type="checkbox" class="form-control" onclick="myFunction()">
                                             <script>
                                                 function myFunction() {
@@ -80,7 +75,6 @@
                                             <button type="submit" class="btn btn-maroon" style="width:100%">
                                                 Login
                                             </button>
-            
                                         </div>
                                     </div>
                                 </form>

@@ -108,10 +108,10 @@
                                             <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
                                             <td>{{$serviceReq->srStatus}}</td>
                                             <td>
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">View Details</a> 
                                                 @if ($serviceReq->paymentStatus == true)
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm">Response</a>  
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>  
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Download Report</a>                                          
                                                 @endif 
                                             </td>
                                         </tr>

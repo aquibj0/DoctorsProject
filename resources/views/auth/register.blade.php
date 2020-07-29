@@ -41,7 +41,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-row">
                                     <div class="col-md-6 form-group">
                                         <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('userMobileNo') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
@@ -63,8 +62,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row" >
-                                    <div class="col-md-12">
+                                <div class="form-row" >
+                                    <div class="col-md-12 form-group">
                                             <input id="userEmail" type="email" placeholder="Email" class="form-control @error('userEmail') is-invalid @enderror" name="userEmail" value="{{ old('userEmail') }}" autocomplete="userEmail">
                                             
                                             @error('userEmail')
@@ -75,8 +74,8 @@
                                     </div>
                                 </div>
         
-                                <div class="form-group row">
-                                    <div class="col-md-11">
+                                <div class="form-row">
+                                    <div class="col-md-11 form-group">
                                         <input id="password" placeholder="Password" value="{{ old('password') }}" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -84,7 +83,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1 form-group">
                                         <label for=""></label>
                                         <input type="checkbox" class="form-control" onclick="myFunction()">
                                         <script>
@@ -100,11 +99,11 @@
                                     </div>
                                 </div>
         
-                                <div class="form-group row">
-                                    <div class="col-md-11">
+                                <div class="form-row">
+                                    <div class="col-md-11 form-group">
                                         <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md form-group">
                                         <input type="checkbox" class="form-control" onclick="myFunctionConfirm()">
                                         <script>
                                             function myFunctionConfirm() {
@@ -119,7 +118,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group row mb-0">
+                                <div class="form-row">
                                     <div class="col-md-12 mb-2">
                                         <input type="checkbox" id="terms" onchange="confirm()">
                                         <label for="">I Agree with all the statements in <a href="#" data-toggle="modal" data-target="#termsandconditions"><u>Terms of Services</u></a></label>
@@ -137,11 +136,6 @@
                                                 }
                                             }
                                         </script>
-
-
-
-
-
 
                                         <div class="modal fade bd-example-modal-lg" id="termsandconditions" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
@@ -168,7 +162,7 @@
                                     </div>
                                     <div class="col-md-12 ">
                                         <button type="submit" style="width:100%" id="submit" class="btn btn-maroon  " onclick="return Validate()" disabled>
-                                            {{ __('Register') }}
+                                            {{ __('Submit') }}
                                         </button>
                                     </div>
                                 </div>

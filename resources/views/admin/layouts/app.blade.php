@@ -33,9 +33,13 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <span class="maroon">DR-ONLINE</span> <br>
-                        <p style="margin-top:-15px; font-size:14px" class=" text-center maroon mb-0">Exceptional Care you choose</p>
+                
+                    <a class="navbar-brand" href="{{ url('/admin') }}">
+                        <img src="{{asset('image/logo.jpg')}}" style="max-width:60px;" alt="">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    <img src="{{asset('image/logo2.jpg')}}" alt="" style="max-width:55%;">
+                        {{-- <span class="maroon">DR-ONLINE</span> <br>
+                        <p style="margin-top:-15px; font-size:14px" class=" text-center maroon mb-0">Exceptional Care you choose</p> --}}
                         
                     </a>
                
@@ -55,6 +59,22 @@
                         <li class="nav-item">
                             <a href="/admin" class="nav-link">Home </a>
                         </li>
+                        @guest('admin')
+                        <li class="nav-item">
+                            <a href="/services" class="nav-link">Services </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/contact-us" class="nav-link">Contact Us </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                        @else
                         <li class="nav-item">
                             <a href="/admin/internal-user" class="nav-link">Internal User </a>
                         </li>
@@ -67,20 +87,16 @@
                         <li class="nav-item">
                             <a href="/admin/services" class="nav-link">Services</a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="/services" class="nav-link">Services </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/contact-us" class="nav-link">Contact Us </a>
-                        </li> --}}
+                        @endguest
+                        
                         
                         <!-- Authentication Links -->
                         @guest('admin')
                             
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.auth.login') }}">{{ __('Login') }}</a>
-                            </li>
+                            </li> --}}
                         @else
                             <li class="nav-item">
                                 <a href="/admin/appointment" class="nav-link">Appointment</a>
