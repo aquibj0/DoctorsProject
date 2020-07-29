@@ -80,7 +80,7 @@
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
+                                                <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
                                             </div>
                                         </div>
                                         {{-- <div class="form-row">

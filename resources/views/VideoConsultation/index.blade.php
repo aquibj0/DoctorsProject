@@ -78,7 +78,7 @@
                                         </div>
                                 
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patState }}" required disabled>
+                                            <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
                                         </div>
                                     </div>
 
@@ -267,8 +267,8 @@
                                         <div class="form-group col-md-6">
                                             <select class="form-control some" name="appointmentType" id="appointmentType" required>
                                                 <option selected disabled>Team  or Expert</option>
-                                                <option value="VTD">Team Doctor</option>
-                                                <option value="VED">Expert Doctor</option>
+                                                <option value="VTD">Birth Team Doctor</option>
+                                                <option value="VED">Dr. Khastgir</option>
 
                                             </select>
                                             @error('appointmentType')

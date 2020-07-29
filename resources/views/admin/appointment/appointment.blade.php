@@ -44,10 +44,7 @@
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-3">
-                                <select name="" id="manipulate-max" class="form-control">
-                                    <option selected disabled>Select one</option>
-                                    <option value="1">Default Max</option>
-                                </select>
+                                <input type="number" name="max" id="max" class="form-control"    min="1" max="10" onkeypress="return onlyNumberKey(event)">
                             </div>
                             <div class="col-md-3">
                                 <select name="" id="manipulate-checkbox" class="form-control">
@@ -80,7 +77,7 @@
                                                         <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="1" placeholder="" onkeypress="return onlyNumberKey(event)" readonly="readonly">
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="1" placeholder="" onkeypress="return onlyNumberKey(event)">
                                                     </td>
                                                     <td>
                                                         <input type="text" name="booked[]" id="booked" value="0" class="form-control" readonly="readonly">
@@ -97,7 +94,7 @@
                                                         <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)" readonly="readonly">
+                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)">
                                                     </td>
                                                     <td>
                                                         <input type="text" name="booked[]" id="booked" value="0" class="form-control" readonly="readonly">
@@ -134,7 +131,7 @@
                                                         <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" >
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
+                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotMaxCount-$item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -194,27 +191,25 @@
         return true; 
     } 
     $(document).ready(function(){
+        if("{{ $appointmentType }}" == "VED"){
+            $("#max").val(1);
+        }else{
+            $("#max").val(6);
+        }
         $("#manipulate-checkbox").on('change', function(){
-            console.log($(this).val());
             if($(this).val() === '1'){
-                // console.log(false);
                 $(".flag").prop('checked', false);
             }
             if($(this).val() === '2'){
-                // console.log(true);
                 $(".flag").prop('checked', true);
             }
         });
-        $("#manipulate-max").on('change', function(){
-            // console.log(6);
-            if($(this).val() === '1'){
-                if("{{ $appointmentType }}" === "VED"){
-                    console.log("{{ $appointmentType }}");
-                    $(".freecount").val('1');
-                }
-                else{
-                    $(".freecount").val('6');
-                }
+        $("#max").on('change', function(){
+            console.log($(this).val());
+            if($(this).val() > 0 && $(this).val() <= 10){
+                $(".freecount").val($(this).val());
+            }else{
+                alert('Please enter a value between 1 and 10');
             }
         });
     });
