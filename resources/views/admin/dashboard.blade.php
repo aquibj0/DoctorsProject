@@ -58,7 +58,7 @@
                                 </select>
                             @else
                                 <select name="filter" id="filter" class="form-control">
-                                    <option disabled selected>Filter By</option>
+                                    <option value="0" selected>No Filter</option>
                                     {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option> --}}
