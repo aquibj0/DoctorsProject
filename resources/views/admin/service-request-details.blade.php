@@ -160,7 +160,14 @@
                                             
                                             {{-- @if (!empty($srvcReq->askQuestion)) --}}
                                                 {{-- Show Respond Button where service request is AAQ --}}
-                                                <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">Respond</a>                                
+                                                
+                                                <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">
+                                                    @if(Auth::user()->category == "doc")
+                                                    Respond
+                                                    @else
+                                                    View Response
+                                                    @endif
+                                                </a>                                
                                                 <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
                                             {{-- @elseif(!empty($srvcReq->videoCall)) --}}
             

@@ -276,28 +276,29 @@
                 <div class="col-md-5" style="border:1px solid #000; padding: 15px">
                     <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
+                    @if(Auth::user()->category == "doc")
+                        @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                            <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                @csrf
+                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                <div class="form-group text-center mb-0">
+                                    <input type="submit" class=" mt-2 btn btn-maroon">
+                                </div>
+                            </form>
 
-                    @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                            @csrf
-                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
-                            <div class="form-group text-center mb-0">
-                                <input type="submit" class=" mt-2 btn btn-maroon">
-                            </div>
-                        </form>
+                        @else
 
+                            <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                @csrf
+                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                                <div class="form-group text-center mb-0">
+                                    <input type="submit" class=" mt-2 btn btn-maroon">
+                                </div>
+                            </form>
+                        @endif
                     @else
-
-                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                            @csrf
-                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                            <div class="form-group text-center mb-0">
-                                <input type="submit" class=" mt-2 btn btn-maroon">
-                            </div>
-                        </form>
+                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10" disabled>{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
                     @endif
-                    
-
                     
                 </div>
             </div>

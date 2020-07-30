@@ -107,11 +107,10 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
+                                {{-- <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
                                     <label for="department" class="col-md-4 control-label">Department</label>
 
                                     <div class="col-md-6">
-                                        {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
                                         <select name="department" id="department" class="form-control">
                                             <option selected disabled>Select one</option>
                                             @foreach($depts as $dept)
@@ -124,7 +123,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -156,7 +155,7 @@
 
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-maroon" style="width:100%">
                                             Submit
                                         </button>
                                     </div>
