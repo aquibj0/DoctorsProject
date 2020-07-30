@@ -18,12 +18,12 @@ html, body{
 }
 
 
-@media(min-width:768px){
+/* @media(max-width:768px){ */
     .row{ 
         margin-left: 0;
         margin-right: 0;
     }
-}
+/* } */
 .btn-primary{
     background: #fff;
     color: rgb(97, 13, 13);
@@ -108,7 +108,8 @@ html, body{
     color: rgb(97, 13, 13)  !important;
     font-size: 16px;
     font-weight: 600;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* End Navbar */
@@ -174,7 +175,40 @@ html, body{
     text-transform: uppercase;
     font-weight: 500;
 }
+.hidden{
+    display: none;
+}
 
+.hide{
+    display: none;
+}
+.service-section .card:hover .hide{
+    display: block;
+}
+.service-section .card:hover h2{
+    display: none;
+}
+
+.location-hidden{
+    display: none;
+}
+
+
+@media(max-width:768px){
+    .location-shown{
+        display: none;
+    }
+    .location-hidden{
+        display: block;
+    }
+
+    .service-section .card{
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    
+}
 
 
 /* User Registration Page */
@@ -337,5 +371,9 @@ html, body{
 
     .block-img{
         max-width: 60%;
+    }
+
+    .service-section .row a{
+        margin-bottom: 15px;
     }
 }

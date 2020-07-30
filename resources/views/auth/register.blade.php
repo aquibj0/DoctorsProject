@@ -75,7 +75,7 @@
                                 </div>
         
                                 <div class="form-row">
-                                    <div class="col-md-11 form-group">
+                                    <div class="col-md-12 form-group">
                                         <input id="password" placeholder="Password" value="{{ old('password') }}" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -83,9 +83,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-1 form-group">
+                                    {{-- <div class="col-md-1 form-group">
                                         <label for=""></label>
-                                        <input type="checkbox" class="form-control" onclick="myFunction()">
+                                        <input style="max-width:15px;" type="checkbox" class="form-control" onclick="myFunction()">
                                         <script>
                                             function myFunction() {
                                                 var x = document.getElementById("password");
@@ -96,15 +96,15 @@
                                                 }
                                             } 
                                         </script>
-                                    </div>
+                                    </div> --}}
                                 </div>
         
                                 <div class="form-row">
-                                    <div class="col-md-11 form-group">
+                                    <div class="col-md-12 form-group">
                                         <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
-                                    <div class="col-md form-group">
-                                        <input type="checkbox" class="form-control" onclick="myFunctionConfirm()">
+                                    {{-- <div class="col-md form-group">
+                                        <input style="max-width:15px" type="checkbox" class="form-control" onclick="myFunctionConfirm()">
                                         <script>
                                             function myFunctionConfirm() {
                                                 var x = document.getElementById("password-confirm");
@@ -115,7 +115,7 @@
                                                 }
                                             } 
                                         </script>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 
                                 <div class="form-row">

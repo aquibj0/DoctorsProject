@@ -11,6 +11,11 @@
                             @include('layouts.message')
 
                             {{-- Service Request Details Table --}}
+
+                            <div class="mt-2 mb-2">
+                                <p class="maroon location-hidden"><b> “Pan right or rotate screen to view all details”
+                                </b></p>
+                            </div>
                             <h4 class="maroon mb-2"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
 
                             <table class="table table-bordered table-responsive mb-3">

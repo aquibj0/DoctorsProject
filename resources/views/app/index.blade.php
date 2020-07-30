@@ -4,42 +4,47 @@
 <section class="">
     <div class="row mt-2" >
         <div class="col-md" style="padding-left:30px;">
-            <h3 class="maroon"><b>Dr Gautam Khastgir </b></h3>
-            <p class="mb-0"><span><b>MBBS, MD, MRCOG</b></span>   </p>
-                <p>MD, FRCS, FRCOG, FICOG
-                    Medical Director
-                    Subspecialty in Reproductive
-                    Medicine and Surgery
-                    Gynecological Endoscopic
-                    Surgery</p>
+            <h3 class="maroon " style="margin-top:15px !important;"><b>Dr Gautam Khastgir </b></h3>
+            <p class="mb-0"><span><b>MD, FRCS, FRCOG, FICOG</b></span>   </p>
+                <p class="mb-0">Medical Director</p>
+                    <p class="mb-0">Subspecialty in Reproductive</p>
+                    <p class="mb-0">Medicine and Surgery</p>
+                    <p class="mb-2">Gynecological Endoscopic Surgery</p>
+
             <div class="img">
                 <img src="{{asset('image/IMAGE2.jpg')}}" alt="">
             </div>
         </div>
         <div class="col-md">
             <div class="round-img">
-                <h4 class="maroon"><b>Salt Lake, Kolkata</b></h4>
+                <h4 class="maroon location-shown"><b>Salt Lake, Kolkata</b></h4>
                 <div class="img">
                     <img class="image-round " src="{{asset('image/IMAGE1A.jpg')}}" alt="">
                 </div>
+                <h4 class="maroon location-hidden" ><b>Salt Lake, Kolkata</b></h4>
+
             </div>
             
         </div>
         <div class="col-md">
             <div class="round-img">
-                <h4 class="maroon"><b>Elgin Road, Kolkata</b></h4>
+                <h4 class="maroon location-shown"><b>Elgin Road, Kolkata</b></h4>
                 <div class="img">
                     <img class="image-round " src="{{asset('image/IMAGE1B.jpg')}}" alt="">
                 </div>
+                <h4 class="maroon location-hidden"><b>Elgin Road, Kolkata</b></h4>
+
                 
             </div>
         </div>
         <div class="col-md">
             <div class="round-img">
-                    <h4 class="maroon"><b>Chandannagar, Hoogly</b></h4>
+                    <h4 class="maroon location-shown"><b>Chandannagar, Hoogly</b></h4>
                     <div class="img">
                         <img class="image-round " src="{{asset('image/Image1C.jpg')}}" alt="">
                     </div>
+                    <h4 class="maroon location-hidden"><b>Chandannagar, Hoogly</b></h4>
+
             </div>
         </div>
         <div class="col-md-12">
@@ -61,6 +66,13 @@
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Ask a doctor</h2>
+
+                        <div class="hide">
+                            <p class="mb-0">Submit Patient Details</p>
+                            <p class="mb-0">Upload Reports & Prescriptions</p>
+                            <p class="mb-0">Fees: Rs.200</p>
+                        </div>
+                        
                     </div>
                 </div>
                 <a href="/user-patients/AAQ" class="btn btn-primary  mb-2">Submit</a>
@@ -70,6 +82,12 @@
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Video Consultation</h2>
+                        <div class="hide">
+                            <p class="mb-0">Submit Patient Details</p>
+                            <p class="mb-0">Book Video Appointment</p>
+                            <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
+                            <p class="mb-0">Team Doctor Rs 1000</p>
+                        </div>
                     </div>
                 </div>
                 <a href="/user-patients/VED" class="btn btn-primary  mb-2">Submit</a>
@@ -79,6 +97,13 @@
                 <div class="service-card card mb-3">
                     <div class="card-body">
                         <h2>Clinic Appointment</h2>
+
+                        <div class="hide">
+                            <p class="mb-0">Submit Patient Details</p>
+                            <p class="mb-0">Book Clinic Appointment</p>
+                            <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
+                            <p class="mb-0">Team Doctor Rs 1000</p>
+                        </div>
                     </div>
                 </div>
                 <a href="/user-patients/CLI" class="btn btn-primary  mb-2">Submit</a>
