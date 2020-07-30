@@ -451,7 +451,7 @@
                                         
                                         
                                         {{-- Upload Document Button --}}
-                                        @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
+                                        @if ($serviceRequests->service_id != 4 || $serviceRequests->service_id != 5)
                                             <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
                                             {{-- Upload Prescription Modal --}}
                                             <div class="modal fade" id="uploadDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
