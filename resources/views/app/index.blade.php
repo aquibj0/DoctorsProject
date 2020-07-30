@@ -49,7 +49,7 @@
         </div>
         <div class="col-md-12">
             <div class="header-brief mb-3">
-                <h4><b>Delivering GOD’s Creation to Mankind</b></h4>
+                <h3><b>Delivering GOD’s Creation to Mankind</b></h3>
             </div>
         </div>
     </div>
