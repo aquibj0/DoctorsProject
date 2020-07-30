@@ -44,7 +44,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        
+            
         if($this->option == 1){
             if($this->patient->patEmail){
                 

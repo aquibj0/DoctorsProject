@@ -14,10 +14,16 @@ html, body{
 }
  
 .row{ 
-    margin-left: 0;
-    margin-right: 0;
     justify-content: center;
 }
+
+
+/* @media(max-width:768px){ */
+    .row{ 
+        margin-left: 0;
+        margin-right: 0;
+    }
+/* } */
 .btn-primary{
     background: #fff;
     color: rgb(97, 13, 13);
@@ -89,6 +95,8 @@ html, body{
 
 /* Navbar */
 
+
+
 .navbar-brand span{
     font-size: 36px;
     font-weight: 700;
@@ -100,6 +108,8 @@ html, body{
     color: rgb(97, 13, 13)  !important;
     font-size: 16px;
     font-weight: 600;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* End Navbar */
@@ -165,7 +175,40 @@ html, body{
     text-transform: uppercase;
     font-weight: 500;
 }
+.hidden{
+    display: none;
+}
 
+.hide{
+    display: none;
+}
+.service-section .card:hover .hide{
+    display: block;
+}
+.service-section .card:hover h2{
+    display: none;
+}
+
+.location-hidden{
+    display: none;
+}
+
+
+@media(max-width:768px){
+    .location-shown{
+        display: none;
+    }
+    .location-hidden{
+        display: block;
+    }
+
+    .service-section .card{
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    
+}
 
 
 /* User Registration Page */
@@ -205,7 +248,9 @@ html, body{
 
 
 /* Ask Doctor Styling */
-
+.block-img{
+    max-width: 95%;
+}
 .ask-dcotor-form{
     margin: 30px auto;
 }
@@ -309,4 +354,26 @@ html, body{
 }
 .btn-submit{
     background: transparent;
+}
+
+
+
+/* Media Query */
+@media(max-width:768px){
+
+    .navbar-brand{
+        max-width: 200px;
+    }
+
+    .nav-item a{ 
+        text-align: right;
+    }
+
+    .block-img{
+        max-width: 60%;
+    }
+
+    .service-section .row a{
+        margin-bottom: 15px;
+    }
 }

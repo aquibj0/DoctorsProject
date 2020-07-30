@@ -4,8 +4,8 @@
 <section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row">
-        <div class="col-md-4" >
-            <img src="{{asset('image/IMAGE10.jpg')}}" alt="">
+        <div class="col-md-4 text-center" >
+            <img class="mt-2 block-img" src="{{asset('image/IMAGE10.jpg')}}" alt="">
         </div>
         <div class="col-md-8" >
             
@@ -238,7 +238,7 @@
 
 
                                     <div class="mb-3">
-                                        <h2 class="maroon MB-3"><b>Appointment</b></h2>
+                                        <h2 class="maroon MB-3"><b>APPOINTMENT</b></h2>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
