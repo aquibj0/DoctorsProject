@@ -421,6 +421,7 @@
                                             <th scope="col">Description</th>
                                             <th scope="col">Docuement Date</th>
                                             <th scope="col">Uploaded Date</th>
+                                            <th scope="col">Action</th>
                                         </thead>
 
                                         <tbody>
@@ -431,6 +432,9 @@
                                                     <td>{{ $patPrescription->documentDescription }}</td>
                                                     <td>{{ $patPrescription->documentDate }}</td>
                                                     <td>{{ $patPrescription->documentUploadDate }}</td>
+                                                    <td>
+                                                        <a href="/downloadDoc/{{$patPrescription->id}}" class="btn-maroon btn-sm btn">Download</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             
