@@ -132,7 +132,7 @@ class AdminController extends Controller
                     $intUser->phoneNo = $request->phoneNo;
                     $intUser->category = $request->category;
                     $department = Department::find($request->department);
-                    $intUser->department = $department->department_name;
+                    // $intUser->department = $department->department_name;
                     $intUser->email = $request->email;
                     $intUser->gender = $request->gender;
                     if($request->category == 'doc'){
@@ -155,7 +155,7 @@ class AdminController extends Controller
                     DB::rollback();
                     return redirect()->back()->with('error', 'Something went wrong!')->withInput();
                 }
-                DB:commit();
+                DB::commit();
                 return redirect('/admin/internal-user')->with('success', 'User created successfully!');
         }else{
             return redirect()->back()->withErrors($validator)->withInput();

@@ -278,9 +278,9 @@
 
 
                     @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                        <form action="/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
                             @csrf
-                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10"></textarea>
+                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
                             <div class="form-group text-center mb-0">
                                 <input type="submit" class=" mt-2 btn btn-maroon">
                             </div>
@@ -288,7 +288,7 @@
 
                     @else
 
-                        <form action="/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
                             @csrf
                             <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
                             <div class="form-group text-center mb-0">

@@ -10,6 +10,7 @@ use App\Patient;
 use App\AskAQuestion;
 use App\User;
 use App\Admin;
+use App\VideoCall;
 use Auth;
 use Carbon\Carbon;
 use App\Jobs\SendEmail;
@@ -71,14 +72,14 @@ class ServiceRequestController extends Controller
 
 
       // Store doctor internal notes
-      public function internalNotes($id, Request $request){
+    public function internalNotes($id, Request $request){
         $internalNotes = VideoCall::where('id', $id)->first();
         if($request){
             $internalNotes->vcDocInternalNotesText = $request['vcDocInternalNotesText'];
-            // $internalNotes->update();
+            $internalNotes->update();
 
-            // return redirect()->back()->with('success', 'Internal Notes Saved');
-            return $internalNotes;
+            return redirect()->back()->with('success', 'Internal Notes Saved');
+            // return $internalNotes;
         }
     } 
 

@@ -44,8 +44,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/doctor/ask-a-doctor/{id}', 'AskDoctorController@doctor_show');
     Route::post('/doctor/ask-a-doctor/{id}/response', 'AskDoctorController@doctor_respones')->name('ask_a_doctor.response');
     
-    
-    
     Route::get('/ask-a-doctor/{id}', 'AskDoctorController@index');
     Route::post('/ask-a-doctor/store', 'AskDoctorController@store')->name('ask_a_doctor.store');
 
@@ -64,17 +62,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user-patients/{service}', 'PatientController@index');
     
     // Route::get('/user-patients/create', 'PatientController@create');
-
-
     
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/service-request/{id}', 'UserController@userServiceRequest');
     Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail')->name('servicereq-details');
-
-    
-
-
 
     // Payment Initiate
     Route::get('/payment-initiate/{data}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
@@ -82,13 +74,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/payment-initiate-request','PaymentController@Initiate');
     Route::post('/payment-complete/{id}/{srvdID}','PaymentController@Complete')->name('payment');
     // Route::post('/change-user-to-internal', 'AppController@internal_user');
-
- 
-
-    // Clinic Apoointment
-    // Route::get('/clinic-appointment', 'ClinicAppointmentController@index');
-    // Route::get('/admin', 'AdminAppController@index');
-
 
     // Update ServiceRequest Staus
     Route::post('/request-cancellation/{id}', 'AskDoctorController@updateServiceStatus');
