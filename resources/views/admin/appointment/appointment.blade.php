@@ -44,10 +44,11 @@
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-3">
-                                <input type="number" name="max" id="max" class="form-control"    min="1" max="10" onkeypress="return onlyNumberKey(event)">
+                                <input type="number" name="max" id="max" class="form-control" placeholder="Default" min="1" max="10" onkeypress="return onlyNumberKey(event)">
                             </div>
                             <div class="col-md-3">
                                 <select name="" id="manipulate-checkbox" class="form-control">
+                                    <option selected disabled>Select one</option>
                                     <option value="1">Clear Flags</option>
                                     <option value="2">Set Flags</option>
                                 </select>
@@ -128,10 +129,21 @@
                                                         </script>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)" >
+                                                        <input type="text" name="freecount[]" id="freecount{{$loop->iteration}}" class="freecount form-control" value="{{ $item->appmntSlotMaxCount }}" placeholder="" onkeypress="return onlyNumberKey(event)">
+                                                        <script>
+                                                            $(document).ready(function(){
+                                                                $("#freecount{{$loop->iteration}}").on('change', function(){
+                                                                    if($(this).val()-$("#booked{{$loop->iteration}}").val() < 0){
+                                                                        console.log("yes");
+                                                                        // $(this).val($item->appmntSlotMaxCount-$item->appmntSlotFreeCount);
+                                                                        console.log("Cannot reduce the value of ");
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="booked[]" id="booked" value="{{ $item->appmntSlotMaxCount-$item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
+                                                        <input type="text" name="booked[]" id="booked{{$loop->iteration}}" value="{{ $item->appmntSlotMaxCount-$item->appmntSlotFreeCount }}" class="form-control" readonly="readonly">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -191,11 +203,11 @@
         return true; 
     } 
     $(document).ready(function(){
-        if("{{ $appointmentType }}" == "VED"){
-            $("#max").val(1);
-        }else{
-            $("#max").val(6);
-        }
+        // if("{{ $appointmentType }}" == "VED"){
+        //     $("#max").val(1);
+        // }else{
+        //     $("#max").val(6);
+        // }
         $("#manipulate-checkbox").on('change', function(){
             if($(this).val() === '1'){
                 $(".flag").prop('checked', false);
@@ -205,7 +217,7 @@
             }
         });
         $("#max").on('change', function(){
-            console.log($(this).val());
+            // console.log($(this).val());
             if($(this).val() > 0 && $(this).val() <= 10){
                 $(".freecount").val($(this).val());
             }else{

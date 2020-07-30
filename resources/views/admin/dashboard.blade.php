@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>admin Dashboard</h2>
+                        <h2>BIRTH ECLINIC DASHBOARD</h2>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                             <div class="col-md">
                             @if($filter)
                                 <select name="filter" id="filter" class="form-control">
-                                    <option disabled selected>Filter By</option>
+                                    <option value="0" selected>No Filter</option>
                                     {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option> --}}
@@ -108,10 +108,10 @@
                                             <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
                                             <td>{{$serviceReq->srStatus}}</td>
                                             <td>
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm">View Details</a> 
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">View Details</a> 
                                                 @if ($serviceReq->paymentStatus == true)
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm">Response</a>  
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>  
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Download Report</a>                                          
                                                 @endif 
                                             </td>
                                         </tr>
@@ -154,10 +154,6 @@
                 $("#end_date").empty();
                     $("#self_submit").click();
             }
-        });
-        $("#end_date_input").on('change', function(){
-            console.log("redirecting...");
-            // $("#self_submit").click();
         });
     });
     function clickSubmit(){

@@ -34,27 +34,17 @@
             
                                 <div class="form-group row">
                                     
-                                    <div class="col-md-11">
-                                        <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-        
+                                    <div class="col-sm">
+                                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-sm">
                                         <input type="checkbox" class="form-control" onclick="myFunction()">
-                                        <script>
-                                            function myFunction() {
-                                                var x = document.getElementById("password");
-                                                if (x.type === "password") {
-                                                    x.type = "text";
-                                                } else {
-                                                    x.type = "password";
-                                                }
-                                            } 
-                                        </script>
+                                        
                                     </div>
                                 </div>
         
@@ -95,5 +85,14 @@
         </div>
     </div>
 </div>
-
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    } 
+</script>
 @endsection

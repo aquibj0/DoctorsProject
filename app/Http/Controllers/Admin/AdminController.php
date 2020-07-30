@@ -50,8 +50,10 @@ class AdminController extends Controller
     public function filter(Request $request){
         if($request->filter == "date"){
             return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($request->start_date)->format('Y-m-d')." 00:00:00",Carbon::parse($request->end_date)->format('Y-m-d')." 23:59:59"])->get())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', $request->start_date)->with('end', $request->end_date);
-        }else{
+        }elseif($request->filter >= 1 && $request->filter <= Service::latest()->first()->id){
             return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $request->filter)->get())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', 0)->with('end', 0);
+        }else{
+            return view('admin.dashboard')->with('servReq', ServiceRequest::all())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', 0)->with('end', 0);
         }
     }
 
@@ -68,7 +70,7 @@ class AdminController extends Controller
             }else{
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', $start)->with('end', $end);   
             }
-        }else{
+        }else if($filter >= 1 && $filter <= Service::latest()->first()->id){
             if($sort == 1){
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'desc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 2){
@@ -79,6 +81,18 @@ class AdminController extends Controller
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->oldest('created_at')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else{
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
+            }
+        }else{
+            if($sort == 1){
+                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'desc')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+            }else if($sort == 2){
+                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'asc')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+            }else if($sort == 3){
+                return view('admin.dashboard')->with('servReq', ServiceRequest::latest('created_at')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+            }else if($sort == 4){
+                return view('admin.dashboard')->with('servReq', ServiceRequest::oldest('created_at')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+            }else{
+                return view('admin.dashboard')->with('servReq', ServiceRequest::get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
             }
         }
     }

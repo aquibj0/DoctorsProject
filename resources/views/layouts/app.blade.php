@@ -31,12 +31,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{asset('image/logo.jpg')}}" style="max-width:45px;" alt="">
+                <img src="{{asset('image/logo.jpg')}}" style="max-width:60px;" alt="">
                 {{-- {{ config('app.name', 'Laravel') }} --}}
-                <img src="{{asset('image/logo2.jpg')}}" alt="" style="max-width:55%">
+                <img src="{{asset('image/logo2.jpg')}}" alt="" style="max-width:55%;">
                 {{-- <span>
-                    <span class="maroon">DR-ONLINE</span> <br>
-                    <p style="margin-top:-15px; font-size:14px" class=" text-right maroon mb-0">Exceptional Care you choose</p>
+                    <span class="maroon">BIRTH</span> <br>
+                    <p style="margin-top:-15px; font-size:14px" class=" text-right maroon mb-0">Delivering GOD's Creation to Mankind</p>
                 </span> --}}
             </a>
             
