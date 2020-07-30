@@ -59,7 +59,10 @@ class PatientDocumentController extends Controller
             else{
                 $fileNameToStore = 'nofile.img';
             }
-            $patientDocument->documentDate = $request['documentDate'];
+            if($request['documentDate'])
+                $patientDocument->documentDate = $request['documentDate'];
+            else
+                $patientDocument->documentDate = Carbon::now()->toDateString();
             $patientDocument->documentUploadDate = Carbon::now()->toDateString(); 
             $patientDocument->documentUploadedBy = $request['documentUploadedBy'];
             $patientDocument->service_request_id = $request['service_request_id'];
@@ -118,7 +121,9 @@ class PatientDocumentController extends Controller
     // Download Reports
     public function downloadFile($id){
         $document = PatientDocument::findOrFail($id);
-        $url = storage_path($document->documentFileName);
-        return Storage::download($url, $document->documentFileName);
+        // $url = public_path().'\storage\\'.$document->documentFileName;
+        // $url = 'documentFileName\\'.$document->documentFileName;
+        return response()->download(storage_path('app/public/documentFileName/'.$document->documentFileName));
+        // return Storage::disk('local_public')->get($url);
     }
 }

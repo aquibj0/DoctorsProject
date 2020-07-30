@@ -227,7 +227,7 @@
                                                                             <div class="col-md-12">
                                                                                 <label for="documentDate">Date of Report/Prescription</label>
                                                                                 <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
-                                                
+                                                                                 
                                                                                 @error('documentDate')
                                                                                     <span class="invalid-feedback" role="alert">
                                                                                         <strong>{{ $message }}</strong>
@@ -471,7 +471,7 @@
     
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
-                                                                            <label for="documentType">Docuement Type</label>
+                                                                            <label for="documentType">Document Type</label>
                                                                             <select name="documentType" id="documentType" class="form-control @error('documentType') is-invalid @enderror" required>
                                                                                 <option value="Report">Report</option>
                                                                                 <option value="Prescription">Prescription</option>
@@ -627,7 +627,6 @@
                                         {{-- <th scope="col">Patient</th> --}}
                                     </thead>
                                     <tbody>
-
                                         <tr>
                                             <td>
                                                 {{$serviceRequests->clinicAppointment->clinic->clinicType}}
@@ -641,41 +640,11 @@
                                                 {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine1}}, {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine2}}, {{$serviceRequests->clinicAppointment->clinic->clinicCity}}, {{$serviceRequests->clinicAppointment->clinic->clinicDistrict}}, {{$serviceRequests->clinicAppointment->clinic->clinicState}},
                                                 {{$serviceRequests->clinicAppointment->clinic->clinicCountry}}, {{$serviceRequests->clinicAppointment->clinic->clinicPincode}}
                                             </td>
-
                                         </tr>
-
                                     </tbody>
                                 </table>
-
-
-
                             @endif
-                         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                           
-                            
-
                         </div>
-                        
                     </div>
                 </div>
             </div>
