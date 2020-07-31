@@ -16,9 +16,8 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md">
-
-                            <span style="float: right">
-                                <a href="/admin/create/internal-user" class="btn btn-md btn-success">Add new User</a>
+                            <span style="float: right; margin-right: -1.3%;">
+                                <a href="/admin/create/internal-user" class="btn btn-sm btn-maroon">Add new User</a>
                             </span>
                         </div>
                     </div>

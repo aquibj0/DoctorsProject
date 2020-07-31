@@ -105,16 +105,16 @@ class RegisterController extends Controller
                 $user->userEmail = $request['userEmail'];
                 $user->userType = "E";
                 $user->userPassword = Hash::make($request['password']);
-                
+                $user->save();
 
-                // Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
+                Sms::send("User Registered.")->to('91'.$user->userMobileNo)->dispatch();
 
                 Mail::to($user->userEmail)->send(new RegisterEmail($user));
-                $user->save();
+
                 $user->userId = "UID".str_pad($user->id, 10, "0", STR_PAD_LEFT);
                 $user->update();
 
-
+                //
                 Auth::login($user);
             }catch(\Exception $e){
                 DB::rollback();

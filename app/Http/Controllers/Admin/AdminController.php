@@ -44,59 +44,58 @@ class AdminController extends Controller
     public function index()
     {
         $servReq = ServiceRequest::all();
-        return view('admin.dashboard')->with('servReq', $servReq)->with('start', 0)->with('end', 0)->with('filter', 0)->with('services', Service::all())->with('counter', 0);
+        return view('admin.dashboard')->with('servReq', $servReq)->with('doctors', Admin::where('category', 'doc')->get())->with('start', 0)->with('end', 0)->with('filter', 0)->with('services', Service::all())->with('counter', 0);
     }
 
     public function filter(Request $request){
         if($request->filter == "date"){
-            return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($request->start_date)->format('Y-m-d')." 00:00:00",Carbon::parse($request->end_date)->format('Y-m-d')." 23:59:59"])->get())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', $request->start_date)->with('end', $request->end_date);
-        }elseif($request->filter >= 1 && $request->filter <= Service::latest()->first()->id){
-            return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $request->filter)->get())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', 0)->with('end', 0);
+            return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($request->start_date)->format('Y-m-d')." 00:00:00",Carbon::parse($request->end_date)->format('Y-m-d')." 23:59:59"])->get())->with('doctors', Admin::where('category', 'doc')->get())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', $request->start_date)->with('end', $request->end_date);
+        }elseif($request->filter >= 1 && $request->filter <= 5/*Service::latest()->first()->id*/){
+            return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $request->filter)->get())->with('filter', $request->filter)->with('services', Service::all())->with('doctors', Admin::where('category', 'doc')->get())->with('counter', 1)->with('start', 0)->with('end', 0);
         }else{
-            return view('admin.dashboard')->with('servReq', ServiceRequest::all())->with('filter', $request->filter)->with('services', Service::all())->with('counter', 1)->with('start', 0)->with('end', 0);
+            return view('admin.dashboard')->with('servReq', ServiceRequest::all())->with('filter', $request->filter)->with('services', Service::all())->with('doctors', Admin::where('category', 'doc')->get())->with('counter', 1)->with('start', 0)->with('end', 0);
         }
     }
 
     public function sort($filter, $sort, $start=0, $end=0){
         if($filter == "date"){
             if($sort == 1){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->orderBy('srId', 'desc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->orderBy('srId', 'desc')->get())->with('doctors', Admin::where('category', 'doc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
             }else if($sort == 2){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->orderBy('srId', 'asc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->orderBy('srId', 'asc')->get())->with('doctors', Admin::where('category', 'doc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
             }else if($sort == 3){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->latest('created_at')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->latest('created_at')->get())->with('doctors', Admin::where('category', 'doc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
             }else if($sort == 4){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->oldest('created_at')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::whereBetween('created_at', [Carbon::parse($start)->format('Y-m-d')." 00:00:00",Carbon::parse($end)->format('Y-m-d')." 23:59:59"])->oldest('created_at')->get())->with('doctors', Admin::where('category', 'doc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', $start)->with('end', $end);
             }else{
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', $start)->with('end', $end);   
             }
         }else if($filter >= 1 && $filter <= Service::latest()->first()->id){
             if($sort == 1){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'desc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'desc')->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 2){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'asc')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'asc')->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 3){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->latest('created_at')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->latest('created_at')->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 4){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->oldest('created_at')->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->oldest('created_at')->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else{
-                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
+                return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
             }
         }else{
             if($sort == 1){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'desc')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'desc')->get())->with('filter', 0)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 2){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'asc')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::orderBy('srId', 'asc')->get())->with('filter', 0)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 3){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::latest('created_at')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::latest('created_at')->get())->with('filter', 0)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 4){
-                return view('admin.dashboard')->with('servReq', ServiceRequest::oldest('created_at')->get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
+                return view('admin.dashboard')->with('servReq', ServiceRequest::oldest('created_at')->get())->with('filter', 0)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else{
-                return view('admin.dashboard')->with('servReq', ServiceRequest::get())->with('filter', 0)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
+                return view('admin.dashboard')->with('servReq', ServiceRequest::get())->with('filter', 0)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', 0)->with('end', 0);   
             }
         }
     }
-
 
     public function create_user_index(){
         $users = Admin::all();
@@ -108,11 +107,6 @@ class AdminController extends Controller
         return view('admin.internal-user.create')->with('depts', $dept);
         // return view('admin.auth.internal_user.index-user')->with('users', $users);
     }
-
-    // public function create_user(){
-    //     $dept = Department::all()->pluck('id', 'department_name');
-    //     return view('admin.auth.internal_user.create-user')->with('dept', $dept);
-    // }
 
     public function store_user(Request $request){
         // return $request;
@@ -131,8 +125,6 @@ class AdminController extends Controller
                     $intUser->lastName = $request->lastName;
                     $intUser->phoneNo = $request->phoneNo;
                     $intUser->category = $request->category;
-                    $department = Department::find($request->department);
-                    // $intUser->department = $department->department_name;
                     $intUser->email = $request->email;
                     $intUser->gender = $request->gender;
                     if($request->category == 'doc'){
@@ -147,7 +139,7 @@ class AdminController extends Controller
                     $password = $this->random_strings(10);
                     $intUser->password = Hash::make($password);
                     $intUser->save();
-                    $intUser->intuId = "IID".$intUser->id;
+                    $intUser->intuId = "IID".str_pad($intUser->id,10, "0", STR_PAD_LEFT);
                     $intUser->update();
                     Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
                     
@@ -250,6 +242,36 @@ class AdminController extends Controller
         //
     }
 
+    public function assign_doctor(Request $request){
+        if(count($request->srId) > 0){
+            DB::beginTransaction();
+            try{
+                for($i = 0; $i < count($request->srId); $i++){
+                    $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                    if($srvcReq){
+                        if($srvcReq->srResponseDateTime < Carbon::now()){
+                            $srvcReq->srAssignedIntUserId = $request->doctor;
+                            $srvcReq->update();
+                        }else{
+                            DB::rollback();
+                            return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
+                        }
+                    }else{
+                        DB::rollback();
+                        return redirect()->back()->with('error', 'Service Request dosen\'t exists');
+                    }
+                }
+            }catch(\Exception $e){
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Doctor assigned successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+        // return $ ;
+    }
 
     public function respond($id){
         $srvcReq = ServiceRequest::where('id', $id)->first();
