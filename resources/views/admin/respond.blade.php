@@ -63,25 +63,28 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6" style="border:1px solid #000; padding: 15px">
-                        <h5 class="maroon"><b><u>DOCTOR'S RESPONSE</u> </b></h5>
-                        @if ($srvcReq->askQuestion->aaqDocResponse != null)
-                            <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
-    
-                        @else
-                            <form  method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >
-                                {{ csrf_field() }}
-                    
-                                <div class="form-row mt-1">
-                                    <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response"></textarea>
+                    <div class="col-md-6" >
+                        <div style="border:1px solid #000; padding: 15px">
+                            <h5 class="maroon"><b><u>DOCTOR'S RESPONSE</u> </b></h5>
+                            @if ($srvcReq->askQuestion->aaqDocResponse != null)
+                                <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
+        
+                            @else
+                                <form  method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >
+                                    {{ csrf_field() }}
+                        
+                                    <div class="form-row mt-1">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-maroon" >SUBMIT</button>
-                                </div>
-                            </form>
-                        @endif
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-maroon" >SUBMIT</button>
+                                    </div>
+                                </form>
+                            @endif
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,7 +106,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-7 mb-3">
 
                     <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
                     <table class="table table-responsive table-bordered">
@@ -273,32 +276,35 @@
                 </div>
 
                 
-                <div class="col-md-5" style="border:1px solid #000; padding: 15px">
-                    <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
+                <div class="col-md-5" >
+
+                    <div style="border:1px solid #000; padding: 15px">
+                            <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
 
-                    @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                            @csrf
-                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
-                            <div class="form-group text-center mb-0">
-                                <input type="submit" class=" mt-2 btn btn-maroon">
-                            </div>
-                        </form>
-
-                    @else
-
-                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                            @csrf
-                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                            <div class="form-group text-center mb-0">
-                                <input type="submit" class=" mt-2 btn btn-maroon">
-                            </div>
-                        </form>
-                    @endif
-                    
-
-                    
+                            @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                                <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                    @csrf
+                                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                    <div class="form-group text-center mb-0">
+                                        <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
+                                    </div>
+                                </form>
+        
+                            @else
+        
+                                <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                    @csrf
+                                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                                    <div class="form-group text-center mb-0">
+                                        <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
+                                    </div>
+                                </form>
+                            @endif
+                            
+        
+                            
+                    </div>
                 </div>
             </div>
         </div>
