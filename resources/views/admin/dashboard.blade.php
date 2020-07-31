@@ -7,7 +7,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
+                        @if(Auth::user()->category == "doc")
+                        <h2>BIRTH ECLINIC DASHBOARD - Dr. {{ Auth::user()->firstName.' '.Auth::user()->lastName }}</h2>
+                        @else
                         <h2>BIRTH ECLINIC DASHBOARD</h2>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -107,6 +111,7 @@
                                     <th scope="col">Payment Status</th>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Service Status</th>
+                                    <th scope="col">Assigned Doctor</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -129,10 +134,10 @@
                                                 <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
                                                 <td>{{$serviceReq->srStatus}}</td>
                                                 <td>
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">View Details</a> 
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
                                                     @if ($serviceReq->paymentStatus == true)
-                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>  
-                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm mb-2">Response</a>  
+                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>                                          
                                                     @endif 
                                                 </td>
                                             </tr>
@@ -140,7 +145,11 @@
                                         @else
                                         <tr>
                                             <th scope="row">
+                                                @if($serviceReq->srAssignedIntUserId == null)
                                                 <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
+                                                @else
+                                                <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" checked disabled>
+                                                @endif
                                                 {{$serviceReq->srId}} </th>
                                             <td>{{$serviceReq->service->srvcName}}</td>
                                             <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
@@ -154,10 +163,17 @@
                                             <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
                                             <td>{{$serviceReq->srStatus}}</td>
                                             <td>
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">View Details</a> 
+                                                @if(isset($serviceReq->adminDoctor))
+                                                    {{ 'Dr. '.$serviceReq->adminDoctor->firstName.' '.$serviceReq->adminDoctor->lastName }}
+                                                @else
+                                                    Not assigned.
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
                                                 @if ($serviceReq->paymentStatus == true)
                                                     {{-- <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>   --}}
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Download Report</a>                                          
+                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>                                          
                                                 @endif 
                                             </td>
                                         </tr>
@@ -184,9 +200,11 @@
                                 </div>
                                 <div class="col-md-3" style="padding-top: 10px;">
                                     @if(count($doctors) > 0)
-                                        <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;">
+                                        <button type="submit" class="btn btn-md btn-maroon" style="width: 100%;">Assign Doctor</button>
+                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
                                     @else
-                                        <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;">
+                                        <button type="submit" class="btn btn-md btn-maroon" style="width: 100%;" disabled>Assign Doctor</button>
+                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;"> --}}
                                     @endif
                                 </div>
                                 <div class="col-md-3" style="padding-top: 10px;"></div>

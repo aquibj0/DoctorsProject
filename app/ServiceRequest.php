@@ -50,4 +50,8 @@ class ServiceRequest extends Model
 
 
 
+    public function adminDoctor(){
+        return $this->belongsTo('App\Admin', 'srAssignedIntUserId');
+    }
+
 }

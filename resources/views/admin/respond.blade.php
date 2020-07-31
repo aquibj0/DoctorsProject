@@ -59,7 +59,7 @@
 
                         
                         <div class="mt-4 buttons">
-                            <a href="{{ url('/admin/service-request/'.$srvcReq  ->id.'/download-report') }}" class="btn btn-maroon btn-md">Download Report</a>                                                  
+                            <a href="{{ url('/admin/service-request/'.$srvcReq  ->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                                  
                         </div>
 
                     </div>
@@ -171,9 +171,9 @@
 
                     <div class="mt-4 buttons">
                         
-                        <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md">Download Report</a>                                          
+                        <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                          
                             
-                        <a href="#"  data-toggle="modal" data-target="#uploadPrescription" class="btn btn-maroon btn-md">Upload Prescription</a>    
+                        <a href="#"  data-toggle="modal" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
                         
                         <div class="modal fade" id="uploadPrescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
