@@ -76,12 +76,13 @@
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
                                     </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-maroon" >SUBMIT</button>
-                                </div>
-                            </form>
-                        @endif
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-maroon" >SUBMIT</button>
+                                    </div>
+                                </form>
+                            @endif
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,7 +104,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-7 mb-3">
 
                     <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
                     <table class="table table-responsive table-bordered">
@@ -273,6 +274,7 @@
                 </div>
 
                 
+<<<<<<< HEAD
                 <div class="col-md-5" style="border:1px solid #000; padding: 15px">
                     <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
@@ -285,21 +287,37 @@
                                     <input type="submit" class=" mt-2 btn btn-maroon">
                                 </div>
                             </form>
+=======
+                <div class="col-md-5" >
+>>>>>>> a3254b774898e1b554ced4273c26310b3c11515a
 
-                        @else
+                    <div style="border:1px solid #000; padding: 15px">
+                            <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
-                            <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                @csrf
-                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                                <div class="form-group text-center mb-0">
-                                    <input type="submit" class=" mt-2 btn btn-maroon">
-                                </div>
-                            </form>
-                        @endif
-                    @else
-                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10" disabled>{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                    @endif
-                    
+
+                            @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                                <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                    @csrf
+                                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                    <div class="form-group text-center mb-0">
+                                        <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
+                                    </div>
+                                </form>
+        
+                            @else
+        
+                                <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                    @csrf
+                                    <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                                    <div class="form-group text-center mb-0">
+                                        <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
+                                    </div>
+                                </form>
+                            @endif
+                            
+        
+                            
+                    </div>
                 </div>
             </div>
         </div>

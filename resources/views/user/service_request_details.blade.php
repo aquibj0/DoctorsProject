@@ -353,7 +353,7 @@
                                     <tbody>
 
                                         <td>
-                                            @if ($serviceRequests->appointmentSchedule->appmntType == 'VED')
+                                            @if ($serviceRequests->appointmentSchedule->appmntType === 'VED')
                                                 Video Call With Expert Doctor
                                             @endif
                                         </td>
