@@ -69,7 +69,7 @@
                                         </div>
                                 
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" required disabled>
+                                            <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" disabled>
                                         </div>
                                     </div>
 
@@ -198,7 +198,7 @@
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ old('district') }}" required>
+                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ old('district') }}">
                                                 @error('district')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -316,7 +316,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
+                                    <button type="submit" class="btn btn-maroon btn-md mt-2 mb-3" style="width:100%">SUBMIT</button>
+
+                                    <div class="form-row">
+                                        <div class="col-md">
+                                            *Payment and Cancellation <br>
+                                            1. Payment should be made in advance to make a booking. <br>
+                                            2. For refund please refer to our Policy as well as Terms & Conditions. <br>
+                                            3. Appointments could be cancelled only with 48 hours notice. <br>
+                                        </div>
+                                    </div>
                                 </form>
                             
                             </div>

@@ -70,7 +70,7 @@
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" required disabled>
+                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" disabled>
                                             </div>
                                         </div>
 
@@ -222,7 +222,7 @@
                                     
                                             {{-- Patient District Input --}}
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}" required>
+                                                <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}">
                                                 @error('district')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -263,7 +263,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <select class="form-control" name="department" id="department" required>
-                                                {{-- <option selected disabled>Department </option> --}}
+                                                <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
                                                 @endforeach
@@ -278,7 +278,7 @@
                                     @if($patient)
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -289,7 +289,7 @@
                                     @else
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="3" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
+                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
                                             
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
@@ -309,7 +309,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="3" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>                                          
+                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="1" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>                                          
                                             @error('patient_question')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -318,9 +318,17 @@
                                         </div>
                                     </div>
 
-                                        <button type="submit" class="btn btn-maroon btn-md mt-2" style="width:100%">SUBMIT</button>
-                                </form>
+                                        <button type="submit" class="btn btn-maroon btn-md mt-2 mb-3" style="width:100%">SUBMIT</button>
                                 
+                                    <div class="form-row">
+                                        <div class="col-md">
+                                            *Payment and Cancellation <br>
+                                            1. Payment should be made in advance to make a booking. <br>
+                                            2. For refund please refer to our Policy as well as Terms & Conditions. <br>
+                                            3. Appointments could be cancelled only with 48 hours notice. <br>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
