@@ -47,7 +47,7 @@
 
                         <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
                         <div class="mb-3" style="padding:8px;max-height:200px; overflow-y:scroll;border:1px solid rgb(97, 13, 13);"> 
-                            {{$srvcReq->patient->patBackground}}
+                            {{$srvcReq->askQuestion->aaqPatientBackground}}
                         </div>
 
                         <h5 class="maroon"><b><u>PATIENT QUESTION</u> </b></h5>
@@ -74,7 +74,7 @@
                     
                                 <div class="form-row mt-1">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response"></textarea>
+                                        <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
                                     </div>
                                 </div>
                                 <div class="text-center">
@@ -280,7 +280,7 @@
                         @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
                             <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
                                 @csrf
-                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10" required>{{ old('vcDocInternalNotesText') }}</textarea>
                                 <div class="form-group text-center mb-0">
                                     <input type="submit" class=" mt-2 btn btn-maroon">
                                 </div>

@@ -52,7 +52,7 @@ class PatientDocumentController extends Controller
                 // Get just ext
                 $extension = $request->file('documentFileName')->getClientOriginalExtension();
                 //File name to Store
-                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore = $serviceReq->srId.'-'.$filename.$extension;
                 //Upload File
                 $path = $request->file('documentFileName')->storeAs('public/documentFileName',$fileNameToStore);
             }
@@ -124,6 +124,7 @@ class PatientDocumentController extends Controller
         // $url = public_path().'\storage\\'.$document->documentFileName;
         // $url = 'documentFileName\\'.$document->documentFileName;
         return response()->download(storage_path('app/public/documentFileName/'.$document->documentFileName));
+        // return Response::download(storage_path('app/public/documentFileName/'.$document->documentFileName), )
         // return Storage::disk('local_public')->get($url);
     }
 }

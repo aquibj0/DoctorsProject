@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md">
                                 <h5 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h5>
 
                                 <table class="table table-responsive table-bordered">
@@ -67,7 +67,7 @@
                                 </table>
                             </div>
                             @if (isset($srvcReq->clinicAppointment))
-                                <div class="col-md-4">
+                                <div class="col-md">
                                     <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
                                     <div class="patient-history">
                                         <table class="table table-responsive table-bordered">
@@ -115,10 +115,10 @@
 
                                 @else
 
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
                                     <p class="maroon"><b>No History Found</b></p>
-                                </div>
+                                </div> --}}
                             @endif
                         
                             <div class="col-md-4">
@@ -144,6 +144,10 @@
                                                 <th scope="row">Payment Time</th>
                                                 <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
                                             </tr> 
+                                            <tr>
+                                                <th scope="row">Payment Amount</th>
+                                                <td>{{$paymentDetails->payment_amount }}</td>
+                                            </tr>
                                                                                         
                                         
                                             

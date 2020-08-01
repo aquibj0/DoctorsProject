@@ -76,7 +76,7 @@ class AskDoctorController extends Controller
                 'addressLine1' => ['string', 'max:64'],
                 'addressLine2' => ['string', 'nullable', 'max:64'],
                 'city' => ['string', 'max:35'],
-                'district' => ['string', 'max:35'],
+                'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['string', 'max:35'],
                 'country' => ['string', 'max:35'],
                 'department' => ['string'],
