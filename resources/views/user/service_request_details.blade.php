@@ -21,7 +21,7 @@
                             {{-- Service Request Details Table --}}
 
                             <div class="mt-2 mb-2">
-                                <p class="maroon location-hidden"><b> “Pan right or rotate screen to view all details”
+                                <p class="maroon location-hidden"><b>“Pan right or rotate screen to view all details”
                                 </b></p>
                             </div>
                             <h4 class="maroon mb-2"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
@@ -354,9 +354,9 @@
                                         @endif                                 
                                     </div>
                                 @else
-                                <div class="btn-grouped float-right mt-4">
-                                    <a href="#" class="btn btn-maroon btn-md">Pay now</a>
-                                </div>
+                                    <div class="btn-grouped float-right mt-4">
+                                        <a href="#" class="btn btn-maroon btn-md">Pay now</a>
+                                    </div>
                                 @endif
 
 

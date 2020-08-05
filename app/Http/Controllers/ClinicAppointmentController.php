@@ -112,13 +112,13 @@ class ClinicAppointmentController extends Controller
 
 
                             // Send Confirmation Message using textlocal
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
                                 
 
                             if($clinicAppointment->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
-                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3);/*->delay(now()->addMinutes(1)); */
+                                // SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3);/*->delay(now()->addMinutes(1)); */
                                 
                             
                                 
@@ -223,13 +223,13 @@ class ClinicAppointmentController extends Controller
                             $clinicAppointment->service_request_id = $srvcReq->id;
                             $clinicAppointment->save();
                             // Send Confirmation Message using textlocal
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             if($clinicAppointment->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
 
-                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
+                                // SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
                                 
                                 $data = array();
                                 $data['amount'] = Service::where('srvcShortName', $request['service'])->first()->srvcPrice;
