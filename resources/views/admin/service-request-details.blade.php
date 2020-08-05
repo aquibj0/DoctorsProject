@@ -33,7 +33,56 @@
                                         <tr>
                                             <th scope="row">Service Type</th>
                                             <td>{{ $srvcReq->service->srvcName }}</td>
+                                            
                                         </tr>
+
+
+                                        @if (isset($srvcReq->clinicAppointment))
+                                            {{-- <tr>
+                                                <th scope="row">Appointment ID</th>
+                                                <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Clinic Type</th>
+                                                <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
+                                            </tr> --}}
+                                            <tr>
+                                                <th scope="row">Clinic Name</th>
+                                                <td>{{$srvcReq->clinicAppointment->clinic->clinicName }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Clinic Contact</th>
+                                                <td>
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicMobileNo }}
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicLandLineNo }}
+                                                </td>
+                                            </tr>        
+    
+                                            <tr>
+                                                <th scope="row">Clinic Location</th>
+                                                <td>
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicAddressLine1 }},     
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicAddressLine2 }},    
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicCity }},
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicDistrict}},
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicState }},
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicCountry }}, 
+                                                    {{$srvcReq->clinicAppointment->clinic->clinicPincode }} 
+
+
+
+                                                </td>
+                                            </tr>
+                                        @else
+        
+                                        {{-- <div class="col-md-4">
+                                            <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
+                                            <p class="maroon"><b>No History Found</b></p>
+                                        </div> --}}
+                                    @endif
+
+
+
                                         <tr>
                                             <th scope="row">Booking Date</th>
                                             
@@ -111,7 +160,7 @@
                                 <table class="table table-responsive table-bordered">
                                     <tbody>
 
-                                        @if ($srvcReq->srAssignedIntUserId != null)
+                                        @if ($srvcReq->srAssignedIntUserId == null)
                                             <tr>
                                                 <th scope="row">Assign Doctor</th>
                                                 <td>
@@ -162,60 +211,7 @@
 
 
                             </div>
-                            @if (isset($srvcReq->clinicAppointment))
-                                <div class="col-md">
-                                    <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
-                                    <div class="patient-history">
-                                        <table class="table table-responsive table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">Appointment ID</th>
-                                                    <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Clinic Type</th>
-                                                    <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Clinic Name</th>
-                                                    <td>{{$srvcReq->clinicAppointment->clinic->clinicName }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Clinic Contact</th>
-                                                    <td>
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicMobileNo }}
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicLandLineNo }}
-                                                    </td>
-                                                </tr>        
-        
-                                                <tr>
-                                                    <th scope="row">Clinic Location</th>
-                                                    <td>
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicAddressLine1 }},     
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicAddressLine2 }},    
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicCity }},
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicDistrict}},
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicState }},
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicCountry }}, 
-                                                        {{$srvcReq->clinicAppointment->clinic->clinicPincode }} 
-
-
-
-                                                    </td>
-                                                </tr>
-        
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                @else
-
-                                {{-- <div class="col-md-4">
-                                    <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
-                                    <p class="maroon"><b>No History Found</b></p>
-                                </div> --}}
-                            @endif
+                           
                         
                             <div class="col-md-4">
 

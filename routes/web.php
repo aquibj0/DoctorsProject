@@ -145,6 +145,10 @@ Route::group(['middleware' => 'web'], function(){
         // Internal Notes
         Route::post('/internalnotes/{id}', 'Admin\ServiceRequestController@internalNotes');
 
+
+        // Profile
+        Route::get('/myprofile/{id}', 'Auth\Admin\LoginController@showAdmin');
+
     });
 });
 

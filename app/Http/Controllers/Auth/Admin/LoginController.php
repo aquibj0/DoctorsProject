@@ -69,6 +69,13 @@ class LoginController extends Controller
       }
     }
 
+
+    public function showAdmin($id){
+      $internalUser = Auth::user()->find($id);
+      return $internalUser;
+    }
+
+
     public function logout()
     {
         Auth::guard('admin')->logout();
