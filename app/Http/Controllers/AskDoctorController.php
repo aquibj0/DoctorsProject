@@ -79,8 +79,10 @@ class AskDoctorController extends Controller
                 'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['string', 'max:35'],
                 'country' => ['string', 'max:35'],
+                'patPhotoFileNameLink' => ['mimes:jpeg,jpg,png,gif'],
                 'department' => ['string'],
-                'patient_question' => ['string', 'max:1024']
+                'patient_question' => ['string', 'max:1024'],
+
             ]);
             if(!$validator->fails()){                
                 DB::beginTransaction();
@@ -108,6 +110,26 @@ class AskDoctorController extends Controller
                         $patient->patDistrict = $request['district'];
                         $patient->patState = $request['state'];
                         $patient->patCountry = $request['country'];
+
+                        if($request->hasFile('patPhotoFileNameLink')){
+                            //Get filename with extension
+                            $fileNameWithExt = $request->file('patPhotoFileNameLink')->getCLientOriginalName();
+                            // Get just filename
+                            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                            // Get just ext
+                            $extension = $request->file('patPhotoFileNameLink')->getClientOriginalExtension();
+                            //File name to Store
+                            $fileNameToStore = $filename.$extension;
+                            //Upload File
+                            $path = $request->file('patPhotoFileNameLink')->storeAs('public/patPhotoFileNameLink',$fileNameToStore);
+                        }
+                        else{
+                            $fileNameToStore = 'nofile.img';
+                        }
+
+                        $patient->patPhotoFileNameLink = $fileNameToStore;
+                        
+                        // return $request;
                         $patient->save();
                         $patient_no = count(Patient::where('user_id', Auth::user()->id)->get())+1;
                         $patient->patId = Auth::user()->userId."-".str_pad($patient_no, 2, "0", STR_PAD_LEFT);
@@ -146,10 +168,10 @@ class AskDoctorController extends Controller
                             $asaq->save();
                             
                             // Send Confirmation Message using textlocal
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                            // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             //1 is the status for sending confirmation mail
-                            SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1);/*->delay(Carbon::now()->addSeconds(5)); */
+                            // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1);/*->delay(Carbon::now()->addSeconds(5)); */
                            
                             $data = array();
                             

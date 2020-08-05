@@ -4,6 +4,14 @@
 @section('content')
     <section class="mt-4">
         <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <div class="register-block">
+                        <h2>Service Requests Details</h2>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-body">
                     <div class="row service-request-details">
@@ -49,6 +57,15 @@
                                 </tbody>
 
                             </table>
+
+
+
+                            {{-- Payment Details --}}
+
+
+                            {{-- @if ($serviceRequests->)
+                                
+                            @endif --}}
 
 
                             {{-- Patient Details Table --}}

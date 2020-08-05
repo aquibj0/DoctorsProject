@@ -14,17 +14,19 @@ class AAQEmail extends Mailable
     public $patient;
     public $srvcReq;
     public $asaq;
+    public $payment;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($patient, $srvcReq, $asaq)
+    public function __construct($patient, $srvcReq, $asaq, $payment)
     {
         $this->patient = $patient;
         $this->srvcReq = $srvcReq;
         $this->asaq = $asaq;
+        $this->payment = $payment;
     }
 
     /**

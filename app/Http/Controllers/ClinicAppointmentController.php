@@ -142,8 +142,8 @@ class ClinicAppointmentController extends Controller
                         DB::rollback();
                         return redirect()->back()->withInput()->with('error', $e->getMessage());
                     }
-                        DB::commit();
-                        return $res;
+                    DB::commit();
+                    return $res;
                 }else{
                     return redirect()->back()->with('error', 'Something went wrong!');
                 }

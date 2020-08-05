@@ -358,39 +358,47 @@ class AppointmentController extends Controller
         $appointmentType = " ";
         DB::beginTransaction();
         if($type == "VTD"){
-            $doctype = "TD";
+            $docType = "TD";
             $appointmentType = "VED";
-        }else if($type = "VED"){
-            $doctype = "ED";
+        }else if($type == "VED"){
+            $docType = "ED";
             $appointmentType = "VED";
         }else if($type == "CTD"){
-            $doctype = "TD";
+            $docType = "TD";
             $appointmentType = $clinic;
-        }else if($type = "CED"){
-            $doctype = "ED";
+        }else if($type == "CED"){
+            $docType = "ED";
             $appointmentType = $clinic;
         }
+        // return array($date, $type, $clinic, $start, $end, $docType, $appointmentType);
         try{
-            if($clinic != 0){
+            if($clinic == 0){
                 $app = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())
                                             ->where('appmntType', $type)->get();
-                                            return Carbon::parse($date)->toDateString();
+                                            // return $app;
             }else{
-                $app = AppointmentSchedule::where(['appmntDate', Carbon::parse($date)->toDateString()],
-                                                    ['appmntType', $type],
-                                                    ['appmntClinicid', $clinic])->get();
-                                                    return $app;
+                $app = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())
+                                            ->where('appmntType', $type)
+                                            ->where('appmntClinicid', $clinic)->get();
+                                                    // return $app;
             }
-            foreach($app as $item){
-                if($item->appmntSlotMaxCount - $item->appmntSlotFreeCount == 0){
-                    // $item->delete();
-                }else{
-                    return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Appointment exists for '.$date.' '.$item->appmntSlot.'!');
+            if(isset($app)){
+                foreach($app as $item){
+                    if($item->appmntSlotMaxCount - $item->appmntSlotFreeCount == 0){
+                        $item->delete();
+                    }else{
+                        DB::rollback();
+                        return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Appointment exists for '.$date.' '.$item->appmntSlot.'!');
+                    }
                 }
+            }else{
+                DB::rollback();
+                return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Appointment didn\'t exists for '.$date);
             }
         }catch (\Exception $e){
             DB::rollback();
-            return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Something Went wrong! Please try agian later. '.$e->getMessage());
+            return $e->getMessage();
+            // return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Something Went wrong! Please try agian later. '.$e->getMessage());
         }
         DB::commit();
         return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('success', 'Appointment for '.$date.' has been deleted!');

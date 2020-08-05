@@ -10,6 +10,9 @@ use Redirect,Response;
 use App\ServiceRequest;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Mail;
+use Tzsk\Sms\Facade\Sms;
+use App\Jobs\SendEmail;
 
 
 class PaymentController extends Controller
@@ -79,6 +82,25 @@ class PaymentController extends Controller
                 $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
                 $serviceReq->paymentStatus = true;
                 $serviceReq->update();
+
+                $user = Auth::user();
+
+                if($serviceReq->askQuestion){
+                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
+                }
+                elseif($serviceReq->videoCall){
+                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
+                }
+                elseif($serviceReq->clinicAppointment){
+                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
+                }
+
                 return redirect()->route('servicereq-details', [$id, $serviceReq->srId])->with('success', 'Thank you for the order');
             }
         }

@@ -17,7 +17,7 @@
                             </div>   
                             <div>
                                 @include('layouts.message')
-                                <form action="{{ route('ask_a_doctor.store') }}" method="POST">
+                                <form action="{{ route('ask_a_doctor.store') }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
@@ -211,49 +211,62 @@
 
                                     <div class="form-row">
                                         {{-- Patient City Input --}}
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control"class="form-control @error('city') is-invalid @enderror" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
-                                                @error('city')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                    
-                                            {{-- Patient District Input --}}
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}">
-                                                @error('district')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control"class="form-control @error('city') is-invalid @enderror" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
+                                            @error('city')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                
+                                        {{-- Patient District Input --}}
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}" required>
+                                            @error('district')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             </div>
                                     </div>
 
                                     <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                {{-- patient state Input --}}
-                                                <input type="text" class="form-control"class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
-                                                @error('state')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                    
-                                            <div class="form-group col-md-6">
-                                                {{-- Patient Country Input --}}
+                                        <div class="form-group col-md-6">
+                                            {{-- patient state Input --}}
+                                            <input type="text" class="form-control"class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
+                                            @error('state')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="form-group col-md-6">
+                                            {{-- Patient Country Input --}}
 
-                                                <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}" >
-                                                    <option value="India" selected>India</option>
-                                                </select>
-                                                @error('country')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                                            <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}" >
+                                                <option value="India" selected>India</option>
+                                            </select>
+                                            @error('country')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row ">
+                                        <div class="form-group col-md-12">
+                                            <label for="patPhotoFileNameLink">Patient Picture</label>
+                                            <input type="file" name="patPhotoFileNameLink">
+                                            {{-- <input name="patPhotoFileNameLink" type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" id="patPhotoFileNameLink"   value="{{ old('patPhotoFileNameLink') }}" > --}}
+                                            {{-- @error('patPhotoFileNameLink')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror --}}
+                                        </div>
                                     </div>
 
                                     @endif
@@ -261,7 +274,7 @@
                                     
 
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md">
                                             <select class="form-control" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)

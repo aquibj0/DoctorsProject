@@ -22,19 +22,22 @@ class SendEmail implements ShouldQueue
     public $asaq;
     public $option;
     public $user;
+    public $payment;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($patient, $srvcReq, $asaq, $user, $option)
+    public function __construct($patient, $srvcReq, $asaq, $payment, $user, $option)
     {
         $this->patient = $patient;
         $this->srvcReq = $srvcReq;
         $this->asaq = $asaq;
         $this->option = $option;
+        $this->payment = $payment;
         $this->user = $user;
+
     }
 
     /**
@@ -50,11 +53,11 @@ class SendEmail implements ShouldQueue
                 
                 Mail::to(Auth::user()->userEmail)
                     ->cc($this->patient->patEmail)
-                    ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq));
+                    ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq, $this->payment));
             }else{
                 Mail::to(Auth::user()->userEmail)
                     ->subject("BIRTH - ".$this->srvcReq->service->srvcName." - Service Request Created")
-                    ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq));
+                    ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq, $this->payment));
             }
         }else if($this->option == 2){
             if($this->patient->patEmail){

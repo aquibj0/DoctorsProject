@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="row mt-4 mb-4">
         <div class="col-md-12">
             <div class="row">
@@ -101,16 +101,19 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-body">
+                <div class="card-body admin-db">
                     <form action="/admin/assign/doctor" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <table class="table table-bordered table-responsive">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">
-                                        @if(Auth::user()->category != "doc")
-                                        <input type="checkbox" id="select_all"> 
+                                            @if(Auth::user()->category != "doc")
+                                            <input type="checkbox" id="select_all"> 
                                         @endif
+                                    </th>
+                                    <th scope="col">
+                                       
                                         SR No.
                                         <span style="float: right">
                                             <a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a>
@@ -167,12 +170,19 @@
                                             @endif
                                         @else
                                         <tr>
+                                            <td>
+                                                    @if($serviceReq->paymentStatus == true)
+                                                        <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
+                                                    @else
+                                                        <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" checked disabled>
+                                                    @endif
+                                            </td>
                                             <th scope="row">
-                                                @if($serviceReq->paymentStatus == true)
+                                                {{-- @if($serviceReq->paymentStatus == true)
                                                 <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
                                                 @else
                                                 <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
-                                                @endif
+                                                @endif --}}
                                                 {{$serviceReq->srId}} </th>
                                             <td>{{$serviceReq->service->srvcName}}</td>
                                             <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
@@ -210,6 +220,8 @@
                                 @endif
                             </tbody>
                         </table>
+
+                        
                         @if(Auth::user()->category != "doc")
                             <div class="row">
                                 <div class="col-md-3" style="padding-top: 10px;">
