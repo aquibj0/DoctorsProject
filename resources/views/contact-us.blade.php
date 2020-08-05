@@ -12,7 +12,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <img  src="{{asset('image/contact.jpg')}}" style="max-width:100%;" alt="">
+            <img class="mb-4"  src="{{asset('image/contact.jpg')}}" style="max-width:80%;" alt="">
         </div>
         <div class="col-md-8">
 

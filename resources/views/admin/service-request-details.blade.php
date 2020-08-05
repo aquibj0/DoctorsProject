@@ -4,7 +4,7 @@
 
 <section class="ask-doctor" style="padding-top:0">
     
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 mt-2">
                 <div class="register-block">
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <h5 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h5>
+                                <h5 class="maroon mb-3"><u><b>SERVICE REQUEST</b></u></h5>
 
                                 <table class="table table-responsive table-bordered">
                                     <tbody>
@@ -41,33 +41,129 @@
                                         </tr>        
 
                                         <tr>
-                                            <th scope="row">Patient Name</th>
-                                            <td>{{ $srvcReq->patient->patFirstName }} {{ $srvcReq->patient->patLastName }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Patient Age</th>
-                                            <td>{{ $srvcReq->patient->patAge}}</td> 
-                                        </tr>
+                                            <th scope="row">Sr Status</th>
+                                            
+                                            <td>{{$srvcReq->srStatus}}</td>
+                                        </tr>  
+                                        {{-- <tr>
+                                            <th scope="row">Payment Status</th>
+                                            
+                                            <td>
+                                                    @if ($srvcReq->paymentStatus == 0)
 
-                                        <tr>
-                                            <th scope="row">Patient Gender</th>
-                                            <td>{{ $srvcReq->patient->patGender }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Customer ID</th>
-                                            <td>{{ $srvcReq->patient->patId }}</td>
-                                        </tr>
+                                                        Not Paid
+                                                    @else
+                                                        Paid
 
-                                        <tr>
-                                            <th scope="row">Registered User Name</th>
-                                            <td>{{ $srvcReq->patient->user->userFirstName }} {{ $srvcReq->patient->user->userLastName }}</td>
-                                        </tr>
+                                                    @endif
+                                                
+                                            </td>
+                                        </tr> --}}
 
                                     </tbody>
                                 </table>
+
+                                {{-- Payment Status --}}
+
+                                <h5 class="maroon mb-3"><u><b>PAYMENT STATUS</b></u></h5>
+
+                                @php
+                                    $paymentDetails = App\Payment::where('service_req_id', '=', $srvcReq->id)->first();
+                                @endphp
+                                
+                                @if ($srvcReq->paymentStatus == true)
+                                    <table class="table table-responsive table-bordered">
+                                        <tbody>
+                                        
+                                            <tr>
+                                                <th scope="row">Payment Status</th>
+                                                <td>Paid</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Payment ID</th>
+                                                <td>{{$paymentDetails->payment_transaction_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Payment Time</th>
+                                                <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                            </tr> 
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <table class="table table-responsive table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Payment Status</th>
+                                                <td>Not Paid</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                   
+
+                                @endif
+
+
+                                <h5 class="maroon mb-3"><u><b>RESPONSE</b></u></h5>
+
+
+
+                                <table class="table table-responsive table-bordered">
+                                    <tbody>
+
+                                        @if ($srvcReq->srAssignedIntUserId != null)
+                                            <tr>
+                                                <th scope="row">Assign Doctor</th>
+                                                <td>
+                                                    
+                                                        Not Assigned
+                                                
+                                                </td>
+                                            </tr>
+
+
+                                        @else
+
+                                            <tr>
+                                                <th scope="row">Assign Doctor</th>
+                                                <td>{{$srvcReq->srAssignedIntUserId}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th scope="row">Responded By</th>
+                                                <td>To Be Done</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Response Time</th>
+                                                
+                                                <td>{{date('d-m-Y ', strtotime($srvcReq->srRecievedDateTime))}} </td>
+                                            </tr>        
+    
+                                            <tr>
+                                                <th scope="row">Invoice No.</th>
+                                                <td>To Be Done</td>
+                                            </tr> 
+                                            <tr>
+                                                <th scope="row">Invoice Date</th>
+                                                <td>To Be Done</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Response Uploaded</th>
+                                                <td>To Be Done</td>
+                                            </tr>  
+
+                                        @endif
+                                        
+                                       
+                                  
+
+                                    </tbody>
+                                </table>
+
+
                             </div>
                             @if (isset($srvcReq->clinicAppointment))
-                                <div class="col-md-4">
+                                <div class="col-md">
                                     <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
                                     <div class="patient-history">
                                         <table class="table table-responsive table-bordered">
@@ -112,51 +208,79 @@
                                         </table>
                                     </div>
                                 </div>
-
-                                @else
-
-                                <div class="col-md-4">
-                                    <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
-                                    <p class="maroon"><b>No History Found</b></p>
-                                </div>
                             @endif
                         
                             <div class="col-md-4">
-                                <h5 class="maroon mb-3"><u><b>PAYMENT STATUS</b></u></h5>
 
-                                @php
-                                    $paymentDetails = App\Payment::where('service_req_id', '=', $srvcReq->id)->first();
-                                @endphp
-                                
-                                @if ($srvcReq->paymentStatus == true)
-                                    <table class="table table-responsive table-bordered">
-                                        <tbody>
-                                        
-                                            <tr>
-                                                <th scope="row">Payment Status</th>
-                                                <td>Paid</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Payment ID</th>
-                                                <td>{{$paymentDetails->payment_transaction_id}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Payment Time</th>
-                                                <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
-                                            </tr> 
-                                                                                        
-                                        
-                                            
+                                <div class="text-center"> 
+                                    <img style="max-width:80%" class="img-fluid" src="{{asset('storage/patPhotoFileNameLink/'.$srvcReq->patient->patPhotoFileNameLink)}}" alt="">
+                                </div>
+                               
 
-                                        
-                                            
-                                        </tbody>
-                                    </table>
+                            </div>
 
+                            <div class="col-md-4">
 
-                                    
-                                   @if (!$srvcReq->clinicAppointment)
-                                    <div class="group-buttons float-right mt-4">
+                                    <h5 class="maroon mb-3"><u><b>PATIENT DETAIL</b></u></h5>
+                                <table class="table table-bordered table-responsive">
+                                    <tbody >
+                                        <tr>
+                                            <th scope="row">Patient Name</th>
+                                            <td>{{ $srvcReq->patient->patFirstName }} {{ $srvcReq->patient->patLastName }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Patient Age</th>
+                                            <td>{{ $srvcReq->patient->patAge}}</td> 
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Patient Gender</th>
+                                            <td>{{ $srvcReq->patient->patGender }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Patient Address</th>
+                                            <td>{{ $srvcReq->patient->patAddrLine1 }}, {{ $srvcReq->patient->patAddrLine2 }} , 
+                                                    {{ $srvcReq->patient->patCity }}, {{ $srvcReq->patient->patDistrict }},
+                                                    {{ $srvcReq->patient->patState }}, {{ $srvcReq->patient->patCountry }}, 
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Contact Mobile</th>
+                                            <td>{{ $srvcReq->patient->patMobileNo }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Contact Email</th>
+                                            <td>{{ $srvcReq->patient->patEmail }}</td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <th scope="row">Customer ID</th>
+                                            <td>{{ $srvcReq->patient->patId }}</td>
+                                        </tr> --}}
+
+                                        <tr>
+                                            <th scope="row">Registered User ID</th>
+                                            <td>{{ $srvcReq->patient->user->userEmail }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Registered User Name</th>
+                                            <td>{{ $srvcReq->patient->user->userFirstName }} {{ $srvcReq->patient->user->userLastName }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Patient Purpose</th>
+                                            <td>{{ $srvcReq->srDepartment }}</td>
+                                        </tr>
+                                        <tr style="max-height:100px; overflow:hidden; overflow-y:scroll">
+                                            <th scope="row">Patient Background</th>
+                                            <td>{{ $srvcReq->patient->patBackground }}</td>
+                                        </tr>
+                                    </tbody>    
+                                </table>      
+
+                                    @if (!$srvcReq->clinicAppointment)
+                                        <div class="group-buttons float-right mt-4">
                                             
                                             {{-- @if (!empty($srvcReq->askQuestion)) --}}
                                                 {{-- Show Respond Button where service request is AAQ --}}
@@ -177,19 +301,6 @@
 
                                         </div>
                                    @endif
-                                @else
-                                    <table class="table table-responsive table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Payment Status</th>
-                                                <td>Not Paid</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    
-                                   
-
-                                @endif
                             </div>
                         </div>
                     </div>

@@ -303,6 +303,8 @@ html, body{
     font-weight: 500
 }
 
+
+
 .table .thead-dark th{
     background: #eeeeee ;
     color: rgb(97, 13, 13);
@@ -375,5 +377,18 @@ html, body{
 
     .service-section .row a{
         margin-bottom: 15px;
+    }
+    .admin-db{
+        max-height: 350px;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+}
+
+@media(min-width:768px){
+    .admin-db{
+        max-height: 300px;
+        overflow: hidden;
+        overflow-y: scroll;
     }
 }

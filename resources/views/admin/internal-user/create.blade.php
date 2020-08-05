@@ -2,17 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading"></div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="register-block">
-                            <h2>Internal User Register</h2>
-                        </div>
+        <div class="row">
+                <div class="col-md-8 mt-4">
+                    <div class="register-block">
+                        <h2>Internal User Register</h2>
                     </div>
                 </div>
+            </div>
+    <div class="row">
+        {{-- <div class="col-md-4">
+
+        </div> --}}
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading"></div>
+                
                 <div class="panel-body">
                     @include('layouts.message')
                     <div class="card">
@@ -32,7 +36,7 @@
                                 <div class="form-group{{ $errors->has('firstName') ? ' has-error' : '' }}">
                                     <label for="firstName" class="col-md-4 control-label">First Name</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         <input id="firstName" type="text" class="form-control" name="firstName" value="{{ old('firstName') }}" required autofocus>
 
                                         @if ($errors->has('firstName'))
@@ -46,7 +50,7 @@
                                 <div class="form-group{{ $errors->has('lastName') ? ' has-error' : '' }}">
                                     <label for="lastName" class="col-md-4 control-label">Last Name</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         <input id="lastName" type="text" class="form-control" name="lastName" value="{{ old('lastName') }}" required autofocus>
 
                                         @if ($errors->has('lastName'))
@@ -59,7 +63,7 @@
                                 <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                                     <label for="gender" class="col-md-4 control-label">Gender</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         {{-- <input id="gender" type="text" class="form-control" name="gender" value="{{ old('gender') }}" required autofocus> --}}
                                         <select name="gender" id="gender" class="form-control" required>
                                             <option disabled selected>Select One</option>
@@ -77,7 +81,7 @@
                                 <div class="form-group{{ $errors->has('phoneNo') ? ' has-error' : '' }}">
                                     <label for="phoneNo" class="col-md-4 control-label">Phone number</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         <input id="phoneNo" type="number" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                         @if ($errors->has('phoneNo'))
@@ -91,7 +95,7 @@
                                 <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                                     <label for="category" class="col-md-4 control-label">Category</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
                                         <select name="category" id="category" class="form-control">
                                             <option selected disabled>Select one</option>
@@ -128,7 +132,7 @@
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md">
                                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
                                         @if ($errors->has('email'))
@@ -152,9 +156,9 @@
                                         @endif
                                     </div>
                                 </div> --}}
-
+                                
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
+                                    <div class="col-md mt-4">
                                         <button type="submit" class="btn btn-maroon" style="width:100%">
                                             Submit
                                         </button>
