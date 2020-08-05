@@ -54,7 +54,7 @@ class ServiceRequestController extends Controller
 
         $srvcReq = ServiceRequest::find($aaq->service_req_id);
         $srvcReq->srResponseDateTime = Carbon::now();
-        $srvcReq->srStatus = 'Closed';
+        $srvcReq->srStatus = 'CLOSED';
         $srvcReq->update();
 
         // $patient = $srvcReq->patient();
@@ -162,5 +162,20 @@ class ServiceRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function closeServiceRequest($id){
+        // return $id;
+        $servcReq = ServiceRequest::find($id);
+        if(isset($servcReq)){
+            if($servcReq->srStatus == "CLOSED")
+                return redirect()->back()->with('error', 'Service Request '.$servcReq->srId.' has been closed already!');
+            $servcReq->srStatus = "CLOSED";
+            $servcReq->update();
+            return redirect()->back()->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong! Please try agian later.');
+        }
     }
 }

@@ -44,12 +44,12 @@ class ClinicController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'clinicName' => ['required', 'string', 'max:32'],
-            'clinicMobileNo' => ['required', 'numeric', 'digits:10', 'unique:clinic'],
+            'clinicMobileNo' => ['nullable', 'numeric', 'digits:10', 'unique:clinic'],
             'clinicLandLineNo' => ['nullable', 'numeric', 'digits:12', 'unique:clinic'],
             'clinicAddressLine1' => ['required', 'string', 'max:64'],
             'clinicAddressLine2' => ['max:64'],
             'clinicCity' => ['required', 'string', 'max:35'],
-            'clinicDistrict' => ['required', 'string', 'max:35'],
+            'clinicDistrict' => ['nullable', 'string', 'max:35'],
             'clinicState' => ['required', 'string', 'max:35'],
             'clinicCountry' => ['required', 'string', 'max:35'],
             'clinicPincode' => ['required', 'numeric', 'digits:6']

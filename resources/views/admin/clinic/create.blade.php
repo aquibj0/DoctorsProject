@@ -43,7 +43,7 @@
                                     <div class="form-row">
                                         {{-- Clinic mobile number Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" placeholder="Mobile No" id="clinicMobileNo" class="form-control @error('clinicMobileNo') is-invalid @enderror" name="clinicMobileNo" value="{{ old('clinicMobileNo') }}" autocomplete="clinicMobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                            <input type="text" placeholder="Mobile No" id="clinicMobileNo" class="form-control @error('clinicMobileNo') is-invalid @enderror" name="clinicMobileNo" value="{{ old('clinicMobileNo') }}" autocomplete="clinicMobileNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             
                                             @error('clinicMobileNo')
                                                 <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@
                                     
                                             {{-- clinic District Input --}}
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control @error('clinicDistrict') is-invalid @enderror" id="clinicDistrict" placeholder="District" name="clinicDistrict" value="{{ old('clinicDistrict') }}" required>
+                                                <input type="text" class="form-control @error('clinicDistrict') is-invalid @enderror" id="clinicDistrict" placeholder="District" name="clinicDistrict" value="{{ old('clinicDistrict') }}" >
                                                 @error('clinicDistrict')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

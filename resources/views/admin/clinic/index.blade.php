@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="register-block">
-                        <h2>Clinic Dashboard</h2>
+                        <h2>Clinics</h2>
                     </div>
                 </div>
             </div>
@@ -15,6 +15,10 @@
                 @include('layouts.message')
                 <div class="card-header">
                     <div class="row">
+                        <div class="col-md">
+                            <p class="maroon location-hidden"><b> “Pan right or rotate screen to view all details”
+                            </b></p>
+                        </div>
                         <div class="col-md">
 
                             <span style="float: right">
@@ -40,9 +44,9 @@
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">SR No. <span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
-                                <th scope="col">Clinic Name<span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
-                                <th scope="col">Clinic Mobile & LandLine<span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
+                                <th scope="col">SR No. </th>
+                                <th scope="col">Clinic Name</th>
+                                <th scope="col">Clinic Mobile & LandLine</th>
                                 <th scope="col">Clinic Address</th>
                                 {{-- <th scope="col">P</th> --}}
                                 <th scope="col">Action</th>

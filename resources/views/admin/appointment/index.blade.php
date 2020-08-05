@@ -170,22 +170,22 @@
                                                     @if($appointmentType == "VED")
                                                         @if($docType == "TD")
                                                             <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a> <!-- edit VTD -->
-                                                            <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD-->
-                                                            {{-- <a href="/admin/appointment/delete/{{ $data[$i]['date'] }}/VTD/0" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD--> --}}
+                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD--> --}}
+                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VTD/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD-->
                                                         @else
                                                             <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                            {{-- <a href="/admin/appointment/delete/{{ $data[$i]['date'] }}/VED/0" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VED/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @endif
                                                     @else
                                                         @if($docType == "TD")
                                                             <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                            {{-- <a href="/admin/appointment/delete/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @else
                                                             <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                            {{-- <a href="/admin/appointment/delete/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                         @endif
                                                     @endif
                                                 </td>

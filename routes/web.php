@@ -14,6 +14,8 @@
 
 Auth::routes();
 
+
+
 Route::get('/', 'AppController@index');
 
 Route::get('/terms-and-condition', function(){
@@ -89,6 +91,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/query/{query}', 'Admin\ServiceRequestController@query');
 
+Route::get('/admin/appointment_delete/{date}/{type}/{clinic_id}/{start}/{end}', 'Admin\AppointmentController@down')->middleware('web');
+
+
 Route::group(['middleware' => 'web'], function(){
     Route::prefix('admin')->group(function () {
         Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
@@ -108,6 +113,7 @@ Route::group(['middleware' => 'web'], function(){
         Route::post('/assign/doctor', 'Admin\AdminController@assign_doctor');
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
+        Route::get('/service-request/{id}/close', 'Admin\ServiceRequestController@closeServiceRequest');
 
         // Appointment
         Route::get('/appointment', 'Admin\AppointmentController@index');
@@ -117,7 +123,7 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/appointment/{date}/{appmntType}/{clinic_id}/{start_date}/{end_date}', 'Admin\AppointmentController@show_clinic');
         Route::post('/appointment/store/{start_date}/{end_date}', 'Admin\AppointmentController@store');
         Route::post('/appointment/update/{id}', 'Admin\AppointmentController@update');
-        Route::get('/appointment/delete/{date}/{type}/{clinic_id}', 'Admin\AppointmentController@down');
+
 
         // Clinic Route
         Route::get('/clinic', 'Admin\ClinicController@index');
@@ -147,6 +153,8 @@ Route::group(['middleware' => 'web'], function(){
 
     });
 });
+
+
 
 
 // PRescription & Reports Upload

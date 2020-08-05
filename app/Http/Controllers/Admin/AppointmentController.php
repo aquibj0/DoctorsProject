@@ -249,9 +249,9 @@ class AppointmentController extends Controller
         }
         DB::commit();
         $clinics = Clinic::all();
-        if($request->submit_type == "old")
+        if($request->submit_type == "new")
             $message = 'Appointment for '.$request->date.' added successfully';
-        else if($request->submit_type == "new")
+        else if($request->submit_type == "old")
             $message = 'Appointment for '.$request->date.' updated successfully';
 
         return redirect('/admin/appointment/'.$request->docType.'/'.$request->appointmentType.'/'.$start_date.'/'.$end_date.'/index')->with('success', $message);
@@ -349,8 +349,53 @@ class AppointmentController extends Controller
         }
     }
 
-    public function down($date, $type, $clinic){
-        return array($date, $type, $clinic);
+    public function down($date, $type, $clinic, $start, $end){
+        // return array($date, $type, $clinic);
+        // echo $date;
+        // echo $type;
+        // echo $clinic;
+        $docType = " ";
+        $appointmentType = " ";
+        DB::beginTransaction();
+        if($type == "VTD"){
+            $doctype = "TD";
+            $appointmentType = "VED";
+        }else if($type = "VED"){
+            $doctype = "ED";
+            $appointmentType = "VED";
+        }else if($type == "CTD"){
+            $doctype = "TD";
+            $appointmentType = $clinic;
+        }else if($type = "CED"){
+            $doctype = "ED";
+            $appointmentType = $clinic;
+        }
+        try{
+            if($clinic != 0){
+                $app = AppointmentSchedule::where('appmntDate', Carbon::parse($date)->toDateString())
+                                            ->where('appmntType', $type)->get();
+                                            return Carbon::parse($date)->toDateString();
+            }else{
+                $app = AppointmentSchedule::where(['appmntDate', Carbon::parse($date)->toDateString()],
+                                                    ['appmntType', $type],
+                                                    ['appmntClinicid', $clinic])->get();
+                                                    return $app;
+            }
+            foreach($app as $item){
+                if($item->appmntSlotMaxCount - $item->appmntSlotFreeCount == 0){
+                    // $item->delete();
+                }else{
+                    return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Appointment exists for '.$date.' '.$item->appmntSlot.'!');
+                }
+            }
+        }catch (\Exception $e){
+            DB::rollback();
+            return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Something Went wrong! Please try agian later. '.$e->getMessage());
+        }
+        DB::commit();
+        return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('success', 'Appointment for '.$date.' has been deleted!');
+
+        return $app;
     }
     /**
      * Remove the specified resource from storage.

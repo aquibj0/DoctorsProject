@@ -136,10 +136,13 @@
                                                     <td>
                                                         <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
 
-
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                            @if($serviceRequests->srStatus != "CLOSED")
                                                             <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                            @else
+                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return false;" disabled>Delete </button>
+                                                            @endif
                                                         </form>                                                  
                                                     </td>
                                                 </tr>

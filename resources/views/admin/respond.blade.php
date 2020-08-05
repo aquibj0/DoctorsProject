@@ -16,9 +16,10 @@
 
         <div class="card">
             <div class="card-body">
+                @include('layouts.message')
                 <div class="row">
                     <div class="col-md-6">
-    
+                        
                         <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
                         <table class="table table-responsive table-bordered">
                             <tbody>
@@ -96,7 +97,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="register-block">
-                <h2>RESPONSE - VIDEO CALL WITH DOCTOR</h2>
+                <h2>RESPONSE - {{strtoupper($srvcReq->service->srvcName)}}</h2>
             </div>
         </div>
         
@@ -145,7 +146,7 @@
 
 
                     @if (isset($prescriptions))
-                        <h5 class="mt-3 maroon"><b><u>PATIENT PRESCRIPTIONS</u> </b></h5>
+                        <h5 class="mt-3 maroon"><b><u>DOCTOR'S PRESCRIPTIONS</u> </b></h5>
                         <small>*Uploaded by doctor</small>
                         <table class="mt-2 table table-responsive table-bordered">
                             <thead class="thead-dark">
@@ -274,22 +275,7 @@
                 </div>
 
                 
-<<<<<<< HEAD
-                <div class="col-md-5" style="border:1px solid #000; padding: 15px">
-                    <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
-
-                    @if(Auth::user()->category == "doc")
-                        @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                            <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                @csrf
-                                <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10" required>{{ old('vcDocInternalNotesText') }}</textarea>
-                                <div class="form-group text-center mb-0">
-                                    <input type="submit" class=" mt-2 btn btn-maroon">
-                                </div>
-                            </form>
-=======
                 <div class="col-md-5" >
->>>>>>> a3254b774898e1b554ced4273c26310b3c11515a
 
                     <div style="border:1px solid #000; padding: 15px">
                             <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
@@ -315,10 +301,20 @@
                                 </form>
                             @endif
                             
-        
-                            
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @if(count($prescriptions) != 0 && $srvcReq->srStatus != "CLOSED")
+                    <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
+                    @else
+                    <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
+                    @endif
+                </div>
+            </div>
+            <div class="container">
+                *Submit atleast One prescription to CLOSE the Service Request.
             </div>
         </div>
     </div>

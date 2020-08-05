@@ -59,6 +59,24 @@
                                     @else
                                         <option value="date">Date</option>
                                     @endif
+                                    <option disabled>-Status-</option>
+                                    @if($filter == "CLOSED")
+                                        <option value="CLOSED" selected>CLOSED</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="NEW">NEW</option>
+                                    @elseif($filter == "ACTIVE")
+                                        <option value="CLOSED">CLOSED</option>
+                                        <option value="ACTIVE" selected>ACTIVE</option>
+                                        <option value="NEW">NEW</option>
+                                    @elseif($filter == "NEW")
+                                        <option value="CLOSED">CLOSED</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="NEW" selected>NEW</option>
+                                    @else
+                                        <option value="CLOSED">CLOSED</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="NEW">NEW</option>
+                                    @endif
                                 </select>
                             @else
                                 <select name="filter" id="filter" class="form-control">
@@ -72,6 +90,10 @@
                                     @endforeach
                                     <option disabled>-Others-</option>
                                     <option value="date">Date</option>
+                                    <option disabled>-Status-</option>
+                                    <option value="CLOSED">CLOSED</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="NEW">NEW</option>
                                 </select>
                             @endif
                             </div>
@@ -108,6 +130,7 @@
                                     </th>
                                     <th scope="col">Sr Type</th>
                                     <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
+                                    <th scope="col">Sr Due Date</th>
                                     <th scope="col">Payment Status</th>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Service Status</th>
@@ -145,14 +168,17 @@
                                         @else
                                         <tr>
                                             <th scope="row">
-                                                @if($serviceReq->srAssignedIntUserId == null)
+                                                @if($serviceReq->paymentStatus == true)
                                                 <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
                                                 @else
-                                                <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" checked disabled>
+                                                <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
                                                 @endif
                                                 {{$serviceReq->srId}} </th>
                                             <td>{{$serviceReq->service->srvcName}}</td>
                                             <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                            <td>
+                                                {{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}
+                                            </td>
                                             <td> 
                                                 @if ($serviceReq->paymentStatus == true)
                                                 Paid

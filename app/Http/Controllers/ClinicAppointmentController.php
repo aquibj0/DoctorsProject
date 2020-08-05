@@ -92,7 +92,7 @@ class ClinicAppointmentController extends Controller
                     $srvcReq->patient_id = $patient->id;
                     $srvcReq->user_id = Auth::user()->id;
                     $srvcReq->srRecievedDateTime = Carbon::now();
-                    $srvcReq->srDueDateTime = $request->date;
+                    $srvcReq->srDueDateTime = $app->appmntDate.' '.$app->appmntSlot;
                     $srvcReq->srDepartment = $request->department;
                     $srvcReq->srStatus = 'New'; 
                     $srvcReq->srAppmntId = $app->id;
@@ -118,7 +118,7 @@ class ClinicAppointmentController extends Controller
                             if($clinicAppointment->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
-                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
+                                SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3);/*->delay(now()->addMinutes(1)); */
                                 
                             
                                 

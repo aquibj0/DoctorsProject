@@ -90,7 +90,7 @@ class VideoConsultationController extends Controller
                         $srvcReq->patient_id = $patient->id;
                         $srvcReq->user_id = Auth::user()->id;
                         $srvcReq->srRecievedDateTime = Carbon::now();
-                        $srvcReq->srDueDateTime = $request->date;
+                        $srvcReq->srDueDateTime = $app->appmntDate.' '.$app->appmntSlot;
                         $srvcReq->srDepartment = $request['department'];
                         $srvcReq->srStatus = 'New';
                         $srvcReq->srAppmntId = $app->id;
@@ -117,7 +117,7 @@ class VideoConsultationController extends Controller
                             if($vc->save()){
                                 $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                                 $app->update();
-                                SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1)->delay(now()->addMinutes(1)); 
+                                SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1);/*->delay(now()->addMinutes(1)); */
                                 
                                
 
