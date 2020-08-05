@@ -321,8 +321,6 @@
                                                 </div>
                                             @endif
         
-        
-                                            
                                             <a href="#" data-toggle="modal" data-target="#requestCancellation" class="btn btn-maroon btn-md mb-2">Request Cancellation</a>                                
                                         
                                             <div class="modal fade" id="requestCancellation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -355,6 +353,10 @@
                                             </form>
                                         @endif                                 
                                     </div>
+                                @else
+                                <div class="btn-grouped float-right mt-4">
+                                    <a href="#" class="btn btn-maroon btn-md">Pay now</a>
+                                </div>
                                 @endif
 
 

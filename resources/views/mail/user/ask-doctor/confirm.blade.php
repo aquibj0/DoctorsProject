@@ -39,8 +39,8 @@
 
             <p>Payment Amount :  Rs.{{$srvcReq->service->srvcPrice}}.00</p>
             {{-- <p>Payment Mode :  Credit card / Net Banking etc</p> --}}
-            <p>Transaction ID : xxxxxxxxxxxxxxxxx</p>
-            <p>Transaction Time: dd/mm/yyy HR:MN</p>
+            <p>Transaction ID : {{ $payment->payment_transaction_id }}	</p>
+            <p>Transaction Time: {{ $payment->created_at }}</p>
 
 
             Regards
