@@ -163,7 +163,7 @@ class ClinicAppointmentController extends Controller
                 'addressLine1' => ['required', 'string', 'max:64'],
                 'addressLine2' => ['string', 'max:64'],
                 'city' => ['required', 'string', 'max:35'],
-                'district' => ['required', 'string', 'max:35'],
+                'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['required', 'string', 'max:35'],
                 'country' => ['required', 'string', 'max:35'],
                 'department' => ['required'],

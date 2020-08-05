@@ -73,6 +73,12 @@
                             
                         </tbody>
                     </table>
+                    <div class="container">
+                        *Instructions for Downloading Reports <br>
+                        1. Download files uploaded by customer for a booking ID <br>
+                        2. Download names will be prefixed with an order ID <br>
+                        3. Once downloaded files will have read only access <br>
+                    </div>
                     {{-- {{$srvcReq}} --}}
                 </div>
             </div>
@@ -82,7 +88,7 @@
 
 <div class="col-md-4 mt-4">
     <div class="form mt-4 mt-2">
-
+        
 
        
         {{-- <form method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >

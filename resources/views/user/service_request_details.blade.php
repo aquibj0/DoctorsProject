@@ -94,27 +94,29 @@
 
                             {{-- Showing service details of ASK A QUESTION --}}
                             @if (isset($serviceRequests->askQuestion))
-                                <h4 class="maroon mb-2"><u><b>SERVICE DETAILS</b></u></h4>
+                                @if($serviceRequests->paymentStatus == true)
+                                @php
+                                    $paymentDetails = App\Payment::where('service_req_id', '=', $serviceRequests->id)->first();
+                                @endphp
+                                <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
 
                                 <table class="table table-bordered table-responsive mb-4">
                                     <thead class="thead-dark">
-                                        <th scope="col">Patient Background</th>
-                                        <th scope="col">Patient Question</th>
-                                        <th scope="col">Doctor Response</th>
+                                        <th scope="row">Payment Status</th>
+                                        <th scope="row">Payment ID</th>
+                                        <th scope="row">Payment Time</th>
+                                        <th scope="row">Payment Amount</th>
                                     </thead>
-    
                                     <tbody>
-                                        <td>{{ $serviceRequests->askQuestion->aaqPatientBackground }}</td>
-                                        <td>{{ $serviceRequests->askQuestion->aaqQuestionText }}</td>
-                                        @if ($serviceRequests->askQuestion->aaqDocResponse != null)
-                                            <td>Responded at {{ date('d-m-Y H:i:s', strtotime($serviceRequests->srResponseDateTime))}}</td>
-                                        @else
-                                            <td>No Response yet</td>
-                                        @endif
+                                        <td>Paid</td>
+                                        <td>{{$paymentDetails->payment_transaction_id}}</td> 
+                                        <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                        <td>{{$paymentDetails->payment_amount }}</td>
                                     </tbody>
+                                    
     
                                 </table>
-
+                                @endif
                                 {{-- Patient Uploaded Documents --}}
                                 @php
                                 $patDocs = App\PatientDocument::where([
@@ -193,7 +195,17 @@
                                                                     
                                                                     <div class="form-group ">
                                                                         @csrf
-        
+                                                                        <div class="form-group row">
+                                                                            <div class="col-md" class="color: grey">
+                                                                                *Instructions for Uploading Reports<br>
+                                                                                1. Upload latest prescription and investigation reports.<br>
+                                                                                2. Reports should not be more than 3 months old.<br>
+                                                                                3. For 'Ask A Doctor' reports can be uploaded at least<br>
+                                                                                4. For video consultation booking reports should be loaded at 
+                                                                                least 24 hours prior to appointment.
+                                                                            </div>
+                                                                        </div>
+
                                                                         <div class="form-group row">
                                                                             <div class="col-md-12">
                                                                                 <label for="documentType">Docuement Type</label>
@@ -243,7 +255,7 @@
                                                                         <div class="form-group row">
                                                                             <div class="col-md-12">
                                                                                 <label for="documentDate">Date of Report/Prescription</label>
-                                                                                <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
+                                                                                <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required min="{{Carbon\Carbon::today()->subMonths(6)->toDateString()}}" max="{{Carbon\Carbon::today()->addDays(1)->toDateString()}}" autocomplete="documentDate" autofocus>
                                                                                  
                                                                                 @error('documentDate')
                                                                                     <span class="invalid-feedback" role="alert">
@@ -286,6 +298,9 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
+                                                            <tbody>
+                                                                <h5><b>Patient Background</b>: {{ $serviceRequests->askQuestion->aaqPatientBackground }}</h5>
+                                                                <h5><b>Patient Question</b>: {{ $serviceRequests->askQuestion->aaqQuestionText }}</h5>
                                                             @if ($serviceRequests->askQuestion->aaqDocResponse === null)
                                                                 <h5 class="maroon">Doctor Not responded yet.</h5>
         
@@ -430,7 +445,7 @@
 
                                 @if (isset($patPrescriptions))
 
-                                    <h4 class="maroon mb-2"><u><b>PATIENT PRESCRIPTIONS</b></u></h4>    
+                                    <h4 class="maroon mb-2"><u><b>DOCTOR'S PRESCRIPTIONS</b></u></h4>    
                                     <table class="table table-bordered table-responsive mb-3">
                                         <thead class="thead-dark">
                                             <th scope="col">Docuement Type</th>
@@ -489,7 +504,17 @@
                                                                 
                                                                 <div class="form-group ">
                                                                     @csrf
-    
+                                                                    <div class="form-group row">
+                                                                        <div class="col-md" class="color: grey">
+                                                                            *Instructions for Uploading Reports<br>
+                                                                            1. Upload latest prescription and investigation reports.<br>
+                                                                            2. Reports should not be more than 3 months old.<br>
+                                                                            3. For 'Ask A Doctor' reports can be uploaded at least<br>
+                                                                            4. For video consultation booking reports should be loaded at 
+                                                                            least 24 hours prior to appointment.
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <label for="documentType">Document Type</label>
@@ -539,7 +564,7 @@
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <label for="documentDate">Date of Report/Prescription</label>
-                                                                            <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
+                                                                            <input id="documentDate" type="date" min="{{Carbon\Carbon::today()->subMonths(3)->toDateString()}}" max="{{ Carbon\Carbon::today()->addDays(1)->toDateString() }}" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
                                             
                                                                             @error('documentDate')
                                                                                 <span class="invalid-feedback" role="alert">
