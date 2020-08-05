@@ -21,13 +21,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-<<<<<<< HEAD
-                            <div class="col-md-4">
-                                <h5 class="maroon mb-3"><u><b>SERVICE REQUEST</b></u></h5>
-=======
                             <div class="col-md">
                                 <h5 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h5>
->>>>>>> 2b610551be93b1d04f981e88f79839cb56085790
 
                                 <table class="table table-responsive table-bordered">
                                     <tbody>
