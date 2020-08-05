@@ -88,7 +88,6 @@
             </div>
         </div>
     </div>
-
 {{-- IF service request is regarding VIDEO CALL WITH DOCTOR --}}
 
 @elseif(!empty($srvcReq->videoCall))
@@ -290,44 +289,50 @@
                                 </div>
                             </form>
 
-                <div class="col-md-5" >
+                        <div class="col-md-5" >
 
-                        <div style="border:1px solid #000; padding: 15px">
-                                <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
+                            <div style="border:1px solid #000; padding: 15px">
+                                    <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
 
-                                @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                                    <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                        @csrf
-                                        <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
-                                        <div class="form-group text-center mb-0">
-                                            <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
-                                        </div>
-                                    </form>
-            
-                                @else
-            
-                                    <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                        @csrf
-                                        <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                                        <div class="form-group text-center mb-0">
-                                            <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
-                                        </div>
-                                    </form>
-                                @endif
-                                
-            
-                                
+                                    @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                            @csrf
+                                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                            <div class="form-group text-center mb-0">
+                                                <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
+                                            </div>
+                                        </form>
+                
+                                    @else
+                
+                                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
+                                            @csrf
+                                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                                            <div class="form-group text-center mb-0">
+                                                <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
+                                            </div>
+                                        </form>
+                                    @endif
+                                    
+                
+                                    
+                            </div>
                         </div>
-                    </div>
+                        @endif
+
+                    @endif
+
+
                 </div>
             </div>
         </div>
     </div>   
-    
+
 
 {{-- If Service Request Regarding The Clinic Booking  --}}
-@elseif(!empty($srvcReq->clinicAppointment))
+{{-- @elseif(!empty($srvcReq->clinicAppointment))
 
+    Nothing to response  --}}
 @endif
 @endsection

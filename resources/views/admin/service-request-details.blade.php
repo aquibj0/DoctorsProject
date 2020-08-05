@@ -38,14 +38,6 @@
 
 
                                         @if (isset($srvcReq->clinicAppointment))
-                                            {{-- <tr>
-                                                <th scope="row">Appointment ID</th>
-                                                <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Clinic Type</th>
-                                                <td>{{ $srvcReq->clinicAppointment->clinic->clinicType }}</td>
-                                            </tr> --}}
                                             <tr>
                                                 <th scope="row">Clinic Name</th>
                                                 <td>{{$srvcReq->clinicAppointment->clinic->clinicName }}</td>
@@ -94,20 +86,6 @@
                                             
                                             <td>{{$srvcReq->srStatus}}</td>
                                         </tr>  
-                                        {{-- <tr>
-                                            <th scope="row">Payment Status</th>
-                                            
-                                            <td>
-                                                    @if ($srvcReq->paymentStatus == 0)
-
-                                                        Not Paid
-                                                    @else
-                                                        Paid
-
-                                                    @endif
-                                                
-                                            </td>
-                                        </tr> --}}
 
                                     </tbody>
                                 </table>
@@ -175,7 +153,7 @@
 
                                             <tr>
                                                 <th scope="row">Assign Doctor</th>
-                                                <td>{{$srvcReq->srAssignedIntUserId}}</td>
+                                                <td>Dr. {{$srvcReq->adminDoctor->firstName}} {{$srvcReq->adminDoctor->lastName}}</td>
                                             </tr>
 
                                             <tr>
