@@ -3,7 +3,7 @@
 
 <section class="user-service-request mt-4">
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="register-block">
@@ -13,12 +13,8 @@
             <br>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <img src="{{asset('image/IMAGE8.jpg')}}" style="max-width:100%" alt="">
-                <img src="{{asset('image/IMAGE9.jpg')}}" style="max-width:100%" alt="">
-            </div>
-            <div class="col-md-9">
-                <div class="card">
+            <div class="col-md">
+                <div class="card " >
                     {{-- <div class="card-header">
                         <form action="/filter" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -76,7 +72,7 @@
                         </form>
                     </div> --}}
                     @include('layouts.message')
-                    <div class="card-body">
+                    <div class="card-body admin-db">
                         @if(count($serviceRequests) == 0)
                             <h2 style="text-align: center"><b>No services created</b></h2>
                         @else
