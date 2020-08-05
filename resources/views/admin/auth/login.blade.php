@@ -6,7 +6,6 @@
 @section('content')
 <section>
     <div class="row">
-        <div class="col-md-4" style="background:#142cd6; height:100vh"></div>
         <div class="col-md-8">
             <div class="container">
                 <div class="row">

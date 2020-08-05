@@ -208,8 +208,6 @@
                                         </table>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-=======
 
                                 @else
 
@@ -217,13 +215,20 @@
                                     <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
                                     <p class="maroon"><b>No History Found</b></p>
                                 </div> --}}
->>>>>>> 2b610551be93b1d04f981e88f79839cb56085790
                             @endif
                         
                             <div class="col-md-4">
 
                                 <div class="text-center"> 
-                                    <img style="max-width:80%" class="img-fluid" src="{{asset('storage/patPhotoFileNameLink/'.$srvcReq->patient->patPhotoFileNameLink)}}" alt="">
+
+                                    @if (isset($srvcReq->patient->patPhotoFileNameLink))
+                                        <img style="max-width:80%" class="img-fluid  mt-3" src="{{asset('storage/patPhotoFileNameLink/'.$srvcReq->patient->patPhotoFileNameLink)}}" alt="">
+                                    @else
+                                        <img style="max-width:60%" class="img-fluid mt-3" src="{{asset('image/user-profile.png')}}" alt="">
+
+                                    
+                                    @endif
+                                    
                                 </div>
                                
 
