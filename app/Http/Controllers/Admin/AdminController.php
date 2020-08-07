@@ -341,6 +341,7 @@ public function changePassword(Request $request){
     }
 
     public function assign_doctor(Request $request){
+        return $request;
         if(count($request->srId) > 0){
             DB::beginTransaction();
             try{

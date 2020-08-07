@@ -79,7 +79,7 @@ class AskDoctorController extends Controller
                 'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['string', 'max:35'],
                 'country' => ['string', 'max:35'],
-                'patPhotoFileNameLink' => ['mimes:jpeg,jpg,png,gif'],
+                'patPhotoFileNameLink' => ['mimes:jpeg,jpg,png'],
                 'department' => ['string'],
                 'patient_question' => ['string', 'max:1024'],
 
@@ -152,7 +152,7 @@ class AskDoctorController extends Controller
                         $srvcReq->srConfirmationSentByAdmin = 'N';
                         $srvcReq->srMailSmsSent = Carbon::now();
                         $srvcReq->srDocumentUploadedFlag = 'N';
-                        $srvcReq->srStatus = "ACTIVE";
+                        $srvcReq->srStatus = "NEW";
                         $srvcReq->save();
                         $srvcReq->srId = "SR".str_pad($srvcReq->id, 10, "0", STR_PAD_LEFT)."AAQ";
                         $srvcReq->update();
@@ -174,7 +174,6 @@ class AskDoctorController extends Controller
                             // SendEmail::dispatch($patient, $srvcReq, $asaq, null, 1);/*->delay(Carbon::now()->addSeconds(5)); */
                            
                             $data = array();
-                            
                             $data['amount'] = Service::where('srvcShortName', 'AAQ')->first()->srvcPrice;
                             $data['check_amount'] = $data['amount'];
                             $data['srvdID'] = $srvdID;

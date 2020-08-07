@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Patient;
+use App\Service;
 use App\ServiceRequest;
 // use App\Patient
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public $payments;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,7 +33,21 @@ class UserController extends Controller
 
     }
 
-
+    //service request payment 
+    public function pay($srId){
+        $srvcReq = ServiceRequest::where('srId', $srId)->first();
+        $data = array();
+        $data['amount'] = Service::where('id', $srvcReq->service_id)->first()->srvcPrice;
+        $data['check_amount'] = $data['amount'];
+        $data['srvdID'] = $srvcReq->srId;
+        $data['srId'] = $srvcReq->id;
+        $data['name'] = Auth::user()->userFirstName.' '.Auth::user()->userLastName;
+        $data['contactNumber'] = Auth::user()->userMobileNo;
+        $data['email'] = Auth::user()->userEmail;
+        $this->payments = new PaymentController;
+        $res = $this->payments->paymentInitiate($data);
+        return $res;   
+    }
 
     public function serviceRequestDetail($id, $srId){
         $user = User::where('id', $id)->first();

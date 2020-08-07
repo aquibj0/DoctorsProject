@@ -367,7 +367,7 @@
                                     </div>
                                 @else
                                     <div class="btn-grouped float-right mt-4">
-                                        <a href="#" class="btn btn-maroon btn-md">Pay now</a>
+                                        <a href="/user-payment/{{ $serviceRequests->srId }}" class="btn btn-maroon btn-md">Pay now</a>
                                     </div>
                                 @endif
 
@@ -496,9 +496,13 @@
 
                                 <div class="btn-grouped float-right mt-4">
                                 
-
+                                    @if($serviceRequests->paymentStatus == false)
+                                    <div class="btn-grouped float-right mt-4">
+                                        <a href="/user-payment/{{ $serviceRequests->srId }}" class="btn btn-maroon btn-md">Pay now</a>
+                                    </div>
                                     {{-- Request Cancellation Button will only be available on below condiions. --}}
-                                    @if ($serviceRequests->srStatus != 'Cancelled')
+
+                                    @elseif($serviceRequests->srStatus != 'Cancelled')
                                         
                                         
                                         {{-- Upload Document Button --}}
@@ -675,6 +679,7 @@
                                         </div>
     
                                         </form>
+                                        
                                     @endif                                 
                                 </div>
 

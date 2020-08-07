@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/service-request/{id}/{srId}', 'UserController@serviceRequestDetail')->name('servicereq-details');
 
     // Payment Initiate
+    Route::get('/user-payment/{srId}', 'UserController@pay');
     Route::get('/payment-initiate/{data}', 'PaymentController@paymentInitiate')->name('confirm-service-request');
     // Route::post('/payment-complete','PaymentController@Complete');
     Route::post('/payment-initiate-request','PaymentController@Initiate');

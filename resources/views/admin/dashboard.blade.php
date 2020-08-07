@@ -21,33 +21,7 @@
                     <form action="/admin/filter" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-row form-group">
-                            <div class="col-md-5"  style="padding-top: 10px;">
-                                @if(Auth::user()->category != "doc")
-                                <div class="row">
-                                    <div class="col-md">
-                                        <select name="doctor" id="doctor" class="form-control">
-                                            @if(count($doctors) > 0)
-                                                <option disabled selected>Select Doctor</option>
-                                                @foreach($doctors as $doctor)
-                                                    <option value="{{ $doctor->id }}">Dr. {{ $doctor->firstName }} {{ $doctor->lastName }}</option>
-                                                @endforeach
-                                            @else
-                                                <option selected disabled>No Doctos available</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="col-md">
-                                        @if(count($doctors) > 0)
-                                            <button type="submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Assign Doctor</button>
-                                            {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
-                                        @else
-                                            <button type="submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;" disabled>Assign Doctor</button>
-                                            {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;"> --}}
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
-                            </div>
+                            
                             <div class="col-md">
                             </div>
                             @if($start != 0  && $end != 0)
@@ -126,55 +100,94 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-body admin-db">
-                    <form action="/admin/assign/doctor" method="POST" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <table class="table table-bordered table-responsive">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">
+                <form action="/admin/assign/doctor" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="card-body admin-db">
+                            <table class="table table-bordered table-responsive">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">
                                             @if(Auth::user()->category != "doc")
-                                            <input type="checkbox" id="select_all"> 
-                                        @endif
-                                    </th>
-                                    <th scope="col">
-                                       
-                                        SR No.
-                                        <span style="float: right">
-                                            <a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a>
-                                            <a href="/admin/{{$filter}}/2/{{$start}}/{{$end}}">&#9660;</a>
-                                        </span>
-                                        <script>
-                                            $(document).ready(function(){
-                                                $("#select_all").on('change', function(){
-                                                    if($("#select_all").prop('checked') == true){
-                                                        $(".select_id").prop('checked', true);
-                                                    }else{
-                                                        $(".select_id").prop('checked', false);
-                                                    }
+                                                <input type="checkbox" id="select_all"> 
+                                            @endif
+                                        </th>
+                                        <th scope="col">
+                                        
+                                            SR No.
+                                            <span style="float: right">
+                                                <a href="/admin/{{$filter}}/1/{{$start}}/{{$end}}">&#9650;</a>
+                                                <a href="/admin/{{$filter}}/2/{{$start}}/{{$end}}">&#9660;</a>
+                                            </span>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    $("#select_all").on('change', function(){
+                                                        if($("#select_all").prop('checked') == true){
+                                                            $(".select_id").prop('checked', true);
+                                                        }else{
+                                                            $(".select_id").prop('checked', false);
+                                                        }
+                                                    });
                                                 });
-                                            });
-                                        </script>
-                                    </th>
-                                    <th scope="col">Sr Type</th>
-                                    <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
-                                    <th scope="col">Sr Due Date</th>
-                                    <th scope="col">Payment Status</th>
-                                    <th scope="col">Patient Name</th>
-                                    <th scope="col">Service Status</th>
-                                    <th scope="col">Assigned Doctor</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table">
-                                @if (count($servReq) > 0)
-                                    @foreach ($servReq as $serviceReq)
-                                        @if(Auth::user()->category == "doc")
-                                            @if($serviceReq->srAssignedIntUserId == Auth::user()->id)
+                                            </script>
+                                        </th>
+                                        <th scope="col">Sr Type</th>
+                                        <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
+                                        <th scope="col">Sr Due Date</th>
+                                        <th scope="col">Payment Status</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Service Status</th>
+                                        <th scope="col">Assigned Doctor</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table">
+                                    @if (count($servReq) > 0)
+                                        @foreach ($servReq as $serviceReq)
+                                            @if(Auth::user()->category == "doc")
+                                                @if($serviceReq->srAssignedIntUserId == Auth::user()->id)
+                                                <tr>
+                                                    <th scope="row">{{$serviceReq->srId}}</th>
+                                                    <td>{{$serviceReq->service->srvcName}}</td>
+                                                    <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                                    <td> 
+                                                        @if ($serviceReq->paymentStatus == true)
+                                                        Paid
+                                                        @else
+                                                        Not Paid
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
+                                                    <td>{{$serviceReq->srStatus}}</td>
+                                                    <td>
+                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
+                                                        @if ($serviceReq->paymentStatus == true)
+                                                            <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm mb-2">Response</a>  
+                                                            <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>                                          
+                                                        @endif 
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            @else
                                             <tr>
-                                                <th scope="row">{{$serviceReq->srId}}</th>
+                                                <td>
+                                                        @if($serviceReq->paymentStatus == true)
+                                                            <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
+                                                        @else
+                                                            <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
+                                                        @endif
+                                                </td>
+                                                <th scope="row">
+                                                    {{-- @if($serviceReq->paymentStatus == true)
+                                                    <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
+                                                    @else
+                                                    <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
+                                                    @endif --}}
+                                                    {{$serviceReq->srId}} </th>
                                                 <td>{{$serviceReq->service->srvcName}}</td>
                                                 <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                                <td>
+                                                    {{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}
+                                                </td>
                                                 <td> 
                                                     @if ($serviceReq->paymentStatus == true)
                                                     Paid
@@ -185,71 +198,65 @@
                                                 <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
                                                 <td>{{$serviceReq->srStatus}}</td>
                                                 <td>
+                                                    @if(isset($serviceReq->adminDoctor))
+                                                        {{ 'Dr. '.$serviceReq->adminDoctor->firstName.' '.$serviceReq->adminDoctor->lastName }}
+                                                    @else
+                                                        Not assigned.
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
                                                     @if ($serviceReq->paymentStatus == true)
-                                                        <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm mb-2">Response</a>  
+                                                        {{-- <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>   --}}
                                                         <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>                                          
                                                     @endif 
                                                 </td>
                                             </tr>
                                             @endif
-                                        @else
-                                        <tr>
-                                            <td>
-                                                    @if($serviceReq->paymentStatus == true)
-                                                        <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
-                                                    @else
-                                                        <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" checked disabled>
-                                                    @endif
-                                            </td>
-                                            <th scope="row">
-                                                {{-- @if($serviceReq->paymentStatus == true)
-                                                <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
-                                                @else
-                                                <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
-                                                @endif --}}
-                                                {{$serviceReq->srId}} </th>
-                                            <td>{{$serviceReq->service->srvcName}}</td>
-                                            <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
-                                            <td>
-                                                {{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}
-                                            </td>
-                                            <td> 
-                                                @if ($serviceReq->paymentStatus == true)
-                                                Paid
-                                                @else
-                                                Not Paid
-                                                @endif
-                                            </td>
-                                            <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
-                                            <td>{{$serviceReq->srStatus}}</td>
-                                            <td>
-                                                @if(isset($serviceReq->adminDoctor))
-                                                    {{ 'Dr. '.$serviceReq->adminDoctor->firstName.' '.$serviceReq->adminDoctor->lastName }}
-                                                @else
-                                                    Not assigned.
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
-                                                @if ($serviceReq->paymentStatus == true)
-                                                    {{-- <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" style="border: 5px solid white" class="btn btn-maroon btn-sm">Response</a>   --}}
-                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>                                          
-                                                @endif 
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <td colspan="6"><h2><b>No data available!</b></h2></td>
-                                @endif
-                            </tbody>
-                        </table>
+                                        @endforeach
+                                    @else
+                                        <td colspan="6"><h2><b>No data available!</b></h2></td>
+                                    @endif
+                                </tbody>
+                            </table>
 
-                        
-                       
-                    </form>
-                </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-md-5"  style="padding-top: 10px;">
+                            @if(Auth::user()->category != "doc")
+                            <div class="row">
+                                <div class="col-md">
+                                    <select name="doctor" id="doctor" class="form-control">
+                                        @if(count($doctors) > 0)
+                                            <option disabled selected>Select Doctor</option>
+                                            @foreach($doctors as $doctor)
+                                                <option value="{{ $doctor->id }}">Dr. {{ $doctor->firstName }} {{ $doctor->lastName }}</option>
+                                            @endforeach
+                                        @else
+                                            <option selected disabled>No Doctos available</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    @if(count($doctors) > 0)
+                                        <button type="submit" name="admin_submit" vlaue="assign_doctor" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Assign Doctor</button>
+                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
+                                    @else
+                                        <button type="submit" name="admin_submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;" disabled>Assign Doctor</button>
+                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;"> --}}
+                                    @endif
+                                </div>
+                                <div class="col-md">
+                                    <button type="submit" name="admin_submit" value="reminder">Reminder</button>
+                                </div>
+                                <div class="col-md">
+                                    <button type="submit" name="admin_submit" value="HEY">HEY</button>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

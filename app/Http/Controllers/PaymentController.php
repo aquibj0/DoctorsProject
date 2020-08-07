@@ -23,7 +23,6 @@ class PaymentController extends Controller
 
     public $data;
 
-
     public function paymentInitiate($data){
 
         // $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
@@ -82,23 +81,29 @@ class PaymentController extends Controller
             if($payment->save()){
                 $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
                 $serviceReq->paymentStatus = true;
+                $serviceReq->srStatus = "ACTIVE";
                 $serviceReq->update();
-                $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
-                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                $app->update();
+
                 $user = Auth::user();
 
                 if($serviceReq->askQuestion){
+
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
                 }
                 elseif($serviceReq->videoCall){
+                    $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
+                    $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                    $app->update();
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
                 }
                 elseif($serviceReq->clinicAppointment){
+                    $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
+                    $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                    $app->update();
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
