@@ -221,7 +221,8 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        // return Auth::user();
+        return view('admin.show')->with('user', Auth::user());  
     }
 
     /**
@@ -256,6 +257,87 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+public function changePassword(Request $request){
+
+        if (!(Hash::check($request->get('current-password'), Auth::user()->userPassword))) {
+            // The passwords matches
+            return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+        }
+
+        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+            //Current password and new password are same
+            return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+
+        $validatedData = $request->validate([
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:6|confirmed',
+        ]);
+
+        //Change Password
+        $user = Auth::user();
+        $user->userPassword = bcrypt($request->get('new-password'));
+        $user->save();
+
+        return redirect()->back()->with("success","Password changed successfully !");
+
+    }
+
+    public function updateProfile(Request $request){
+        // return $request;
+        $validatedData = $request->validate([
+            'firstName' => 'string|max:40',
+            'lastName' => 'string|max:40',
+            'phoneNo' => 'min:10|max:10',
+            'alternatePhoneNo' => 'nullable|max:10|min:10|unique:admins',
+            'degree' => 'nullable|max:191|string',
+            'dob' => 'string|nullable|max:10',
+            'addressLine1' => 'string|nullable|max:64',
+            'addressLine2' => 'string|nullable|max:64',
+            'city' => 'string|nullable|max:35',
+            'district' => 'nullable|string|max:35',
+            'state' => 'string|nullable|max:35',
+            'country' => 'string|nullable|max:35',
+        ]);
+        DB::beginTransaction();
+        try{
+            $intUser = Auth::user();
+            $intUser->firstName = $request->firstName;
+            $intUser->lastName = $request->lastName;
+            $intUser->phoneNo = $request->phoneNo;
+            $intUser->alternatePhoneNo = $request->alternatePhoneNo;
+            $intUser->degree = $request->degree;
+            $intUser->dob = Carbon::parse($request->dob)->toDateString();
+            $intUser->addressLine1 = $request->addressLine1;
+            $intUser->addressLine2 = $request->addressLine2;
+            $intUser->city = $request->city;
+            $intUser->district = $request->district;
+            $intUser->state = $request->state;
+            $intUser->country = $request->country;
+            $intUser->update();
+            // Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
+            
+        } catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+        DB::commit();
+        return redirect()->back()->with('success', 'Profile Updated successfully!');
+    }
+
+    public function updateImage(Request $request, $id){
+        // echo $request;
+        return array($id, $request);
+        if($request){
+            $user = Auth::user()->where('id', $id)->first();
+            if($request->hasFile('userImage')){
+                $user->userImage = $request->file('userImage')->store('userImage','public');
+            }
+            $user->update();
+            return redirect()->back()->with('success', 'Image successfull Uploaded');
+        }
     }
 
     public function assign_doctor(Request $request){

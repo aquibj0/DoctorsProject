@@ -32,7 +32,13 @@
                                     <th scope="col">Service Type</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Sr Department</th>
-                                    <th scope="col">Expected Response</th>
+                                    <th scope="col">
+                                        @if(isset($serviceRequests->askQuestion))
+                                        Expected Response
+                                        @else
+                                        Appointment Slot
+                                        @endif
+                                    </th>
                                     <th scope="col">Status</th>
                                 </thead>
                                 <tbody>
@@ -50,7 +56,13 @@
                                         
                                         </td>
 
-                                        <td>{{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }}</td>
+                                        <td>
+                                            @if(isset($serviceRequests->askQuestion))
+                                            {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }}
+                                            @else
+                                            {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }} {{$serviceRequests->appointmentSchedule->appmntSlot}}
+                                            @endif
+                                        </td>
                                         
                                         <td>{{$serviceRequests->srStatus}}</td>
                                     </tr>
@@ -671,7 +683,7 @@
                                 <h4 class="maroon mb-2"><u><b>APPOINTMENT DETAILS</b></u></h4>
                                 <table class="table table-bordered table-responsive mb-4">
                                     <thead class="thead-dark">
-                                        <th scope="col">Clinic Type </th>
+                                        {{-- <th scope="col">Clinic Type </th> --}}
                                         <th scope="col">Clinic Name</th>
                                         <th scope="col">Contact No</th>
                                         <th scope="col">Location</th>
@@ -679,9 +691,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            {{-- <td>
                                                 {{$serviceRequests->clinicAppointment->clinic->clinicType}}
-                                            </td>
+                                            </td> --}}
                                             <td>{{$serviceRequests->clinicAppointment->clinic->clinicName}}</td>
                                             <td>
                                                 Mobile No. : {{$serviceRequests->clinicAppointment->clinic->clinicMobileNo}}<br>

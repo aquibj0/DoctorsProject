@@ -70,12 +70,15 @@ class UserController extends Controller
         ]);
 
         //Change Password
-        $user = Auth::user();
-        $user->userPassword = bcrypt($request->get('new-password'));
-        $user->save();
+        if(!$validator->fails()){
+            $user = Auth::user();
+            $user->userPassword = bcrypt($request->get('new-password'));
+            $user->save();
 
-        return redirect()->back()->with("success","Password changed successfully !");
-
+            return redirect()->back()->with("success","Password changed successfully !");
+        }else{
+            return redirect()->back()->withErrors($validator);
+        }
     }
 
     public function updateImage( Request $request, $id){

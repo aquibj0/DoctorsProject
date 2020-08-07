@@ -21,7 +21,32 @@
                     <form action="/admin/filter" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-row form-group">
-                            <div class="col-md">
+                            <div class="col-md-5"  style="padding-top: 10px;">
+                                @if(Auth::user()->category != "doc")
+                                <div class="row">
+                                    <div class="col-md">
+                                        <select name="doctor" id="doctor" class="form-control">
+                                            @if(count($doctors) > 0)
+                                                <option disabled selected>Select Doctor</option>
+                                                @foreach($doctors as $doctor)
+                                                    <option value="{{ $doctor->id }}">Dr. {{ $doctor->firstName }} {{ $doctor->lastName }}</option>
+                                                @endforeach
+                                            @else
+                                                <option selected disabled>No Doctos available</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        @if(count($doctors) > 0)
+                                            <button type="submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Assign Doctor</button>
+                                            {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
+                                        @else
+                                            <button type="submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;" disabled>Assign Doctor</button>
+                                            {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;"> --}}
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
                             </div>
                             <div class="col-md">
                             </div>
@@ -222,33 +247,7 @@
                         </table>
 
                         
-                        @if(Auth::user()->category != "doc")
-                            <div class="row">
-                                <div class="col-md-3" style="padding-top: 10px;">
-                                    <select name="doctor" id="doctor" class="form-control">
-                                        @if(count($doctors) > 0)
-                                            <option disabled selected>Select Doctor</option>
-                                            @foreach($doctors as $doctor)
-                                                <option value="{{ $doctor->id }}">Dr. {{ $doctor->firstName }} {{ $doctor->lastName }}</option>
-                                            @endforeach
-                                        @else
-                                            <option selected disabled>No Doctos available</option>
-                                        @endif
-                                    </select>
-                                </div>
-                                <div class="col-md-3" style="padding-top: 10px;">
-                                    @if(count($doctors) > 0)
-                                        <button type="submit" class="btn btn-md btn-maroon" style="width: 100%;">Assign Doctor</button>
-                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
-                                    @else
-                                        <button type="submit" class="btn btn-md btn-maroon" style="width: 100%;" disabled>Assign Doctor</button>
-                                        {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" disabled style="width: 100%;"> --}}
-                                    @endif
-                                </div>
-                                <div class="col-md-3" style="padding-top: 10px;"></div>
-                                <div class="col-md-3" style="padding-top: 10px;"></div>
-                            </div>
-                        @endif
+                       
                     </form>
                 </div>
             </div>

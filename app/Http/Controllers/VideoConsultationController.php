@@ -115,8 +115,8 @@ class VideoConsultationController extends Controller
                             // Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             if($vc->save()){
-                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                                $app->update();
+                                // $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                // $app->update();
                                 // SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 1);/*->delay(now()->addMinutes(1)); */
                                 
                                
@@ -234,8 +234,8 @@ class VideoConsultationController extends Controller
                                 // Sms::send("This is test message with Service RequestID ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
                                 
                                 if($vc->save()){
-                                    $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                                    $app->update();
+                                    // $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                    // $app->update();
                                     // SendEmail::dispatch($patient, $srvcReq, $vc, Auth::user(), 2)->delay(now()->addMinutes(1)); 
 
                                     $data = array();

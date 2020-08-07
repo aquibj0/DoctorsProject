@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use Tzsk\Sms\Facade\Sms;
 use App\Jobs\SendEmail;
+use App\AppointmentSchedule;
 
 
 class PaymentController extends Controller
@@ -82,7 +83,9 @@ class PaymentController extends Controller
                 $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
                 $serviceReq->paymentStatus = true;
                 $serviceReq->update();
-
+                $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
+                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                $app->update();
                 $user = Auth::user();
 
                 if($serviceReq->askQuestion){

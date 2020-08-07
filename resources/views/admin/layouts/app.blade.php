@@ -97,7 +97,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 {{-- <a class="dropdown-item" href=" /service-request/{{Auth::user()->id}}">My Services </a> --}}
                                 <a class="dropdown-item" href="/admin">Dashboard </a>
-                                {{-- <a class="dropdown-item" href="/admin/setting/{{Auth::user()->id}}">My Profile </a> --}}
+                                <a class="dropdown-item" href="/admin/setting/{{Auth::user()->id}}">My Profile </a>
 
 
                                     

@@ -104,10 +104,18 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
         Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
         Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
+        Route::get('/setting/{id}', 'Admin\AdminController@show');
+        Route::post('/changePassword','Admin\AdminController@changePassword')->name('admin.changePassword');
+        Route::post('/update-profile', 'Admin\AdminController@updateProfile');
+        Route::post('/userImage/{id}', 'Admin\AdminController@updateImage')->name('admin.image.upload');
+
+        //internal user
         Route::get('/internal-user', 'Admin\AdminController@create_user_index');
         Route::get('/create/internal-user', 'Admin\AdminController@create_user');
         Route::post('/create/internal-user/store', 'Admin\AdminController@store_user')->name('admin.register.user.store');
-        Route::get('/admin/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
+        Route::get('/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
+        
+        //service requests
         Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
         Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
         Route::post('/assign/doctor', 'Admin\AdminController@assign_doctor');

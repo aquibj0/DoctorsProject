@@ -116,8 +116,8 @@ class ClinicAppointmentController extends Controller
                                 
 
                             if($clinicAppointment->save()){
-                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                                $app->update();
+                                // $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                // $app->update();
                                 // SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3);/*->delay(now()->addMinutes(1)); */
                                 
                             
@@ -226,8 +226,8 @@ class ClinicAppointmentController extends Controller
                             // Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
                             if($clinicAppointment->save()){
-                                $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
-                                $app->update();
+                                // $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
+                                // $app->update();
 
                                 // SendEmail::dispatch($patient, $srvcReq, $clinicAppointment, Auth::user(), 3)->delay(now()->addMinutes(1)); 
                                 
