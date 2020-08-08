@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Tzsk\Sms\Facade\Sms;
 use App\Admin;
 use Illuminate\Support\Facades\Hash;
 use Auth;
@@ -16,6 +17,7 @@ use App\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\auth\InternalUserRegisterEmail;
+use App\Jobs\SendEmail;
 
 
 class AdminController extends Controller
@@ -259,7 +261,7 @@ class AdminController extends Controller
         //
     }
 
-public function changePassword(Request $request){
+    public function changePassword(Request $request){
 
         if (!(Hash::check($request->get('current-password'), Auth::user()->userPassword))) {
             // The passwords matches
@@ -329,28 +331,37 @@ public function changePassword(Request $request){
 
     public function updateImage(Request $request, $id){
         // echo $request;
-        return array($id, $request);
+        // return array($id, $request);
+        $user = Auth::user()->where('id', $id)->first();
         if($request){
-            $user = Auth::user()->where('id', $id)->first();
-            if($request->hasFile('userImage')){
-                $user->userImage = $request->file('userImage')->store('userImage','public');
-            }
-            $user->update();
-            return redirect()->back()->with('success', 'Image successfull Uploaded');
+        if($request->hasFile('userImage')){
+            $user->userImage = $request->file('userImage')->store('userImage','public');
+        }
+        // return $request;
+        $user->update();
+        return redirect()->back()->with('success', 'Image successfull Uploaded');
         }
     }
 
-    public function assign_doctor(Request $request){
-        return $request;
-        if(count($request->srId) > 0){
-            DB::beginTransaction();
-            try{
+    public function operate(Request $request){
+        // return $request;
+        if($request->admin_submit == 'assign_doctor'){
+            if(count($request->srId) > 0){
                 for($i = 0; $i < count($request->srId); $i++){
                     $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
                     if($srvcReq){
                         if($srvcReq->srResponseDateTime < Carbon::now()){
-                            $srvcReq->srAssignedIntUserId = $request->doctor;
-                            $srvcReq->update();
+                            DB::beginTransaction();
+                            try{
+                                $srvcReq->srAssignedIntUserId = $request->doctor;
+                                $srvcReq->update();
+                                $doctor = Admin::where('id', $request->doctor)->first();
+                                SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
+                            }catch(\Exception $e){
+                                DB::rollback();
+                                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                            }
+                            DB::commit();
                         }else{
                             DB::rollback();
                             return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
@@ -360,16 +371,37 @@ public function changePassword(Request $request){
                         return redirect()->back()->with('error', 'Service Request dosen\'t exists');
                     }
                 }
-            }catch(\Exception $e){
-                DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                return redirect()->back()->with('success', 'Doctor assigned successfully!');
+            }else{
+                return redirect()->back()->with('error', 'Something went wrong!');
             }
-            DB::commit();
-            return redirect()->back()->with('success', 'Doctor assigned successfully!');
-        }else{
-            return redirect()->back()->with('error', 'Something went wrong!');
+        }elseif($request->admin_submit == 'reminder'){
+            for($i = 0; $i < count($request->srId); $i++){
+                $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                $user = $srvcReq->user;
+                if($srvcReq){
+                    if($srvcReq->askQuestion){
+
+                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+    
+                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, $srvcReq->payment, $srvcReq->user, 3);
+                    }
+                    elseif($srvcReq->videoCall){
+
+                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+    
+                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->videoCall, $srvcReq->payment, $srvcReq->user, 3);
+                    }
+                    elseif($srvcReq->clinicAppointment){
+
+                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+    
+                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->clinicAppointment, $srvcReq->payment, $srvcReq->user, 3);
+                    }
+                }
+            }
+            return redirect()->back()->with('success', 'Reminder sent successfully!');
         }
-        // return $ ;
     }
 
     public function respond($id){

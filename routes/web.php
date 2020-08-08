@@ -119,7 +119,7 @@ Route::group(['middleware' => 'web'], function(){
         //service requests
         Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');
         Route::post('/ask-a-doctor/{id}/response', 'Admin\ServiceRequestController@response');
-        Route::post('/assign/doctor', 'Admin\AdminController@assign_doctor');
+        Route::post('/operate', 'Admin\AdminController@operate');
         Route::get('/service-request/{id}/respond', 'Admin\AdminController@respond');
         Route::get('/service-request/{id}/download-report', 'Admin\AdminController@downloadReport');
         Route::get('/service-request/{id}/close', 'Admin\ServiceRequestController@closeServiceRequest');

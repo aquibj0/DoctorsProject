@@ -100,17 +100,17 @@
                         </div>
                     </form>
                 </div>
-                <form action="/admin/assign/doctor" method="POST" enctype="multipart/form-data">
+                <form action="/admin/operate" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card-body admin-db">
                             <table class="table table-bordered table-responsive">
                                 <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">
-                                            @if(Auth::user()->category != "doc")
+                                    <tr>                                            
+                                        @if(Auth::user()->category != "doc")
+                                            <th scope="col">
                                                 <input type="checkbox" id="select_all"> 
-                                            @endif
-                                        </th>
+                                            </th>
+                                        @endif
                                         <th scope="col">
                                         
                                             SR No.
@@ -136,7 +136,9 @@
                                         <th scope="col">Payment Status</th>
                                         <th scope="col">Patient Name</th>
                                         <th scope="col">Service Status</th>
+                                        @if(Auth::user()->category != "doc")
                                         <th scope="col">Assigned Doctor</th>
+                                        @endif
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -149,6 +151,7 @@
                                                     <th scope="row">{{$serviceReq->srId}}</th>
                                                     <td>{{$serviceReq->service->srvcName}}</td>
                                                     <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                                    <td>{{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}</td>
                                                     <td> 
                                                         @if ($serviceReq->paymentStatus == true)
                                                         Paid
@@ -222,7 +225,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <div class="col-md-5"  style="padding-top: 10px;">
+                        <div class="col-md"  style="padding-top: 10px;">
                             @if(Auth::user()->category != "doc")
                             <div class="row">
                                 <div class="col-md">
@@ -239,7 +242,7 @@
                                 </div>
                                 <div class="col-md">
                                     @if(count($doctors) > 0)
-                                        <button type="submit" name="admin_submit" vlaue="assign_doctor" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Assign Doctor</button>
+                                        <button type="submit" name="admin_submit" value="assign_doctor" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Assign Doctor</button>
                                         {{-- <input type="submit" class="btn btn-md btn-maroon" placeholder="Assign Doctor" style="width: 100%;"> --}}
                                     @else
                                         <button type="submit" name="admin_submit" class="btn btn-md btn-maroon mb-4" style="width: 100%;" disabled>Assign Doctor</button>
@@ -247,10 +250,10 @@
                                     @endif
                                 </div>
                                 <div class="col-md">
-                                    <button type="submit" name="admin_submit" value="reminder">Reminder</button>
+                                    <button type="submit" name="admin_submit" value="reminder" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Reminder</button>
                                 </div>
                                 <div class="col-md">
-                                    <button type="submit" name="admin_submit" value="HEY">HEY</button>
+                                    {{-- <button type="submit" name="admin_submit" value="HEY" class="btn btn-md btn-maroon mb-4" style="width: 100%;">HEY</button> --}}
                                 </div>
                             </div>
                             @endif

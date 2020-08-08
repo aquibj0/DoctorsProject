@@ -33,6 +33,6 @@ class AAQResponseEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject("BIRTH - ServiceA Response")->view('mail.user.ask-doctor.response');
+        return $this->subject("BIRTH - ".$this->srvcReq->service->srvcName." - Service Request Response")->view('mail.user.ask-doctor.response');
     }
 }
