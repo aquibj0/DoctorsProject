@@ -75,8 +75,14 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
+
+
+
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
+                                @isset(Auth::user()->userImage)
+                                <span> <img  src="{{asset('storage/'.Auth::user()->userImage)}}" style="max-width:50px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
+                               @endisset 
+                               {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
 
                             </a>
                             

@@ -2,6 +2,10 @@ html, body{
     background: rgb(242, 170, 168);
     font-family: Calibri, sans-serif !important;
 }
+.nav-item{
+    display: grid;
+    place-content: center;
+}
 .maroon{
     color: rgb(97, 13, 13);
 }
@@ -40,6 +44,12 @@ html, body{
 @media(max-width:768px){
     .table-responsive{
         display: block;
+    }
+
+
+    .nav-item{
+        display: grid;
+        place-content: unset;
     }
 }
 .btn-primary:hover{

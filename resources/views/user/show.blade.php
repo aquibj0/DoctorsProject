@@ -6,9 +6,18 @@
 
     <div class="container">
             @include('layouts.message')
+            <div class="row">
+                <div class="col-md-8">
+                       <div class="register-block mt-4">
+                            <h2>View User Profile</h2>
+                        </div>
+                </div>
+             
+            </div>
+
         <div class="row mt-4">
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->userImage)
@@ -47,27 +56,31 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <div class="register-block">
-                            <h2>View User Profile</h2>
-                        </div>
+                        
                         <form action="" method="POST">
-                            <div class="form-group form-row">
+                            <div class="form-row">
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="{{Auth::user()->userFirstName}}" disabled>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" value="{{Auth::user()->userFirstName}}" disabled>
+                                    </div>
 
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="{{Auth::user()->userLastName}}" disabled>                                    
+                                    <div class="form-group">
+                                            <input class="form-control" type="text" value="{{Auth::user()->userLastName}}" disabled>        
+                                        </div>                            
                                 </div>
                             </div>
 
-                            <div class="form-group form-row">
+                            <div class=" form-row">
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="{{Auth::user()->userEmail}}" disabled>
-
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" value="{{Auth::user()->userEmail}}" disabled>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="{{Auth::user()->userMobileNo}}" disabled>                                    
+                                    <div class="form-group">
+                                            <input class="form-control" type="text" value="{{Auth::user()->userMobileNo}}" disabled>                              </div>      
                                 </div>
                             </div>
 
