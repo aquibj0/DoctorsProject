@@ -108,7 +108,7 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/setting/{id}', 'Admin\AdminController@show');
         Route::post('/changePassword','Admin\AdminController@changePassword')->name('admin.changePassword');
         Route::post('/update-profile', 'Admin\AdminController@updateProfile');
-        Route::post('/userImage/{id}', 'Admin\AdminController@updateImage')->name('admin.image.upload');
+        Route::post('/display_image/{id}', 'Admin\AdminController@updateImage')->name('admin.image.upload');
 
         //internal user
         Route::get('/internal-user', 'Admin\AdminController@create_user_index');

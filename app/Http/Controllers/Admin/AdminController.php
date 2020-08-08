@@ -329,17 +329,18 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Profile Updated successfully!');
     }
 
+
+
     public function updateImage(Request $request, $id){
-        // echo $request;
-        // return array($id, $request);
+
         $user = Auth::user()->where('id', $id)->first();
         if($request){
-        if($request->hasFile('userImage')){
-            $user->userImage = $request->file('userImage')->store('userImage','public');
-        }
-        // return $request;
-        $user->update();
-        return redirect()->back()->with('success', 'Image successfull Uploaded');
+            // return $request;
+            if($request->hasFile('display_image')){
+                $user->display_image = $request->file('display_image')->store('display_image','public');
+            }
+            $user->update();
+            return redirect()->back()->with('success', 'Image successfull Uploaded');
         }
     }
 
