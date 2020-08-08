@@ -141,7 +141,7 @@
                         <div class="row">
                         <div class="button col-md-2 mt-4 mb-4">
 
-                            <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal"  data-target="#exampleModal">Update Password</a>
+                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal"  data-target="#exampleModal">Update Password</a>
 
       
                             <!-- Modal -->
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="button col-md-2 mt-4 mb-4">
-                            <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal"  data-target="#profileModal">Update Profile</a>
+                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal"  data-target="#profileModal">Update Profile</a>
 
       
                             <!-- Modal -->
