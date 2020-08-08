@@ -88,7 +88,15 @@
                             <a href="/admin/appointment" class="nav-link">Appointment</a>
                         </li>
                         <li class="nav-item dropdown">
+
+                            
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                
+                                @isset(Auth::user()->display_image)
+                                    <span> <img  src="{{asset('storage/'.Auth::user()->display_image)}}" style="max-width:50px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span> 
+                                @else
+                                    <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:20px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
+                                @endisset 
                                 {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
 
                             </a>
