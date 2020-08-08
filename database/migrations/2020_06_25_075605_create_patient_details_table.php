@@ -30,7 +30,7 @@ class CreatePatientDetailsTable extends Migration
             $table->string("patAddrLine1");
             $table->string("patAddrLine2")->nullable();
             $table->string("patCity");
-            $table->string("patDistrict");
+            $table->string("patDistrict")->nullable()->default(null);
             $table->string("patState");
             $table->string("patCountry");
             $table->text("patBackground");
