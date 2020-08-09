@@ -74,8 +74,8 @@
                                                     <td>
                                                         <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">
                                                     </td>
-                                                    <td>    
-                                                        <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
+                                                    <td style="text-align: center;">    
+                                                        <input type="checkbox" id="flag" name="flag[]" class="flag" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
                                                         <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="1" placeholder="" onkeypress="return onlyNumberKey(event)">
@@ -91,8 +91,8 @@
                                                     <td>
                                                         <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">
                                                     </td>
-                                                    <td>    
-                                                        <input type="checkbox" id="flag" name="flag[]" class="flag form-check-input" value="{{ $i->toTimeString() }}" checked>
+                                                    <td style="text-align: center;">    
+                                                        <input type="checkbox" id="flag" name="flag[]" class="flag" value="{{ $i->toTimeString() }}" checked>
                                                     </td>
                                                     <td>
                                                         <input type="text" name="freecount[]" id="freecount" class="freecount form-control" value="6" placeholder="" onkeypress="return onlyNumberKey(event)">

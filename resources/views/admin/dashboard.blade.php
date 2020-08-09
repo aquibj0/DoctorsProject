@@ -180,11 +180,6 @@
                                                         @endif
                                                 </td>
                                                 <th scope="row">
-                                                    {{-- @if($serviceReq->paymentStatus == true)
-                                                    <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
-                                                    @else
-                                                    <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
-                                                    @endif --}}
                                                     {{$serviceReq->srId}} </th>
                                                 <td>{{$serviceReq->service->srvcName}}</td>
                                                 <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
@@ -250,7 +245,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md">
-                                    <button type="submit" name="admin_submit" value="reminder" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Reminder</button>
+                                    <button name="admin_submit" value="reminder" class="btn btn-md btn-maroon mb-4" style="width: 100%;">Reminder</button>
                                 </div>
                                 <div class="col-md">
                                     {{-- <button type="submit" name="admin_submit" value="HEY" class="btn btn-md btn-maroon mb-4" style="width: 100%;">HEY</button> --}}

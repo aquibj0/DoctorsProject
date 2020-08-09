@@ -347,7 +347,7 @@ class AdminController extends Controller
     public function operate(Request $request){
         // return $request;
         if($request->admin_submit == 'assign_doctor'){
-            if(count($request->srId) > 0){
+            if(isset($request->srId)){
                 for($i = 0; $i < count($request->srId); $i++){
                     $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
                     if($srvcReq){
@@ -374,34 +374,38 @@ class AdminController extends Controller
                 }
                 return redirect()->back()->with('success', 'Doctor assigned successfully!');
             }else{
-                return redirect()->back()->with('error', 'Something went wrong!');
+                return redirect()->back()->with('error', 'No Service Request selected');
             }
         }elseif($request->admin_submit == 'reminder'){
-            for($i = 0; $i < count($request->srId); $i++){
-                $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
-                $user = $srvcReq->user;
-                if($srvcReq){
-                    if($srvcReq->askQuestion){
+            if(isset($request->srId)){
+                for($i = 0; $i < count($request->srId); $i++){
+                    $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                    $user = $srvcReq->user;
+                    if($srvcReq){
+                        if($srvcReq->askQuestion){
 
-                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-    
-                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, $srvcReq->payment, $srvcReq->user, 3);
-                    }
-                    elseif($srvcReq->videoCall){
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+        
+                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, $srvcReq->payment, $srvcReq->user, 3);
+                        }
+                        elseif($srvcReq->videoCall){
 
-                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-    
-                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->videoCall, $srvcReq->payment, $srvcReq->user, 3);
-                    }
-                    elseif($srvcReq->clinicAppointment){
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+        
+                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->videoCall, $srvcReq->payment, $srvcReq->user, 3);
+                        }
+                        elseif($srvcReq->clinicAppointment){
 
-                        Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-    
-                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->clinicAppointment, $srvcReq->payment, $srvcReq->user, 3);
+                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+        
+                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->clinicAppointment, $srvcReq->payment, $srvcReq->user, 3);
+                        }
                     }
                 }
+                return redirect()->back()->with('success', 'Reminder sent successfully!');
+            }else{
+                return redirect()->back()->with('error', 'No Service Request selected');
             }
-            return redirect()->back()->with('success', 'Reminder sent successfully!');
         }
     }
 

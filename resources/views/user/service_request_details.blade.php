@@ -579,13 +579,10 @@
                                                                             @enderror
                                                                         </div>
                                                                     </div>
-    
-    
-    
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <label for="documentDate">Date of Report/Prescription</label>
-                                                                            <input id="documentDate" type="date" min="{{Carbon\Carbon::today()->subMonths(3)->toDateString()}}" max="{{ Carbon\Carbon::today()->addDays(1)->toDateString() }}" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
+                                                                            <input id="documentDate" type="date" min="{{Carbon\Carbon::today()->subMonths(3)->toDateString()}}" max="{{ Carbon\Carbon::today()->toDateString() }}" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required autocomplete="documentDate" autofocus>
                                             
                                                                             @error('documentDate')
                                                                                 <span class="invalid-feedback" role="alert">
@@ -598,15 +595,11 @@
                                                                     <input type="hidden" name="documentUploadedBy" id="documentUploadedBy" value="{{Auth::user()->id}}">
                                                                     <input type="hidden" name="service_request_id" id="service_request_id" value="{{$serviceRequests->id}}">
                                                                 </div>
-                                                                
-                                                        
-    
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-maroon btn-sm">Save</button>
                                                             </div>
-                                                            
                                                         </form>
                                                     </div>
                                                 </div>
