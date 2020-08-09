@@ -363,6 +363,9 @@
                                             </div>
         
                                             </form>
+                                            @if($serviceRequests->srStatus == "CLOSED")
+                                                <a href="/generate-invoice/{{$serviceRequests->srId}}" class="btn btn-maroon btn-md mb-2">Generate Invoice</a>
+                                            @endif
                                         @endif                                 
                                     </div>
                                 @else
@@ -370,7 +373,7 @@
                                         <a href="/user-payment/{{ $serviceRequests->srId }}" class="btn btn-maroon btn-md">Pay now</a>
                                     </div>
                                 @endif
-
+                                
 
                             {{-- Showing service details of VIDEOCALL --}}
                             @elseif(isset($serviceRequests->videoCall))

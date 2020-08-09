@@ -19,10 +19,10 @@
                                 <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
                                     {{ csrf_field() }}
             
-                                    <div class="form-row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> --}}
             
-                                        <div class="col-md-12">
+                                        <div style="width:90%; float:center;">
                                             <input id="email" type="email" placeholder="Email/Phone No." class="form-control" name="email" value="{{ old('email') }}" required autofocus>
             
                                             @if ($errors->has('email'))
@@ -33,10 +33,10 @@
                                         </div>
                                     </div>
             
-                                    <div class=" form-row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         {{-- <label for="password" class="col-md-4 control-label">Password</label> --}}
             
-                                        <div class="col-md-11">
+                                        <div style="width:85%; float:center;">
                                             <input id="password"  type="password" placeholder="Password" class="form-control" name="password" required>
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
@@ -44,7 +44,7 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="col-md">
+                                        <div style="width:5%; float:right;">
                                             <input type="checkbox" class="form-control" onclick="myFunction()">
                                             <script>
                                                 function myFunction() {
@@ -59,8 +59,8 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="form-row form-group">
-                                        <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div style="width:90%; float:left">
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me

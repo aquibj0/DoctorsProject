@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Tzsk\Sms\Provider\SmsServiceProvider::class,
-
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -227,7 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Sms' => Tzsk\Sms\Facade\Sms::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

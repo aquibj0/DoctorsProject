@@ -19,9 +19,9 @@
                         <div class="mt-3">
                             <form method="POST" action="{{ route('register_user') }}">
                                 @csrf
-                                <div class="form-row">
+                                <div class="row form-group">
 
-                                    <div class="col-md-6 form-group">
+                                    <div class="mr-1" style="width:44.3%; float:center">
                                         <input id="firstName" type="text" placeholder="First Name" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}" required autocomplete="firstName" autofocus>
 
                                         @error('firstName')
@@ -30,7 +30,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 form-group">
+                                    <div class="ml-1" style="width:44.3%; float:center">
                                         <input id="lastName" type="text" placeholder="Last Name" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
 
                                         @error('lastName')
@@ -41,8 +41,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-6 form-group">
+                                <div class="row form-group">
+                                    <div class="mr-1" style="width:44.3%; float:center">
                                         <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('userMobileNo') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
 
                                         @error('userMobileNo')
@@ -51,7 +51,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 form-group"> 
+                                    <div class="ml-1" style="width:44.3%; float:center"> 
                                         <input id="userLandLineNo" onkeypress='validate(event)' type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12">
 
                                         @error('userLandLineNo')
@@ -62,8 +62,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row" >
-                                    <div class="col-md-12 form-group">
+                                <div class="row form-group" >
+                                    <div style="width:90%; float:center">
                                             <input id="userEmail" type="email" placeholder="Email" class="form-control @error('userEmail') is-invalid @enderror" name="userEmail" value="{{ old('userEmail') }}" autocomplete="userEmail">
                                             
                                             @error('userEmail')
@@ -74,8 +74,8 @@
                                     </div>
                                 </div>
         
-                                <div class="form-row">
-                                    <div class="col-md-12 form-group">
+                                <div class="row form-group">
+                                    <div style="width:85%; float:right">
                                         <input id="password" placeholder="Password" value="{{ old('password') }}" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -83,9 +83,8 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-md-1 form-group">
-                                        <label for=""></label>
-                                        <input style="max-width:15px;" type="checkbox" class="form-control" onclick="myFunction()">
+                                    <div style="width:5%; float:right">
+                                        <input type="checkbox" class="form-control" onclick="myFunction()">
                                         <script>
                                             function myFunction() {
                                                 var x = document.getElementById("password");
@@ -96,15 +95,15 @@
                                                 }
                                             } 
                                         </script>
-                                    </div> --}}
+                                    </div>
                                 </div>
         
-                                <div class="form-row">
-                                    <div class="col-md-12 form-group">
+                                <div class="row form-group">
+                                    <div style="width:85%; float:center">
                                         <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
-                                    {{-- <div class="col-md form-group">
-                                        <input style="max-width:15px" type="checkbox" class="form-control" onclick="myFunctionConfirm()">
+                                    <div style="width:5%;">
+                                        <input style="float:right" type="checkbox" class="form-control" onclick="myFunctionConfirm()">
                                         <script>
                                             function myFunctionConfirm() {
                                                 var x = document.getElementById("password-confirm");
@@ -115,11 +114,11 @@
                                                 }
                                             } 
                                         </script>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
+                                <div class="row form-group">
+                                    <div style="width:90%; float:left">
                                         <input type="checkbox" id="terms" onchange="confirm()">
                                         <label for="">I Agree with all the statements in <a href="#" data-toggle="modal" data-target="#termsandconditions"><u>Terms of Services</u></a></label>
                                         
@@ -160,7 +159,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">
+                                    <div class="col-md-12 mt-2">
                                         <button type="submit" style="width:100%" id="submit" class="btn btn-maroon  " onclick="return Validate()" disabled>
                                             {{ __('Submit') }}
                                         </button>

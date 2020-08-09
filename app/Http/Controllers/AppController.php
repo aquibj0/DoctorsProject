@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use Auth;
+use App\ServiceRequest;
+use PDF;
 
 class AppController extends Controller
 {
@@ -16,6 +18,13 @@ class AppController extends Controller
 
     public function thank_you(){
         return view('ask-doctor.thank-you');
+    }
+
+    public function generateInvoice($id){
+        $data = ServiceRequest::where('srId', $id)->first();
+        $pdf = PDF::loadView('invoice', compact('data'));
+        return $pdf->download('invoice.pdf');
+        // return view('invoice')->with('srvcReq', ServiceRequest::where('srId', $id)->first());
     }
 
     public function index()

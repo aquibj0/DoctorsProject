@@ -18,6 +18,9 @@ Auth::routes();
 
 Route::get('/', 'AppController@index');
 
+//generate invoice
+Route::get('/generate-invoice/{id}', 'AppController@generateInvoice');
+
 Route::get('/terms-and-condition', function(){
     return view('terms-and-condition');
 });

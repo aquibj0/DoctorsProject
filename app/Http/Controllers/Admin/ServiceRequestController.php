@@ -61,8 +61,11 @@ class ServiceRequestController extends Controller
         $patient = Patient::find($srvcReq->patient_id);
 
         $user = User::find($srvcReq->user_id);
-
-        SendEmail::dispatch($patient, $srvcReq, $aaq, $user, 2)->delay(now()->addMinutes(1));
+        
+        //service request responded
+        SendEmail::dispatch($patient, $srvcReq, $aaq, $srvcReq->payment, $user, 2)->delay(now()->addMinutes(1));
+        // for service request closed
+        SendEmail::dispatch($srvcReq->patient, $srvcReq, null, null, $srvcReq->user, 5); 
 
         return redirect()->route('admin.dashboard')->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
     }
@@ -173,6 +176,7 @@ class ServiceRequestController extends Controller
                 return redirect()->back()->with('error', 'Service Request '.$servcReq->srId.' has been closed already!');
             $servcReq->srStatus = "CLOSED";
             $servcReq->update();
+            SendEmail::dispatch($servcReq->patient, $srvcReq, null, null, $servcReq->user, 5);
             return redirect()->back()->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
         }else{
             return redirect()->back()->with('error', 'Something went wrong! Please try agian later.');

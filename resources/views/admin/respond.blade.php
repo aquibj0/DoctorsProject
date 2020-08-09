@@ -77,11 +77,10 @@
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
                                     </div>
-                                    <div class="text-center">
-                                        @if(isset($serviceReq->adminDoctor) && Auth::user()->id == $$srvcReq->adminDoctor->id)
-                                        <button type="submit" class="btn btn-maroon" >SUBMIT</button>
+                                    <div class="text-center" style="width:100%">
+                                        @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
+                                        <button type="submit" style="width:100%" class="btn btn-maroon" >SUBMIT</button>
                                         @endif
-
                                     </div>
                                 </form>
                             @endif

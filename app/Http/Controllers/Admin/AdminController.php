@@ -347,34 +347,38 @@ class AdminController extends Controller
     public function operate(Request $request){
         // return $request;
         if($request->admin_submit == 'assign_doctor'){
-            if(isset($request->srId)){
-                for($i = 0; $i < count($request->srId); $i++){
-                    $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
-                    if($srvcReq){
-                        if($srvcReq->srResponseDateTime < Carbon::now()){
-                            DB::beginTransaction();
-                            try{
-                                $srvcReq->srAssignedIntUserId = $request->doctor;
-                                $srvcReq->update();
-                                $doctor = Admin::where('id', $request->doctor)->first();
-                                SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
-                            }catch(\Exception $e){
+            if(isset($request->doctor)){
+                if(isset($request->srId)){
+                    for($i = 0; $i < count($request->srId); $i++){
+                        $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                        if($srvcReq){
+                            if($srvcReq->srResponseDateTime < Carbon::now()){
+                                DB::beginTransaction();
+                                try{
+                                    $srvcReq->srAssignedIntUserId = $request->doctor;
+                                    $srvcReq->update();
+                                    $doctor = Admin::where('id', $request->doctor)->first();
+                                    SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
+                                }catch(\Exception $e){
+                                    DB::rollback();
+                                    return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                                }
+                                DB::commit();
+                            }else{
                                 DB::rollback();
-                                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                                return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
                             }
-                            DB::commit();
                         }else{
                             DB::rollback();
-                            return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
+                            return redirect()->back()->with('error', 'Service Request dosen\'t exists');
                         }
-                    }else{
-                        DB::rollback();
-                        return redirect()->back()->with('error', 'Service Request dosen\'t exists');
                     }
+                    return redirect()->back()->with('success', 'Doctor assigned successfully!');
+                }else{
+                    return redirect()->back()->with('error', 'No Service Request selected');
                 }
-                return redirect()->back()->with('success', 'Doctor assigned successfully!');
             }else{
-                return redirect()->back()->with('error', 'No Service Request selected');
+                return redirect()->back()->with('error', 'No Doctor selected');
             }
         }elseif($request->admin_submit == 'reminder'){
             if(isset($request->srId)){

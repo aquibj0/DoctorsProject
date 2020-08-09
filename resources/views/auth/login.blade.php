@@ -21,7 +21,8 @@
                                 @csrf
         
                                 <div class="form-group row">
-                                    <div class="col-md-12">
+                                    
+                                    <div style="width:90%; float:center">
                                             <input id="email" type="text" placeholder="Email or Mobile No." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
             
                                             @error('email')
@@ -34,23 +35,21 @@
             
                                 <div class="form-group row">
                                     
-                                    <div class="col-md-12">
+                                    <div style="width:85%; float:center">
                                             <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                            {{-- <span> <input type="checkbox" class="form-control" onclick="myFunction()"></span> --}}
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-sm">
-                                       
-                                        
-                                    </div> --}}
+                                    <div style="width:5%; ">
+                                        <span style="float:right"> <input type="checkbox" class="form-control" onclick="myFunction()"></span>
+                                    </div>
                                 </div>
         
                                 <div class="form-group row">
-                                    <div class="col-md-12 ">
+                                    <div style="width:90%; float:left;">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
         

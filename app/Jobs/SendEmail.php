@@ -11,6 +11,7 @@ use App\Mail\AAQEmail;
 use App\Mail\AAQResponseEmail;
 use App\Mail\AssignDoctorEmail;
 use App\Mail\ServiceRequestReminderEmail;
+use App\Mail\ServiceRequestCloseEmail;
 use Mail;
 use Auth;
 
@@ -80,6 +81,10 @@ class SendEmail implements ShouldQueue
         }elseif($this->option == 4){        //assign doctor
                 Mail::to($this->user->email) //write relation for getting the assigned doctor so to directly getting the doctor id
                     ->send(new AssignDoctorEmail($this->patient, $this->srvcReq ,$this->asaq));
+        }elseif($this->option == 5){        //Service request closed
+            Mail::to($this->user->userEmail)
+                    ->send(new ServiceRequestCloseEmail($this->patient, $this->srvcReq, $this->user));
+            
         }else{
             //
         }
