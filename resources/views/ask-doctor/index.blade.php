@@ -258,14 +258,15 @@
 
                                     <div class="form-row ">
                                         <div class="form-group col-md-12">
-                                            <label for="patPhotoFileNameLink">Patient Picture</label>
-                                            <input type="file" name="patPhotoFileNameLink">
-                                            {{-- <input name="patPhotoFileNameLink" type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" id="patPhotoFileNameLink"   value="{{ old('patPhotoFileNameLink') }}" > --}}
-                                            {{-- @error('patPhotoFileNameLink')
+                                            <div class="mb-3">
+                                                <h2 class="maroon MB-3"><b>PATIENT PICTURE</b></h2>
+                                            </div>
+                                           <input name="patPhotoFileNameLink" type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" id="patPhotoFileNameLink"   value="{{ old('patPhotoFileNameLink') }}" >
+                                            @error('patPhotoFileNameLink')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
-                                            @enderror --}}
+                                            @enderror
                                         </div>
                                     </div>
 

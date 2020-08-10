@@ -6,7 +6,9 @@
 {{-- IF service request is regarding ASK A QUESTION --}}
 @if (!empty($srvcReq->askQuestion))
     <div class="container mt-2">
+        @include('layouts.message')
         <div class="row">
+            
             <div class="col-md-6">
                 <div class="register-block">
                     <h2>RESPONSE ASK A DOCTOR</h2>
@@ -277,7 +279,7 @@
                 
                 <div class="col-md-5" >
 
-                        <div class="col-md-5" >
+                        <div  >
 
                             <div style="border:1px solid #000; padding: 15px">
                                     <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
@@ -306,7 +308,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md">
                     @if(count($prescriptions) != 0 && $srvcReq->srStatus != "CLOSED")
                     <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
                     @else

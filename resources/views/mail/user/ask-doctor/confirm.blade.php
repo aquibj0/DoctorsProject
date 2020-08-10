@@ -22,7 +22,7 @@
 <body>  
     <div class="container">
         <div class="jumbotron">
-            {{-- <img src="{{asset('image/logo2.png')}}" class="mt-4" alt=""> --}}
+            <img src="{{asset('image/logo2.png')}}" class="mt-4" alt="">
             <p>We are in receipt of your request no <span class="maroon"><b>{{ $srvcReq->srId }}</b></span>   dated <span class="maroon"><b>{{ $srvcReq->srRecievedDateTime }}</b></span>   for </p>
 
             <p>Patient Name : <span>{{ $patient->patFirstName }} {{ $patient->patLastName }}</span>  </p>                

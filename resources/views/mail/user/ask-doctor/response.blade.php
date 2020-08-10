@@ -22,7 +22,7 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <img src="{{asset('image/logo2.j[g')}}" class="mt-4" alt="">
+            <img src="{{asset('image/logo2.jpg')}}" class="mt-4" alt="">
             <p class="lead mb-5">
                 Dear <span class="maroon">{{$patient->user->userFirstName}} {{$patient->user->userLastName}}</span>, The service request, <span class="maroon"><b>{{ $srvcReq->srId }}</b></span> has been 
                 responded by the doctor.

@@ -52,9 +52,9 @@ class PatientDocumentController extends Controller
                 // Get just ext
                 $extension = $request->file('documentFileName')->getClientOriginalExtension();
                 //File name to Store
-                $fileNameToStore = $serviceReq->srId.'-'.$filename.$extension;
+                $fileNameToStore = $serviceReq->srId.'-'.$filename.'.'.$extension;
                 //Upload File
-                $path = $request->file('documentFileName')->storeAs('public/documentFileName',$fileNameToStore);
+                $path = $request->file('documentFileName')->storeAs('public/documentFileName', $fileNameToStore);
             }
             else{
                 $fileNameToStore = 'nofile.img';

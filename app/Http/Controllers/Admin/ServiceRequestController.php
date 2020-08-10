@@ -176,7 +176,7 @@ class ServiceRequestController extends Controller
                 return redirect()->back()->with('error', 'Service Request '.$servcReq->srId.' has been closed already!');
             $servcReq->srStatus = "CLOSED";
             $servcReq->update();
-            SendEmail::dispatch($servcReq->patient, $srvcReq, null, null, $servcReq->user, 5);
+            SendEmail::dispatch($servcReq->patient, $servcReq, null, null, $servcReq->user, 5);
             return redirect()->back()->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
         }else{
             return redirect()->back()->with('error', 'Something went wrong! Please try agian later.');
