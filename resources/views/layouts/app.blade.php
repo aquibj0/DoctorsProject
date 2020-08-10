@@ -74,9 +74,7 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-item dropdown">
-
-
+                        <li class="nav-item dropdown" style="width:200px;display:block">
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @isset(Auth::user()->userImage)
@@ -85,7 +83,7 @@
                                @else
                                <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:35px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
                                 @endisset 
-                               {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
+                                &nbsp;&nbsp;{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
 
                             </a>
                             

@@ -48,6 +48,7 @@ html, body{
 
 
     .nav-item{
+        width: auto !important;
         display: grid;
         place-content: unset;
     }
