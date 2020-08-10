@@ -11,14 +11,16 @@
                 {{-- <div class="card-header">{{ __('Reset Password') }}</div> --}}
 
                 <div class="card-body">
+                    @include('layouts.message')
+
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                    <form method="POST" action="{{ url('/password-reset') }}">
+                        {{ csrf_field() }}
                         <div class="row form-group">
                             <div class="col-md-5">
                                 <h2 style="text-align: center">Enter E-Mail Address</h2>

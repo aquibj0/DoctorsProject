@@ -1,8 +1,3 @@
-Yo boy!
-{{-- {{$data}}
-{{$data->user}} --}}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +7,12 @@ Yo boy!
     <title>Document</title>
 </head>
 <body>
-    <img src="{{asset('image/logo2.jpg')}}" style="max-width:60px;" class="mt-4" alt="">
+    Hello {{ $user->userFirstName }},
+    <hr>
+    <p>Your password link is this: <a href="{{ $link }}" target="_blank">Click here</a>
+    <br>Or copy the link {{$link}}</p>
+    <hr>
+    <p> Best Regards,<br>
+    Team BIRTH</p>
 </body>
 </html>
