@@ -16,6 +16,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @include('layouts.message')
 
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
@@ -27,9 +28,9 @@
                         <div class="form-group row">
 
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control" style="border-bottom: 1px solid maroon; text-align: center" placeholder="jhon@something.com" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="userEmail" type="email" class="form-control" style="border-bottom: 1px solid maroon; text-align: center" placeholder="jhon@something.com" name="userEmail" value="{{ old('userEmail') }}" required autocomplete="userEmail" autofocus>
 
-                                @error('email')
+                                @error('userEmail')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
