@@ -15,6 +15,9 @@
         <div class="row">
             <div class="col-md">
                 <div class="card " >
+                    <div class="card-header">
+
+                    </div>
                     {{-- <div class="card-header">
                         <form action="/filter" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -82,7 +85,7 @@
                                 <tr>
                                     <th scope="col">Sr ID</th>
                                     <th scope="col">Sr Type</th>
-                                    <th scope="col">Sr Date Time</th>
+                                    <th scope="col">Sr Date</th>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Payment Status</th>
                                     <th scope="col">Action</th>
@@ -97,7 +100,7 @@
                                     <tr>
                                         <th scope="row">{{$serviceRequest->srId}}</th>
                                         <td style="text-transform:uppercase">{{$serviceRequest->service->srvcName}}
-                                        <td> {{$serviceRequest->srRecievedDateTime}} </td>
+                                        <td> {{date('d-m-Y', strtotime($serviceRequest->srRecievedDateTime))}}  </td>
                                         <td>{{$serviceRequest->patient->patFirstName}} {{$serviceRequest->patient->patLastName}}</td>
                                         <td>
                                             @if ($serviceRequest->paymentStatus == true)
@@ -123,6 +126,7 @@
                         </table>
                         @endif
                     </div>
+                    <div class="card-footer"></div>
                 </div>
                    
             </div>
