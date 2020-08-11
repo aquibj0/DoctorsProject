@@ -101,11 +101,7 @@
 
   <table width="100%">
     <tr class="border">
-        <td>
-            <strong class="mb-0">By - Dr. Gautam Khastgir</strong> 
-            <p class="mb-0 ">Date :  {{date('d/m/Y ', strtotime($data->srRecievedDateTime))}}</p>
-            <p class="mb-0 mt-0">Invoice No. : ONL2020-00001 </p>
-        </td>
+ 
         <td>
                 <strong class="mb-0">{{$data->patient->patFirstName}} {{$data->patient->patLastName}}</strong> 
                 <p class="mb-0 ">M : {{$data->patient->patMobileNo}}</p>
@@ -113,6 +109,11 @@
                 <p class="mb-0 mt-0">Address : {{$data->patient->patAddrLine1}},  @isset($data->patient->patAddrLine2){{$data->patient->patAddrLine2}},@endisset<br>
                     {{$data->patient->patCity}}, {{$data->patient->patDistrict}}, {{$data->patient->patState}}, {{$data->patient->patCountry}} </p>    
         </td>
+        <td>
+                <strong class="mb-0">By - Dr. Gautam Khastgir</strong> 
+                <p class="mb-0 ">Date :  {{date('d/m/Y ', strtotime($data->srRecievedDateTime))}}</p>
+                <p class="mb-0 mt-0">Invoice No. : ONL2020-00001 </p>
+            </td>
     </tr>
 
   </table>
@@ -135,41 +136,58 @@
       <tr>
         <th scope="row">01</th>
         <td>{{$data->service->srvcName}}</td>
-        <td align="right">₹ {{$data->service->srvcPrice}}.00</td>
+        <td align="right"> {{$data->service->srvcPrice}}.00</td>
         <td align="right">1</td>
-        <td align="right">₹ 0</td>
-        <td align="right">₹ 0.0</td>
-        <td align="right"> {!!'$'. $data->service->srvcPrice!!}.00</td>
+        <td align="right"> 0</td>
+        <td align="right"> 0.0</td>
+        <td align="right"> {!! $data->service->srvcPrice!!}.00</td>
 
       </tr>
     
     </tbody>
     
     <tfoot style="margin-top:25px">
- 
-        <tr>
-            <td></td>
-            <td></td>
-            <td colspan="3" ></td>
-            <td align="right" style="background-color: lightgray;">Subtotal $</td>
-            <td align="right">1635.00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td colspan="3" ></td>
-            <td align="right"style="background-color: lightgray;">Tax $</td>
-            <td align="right">294.3</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td colspan="3" ></td>
-            <td align="right"style="background-color: lightgray;" >Total $ </td>
-            <td align="right" class="gray">$ 1929.3</td>
-        </tr>
+            <tr >
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" ></td>
+                    <td align="right" style="background-color: lightgray;">Total Cost</td>
+                    <td align="right">{{$data->service->srvcPrice}}.00</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" ></td>
+                    <td align="right"style="background-color: lightgray;">Total Discount</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" ></td>
+                    <td align="right"style="background-color: lightgray;" >Total Tax </td>
+                    <td align="right" class="gray">0</td>
+                </tr>
+
     </tfoot>
   </table>
+
+
+  <div class="row mt-5">
+      <div class="col-md-6">
+          <h4><Strong>Payment Details</Strong></h4>
+          <p>Date : {{date('d/m/Y ', strtotime($data->payment->created_at))}}</p>
+
+          <p>Transaction Mode : RazorPay</p>
+          <p>Transaction Mode : {{$data->payment->payment_amount}}</p>
+          
+      </div>
+      
+  </div>
+
+  <div class="text-center mt-4" style="text-align:center">
+        <p class="maroon">This is an electronically generated document and does not require a signature</p>
+  </div>
 
 </body>
 </html>
