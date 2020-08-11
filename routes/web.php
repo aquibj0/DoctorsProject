@@ -33,6 +33,10 @@ Route::get('/getSlots/{date}/{appType}', 'VideoConsultationController@getSlots')
 Route::get('/getLocSlots/{date}/{service}/{id}', 'ClinicAppointmentController@getLocSlots');
 Route::get('/getLocation', 'Admin\AppointmentController@getLocation');
 
+//forgot password
+Route::post('/password-reset', 'Auth\ForgotPasswordController@passwordReset');
+Route::post('/password-reset/store', 'Auth\ForgotPasswordController@resetPassword');
+
 
 //Upload Image
 Route::post("/userImage/{id}", 'UserController@updateImage')->name('image.upload');

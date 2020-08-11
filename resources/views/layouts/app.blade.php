@@ -78,10 +78,10 @@
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @isset(Auth::user()->userImage)
-                                <span> <img  src="{{asset('storage/'.Auth::user()->userImage)}}" style="max-width:50px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
+                                <span> <img  src="{{asset('storage/'.Auth::user()->userImage)}}" style="max-width:35px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
                                
                                @else
-                               <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:50px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
+                               <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:35px;border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
                                 @endisset 
                                 &nbsp;&nbsp;{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
 

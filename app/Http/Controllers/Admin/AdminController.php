@@ -45,7 +45,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $servReq = ServiceRequest::all();
+        $servReq = ServiceRequest::latest('created_at')->get();
         return view('admin.dashboard')->with('servReq', $servReq)->with('doctors', Admin::where('category', 'doc')->get())->with('start', 0)->with('end', 0)->with('filter', 0)->with('services', Service::all())->with('counter', 0);
     }
 

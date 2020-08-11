@@ -60,12 +60,12 @@ class LoginController extends Controller
           // if successful, then redirect to their intended location
           return redirect()->intended(url('/admin'));
         }else{
-          return redirect()->back()->withInput()->with('error','Wrong Password!');
+          return redirect()->back()->withInput()->with('error','Wrong Email or Password!');
         }
         // $admin = Admin::where('email', $request->email)->first();
       }else{
       // if unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput()->with('error', 'Email dosen\'t exists!');
+        return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
       }
     }
 

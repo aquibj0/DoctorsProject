@@ -173,7 +173,7 @@
                                             @else
                                             <tr>
                                                 <td>
-                                                        @if($serviceReq->paymentStatus == true)
+                                                        @if($serviceReq->paymentStatus == true && $serviceReq->srStatus != "CLOSED")
                                                             <input type="checkbox" class="select_id" name="srId[]" value="{{$serviceReq->id}}">
                                                         @else
                                                             <input type="checkbox" class="select_id_" name="srId[]" value="{{$serviceReq->id}}" disabled>
