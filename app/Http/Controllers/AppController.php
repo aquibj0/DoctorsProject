@@ -29,11 +29,11 @@ class AppController extends Controller
 
     public function index()
     {
-        if(Auth::user()){
-            if(Auth::user()->userType == 'A'){
-                return view('admin.home');
-            }
-        }
+        // if(Auth::user()){
+        //     if(Auth::user()->userType == 'A'){
+        //         return view('admin.home');
+        //     }
+        // }
         $services = Service::all();
         return view('app.index', compact('services'));
         // return Auth::user()->id;

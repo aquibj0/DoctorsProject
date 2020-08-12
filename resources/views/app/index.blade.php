@@ -70,7 +70,10 @@
                         <div class="hide">
                             <p class="mb-0">Submit Patient Details</p>
                             <p class="mb-0">Upload Reports & Prescriptions</p>
-                            <p class="mb-0">Fees: Rs.200</p>
+                            @if(isset(App\Service::where('srvcShortName', 'AAQ')->first()->srvcPrice))
+                            <p class="mb-0">Fees: Rs.{{App\Service::where('srvcShortName', 'AAQ')->first()->srvcPrice}}</p>
+                            @endif
+                            {{-- <p class="mb-0">Fees: Rs.200</p> --}}
                         </div>
                         
                     </div>
@@ -85,8 +88,12 @@
                         <div class="hide">
                             <p class="mb-0">Submit Patient Details</p>
                             <p class="mb-0">Book Video Appointment</p>
-                            <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
-                            <p class="mb-0">Team Doctor Rs 1000</p>
+                            @if(isset(App\Service::where('srvcShortName', 'VTD')->first()->srvcPrice) && isset(App\Service::where('srvcShortName', 'VED')->first()->srvcPrice))
+                            <p class="mb-0">Fees: Dr Khastgir Rs.{{App\Service::where('srvcShortName', 'VED')->first()->srvcPrice}}</p>
+                            <p class="mb-0">Team Doctor Rs.{{App\Service::where('srvcShortName', 'VTD')->first()->srvcPrice}}</p>
+                            @endif
+                            {{-- <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
+                            <p class="mb-0">Team Doctor Rs 1000</p> --}}
                         </div>
                     </div>
                 </div>
@@ -101,8 +108,12 @@
                         <div class="hide">
                             <p class="mb-0">Submit Patient Details</p>
                             <p class="mb-0">Book Clinic Appointment</p>
-                            <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
-                            <p class="mb-0">Team Doctor Rs 1000</p>
+                            @if(isset(App\Service::where('srvcShortName', 'CED')->first()->srvcPrice) && isset(App\Service::where('srvcShortName', 'CTD')->first()->srvcPrice))
+                            <p class="mb-0">Fees: Dr Khastgir Rs.{{App\Service::where('srvcShortName', 'CED')->first()->srvcPrice}}</p>
+                            <p class="mb-0">Team Doctor Rs.{{App\Service::where('srvcShortName', 'CTD')->first()->srvcPrice}}</p>
+                            @endif
+                            {{-- <p class="mb-0">Fees: Dr Khastgir Rs 2000</p>
+                            <p class="mb-0">Team Doctor Rs 1000</p> --}}
                         </div>
                     </div>
                 </div>

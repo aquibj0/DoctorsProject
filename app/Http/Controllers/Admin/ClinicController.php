@@ -47,7 +47,7 @@ class ClinicController extends Controller
             'clinicMobileNo' => ['nullable', 'numeric', 'digits:10'],
             'clinicLandLineNo' => ['nullable', 'numeric', 'max:11'],
             'clinicAddressLine1' => ['required', 'string', 'max:64'],
-            'clinicAddressLine2' => ['max:64'],
+            'clinicAddressLine2' => ['nullable', 'string', 'max:64'],
             'clinicCity' => ['required', 'string', 'max:35'],
             'clinicDistrict' => ['nullable', 'string', 'max:35'],
             'clinicState' => ['required', 'string', 'max:35'],

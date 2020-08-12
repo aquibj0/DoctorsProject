@@ -65,25 +65,35 @@ class AskDoctorController extends Controller
     {
         $user = Auth::user();
         if($request){
-            $validator = Validator::make($request->all(), [
-                'firstName' => ['string', 'max:35'],
-                'lastName' => ['string', 'max:35'],
-                'gender' => ['string', 'min:4', 'max:6'],
-                'age' => ['numeric', 'min:10', 'max:90'],
-                'patient_background' => ['string', 'max:1024'],
-                'patEmail' => ['email', 'max:255'],
-                'patMobileNo' => ['numeric', 'digits:10'],
-                'addressLine1' => ['string', 'max:64'],
-                'addressLine2' => ['string', 'nullable', 'max:64'],
-                'city' => ['string', 'max:35'],
-                'district' => ['nullable', 'string', 'max:35'],
-                'state' => ['string', 'max:35'],
-                'country' => ['string', 'max:35'],
-                'patPhotoFileNameLink' => ['mimes:jpeg,jpg,png'],
-                'department' => ['string'],
-                'patient_question' => ['string', 'max:1024'],
-                'photo' => ['nullable','file','image','mimes:jpeg,png,gif,webp','max:2048'],
-            ]);
+            if(isset($request->patient_id)){
+                $validator = Validator::make($request->all(), [
+                    'patient_background' => ['required', 'string', 'max:1024'],
+                    'patPhotoFileNameLink' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
+                    'department' => ['required', 'string'],
+                    'patient_question' => ['required', 'string', 'max:1024'],
+                    // 'photo' => ['nullable','file','image','mimes:jpeg,png,gif,webp','max:2048'],
+                ]);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'firstName' => ['required', 'string', 'max:35'],
+                    'lastName' => ['required', 'string', 'max:35'],
+                    'gender' => ['required', 'string', 'min:4', 'max:6'],
+                    'age' => ['required', 'numeric', 'min:10', 'max:90'],
+                    'patient_background' => ['required', 'string', 'max:1024'],
+                    'patEmail' => ['required', 'email', 'max:255'],
+                    'patMobileNo' => ['required', 'numeric', 'digits:10'],
+                    'addressLine1' => ['required', 'string', 'max:64'],
+                    'addressLine2' => ['string', 'nullable', 'max:64'],
+                    'city' => ['required', 'string', 'max:35'],
+                    'district' => ['nullable', 'string', 'max:35'],
+                    'state' => ['required', 'string', 'max:35'],
+                    'country' => ['required', 'string', 'max:35'],
+                    'patPhotoFileNameLink' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
+                    'department' => ['required', 'string'],
+                    'patient_question' => ['required', 'string', 'max:1024'],
+                    // 'photo' => ['nullable','file','image','mimes:jpeg,png,gif,webp','max:2048'],
+                ]);
+            }
             if(!$validator->fails()){                
                 DB::beginTransaction();
                 try{

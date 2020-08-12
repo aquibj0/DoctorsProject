@@ -28,7 +28,7 @@ class CreatePatientDetailsTable extends Migration
             $table->string("patMobileNo");
             $table->string("patEmail");
             $table->string("patAddrLine1");
-            $table->string("patAddrLine2")->nullable();
+            $table->string("patAddrLine2")->nullable()->default(null);
             $table->string("patCity");
             $table->string("patDistrict")->nullable()->default(null);
             $table->string("patState");

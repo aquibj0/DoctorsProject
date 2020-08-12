@@ -56,7 +56,7 @@ class ForgotPasswordController extends Controller
                     // $res = $this->sendResetEmail($request->email, $tokenData->token);
                     // $user = DB::table('users')->where('userEmail', $email)->select('userFirstName', 'userEmail')->first();
                     //Generate, the password reset link. The token generated is embedded in the link
-                    $link = config('app.urls', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
+                    $link = config('app.url', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
                     // return $link;
                     try {
                         Mail::to($user->userEmail)->send(new PasswordForgetLink($user, $link));
