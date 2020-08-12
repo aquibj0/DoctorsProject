@@ -82,7 +82,7 @@ class AskDoctorController extends Controller
                 'patPhotoFileNameLink' => ['mimes:jpeg,jpg,png'],
                 'department' => ['string'],
                 'patient_question' => ['string', 'max:1024'],
-
+                'photo' => ['nullable','file','image','mimes:jpeg,png,gif,webp','max:2048'],
             ]);
             if(!$validator->fails()){                
                 DB::beginTransaction();
@@ -191,7 +191,7 @@ class AskDoctorController extends Controller
                     }
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', $e->getMessage());
+                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again.');
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
