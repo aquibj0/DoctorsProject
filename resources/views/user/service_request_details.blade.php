@@ -190,7 +190,7 @@
                                         {{-- Request Cancellation Button will only be available on below condiions. --}}
                                         @if ($serviceRequests->srStatus != 'Cancelled')
                                             
-                                            
+                                            @if( $serviceRequests->srStatus != 'CLOSED')
                                             {{-- Upload Document Button --}}
                                             @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
                                                 <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
@@ -270,7 +270,7 @@
                                                                         <div class="form-group row">
                                                                             <div class="col-md-12">
                                                                                 <label for="documentDate">Date of Report/Prescription</label>
-                                                                                <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required min="{{Carbon\Carbon::today()->subMonths(6)->toDateString()}}" max="{{Carbon\Carbon::today()->addDays(1)->toDateString()}}" autocomplete="documentDate" autofocus>
+                                                                                <input id="documentDate" type="date" placeholder="Document Filename" class="form-control @error('documentDate') is-invalid @enderror" name="documentDate" value="{{ old('documentDate') }}" required min="{{Carbon\Carbon::today()->subMonths(6)->toDateString()}}" max="{{Carbon\Carbon::today()->toDateString()}}" autocomplete="documentDate" autofocus>
                                                                                  
                                                                                 @error('documentDate')
                                                                                     <span class="invalid-feedback" role="alert">
@@ -363,11 +363,13 @@
                                             </div>
         
                                             </form>
+                                            @endif
                                             @if($serviceRequests->srStatus == "CLOSED")
                                                 <a href="/generate-invoice/{{$serviceRequests->srId}}" class="btn btn-maroon btn-md mb-2">Generate Invoice</a>
                                             @endif
                                         @endif                                 
                                     </div>
+                                    
                                 @else
                                     <div class="btn-grouped float-right mt-4">
                                         <a href="/user-payment/{{ $serviceRequests->srId }}" class="btn btn-maroon btn-md">Pay now</a>

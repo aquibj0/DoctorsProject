@@ -74,7 +74,7 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-item dropdown" style="width:200px;display:block">
+                        <li class="nav-item dropdown" style="min-width:270px;display:block">
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @isset(Auth::user()->userImage)

@@ -99,6 +99,10 @@ class UserController extends Controller
     }
 
     public function updateImage( Request $request, $id){
+        $validator = Validator::make($request->all(), [
+            'userImage' => ['required', 'mimes:jpeg,png,gif,webp','max:2048'],
+        ]);
+        if(!$validator->fails()){
         if($request){
             $user = Auth::user()->where('id', $id)->first();
             if($request->hasFile('userImage')){
@@ -106,6 +110,9 @@ class UserController extends Controller
             }
             $user->update();
             return redirect()->back()->with('success', 'Image successfull Uploaded');
+        }
+        }else{
+            return redirect()->back()->with('error', $validator );
         }
     }
 
