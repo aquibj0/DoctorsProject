@@ -21,7 +21,12 @@ html, body{
     justify-content: center;
 }
 
-
+th{
+    line-height: 1.05;
+}
+td{
+    line-height: 1.1;
+}
 /* @media(max-width:768px){ */
     .row{ 
         margin-left: 0;

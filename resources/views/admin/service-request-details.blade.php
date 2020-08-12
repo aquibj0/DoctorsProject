@@ -66,11 +66,6 @@
                                                 </td>
                                             </tr>
                                         @else
-        
-                                        {{-- <div class="col-md-4">
-                                            <h5 class="maroon mb-3"><u><b>APPOINTMENT DETAILS</b></u></h5>
-                                            <p class="maroon"><b>No History Found</b></p>
-                                        </div> --}}
                                     @endif
 
 
@@ -111,9 +106,17 @@
                                                 <td>{{$paymentDetails->payment_transaction_id}}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Payment Time</th>
+                                                <th scope="row">Payment Date</th>
                                                 <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
                                             </tr> 
+                                            <tr>
+                                                <th scope="row">Payment Mode</th>
+                                                <td>Razorpay</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Payment Amount</th>
+                                                <td>{{ '₹ '.$paymentDetails->payment_amount}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 @else
@@ -141,16 +144,11 @@
                                         @if ($srvcReq->srAssignedIntUserId == null)
                                             <tr>
                                                 <th scope="row">Assign Doctor</th>
-                                                <td>
-                                                    
-                                                        Not Assigned
-                                                
-                                                </td>
+                                                <td>Not Assigned</td>
                                             </tr>
 
 
                                         @else
-
                                             <tr>
                                                 <th scope="row">Assign Doctor</th>
                                                 <td>Dr. {{$srvcReq->adminDoctor->firstName}} {{$srvcReq->adminDoctor->lastName}}</td>
@@ -158,7 +156,7 @@
 
                                             <tr>
                                                 <th scope="row">Responded By</th>
-                                                <td>To Be Done</td>
+                                                <td>Dr. {{$srvcReq->adminDoctor->firstName}} {{$srvcReq->adminDoctor->lastName}}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Response Time</th>
@@ -191,8 +189,7 @@
                             </div>
                            
                         
-                            <div class="col-md-4">
-
+                            <div class="col-md-3">
                                 <div class="text-center"> 
 
                                     @if (isset($srvcReq->patient->patPhotoFileNameLink))
@@ -204,31 +201,32 @@
                                     @endif
                                     
                                 </div>
-                               
-
                             </div>
 
-                            <div class="col-md-4">
 
-                                    <h5 class="maroon mb-3"><u><b>PATIENT DETAIL</b></u></h5>
+
+                            {{-- Patient Details --}}
+                            <div class="col-md-5">
+
+                                <h5 class="maroon mb-3"><u><b>PATIENT DETAIL</b></u></h5>
                                 <table class="table table-bordered table-responsive">
                                     <tbody >
                                         <tr>
-                                            <th scope="row">Patient Name</th>
+                                            <th scope="row">P. Name</th>
                                             <td>{{ $srvcReq->patient->patFirstName }} {{ $srvcReq->patient->patLastName }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Patient Age</th>
+                                            <th scope="row">P. Age</th>
                                             <td>{{ $srvcReq->patient->patAge}}</td> 
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">Patient Gender</th>
+                                            <th scope="row">P. Gender</th>
                                             <td>{{ $srvcReq->patient->patGender }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">Patient Address</th>
+                                            <th scope="row">P. Address</th>
                                             <td>{{ $srvcReq->patient->patAddrLine1 }}, {{ $srvcReq->patient->patAddrLine2 }} , 
                                                     {{ $srvcReq->patient->patCity }}, {{ $srvcReq->patient->patDistrict }},
                                                     {{ $srvcReq->patient->patState }}, {{ $srvcReq->patient->patCountry }}, 
@@ -236,11 +234,11 @@
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">Contact Mobile</th>
+                                            <th scope="row">Mobile</th>
                                             <td>{{ $srvcReq->patient->patMobileNo }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Contact Email</th>
+                                            <th scope="row">Email</th>
                                             <td>{{ $srvcReq->patient->patEmail }}</td>
                                         </tr>
                                         {{-- <tr>
@@ -249,48 +247,74 @@
                                         </tr> --}}
 
                                         <tr>
-                                            <th scope="row">Registered User ID</th>
+                                            <th scope="row">Reg. User ID</th>
                                             <td>{{ $srvcReq->patient->user->userEmail }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Registered User Name</th>
+                                            <th scope="row">Reg. User Name</th>
                                             <td>{{ $srvcReq->patient->user->userFirstName }} {{ $srvcReq->patient->user->userLastName }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">Patient Purpose</th>
-                                            <td>{{ $srvcReq->srDepartment }}</td>
+                                            <th scope="row">P. Purpose</th>
+
+                                            @php
+                                                $department = App\Department::select('department_name')->where('id', '=', $srvcReq->srDepartment)->first();
+                                            @endphp
+
+                                            <td>{{ $department->department_name }}</td>
                                         </tr>
-                                        <tr style="max-height:100px; overflow:hidden; overflow-y:scroll">
-                                            <th scope="row">Patient Background</th>
-                                            <td>{{ $srvcReq->patient->patBackground }}</td>
+                                        <tr >
+                                            <th scope="row">P. Background</th>
+                                            <td>
+                                                <div style="max-height:70px; overflow:hidden; overflow-y:scroll;padding-right:8px;">
+                                                    {{ $srvcReq->patient->patBackground }}
+                                                </div>
+                                            </td>
                                         </tr>
+                                        @if (isset($srvcReq->askQuestion))
+                                            <tr >
+                                                <th scope="row">P. Question</th>
+                                                <td>
+                                                    <div style="max-height:70px; overflow:hidden; overflow-y:scroll;padding-right:8px;">
+                                                        {{ $srvcReq->askQuestion->aaqQuestionText }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        
                                     </tbody>    
                                 </table>      
 
-                                    @if (!$srvcReq->clinicAppointment)
-                                        <div class="group-buttons float-right mt-4">
+                                
+                                    <div class="group-buttons float-right mt-4">
+                                        @if (!$srvcReq->clinicAppointment)
+                                        {{-- @if (!empty($srvcReq->askQuestion)) --}}
+                                            {{-- Show Respond Button where service request is AAQ --}}
                                             
-                                            {{-- @if (!empty($srvcReq->askQuestion)) --}}
-                                                {{-- Show Respond Button where service request is AAQ --}}
-                                                
-                                                <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">
-                                                    @if(Auth::user()->category == "doc")
-                                                    Respond
-                                                    @else
-                                                    View Response
-                                                    @endif
-                                                </a>                                
-                                                <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
-                                            {{-- @elseif(!empty($srvcReq->videoCall)) --}}
-            
-                                                {{--  --}}
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">
+                                                @if(Auth::user()->category == "doc")
+                                                Respond
+                                                @else
+                                                View Response
+                                                @endif
+                                            </a>                                
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
+                                        {{-- @elseif(!empty($srvcReq->videoCall)) --}}
+        
+                                            {{--  --}}
 
-                                            {{-- @endif --}}
+                                        {{-- @endif --}}
+                                        @endif
+                                        <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md">Back</a>
 
-                                        </div>
-                                   @endif
+                                    </div>
+                                
+
+                                
                             </div>
+
+
                         </div>
                     </div>
                 </div>
