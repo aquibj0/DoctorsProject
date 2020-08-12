@@ -17,7 +17,7 @@ class CreateInvoicesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger("service_request_id");
             $table->foreign('service_request_id')->references('id')->on('service_request')->onDelete('cascade');
-            $table->string('invoice_number')->unique();
+            $table->string('invoice_number')->unique()->nullable();
             $table->date('invoice_date');
             $table->string('patient_name');
             $table->string('patient_address_line1');
@@ -28,7 +28,6 @@ class CreateInvoicesTable extends Migration
             $table->string('service_name');
             $table->string('service_price');
             $table->string('service_amount');
-            $table->string('service_price');
             $table->string('service_quantity')->default(1);
             $table->string('doctor_name');
             $table->timestamps();

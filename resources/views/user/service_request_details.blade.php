@@ -509,7 +509,7 @@
 
                                     @elseif($serviceRequests->srStatus != 'Cancelled')
                                         
-                                        
+                                        @if($serviceRequests->srStatus != 'CLOSED')
                                         {{-- Upload Document Button --}}
                                         @if ($serviceRequests->service_id != 4 || $serviceRequests->service_id != 5)
                                             <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
@@ -611,7 +611,9 @@
                                             </div>
     
                                         @endif
-                                    
+                                        @endif
+
+                                        
                                         {{-- View Response Button --}}
                                         @if ($serviceRequests->service_id === 1)
                                             <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-maroon btn-md mb-2">View Response</a>
@@ -643,8 +645,8 @@
                                                 </div>
                                             </div>
                                         @endif
-    
-    
+                                        @if($serviceRequests->srStatus != 'CLOSED')
+                                        
                                         {{-- Request Cancellation --}}
                                         <a href="#" data-toggle="modal" data-target="#requestCancellation" class="btn btn-maroon btn-md mb-2">Request Cancellation</a>                                
                                     
@@ -675,9 +677,12 @@
                                                 </div>
                                             </div>
                                         </div>
-    
-                                        </form>
                                         
+                                        </form>
+                                        @endif
+                                        @if($serviceRequests->srStatus == "CLOSED")
+                                            <a href="/generate-invoice/{{$serviceRequests->srId}}" class="btn btn-maroon btn-md mb-2">Generate Invoice</a>
+                                        @endif
                                     @endif                                 
                                 </div>
 

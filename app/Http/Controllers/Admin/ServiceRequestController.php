@@ -13,7 +13,9 @@ use App\Admin;
 use App\VideoCall;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Jobs\SendEmail;
+use App\Invoice;
 
 class ServiceRequestController extends Controller
 {
@@ -48,15 +50,37 @@ class ServiceRequestController extends Controller
     }
 
     public function response($id, Request $request){
-        $aaq = AskAQuestion::find($id);
-        $aaq->aaqDocResponse = $request['response'];
-        $aaq->update();
+        DB::beginTransaction();
+        try{
+            $aaq = AskAQuestion::find($id);
+            $aaq->aaqDocResponse = $request['response'];
+            $aaq->update();
 
-        $srvcReq = ServiceRequest::find($aaq->service_req_id);
-        $srvcReq->srResponseDateTime = Carbon::now();
-        $srvcReq->srStatus = 'CLOSED';
-        $srvcReq->update();
-
+            $srvcReq = ServiceRequest::find($aaq->service_req_id);
+            $srvcReq->srResponseDateTime = Carbon::now();
+            $srvcReq->srStatus = 'CLOSED';
+            $srvcReq->update();
+            $invoice = new Invoice;
+            $invoice->service_request_id = $servcReq->id;
+            $invoice->patient_name = $servcReq->patient->patFirstName.' '.$servcReq->patient->patLasttName;
+            $invoice->patient_address_line1 = $servcReq->patient->patAddrLine1;
+            $invoice->patient_address_line2 = $servcReq->patient->patAddrLine2;
+            $invoice->patient_city = $servcReq->patient->patCity;
+            $invoice->patient_district = $servcReq->patient->patDistrict;
+            $invoice->patient_country = $servcReq->patient->patCountry;
+            $invoice->service_name = $servcReq->srvcName;
+            $invoice->service_price = $servcReq->payment->payment_amount;
+            $invoice->service_amount = $servcReq->payment->payment_amount;
+            // $invoice->service_quantity = 1;
+            $invoice->doctor_name = Admin::find($servcReq->srAssignedIntUserId)->firstName.' '.Admin::find($servcReq->srAssignedIntUserId)->firstName;
+            $invoice->save();
+            $invoice->invoice_number = Carbon::now()->year.str_pad($invoice->id, 5, 0, STR_PAD_LEFT);
+            $invoice->update();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+        }
+        DB::commit();
         // $patient = $srvcReq->patient();
         $patient = Patient::find($srvcReq->patient_id);
 
@@ -174,8 +198,40 @@ class ServiceRequestController extends Controller
         if(isset($servcReq)){
             if($servcReq->srStatus == "CLOSED")
                 return redirect()->back()->with('error', 'Service Request '.$servcReq->srId.' has been closed already!');
-            $servcReq->srStatus = "CLOSED";
-            $servcReq->update();
+            
+            DB::beginTransaction();
+            try{
+                $servcReq->srStatus = "CLOSED";
+                $servcReq->update();
+
+                // id 	service_request_id 	invoice_number 	invoice_date
+                // patient_name 	patient_address_line1 	patient_address_line2 	patient_city
+                //patient_district 	patient_country 	service_name 	service_price 	
+                //service_amount 	service_quantity 	doctor_name 	created_at 	updated_at 
+                $invoice = new Invoice;
+                $invoice->service_request_id = $servcReq->id;
+                $invoice->invoice_date = Carbon::now()->toDateString();
+                $invoice->patient_name = $servcReq->patient->patFirstName.' '.$servcReq->patient->patLasttName;
+                $invoice->patient_address_line1 = $servcReq->patient->patAddrLine1;
+                $invoice->patient_address_line2 = $servcReq->patient->patAddrLine2;
+                $invoice->patient_city = $servcReq->patient->patCity;
+                $invoice->patient_district = $servcReq->patient->patDistrict;
+                $invoice->patient_country = $servcReq->patient->patCountry;
+                $invoice->service_name = $servcReq->service->srvcName;
+                $invoice->service_price = $servcReq->payment->payment_amount;
+                $invoice->service_amount = $servcReq->payment->payment_amount;
+                // $invoice->service_quantity = 1;
+                $invoice->doctor_name = Admin::find($servcReq->srAssignedIntUserId)->firstName.' '.Admin::find($servcReq->srAssignedIntUserId)->firstName;
+                $invoice->save();
+                $invoice->invoice_number = Carbon::now()->year.str_pad($invoice->id, 5, 0, STR_PAD_LEFT);
+                $invoice->update();
+
+            } catch(\Exception $e){
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong! Please try agian later. '.$e->getMessage());
+            }
+            DB::commit();
+            
             SendEmail::dispatch($servcReq->patient, $servcReq, null, null, $servcReq->user, 5);
             return redirect()->back()->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
         }else{

@@ -23,7 +23,7 @@ class AppController extends Controller
     public function generateInvoice($id){
         $data = ServiceRequest::where('srId', $id)->first();
         $pdf = PDF::loadView('invoice', compact('data'));
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('BIRTH-'.$data->srId.'.pdf');
         return view('invoice')->with('data', ServiceRequest::where('srId', $id)->first());
     }
 

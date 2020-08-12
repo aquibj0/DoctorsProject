@@ -107,6 +107,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <div class="col-md-12">
+                        @include('layouts.message')
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-7 mb-3">
 
                         <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
