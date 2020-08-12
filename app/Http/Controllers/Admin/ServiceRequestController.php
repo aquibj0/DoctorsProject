@@ -56,19 +56,20 @@ class ServiceRequestController extends Controller
             $aaq->aaqDocResponse = $request['response'];
             $aaq->update();
 
-            $srvcReq = ServiceRequest::find($aaq->service_req_id);
-            $srvcReq->srResponseDateTime = Carbon::now();
-            $srvcReq->srStatus = 'CLOSED';
-            $srvcReq->update();
+            $servcReq = ServiceRequest::find($aaq->service_req_id);
+            $servcReq->srResponseDateTime = Carbon::now();
+            $servcReq->srStatus = 'CLOSED';
+            $servcReq->update();
             $invoice = new Invoice;
             $invoice->service_request_id = $servcReq->id;
+            $invoice->invoice_date = Carbon::now()->toDateString();
             $invoice->patient_name = $servcReq->patient->patFirstName.' '.$servcReq->patient->patLasttName;
             $invoice->patient_address_line1 = $servcReq->patient->patAddrLine1;
             $invoice->patient_address_line2 = $servcReq->patient->patAddrLine2;
             $invoice->patient_city = $servcReq->patient->patCity;
             $invoice->patient_district = $servcReq->patient->patDistrict;
             $invoice->patient_country = $servcReq->patient->patCountry;
-            $invoice->service_name = $servcReq->srvcName;
+            $invoice->service_name = $servcReq->service->srvcName;
             $invoice->service_price = $servcReq->payment->payment_amount;
             $invoice->service_amount = $servcReq->payment->payment_amount;
             // $invoice->service_quantity = 1;
@@ -78,20 +79,20 @@ class ServiceRequestController extends Controller
             $invoice->update();
         }catch(\Exception $e){
             DB::rollback();
-            return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again later.');
+            return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try agian later. ');
         }
         DB::commit();
         // $patient = $srvcReq->patient();
-        $patient = Patient::find($srvcReq->patient_id);
+        $patient = Patient::find($servcReq->patient_id);
 
-        $user = User::find($srvcReq->user_id);
+        $user = User::find($servcReq->user_id);
         
         //service request responded
-        SendEmail::dispatch($patient, $srvcReq, $aaq, $srvcReq->payment, $user, 2)->delay(now()->addMinutes(1));
+        SendEmail::dispatch($patient, $servcReq, $aaq, $servcReq->payment, $user, 2)->delay(now()->addMinutes(1));
         // for service request closed
-        SendEmail::dispatch($srvcReq->patient, $srvcReq, null, null, $srvcReq->user, 5); 
+        SendEmail::dispatch($servcReq->patient, $servcReq, null, null, $servcReq->user, 5); 
 
-        return redirect()->route('admin.dashboard')->with('success', 'Added Response to Service Request ID :'.$srvcReq->srId.'!');
+        return redirect()->route('admin.dashboard')->with('success', 'Added Response to Service Request ID :'.$servcReq->srId.'!');
     }
 
 
@@ -228,7 +229,7 @@ class ServiceRequestController extends Controller
 
             } catch(\Exception $e){
                 DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong! Please try agian later. '.$e->getMessage());
+                return redirect()->back()->with('error', 'Something went wrong! Please try agian later. ');
             }
             DB::commit();
             
