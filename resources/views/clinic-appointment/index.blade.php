@@ -226,7 +226,7 @@
                                                 @enderror
                                             </div>
                                     </div>
-                                    <div class="form-row">
+                                    {{-- <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             @error('patMobileNo')
@@ -235,7 +235,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     @endif
 

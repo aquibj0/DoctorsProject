@@ -85,6 +85,7 @@ class VideoConsultationController extends Controller
                     $patient = Patient::find($request->patient_id);
                     if($patient){
                         $app = AppointmentSchedule::find($request->slot);
+                        // if($app->)
                         $srvcReq = new ServiceRequest;
                         $srvcReq->service_id = Service::where('srvcShortName', $request->appointmentType)->first()->id;
                         $srvcReq->patient_id = $patient->id;

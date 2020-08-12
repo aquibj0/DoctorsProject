@@ -47,7 +47,7 @@
                                         
                                         {{-- Clinic Landline No Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" placeholder="Landline No" id="clinicLandLineNo" class="form-control @error('clinicLandLineNo') is-invalid @enderror" name="clinicLandLineNo" value="{{ old('clinicLandLineNo') }}" autocomplete="clinicLandLineNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="12">
+                                            <input type="text" placeholder="Landline No" id="clinicLandLineNo" class="form-control @error('clinicLandLineNo') is-invalid @enderror" name="clinicLandLineNo" value="{{ old('clinicLandLineNo') }}" autocomplete="clinicLandLineNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
                                             
                                             @error('clinicLandLineNo')
                                                 <span class="invalid-feedback" role="alert">
