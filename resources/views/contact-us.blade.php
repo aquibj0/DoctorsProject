@@ -4,6 +4,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-4"></div>
         <div class="col-md-8">
             <div class="register-block mt-4 mb-4">
                 <h2>Contact Us</h2>
@@ -11,8 +12,8 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <img class="mb-4"  src="{{asset('image/contact.jpg')}}" style="max-width:80%;" alt="">
+        <div class="col-md-4 text-center">
+            <img class="mb-4"  src="{{asset('image/contact.jpg')}}" style="max-width:81%;" alt="">
         </div>
         <div class="col-md-8">
 
@@ -48,7 +49,7 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                                 {{-- <input type="text" class="form-control" id="subject" placeholder="Subject" name="subject" value="{{ old('subject') }}" required> --}}
-                                <textarea name="message" id="message" class="form-control" rows="5" placeholder="Type your message here..."></textarea>
+                                <textarea style="border:none; border-bottom:1px solid #000;border-radius:0" name="message" id="message" class="form-control" rows="5" placeholder="Type your message here..."></textarea>
                             </div>
                         </div>
                         <div class="form-row">
