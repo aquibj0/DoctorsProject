@@ -24,7 +24,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Aloha!</title>
+<title>{{$invoice->invoice_number}}!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- CSS only -->
@@ -103,17 +103,19 @@
     <tr class="border">
  
         <td>
-                <strong class="mb-0">{{$data->patient->patFirstName}} {{$data->patient->patLastName}}</strong> 
-                <p class="mb-0 ">M : {{$data->patient->patMobileNo}}</p>
-                <p class="mb-0 mt-0">{{$data->patient->patGender}}, {{$data->patient->patAge}}</p>
-                <p class="mb-0 mt-0">Address : {{$data->patient->patAddrLine1}},  @isset($data->patient->patAddrLine2){{$data->patient->patAddrLine2}},@endisset<br>
-                    {{$data->patient->patCity}}, {{$data->patient->patDistrict}}, {{$data->patient->patState}}, {{$data->patient->patCountry}} </p>    
+            <strong class="mb-0">{{$invoice->patient_name}} {{$data->patient->patLastName}}</strong> 
+            <p class="mb-0 ">M : {{$data->patient->patMobileNo}}</p>
+            <p class="mb-0 mt-0">{{$data->patient->patGender}}, {{$data->patient->patAge}}</p>
+            <p class="mb-0 mt-0">Address : {{$data->patient->patAddrLine1}},  @isset($data->patient->patAddrLine2){{$data->patient->patAddrLine2}},@endisset<br>
+                {{$data->patient->patCity}}, {{$data->patient->patDistrict}}, {{$data->patient->patState}}, {{$data->patient->patCountry}}
+            </p>    
         </td>
+        
         <td>
-                <strong class="mb-0">By - Dr. Gautam Khastgir</strong> 
-                <p class="mb-0 ">Date :  {{date('d/m/Y ', strtotime($data->srRecievedDateTime))}}</p>
-                <p class="mb-0 mt-0">Invoice No. : ONL2020-00001 </p>
-            </td>
+            <strong class="mb-0">By - Dr. Gautam Khastgir</strong> 
+            <p class="mb-0 ">Date :  {{date('d/m/Y ', strtotime($invoice->invoice_date))}}</p>
+            <p class="mb-0 mt-0">Invoice No. : {{$invoice->invoice_number}} </p>
+        </td>
     </tr>
 
   </table>
@@ -135,12 +137,12 @@
     <tbody>
       <tr>
         <th scope="row">01</th>
-        <td>{{$data->service->srvcName}}</td>
-        <td align="right"> {{$data->service->srvcPrice}}.00</td>
+        <td>{{$invoice->service_name}}</td>
+        <td align="right"> {{$invoice->service_amount}}</td>
         <td align="right">1</td>
         <td align="right"> 0</td>
         <td align="right"> 0.0</td>
-        <td align="right"> {!! $data->service->srvcPrice!!}.00</td>
+        <td align="right"> {!! $data->service->srvcPrice!!}</td>
 
       </tr>
     
@@ -152,7 +154,7 @@
                     <td></td>
                     <td colspan="3" ></td>
                     <td align="right" style="background-color: lightgray;">Total Cost</td>
-                    <td align="right">{{$data->service->srvcPrice}}.00</td>
+                    <td align="right">{{$invoice->service_price}}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -179,7 +181,7 @@
           <p>Date : {{date('d/m/Y ', strtotime($data->payment->created_at))}}</p>
 
           <p>Transaction Mode : RazorPay</p>
-          <p>Transaction Mode : {{$data->payment->payment_amount}}</p>
+          <p>Transaction Amount : {{$invoice->service_price}}</p>
           
       </div>
       
