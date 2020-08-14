@@ -40,7 +40,7 @@
                                                 <td>{{$service->srvcPrice}}</td>
                                                 <td>
                                                     {{-- Edit Serive --}}
-                                                    <a href="#" data-toggle="modal" data-target="#{{ 'editService'.$loop->iteration }}" class="btn btn-maroon btn-sm">Edit</a>
+                                                    <a href="#" data-toggle="modal" data-target="#{{ 'editService'.$loop->iteration }}" class="btn btn-maroon btn-sm mb-1">Edit</a>
                                                     <!--Edit Department Modal -->
                                                     <div class="modal fade" id="{{ 'editService'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -93,7 +93,7 @@
                                                     
 
                                                     {{-- Delete Service --}}
-                                                    <a href="#" data-toggle="modal" data-target="#{{ 'deleteService'.$loop->iteration }}" class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="#" data-toggle="modal" data-target="#{{ 'deleteService'.$loop->iteration }}" class="btn btn-maroon btn-sm mb-1">Delete</a>
                                                     
                                                     <div class="modal fade" id="{{ 'deleteService'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">

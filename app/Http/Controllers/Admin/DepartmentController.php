@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Department;
+use Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -21,8 +22,12 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::orderBy('department_name', 'ASC')->get();
-        return view('admin.department.index', compact('departments'));
+        if(Auth::user()->category == "admin"){
+            $departments = Department::orderBy('department_name', 'ASC')->get();
+            return view('admin.department.index', compact('departments'));
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -66,7 +71,11 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        return view('admin.department.create');
+        if(Auth::user()->category == "admin"){
+            return view('admin.department.create');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -105,7 +114,11 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        Department::destroy($id);
-        return redirect()->back()->with('success', 'Deleted');
+        if(Auth::user()->category == "admin"){
+            Department::destroy($id);
+            return redirect()->back()->with('success', 'Deleted');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 }

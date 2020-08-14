@@ -46,7 +46,7 @@
                                         @enderror
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-maroon btn-md" style="width:100%">Submit</button>
+                                    <button type="submit" class="btn btn-maroon btn-md mb-2" style="width:100%">Submit</button>
                                 </form>
                             </div>
                         </div>

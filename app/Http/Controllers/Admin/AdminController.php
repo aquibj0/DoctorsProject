@@ -116,60 +116,72 @@ class AdminController extends Controller
     }
 
     public function create_user_index(){
-        $users = Admin::all();
-        return view('admin.internal-user.index')->with('users', $users);
+        if(Auth::user()->category == "admin"){
+            $users = Admin::all();
+            return view('admin.internal-user.index')->with('users', $users);
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     public function create_user(){
-        $dept = Department::all();
-        return view('admin.internal-user.create')->with('depts', $dept);
+        if(Auth::user()->category == "admin"){
+            $dept = Department::all();
+            return view('admin.internal-user.create')->with('depts', $dept);
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
         // return view('admin.auth.internal_user.index-user')->with('users', $users);
     }
 
     public function store_user(Request $request){
         // return $request;
-        $validator = Validator::make($request->all(), [
-            'firstName' => ['required', 'string', 'max:40'],
-            'lastName' => ['required', 'string', 'max:40'],
-            'email' => ['string', 'email', 'max:100', 'unique:admins'],
-            'phoneNo' => ['required', 'min:10', 'max:10', 'unique:admins'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-        if(!$validator->fails()){
-            DB::beginTransaction();
-                try{
-                    $intUser = new Admin;
-                    $intUser->firstName = $request->firstName;
-                    $intUser->lastName = $request->lastName;
-                    $intUser->phoneNo = $request->phoneNo;
-                    $intUser->category = $request->category;
-                    $intUser->email = $request->email;
-                    $intUser->gender = $request->gender;
-                    if($request->category == 'doc'){
-                        $intUser->salutation = 'Dr.';
-                    }else{
-                        if($request->gender == "Male"){
-                            $intUser->salutation = 'Mr.';
+        if(Auth::user()->category == "admin"){
+            $validator = Validator::make($request->all(), [
+                'firstName' => ['required', 'string', 'max:40'],
+                'lastName' => ['required', 'string', 'max:40'],
+                'email' => ['string', 'email', 'max:100', 'unique:admins'],
+                'phoneNo' => ['required', 'min:10', 'max:10', 'unique:admins'],
+                // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+            if(!$validator->fails()){
+                DB::beginTransaction();
+                    try{
+                        $intUser = new Admin;
+                        $intUser->firstName = $request->firstName;
+                        $intUser->lastName = $request->lastName;
+                        $intUser->phoneNo = $request->phoneNo;
+                        $intUser->category = $request->category;
+                        $intUser->email = $request->email;
+                        $intUser->gender = $request->gender;
+                        if($request->category == 'doc'){
+                            $intUser->salutation = 'Dr.';
                         }else{
-                            $intUser->salutation = 'Ms./Mrs.';
+                            if($request->gender == "Male"){
+                                $intUser->salutation = 'Mr.';
+                            }else{
+                                $intUser->salutation = 'Ms./Mrs.';
+                            }
                         }
+                        $password = $this->random_strings(10);
+                        $intUser->password = Hash::make($password);
+                        $intUser->save();
+                        $intUser->intuId = "IID".str_pad($intUser->id,10, "0", STR_PAD_LEFT);
+                        $intUser->update();
+                        Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
+                        
+                    } catch(\Exception $e){
+                        DB::rollback();
+                        return redirect()->back()->with('error', 'Something went wrong!')->withInput();
                     }
-                    $password = $this->random_strings(10);
-                    $intUser->password = Hash::make($password);
-                    $intUser->save();
-                    $intUser->intuId = "IID".str_pad($intUser->id,10, "0", STR_PAD_LEFT);
-                    $intUser->update();
-                    Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
-                    
-                } catch(\Exception $e){
-                    DB::rollback();
-                    return redirect()->back()->with('error', 'Something went wrong!')->withInput();
-                }
-                DB::commit();
-                return redirect('/admin/internal-user')->with('success', 'User created successfully!');
+                    DB::commit();
+                    return redirect('/admin/internal-user')->with('success', 'User created successfully!');
+            }else{
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
         }else{
-            return redirect()->back()->withErrors($validator)->withInput();
-        }   
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }  
     }
 
     public function delete_user($id){
@@ -262,8 +274,11 @@ class AdminController extends Controller
     }
 
     public function changePassword(Request $request){
-
-        if (!(Hash::check($request->get('current-password'), Auth::user()->userPassword))) {
+        // echo Auth::user();
+        // echo Hash::check($request['current-password'], Auth::user()->password);
+        
+        // return $request;
+        if (!(Hash::check($request['current-password'], Auth::user()->password))) {
             // The passwords matches
             return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
         }
@@ -280,7 +295,7 @@ class AdminController extends Controller
 
         //Change Password
         $user = Auth::user();
-        $user->userPassword = bcrypt($request->get('new-password'));
+        $user->password = Hash::make($request->get('new-password'));
         $user->save();
 
         return redirect()->back()->with("success","Password changed successfully !");
@@ -346,70 +361,74 @@ class AdminController extends Controller
 
     public function operate(Request $request){
         // return $request;
-        if($request->admin_submit == 'assign_doctor'){
-            if(isset($request->doctor)){
+        if(Auth::user()->category == "admin"){
+            if($request->admin_submit == 'assign_doctor'){
+                if(isset($request->doctor)){
+                    if(isset($request->srId)){
+                        for($i = 0; $i < count($request->srId); $i++){
+                            $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                            if($srvcReq){
+                                if($srvcReq->srResponseDateTime < Carbon::now()){
+                                    DB::beginTransaction();
+                                    try{
+                                        $srvcReq->srAssignedIntUserId = $request->doctor;
+                                        $srvcReq->update();
+                                        $doctor = Admin::where('id', $request->doctor)->first();
+                                        SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
+                                    }catch(\Exception $e){
+                                        DB::rollback();
+                                        return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                                    }
+                                    DB::commit();
+                                }else{
+                                    DB::rollback();
+                                    return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
+                                }
+                            }else{
+                                DB::rollback();
+                                return redirect()->back()->with('error', 'Service Request dosen\'t exists');
+                            }
+                        }
+                        return redirect()->back()->with('success', 'Doctor assigned successfully!');
+                    }else{
+                        return redirect()->back()->with('error', 'No Service Request selected');
+                    }
+                }else{
+                    return redirect()->back()->with('error', 'No Doctor selected');
+                }
+            }elseif($request->admin_submit == 'reminder'){
                 if(isset($request->srId)){
                     for($i = 0; $i < count($request->srId); $i++){
                         $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
+                        $user = $srvcReq->user;
                         if($srvcReq){
-                            if($srvcReq->srResponseDateTime < Carbon::now()){
-                                DB::beginTransaction();
-                                try{
-                                    $srvcReq->srAssignedIntUserId = $request->doctor;
-                                    $srvcReq->update();
-                                    $doctor = Admin::where('id', $request->doctor)->first();
-                                    SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
-                                }catch(\Exception $e){
-                                    DB::rollback();
-                                    return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
-                                }
-                                DB::commit();
-                            }else{
-                                DB::rollback();
-                                return redirect()->back()->with('error', 'Cannot assign doctor, as response time is over!');
+                            if($srvcReq->askQuestion){
+
+                                Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+            
+                                SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, $srvcReq->payment, $srvcReq->user, 3);
                             }
-                        }else{
-                            DB::rollback();
-                            return redirect()->back()->with('error', 'Service Request dosen\'t exists');
+                            elseif($srvcReq->videoCall){
+
+                                Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+            
+                                SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->videoCall, $srvcReq->payment, $srvcReq->user, 3);
+                            }
+                            elseif($srvcReq->clinicAppointment){
+
+                                Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+            
+                                SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->clinicAppointment, $srvcReq->payment, $srvcReq->user, 3);
+                            }
                         }
                     }
-                    return redirect()->back()->with('success', 'Doctor assigned successfully!');
+                    return redirect()->back()->with('success', 'Reminder sent successfully!');
                 }else{
                     return redirect()->back()->with('error', 'No Service Request selected');
                 }
-            }else{
-                return redirect()->back()->with('error', 'No Doctor selected');
             }
-        }elseif($request->admin_submit == 'reminder'){
-            if(isset($request->srId)){
-                for($i = 0; $i < count($request->srId); $i++){
-                    $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();
-                    $user = $srvcReq->user;
-                    if($srvcReq){
-                        if($srvcReq->askQuestion){
-
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-        
-                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, $srvcReq->payment, $srvcReq->user, 3);
-                        }
-                        elseif($srvcReq->videoCall){
-
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-        
-                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->videoCall, $srvcReq->payment, $srvcReq->user, 3);
-                        }
-                        elseif($srvcReq->clinicAppointment){
-
-                            Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$srvcReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-        
-                            SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->clinicAppointment, $srvcReq->payment, $srvcReq->user, 3);
-                        }
-                    }
-                }
-                return redirect()->back()->with('success', 'Reminder sent successfully!');
-            }else{
-                return redirect()->back()->with('error', 'No Service Request selected');
-            }
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
 

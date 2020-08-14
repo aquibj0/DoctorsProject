@@ -20,7 +20,7 @@
                             @if($start_date != 0 && $end_date !=0 )
                                 <div class="form-row form-group">
                                     <div class="col-md">
-                                        <input type="date" name="start_date" class="form-control" id="start_date_self" value="{{ $start_date }}">         
+                                        <input type="date" name="start_date" class="form-control mb-2" id="start_date_self" value="{{ $start_date }}">         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('start_date') }}</strong>
@@ -29,7 +29,7 @@
                                     </div>
                                     <input type="hidden" id="counter" name="counter" value="{{ $counter }}">
                                     <div class="col-md">
-                                        <input type="date" name="end_date" class="form-control" id="end_date_self" value="{{ $end_date }}">         
+                                        <input type="date" name="end_date" class="form-control mb-2" id="end_date_self" value="{{ $end_date }}">         
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('end_date') }}</strong>
@@ -37,7 +37,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md">
-                                        <select name="doctor_type" id="doctor_type" class="form-control">
+                                        <select name="doctor_type" id="doctor_type" class="form-control mb-2">
                                             {{-- <option disabled selected>Select one</option> --}}
                                             @if($docType == "ED")
                                                 <option value="ED" selected>Dr. Khastgir</option>
@@ -50,7 +50,7 @@
                                         {{-- <input type="text" name="doctor_type" id="doctor_type" value="{{ $docType }}"> --}}
                                     </div>
                                     <div class="col-md">
-                                        <select name="appointment_type" id="appointment_type" class="form-control">
+                                        <select name="appointment_type" id="appointment_type" class="form-control mb-2">
                                             {{-- <option disabled>Select one</option> --}}
                                             @if($appointmentType == "VED")
                                                 <option value="VED" selected>Video Appointment</option>
@@ -71,14 +71,14 @@
                                         {{-- <input type="text" name="appointment_type" id="appointment_type" value="{{ $appointmentType }}"> --}}
                                     </div>
                                     <div class="col-md-1">
-                                        <button type="sbumit" id="self_submit" class="btn btn-submit icon-maroon"><i class="fa fa-search"></i></button>
+                                        <button type="sbumit" id="self_submit" class="btn btn-submit icon-maroon mb-2"><i class="fa fa-search"></i></button>
                                         {{-- <button type="sbumit" id="self_submit" class="form-control btn-maroon btn-md">Search appointments</button> --}}
                                     </div>
                                 </div>
                             @else
                                 <div class="form-row form-group">
                                     <div class="col-md">
-                                        <input type="date" name="start_date" class="form-control" id="start_date" value="{{ old('start_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
+                                        <input type="date" name="start_date" class="form-control mb-2" id="start_date" value="{{ old('start_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('start_date') }}</strong>
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-md">
                                         <span id="end">
-                                            <input type="date" name="end_date" class="form-control" id="end_date" value="{{ old('end_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
+                                            <input type="date" name="end_date" class="form-control mb-2" id="end_date" value="{{ old('end_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         </span>
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
@@ -96,14 +96,14 @@
                                         @endif
                                     </div>
                                     <div class="col-md">
-                                        <select name="doctor_type" id="doctor_type" class="form-control">
+                                        <select name="doctor_type" id="doctor_type" class="form-control mb-2">
                                             <option disabled selected>Select one</option>
                                             <option value="ED">Dr. Khastgir</option>
                                             <option value="TD">Birth Team Doctor</option>
                                         </select>
                                     </div>
                                     <div class="col-md">
-                                        <select name="appointment_type" id="appointment_type" class="form-control">
+                                        <select name="appointment_type" id="appointment_type" class="form-control mb-2">
                                             <option disabled selected>Select one</option>
                                             <option value="VED">Video Appointment</option>
                                             @foreach($clinics as $clinic)
@@ -112,7 +112,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-1">
-                                        <button type="sbumit" class="btn btn-submit icon-maroon"><i class="fa fa-search"></i></button>
+                                        <button type="sbumit" style="float:center" class="btn btn-submit icon-maroon mb-2"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             @endif

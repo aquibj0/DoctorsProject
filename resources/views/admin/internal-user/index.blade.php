@@ -15,6 +15,7 @@
                 @include('layouts.message')
                 <div class="card-header">
                     <div class="row">
+                        
                         <div class="col-md">
                             <span style="float: right; margin-right: -1.3%;">
                                 <a href="/admin/create/internal-user" class="btn btn-sm btn-maroon">Add new User</a>
@@ -24,6 +25,10 @@
                 </div>
                 <div class="card-body">
                     @if($users)
+                    <div class=" mb-2">
+                        <p class="maroon location-hidden"><b>“Pan right or rotate screen to view all details”
+                        </b></p>
+                    </div>
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
                             <tr>

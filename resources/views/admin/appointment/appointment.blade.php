@@ -44,10 +44,10 @@
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-3">
-                                <input type="number" name="max" id="max" class="form-control" placeholder="Default" min="1" max="10" onkeypress="return onlyNumberKey(event)">
+                                <input type="number" name="max" id="max" class="form-control mb-2" placeholder="Default" min="1" max="10" onkeypress="return onlyNumberKey(event)">
                             </div>
                             <div class="col-md-3">
-                                <select name="" id="manipulate-checkbox" class="form-control">
+                                <select name="" id="manipulate-checkbox" class="form-control mb-2">
                                     <option selected disabled>Select one</option>
                                     <option value="1">Clear Flags</option>
                                     <option value="2">Set Flags</option>

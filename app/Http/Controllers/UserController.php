@@ -70,7 +70,8 @@ class UserController extends Controller
 
     // Function to change password
     public function changePassword(Request $request){
-
+        // echo Hash::check($request->get('current-password'), Auth::user()->userPassword);
+        // return Auth::user();
         if (!(Hash::check($request->get('current-password'), Auth::user()->userPassword))) {
             // The passwords matches
             return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
@@ -89,7 +90,7 @@ class UserController extends Controller
         //Change Password
         if(!$validator->fails()){
             $user = Auth::user();
-            $user->userPassword = bcrypt($request->get('new-password'));
+            $user->userPassword = Hash::make($request->get('new-password'));
             $user->save();
 
             return redirect()->back()->with("success","Password changed successfully !");

@@ -61,6 +61,7 @@
                         </li>
                     @endif
                     @else
+                    @if(Auth::user()->category == "admin")
                     <li class="nav-item">
                         <a href="/admin/internal-user" class="nav-link">Internal User </a>
                     </li>
@@ -73,6 +74,7 @@
                     <li class="nav-item">
                         <a href="/admin/services" class="nav-link">Services</a>
                     </li>
+                    @endif
                     @endguest
                     
                     
@@ -84,10 +86,12 @@
                             <a class="nav-link" href="{{ route('admin.auth.login') }}">{{ __('Login') }}</a>
                         </li> --}}
                     @else
+                        @if(Auth::user()->category == "admin")
                         <li class="nav-item">
                             <a href="/admin/appointment" class="nav-link">Appointment</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        @endif
+                        <li class="nav-item dropdown" >
 
                             
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

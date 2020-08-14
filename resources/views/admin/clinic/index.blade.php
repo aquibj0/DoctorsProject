@@ -16,30 +16,17 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md">
-                            <p class="maroon location-hidden"><b> “Pan right or rotate screen to view all details”
-                            </b></p>
-                        </div>
-                        <div class="col-md">
-
                             <span style="float: right">
                                 <a href="/admin/clinic/create" class="btn btn-md btn-maroon">Add new clinic</a>
                             </span>
-                            {{-- <span style="float: right">
-                                <select name="filter" id="filter" class="form-control">
-                                    <option disabled>-Payment Status-</option>
-                                    <option value="paid">Paid</option>
-                                    <option value="unpaid">Not Paid</option>
-                                    <option disabled>-Service Type-</option>
-                                    <option value="AAQ">AAQ</option>
-                                    <option value="VED">VED</option>
-                                    <option value="VTD">VTD</option>
-                                    <option value="CLI">CLI</option>
-                                </select>
-                            </span> --}}
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class=" mb-2">
+                        <p class="maroon location-hidden"><b>“Pan right or rotate screen to view all details”
+                        </b></p>
+                    </div>
                     @if($clinics)
                     <table class="table table-bordered table-responsive">
                         <thead class="thead-dark">
@@ -74,8 +61,8 @@
                                         {{ $clinic->clinicState }}, {{ $clinic->clinicCountry }}, {{ $clinic->clinicPincode }}
                                     </td>
                                     <td>
-                                        <a href="/admin/clinic/edit/{{ $clinic->id }}" class="btn btn-md btn-maroon">Edit</a>
-                                        <a href="#" class="btn btn-maroon btn-md" data-toggle="modal" data-target="#{{ 'deleteClinic'.$loop->iteration }}">Delete</a>  
+                                        <a href="/admin/clinic/edit/{{ $clinic->id }}" class="btn btn-sm btn-maroon mb-2">Edit</a>
+                                        <a href="#" class="btn btn-maroon btn-sm mb-2" data-toggle="modal" data-target="#{{ 'deleteClinic'.$loop->iteration }}">Delete</a>  
                                    
                                         <div class="modal fade" id="{{ 'deleteClinic'.$loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service;
+use Auth;
 use Illuminate\Support\Facades\Validator;
 class ServiceController extends Controller
 {
@@ -21,8 +22,12 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::orderBy('srvcName', 'ASC')->get();
-        return view('admin.service.index',compact('services'));
+        if(Auth::user()->category == "admin"){
+            $services = Service::orderBy('srvcName', 'ASC')->get();
+            return view('admin.service.index',compact('services'));
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -32,7 +37,11 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.service.create');
+        if(Auth::user()->category == "admin"){
+            return view('admin.service.create');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -112,7 +121,11 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        Service::destroy($id);
-        return redirect()->back()->with('success', 'Deleted');
+        if(Auth::user()->category == "admin"){
+            Service::destroy($id);
+            return redirect()->back()->with('success', 'Deleted');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 }

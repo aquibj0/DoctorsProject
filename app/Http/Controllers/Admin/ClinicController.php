@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Clinic;
+use Auth;
 
 class ClinicController extends Controller
 {
@@ -20,8 +21,12 @@ class ClinicController extends Controller
      */
     public function index()
     {
-        $clinic = Clinic::all();
-        return view('admin.clinic.index')->with('clinics', $clinic);
+        if(Auth::user()->category == "admin"){
+            $clinic = Clinic::all();
+            return view('admin.clinic.index')->with('clinics', $clinic);
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -31,7 +36,11 @@ class ClinicController extends Controller
      */
     public function create()
     {
-        return view('admin.clinic.create');
+        if(Auth::user()->category == "admin"){
+            return view('admin.clinic.create');
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -100,13 +109,17 @@ class ClinicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $clinic = Clinic::find($id);
-        // return $clinic;
-        if(!empty($clinic)){
-            return view('admin.clinic.edit')->with('clinic', $clinic);
+    {   
+        if(Auth::user()->category == "admin"){
+            $clinic = Clinic::find($id);
+            // return $clinic;
+            if(!empty($clinic)){
+                return view('admin.clinic.edit')->with('clinic', $clinic);
+            }else{
+                return redirect('/admin/clinic')->with('error', 'Something Went Wrong!');
+            }
         }else{
-            return redirect('/admin/clinic')->with('error', 'Something Went Wrong!');
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
 
@@ -170,13 +183,17 @@ class ClinicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $clinic = Clinic::find($id);
-        if(!empty($clinic)){
-            $clinic->delete();
-            return redirect('/admin/clinic')->with('success', 'Clinic deleted successfully!');
+    {   
+        if(Auth::user()->category == "admin"){
+            $clinic = Clinic::find($id);
+            if(!empty($clinic)){
+                $clinic->delete();
+                return redirect('/admin/clinic')->with('success', 'Clinic deleted successfully!');
+            }else{
+                return redirect()->back()->with('error', 'Clinic dosen\'t exists!');
+            }
         }else{
-            return redirect()->back()->with('error', 'Clinic dosen\'t exists!');
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
 }
