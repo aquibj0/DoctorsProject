@@ -19,31 +19,35 @@
                         <div class="mt-3">
                             <form method="POST" action="{{ route('register_user') }}">
                                 @csrf
-                                <div class="form-row form-group">
+                                <div class="form-row">
 
                                     <div class="col-md-6" >
-                                        <input id="firstName" type="text" placeholder="First Name" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}" required autocomplete="firstName" autofocus>
+                                        <div class="form-group">
+                                            <input id="firstName" type="text" placeholder="First Name" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}" required autocomplete="firstName" autofocus>
 
-                                        @error('firstName')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                            @error('firstName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <div class="col-md-6" >
-                                        <input id="lastName" type="text" placeholder="Last Name" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
+                                        <div class="form-group">
+                                            <input id="lastName" type="text" placeholder="Last Name" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
 
-                                        @error('lastName')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                            @error('lastName')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="form-row form-group">
-                                    <div class="col-md-6">
-                                        <div class="mr-1" >
+                                <div class="form-row ">
+                                    <div class="col-md-6 form-group">
+                                        {{-- <div class="mr-1" > --}}
                                             <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('userMobileNo') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
     
                                             @error('userMobileNo')
@@ -51,9 +55,9 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        {{-- </div> --}}
                                     </div>
-                                    <div class="col-md-6" > 
+                                    <div class="col-md-6 form-group" > 
                                         <input id="userLandLineNo" onkeypress='validate(event)' type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
 
                                         @error('userLandLineNo')
