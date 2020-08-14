@@ -91,7 +91,7 @@
                             <a href="/admin/appointment" class="nav-link">Appointment</a>
                         </li>
                         @endif
-                        <li class="nav-item dropdown" >
+                        <li class="nav-item dropdown" style="min-width:270px;display:block;text-align:center" >
 
                             
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -101,7 +101,7 @@
                                 @else
                                     <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:35px; border-radius:50%" alt="{{ Auth::user()->userFirstName." ".Auth::user()->userLastName }}"> </span>
                                 @endisset 
-                                {{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
+                                &nbsp;{{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
 
                             </a>
                             
@@ -115,7 +115,7 @@
                                     
                                 <a class="dropdown-item" href="{{ route('admin.auth.logout') }}"
                                     onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
+                                                document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
