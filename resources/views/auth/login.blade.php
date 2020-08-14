@@ -22,29 +22,30 @@
         
                                 <div class="form-group row">
                                     
-                                    <div style="width:90%; float:center">
-                                            <input id="email" type="text" placeholder="Email or Mobile No." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-            
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                </div>
-            
-                                <div class="form-group row">
-                                    
-                                    <div style="width:85%; float:center">
-                                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                        @error('password')
+                                    <div class="col-md">
+                                        <input id="email" type="text" placeholder="Email or Mobile No." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        
+                                        @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                    <div style="width:5%; ">
-                                        <span style="float:right"> <input type="checkbox" class="form-control" onclick="myFunction()"></span>
+                                </div>
+            
+                                <div class="form-group row">
+                                    
+                                    <div class="col-md">
+                                        <div class="input-group">
+                                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <button type="button" onclick="myFunction()"class="btn btn-eye" id="btnToggle" class="toggle"><i id="eyeIcon" class="fa fa-eye"></i></button>
+                                        </div>
+                                     
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
         

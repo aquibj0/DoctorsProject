@@ -16,6 +16,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <link href=’https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css’ rel=’stylesheet’>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
     {{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!-- Include whatever JQuery which you are using -->

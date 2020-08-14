@@ -2,6 +2,7 @@ html, body{
     background: rgb(242, 170, 168);
     font-family: Calibri, sans-serif !important;
 }
+
 .nav-item{
     display: grid;
     place-content: center;
@@ -18,7 +19,7 @@ html, body{
 }
  
 .row{ 
-    justify-content: center;
+    justify-content: center; 
 }
 
 th{
@@ -26,6 +27,18 @@ th{
 }
 td{
     line-height: 1.1;
+}
+
+
+.btn-eye{
+    border: none;
+    border-radius: 0;
+    background: #fff;
+    border-bottom: 1px solid #000;
+}
+.btn-eye:focus{
+    border: none;
+    box-shadow: none;
 }
 /* @media(max-width:768px){ */
     .row{ 

@@ -11,18 +11,18 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="user-login-form">
-                            <div class="register-block mt-5">
+                            <div class="register-block mt-2 mb-4">
                                 <h2 class="mb-0"> <b>Admin Login</b></h2> 
                             </div>
                             <div class="mt-4">
                                 @include('layouts.message')
                                 <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
-                                    {{ csrf_field() }}
+                                    {{ csrf_field() }} 
             
-                                    <div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <div class="form-row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{-- <label for="email" class="col-md-4 control-label">E-Mail Address</label> --}}
             
-                                        <div style="width:90%; float:center;">
+                                        <div class="col-md">
                                             <input id="email" type="email" placeholder="Email/Phone No." class="form-control" name="email" value="{{ old('email') }}" required autofocus>
             
                                             @if ($errors->has('email'))
@@ -33,34 +33,24 @@
                                         </div>
                                     </div>
             
-                                    <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                        {{-- <label for="password" class="col-md-4 control-label">Password</label> --}}
+                                    <div class="form-row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
             
-                                        <div style="width:85%; float:center;">
-                                            <input id="password"  type="password" placeholder="Password" class="form-control" name="password" required>
+                                        <div class="col-md">
+                                            <div class="input-group">
+                                                <input id="password"  type="password" placeholder="Password" class="form-control" name="password" required>
+                                                <button type="button" onclick="myFunction()"class="btn btn-eye" id="btnToggle" class="toggle"><i id="eyeIcon" class="fa fa-eye"></i></button>
+                                            </div>
+                                            
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
-                                        <div style="width:5%; float:right;">
-                                            <input type="checkbox" class="form-control" onclick="myFunction()">
-                                            <script>
-                                                function myFunction() {
-                                                    var x = document.getElementById("password");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                } 
-                                            </script>
-                                        </div>
                                     </div>
                                     
-                                    <div class="row form-group">
-                                        <div style="width:90%; float:left">
+                                    <div class="form-row form-group">
+                                        <div class="col-md">
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
@@ -85,4 +75,16 @@
         </div>
     </div>
 </section>
+
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    } 
+</script>
 @endsection
