@@ -35,9 +35,9 @@
                                 <th scope="col">SR No. <span style="float: right"><a href="#">&#9650;</a><a href="#">&#9660;</a></span></th>
                                 <th scope="col">User Name</th>
                                 {{-- <th scope="col">User Gender</th> --}}
-                                <th scope="col">User Degree</th>
+                                {{-- <th scope="col">User Degree</th> --}}
                                 <th scope="col">User Category</th>
-                                <th scope="col">User Department</th>
+                                {{-- <th scope="col">User Department</th> --}}
                                 <th scope="col">User Email</th>
                                 <th scope="col">User Mobile & ALternative</th>
                                 {{-- <th scope="col">User Address</th> --}}
@@ -50,9 +50,17 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->salutation }} {{ $user->firstName }} {{ $user->lastName }}</td>
-                                    <td>{{ $user->degree }}</td>
-                                    <td>{{ $user->category }}</td>
-                                    <td>{{ $user->department }}</td>
+                                    {{-- <td>{{ $user->degree }}</td> --}}
+                                    <td>
+                                        @if($user->category == "admin")
+                                        ADMIN
+                                        @elseif($user->category == "doc")
+                                        DOCTOR
+                                        @else
+                                        OTHERS
+                                        @endif
+                                    </td>
+                                    {{-- <td>{{ $user->department }}</td> --}}
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phoneNo }} 
                                         @if($user->alternatePhoneNo)

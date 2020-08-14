@@ -91,7 +91,7 @@
                             <a href="/admin/appointment" class="nav-link">Appointment</a>
                         </li>
                         @endif
-                        <li class="nav-item dropdown" style="min-width:270px;display:block;text-align:center" >
+                        <li class="nav-item dropdown" style="text-align:center" >
 
                             
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -82,8 +82,26 @@
                                     <label for="phoneNo" class="col-md-4 control-label">Phone number</label>
 
                                     <div class="col-md">
-                                        <input id="phoneNo" type="number" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus onkeypress='validate(event)' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                        <script>
+                                            function validate(evt) {
+                                                var theEvent = evt || window.event;
 
+                                                // Handle paste
+                                                if (theEvent.type === 'paste') {
+                                                    key = event.clipboardData.getData('text/plain');
+                                                } else {
+                                                // Handle key press
+                                                    var key = theEvent.keyCode || theEvent.which;
+                                                    key = String.fromCharCode(key);
+                                                }
+                                                var regex = /[0-9]|\./;
+                                                if( !regex.test(key) ) {
+                                                    theEvent.returnValue = false;
+                                                    if(theEvent.preventDefault) theEvent.preventDefault();
+                                                }
+                                            }
+                                        </script>
                                         @if ($errors->has('phoneNo'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -97,7 +115,7 @@
 
                                     <div class="col-md">
                                         {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
-                                        <select name="category" id="category" class="form-control">
+                                        <select name="category" id="category" class="form-control" required>
                                             <option selected disabled>Select one</option>
                                             <option value="doc">Doctor</option>
                                             <option value="admin">Admin</option>
