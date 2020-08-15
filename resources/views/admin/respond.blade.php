@@ -189,8 +189,16 @@
                             
                             <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                          
                                 
-                            <a href="#"  data-toggle="modal" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
-                            
+                            <a href="#"  data-toggle="modal" id="uploadDocumentButton" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function(){
+                                    var x = "{{ $errors->any() }}"
+                                    if(x === "1"){
+                                        document.getElementById("uploadDocumentButton").click();
+                                    }
+                                });
+                            </script>
                             <div class="modal fade" id="uploadPrescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
