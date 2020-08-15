@@ -344,18 +344,26 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Profile Updated successfully!');
     }
 
-
+ 
 
     public function updateImage(Request $request, $id){
 
-        $user = Auth::user()->where('id', $id)->first();
-        if($request){
-            // return $request;
-            if($request->hasFile('display_image')){
-                $user->display_image = $request->file('display_image')->store('display_image','public');
+        $validator = Validator::make($request->all(), [
+            'display_image' => ['required', 'mimes:jpeg,png,gif,webp','max:2048'],
+        ]);
+        if(!$validator->fails()){
+            $user = Auth::user()->where('id', $id)->first();
+            if($request){
+                // return $request;
+                if($request->hasFile('display_image')){
+                    $user->display_image = $request->file('display_image')->store('display_image','public');
+                }
+                $user->update();
+                return redirect()->back()->with('success', 'Image successfull Uploaded');
             }
-            $user->update();
-            return redirect()->back()->with('success', 'Image successfull Uploaded');
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     } 
 
