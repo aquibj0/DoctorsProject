@@ -75,7 +75,7 @@ class AdminController extends Controller
             }else{
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->get())->with('filter', $filter)->with('services', Service::all())->with('counter', 0)->with('error', 'Wrong URL!')->with('start', $start)->with('end', $end);   
             }
-        }else if($filter >= 1 && $filter <= Service::latest()->first()->id){
+        }else if($filter >= 1 && $filter <= 5){
             if($sort == 1){
                 return view('admin.dashboard')->with('servReq', ServiceRequest::where('service_id', $filter)->orderBy('srId', 'desc')->get())->with('filter', $filter)->with('doctors', Admin::where('category', 'doc')->get())->with('services', Service::all())->with('counter', 0)->with('start', 0)->with('end', 0);
             }else if($sort == 2){
@@ -358,7 +358,7 @@ class AdminController extends Controller
             $user->update();
             return redirect()->back()->with('success', 'Image successfull Uploaded');
         }
-    }
+    } 
 
     public function operate(Request $request){
         // return $request;
@@ -390,6 +390,7 @@ class AdminController extends Controller
                                 return redirect()->back()->with('error', 'Service Request dosen\'t exists');
                             }
                         }
+                        // return redirect()->route('admin.dashboard')->with('success', 'Doctor assigned successfully!');
                         return redirect()->back()->with('success', 'Doctor assigned successfully!');
                     }else{
                         return redirect()->back()->with('error', 'No Service Request selected');
@@ -397,7 +398,8 @@ class AdminController extends Controller
                 }else{
                     return redirect()->back()->with('error', 'No Doctor selected');
                 }
-            }elseif($request->admin_submit == 'reminder'){
+            }
+            elseif($request->admin_submit == 'reminder'){
                 if(isset($request->srId)){
                     for($i = 0; $i < count($request->srId); $i++){
                         $srvcReq = ServiceRequest::where('id', $request->srId[$i])->first();

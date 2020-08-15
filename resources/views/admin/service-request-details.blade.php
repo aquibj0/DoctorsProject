@@ -24,7 +24,7 @@
                             <div class="col-md">
                                 <h5 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h5>
 
-                                <table class="table table-responsive table-bordered">
+                                <table class="table  table-bordered">
                                     <tbody>
                                         <tr>
                                             <th scope="row">Service Req ID</th>
@@ -94,7 +94,7 @@
                                 @endphp
                                 
                                 @if ($srvcReq->paymentStatus == true)
-                                    <table class="table table-responsive table-bordered">
+                                    <table class="table  table-bordered">
                                         <tbody>
                                         
                                             <tr>
@@ -120,7 +120,7 @@
                                         </tbody>
                                     </table>
                                 @else
-                                    <table class="table table-responsive table-bordered">
+                                    <table class="table  table-bordered">
                                         <tbody>
                                             <tr>
                                                 <th scope="row">Payment Status</th>
@@ -138,7 +138,7 @@
 
 
 
-                                <table class="table table-responsive table-bordered">
+                                <table class="table  table-bordered">
                                     <tbody>
 
                                         @if ($srvcReq->srAssignedIntUserId == null)
@@ -206,10 +206,10 @@
 
 
                             {{-- Patient Details --}}
-                            <div class="col-md-5">
+                            <div class="col-md">
 
                                 <h5 class="maroon mb-3"><u><b>PATIENT DETAIL</b></u></h5>
-                                <table class="table table-bordered table-responsive">
+                                <table class="table table-bordered ">
                                     <tbody >
                                         <tr>
                                             <th scope="row">P. Name</th>
@@ -292,21 +292,21 @@
                                         {{-- @if (!empty($srvcReq->askQuestion)) --}}
                                             {{-- Show Respond Button where service request is AAQ --}}
                                             
-                                            <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md">
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/respond" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">
                                                 @if(Auth::user()->category == "doc")
                                                 Respond
                                                 @else
                                                 View Response
                                                 @endif
                                             </a>                                
-                                            <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md">Download Reports</a>
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/download-report" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">Download Reports</a>
                                         {{-- @elseif(!empty($srvcReq->videoCall)) --}}
         
                                             {{--  --}}
 
                                         {{-- @endif --}}
                                         @endif
-                                        <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md">Back</a>
+                                        <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">Back</a>
 
                                     </div>
                                 
@@ -318,161 +318,6 @@
                         </div>
                     </div>
                 </div>
-
-               
-
-                
-                {{-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="maroon mb-3"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
-
-                                <table class="table table-bordered table-responsive mb-4">
-                                    <thead class="thead-dark">
-                                        <th scope="col">Sr Id</th>
-                                        <th scope="col">Sr Type</th>
-                                        <th scope="col">Sr Time</th>
-                                        <th scope="col">Sr Department</th>
-                                        <th scope="col">Sr Response Time</th>
-                                        <th scope="col">Assigned Doctor</th>
-                                        <th scope="col">Status</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ $srvcReq->srId }}</td>
-                                            <td>{{ $srvcReq->service->srvcName }}</td>
-                                            <td>{{ $srvcReq->srRecievedDateTime }}</td>
-                                            <td>{{ $srvcReq->srDepartment }}</td>
-                                            
-                                            @if ($srvcReq->srResponseDateTime === null)
-                                                <td>Not Responded yet</td>
-    
-                                            @else
-                                                <td>
-                                                    {{ $srvcReq->srResponseDateTime}}
-                                                
-                                                </td>
-                                            @endif
-                                            @if ($srvcReq->srAssignedIntUserId === null)
-                                                <td>Doctor</td>
-                                            @endif
-                                            <td>{{$srvcReq->srStatus}}</td>
-                                        </tr>
-                                    </tbody>
-    
-                                </table>
-
-
-
-
-
-
-                                
-
-                                <table class="table table-bordered table-responsive ">
-                                    <thead class="thead-dark">
-                                        <th scope="col">Patient ID</th>
-                                        <th scope="col">Patient Name</th>
-                                        <th scope="col">Patient Gender</th>
-                                        <th scope="col">Patient Age</th>
-                                        <th scope="col">Patient Background</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ $srvcReq->patient->patId }}</td>
-                                            <td>{{ $srvcReq->patient->patFirstName }} {{ $srvcReq->patient->patLastName }}</td>
-                                            <td>{{ $srvcReq->patient->patGender }}</td>
-                                            <td>{{ $srvcReq->patient->patAge}}</td> 
-                                            <td>{{ $srvcReq->askQuestion->aaqPatientBackground }}</td> 
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-
-
-
-                                <h4 class="maroon mb-3"><u><b>SERVICE DETAILS</b></u></h4>
-
-                                @if ($srvcReq->service_id === 1)
-                                    <table class="table table-bordered table-responsive mb-4">
-                                        <thead class="thead-dark">
-                                            <th scope="col">Patient Background</th>
-                                            <th scope="col">Patient Question</th>
-                                            <th scope="col">Doctor Response</th>
-                                            <th scope="col">Prescription by doctor</th>
-                                        </thead>
-        
-                                        <tbody>
-                                            <td>{{ $srvcReq->askQuestion->aaqPatientBackground }}</td>
-                                            <td>{{ $srvcReq->askQuestion->aaqQuestionText }}</td>
-                                            @if ($srvcReq->askQuestion->aaqDocResponse != null)
-                                                <td>Responded at {{ $srvcReq->srResponseDateTime}}</td>
-                                            @else
-                                                <td>Not Responded</td>
-                                            @endif
-                                            @if ($srvcReq->askQuestion->aaqDocResponseUploaded != null)
-                                                <td>{{ $srvcReq->askQuestion->aaqDocResponseUploaded }}</td>                                            
-                                            @endif
-                                        </tbody>
-        
-                                    </table>
-                                @endif
-
-
-
-
-                                @php
-                                    $patDocs = App\PatientDocument::where('service_request_id', '=', $srvcReq->id)->get();
-                                @endphp
-                                @if (isset($patDocs))
-                                    <h4 class="maroon mb-3"><u><b>PATIENT DOCUMENTS</b></u></h4>
-                                    <table class="table table-bordered table-responsive mb-4">
-                                        <thead class="thead-dark">
-                                            <th scope="col">File Type</th>
-                                            <th scope="col">File Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">File Date</th>
-                                            <th scope="col">Upload Date</th>
-                                            <th scope="col">Action</th>
-                                        </thead>
-        
-                                        <tbody>
-                                            @foreach ($patDocs as $patDoc)
-                                                <tr>
-                                                    <td>{{ $patDoc->documentType }}</td>
-                                                    <td>{{ $patDoc->documentFileName }} </td>
-                                                    <td>{{ $patDoc->documentDescription }}</td>
-                                                    <td>{{ $patDoc->documentDate }}</td>
-                                                    <td>{{ $patDoc->documentUploadDate }}</td>
-                                                    <td> <a href="#" class="btn btn-maroon btn-sm">View</a> </td>
-                                                </tr>
-                                            @endforeach
-                                            
-                                        </tbody>
-        
-                                    </table>
-                                @endif  
-
-
-
-                                <div class="btn-groupped mt-3 float-right">
-                                    <a href="#" class="btn btn-maroon btn-sm">Upload Document</a>
-                                    <a href="#" class="btn btn-maroon btn-sm">Send Reminder</a>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-
-
-                        
-                        
-
-                    </div>
-                </div>      --}}
             
             </div>
         </div>

@@ -21,7 +21,7 @@ Route::get('/', 'AppController@index');
 //generate invoice
 Route::get('/generate-invoice/{id}', 'AppController@generateInvoice');
 
-Route::get('/terms-and-condition', function(){
+Route::get('/terms-and-condition', function(){ 
     return view('terms-and-condition');
 });
 Route::get('/contact-us', 'ContactUsController@index');
@@ -105,7 +105,7 @@ Route::get('/admin/appointment_delete/{date}/{type}/{clinic_id}/{start}/{end}', 
 Route::group(['middleware' => 'web'], function(){
     Route::prefix('admin')->group(function () {
         Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
-        Route::post('/filter', 'Admin\AdminController@filter');
+        Route::get('/filter', 'Admin\AdminController@filter');
         Route::get('/{filter}/{sort}/{start}/{end}', 'Admin\AdminController@sort');
         Route::get('register', 'Admin\AdminController@create')->name('admin.register');
         Route::post('register', 'Admin\AdminController@store')->name('admin.register.store');

@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                 
                             @if (!empty($departments))
-                                <table class="table table-responsive table-bordered">
+                                <table class="table  table-bordered">
                                     <thead class="thead-dark">
                                         <th scope="col">S No.</th>
                                         <th scope="col">Department</th>

@@ -4,7 +4,7 @@
 @section('content')
 
 
-    <div class="container">
+    <div class="container-fluid">
             
         <div class="row mt-4">
             <div class="col-md-4">

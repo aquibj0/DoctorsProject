@@ -9,7 +9,7 @@
     <div class="col-md-8">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="user-register-form">
                         <div class="register-block mt-4">
                             <h2 class="mb-0"> <b>REGISTER</b></h2>
@@ -132,7 +132,7 @@
                                 <div class="form-row form-group">
                                     <div class="col-md-12">
                                         <input type="checkbox" id="terms" onchange="confirm()">
-                                        <label for="">I Agree with all the statements in <a href="#" data-toggle="modal" data-target="#termsandconditions"><u>Terms of Services</u></a></label>
+                                        <label for="">I Agree with <a href="#" data-toggle="modal" data-target="#termsandconditions"><u>Terms of Services</u></a></label>
                                         
                                         <script>
                                             function confirm(){

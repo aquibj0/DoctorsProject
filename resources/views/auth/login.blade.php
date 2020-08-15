@@ -20,9 +20,9 @@
                             <form method="POST" action="{{ route('login_user') }}">
                                 @csrf
         
-                                <div class="form-group row">
+                                <div class=" form-row">
                                     
-                                    <div class="col-md">
+                                    <div class="form-group col-md">
                                         <input id="email" type="text" placeholder="Email or Mobile No." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
         
                                         @error('email')
@@ -33,9 +33,9 @@
                                     </div>
                                 </div>
             
-                                <div class="form-group row">
+                                <div class=" form-row">
                                     
-                                    <div class="col-md">
+                                    <div class="form-group col-md">
                                         <div class="input-group">
                                             <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                             <button type="button" onclick="myFunction()"class="btn btn-eye" id="btnToggle" class="toggle"><i id="eyeIcon" class="fa fa-eye"></i></button>
@@ -49,8 +49,8 @@
                                     </div>
                                 </div>
         
-                                <div class="form-group row">
-                                    <div style="width:90%; float:left;">
+                                <div class=" form-row">
+                                    <div class="form-group col-md">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
         
@@ -61,8 +61,8 @@
                                     </div>
                                 </div>
         
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-12">
+                                <div class=" form-row mb-0">
+                                    <div class="form-group col-md-12">
                                         <button type="submit" style="width:100%" class="btn btn-maroon">
                                             Submit
                                         </button>

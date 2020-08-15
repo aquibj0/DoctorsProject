@@ -15,10 +15,13 @@
                     </div>
                 </div>
             </div>
+          
+
             <div class="card">
                 @include('layouts.message')
+               
                 <div class="card-header">
-                    <form action="/admin/filter" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/filter" method="GET" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-row form-group">
                             
@@ -40,7 +43,7 @@
                             <div class="col-md" style="padding-top: 10px;">
                             @if($filter)
                                 <select name="filter" id="filter" class="form-control">
-                                    <option value="0" selected>No Filter</option>
+                                    <option value="0" selected>All</option>
                                     {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option> --}}
@@ -79,7 +82,7 @@
                                 </select>
                             @else
                                 <select name="filter" id="filter" class="form-control">
-                                    <option value="0" selected>No Filter</option>
+                                    <option value="0" selected>All</option>
                                     {{-- <option disabled>-Payment Status-</option>
                                     <option value="paid">Paid</option>
                                     <option value="unpaid">Not Paid</option> --}}
@@ -100,9 +103,14 @@
                         </div>
                     </form>
                 </div>
+                
                 <form action="/admin/operate" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card-body admin-db">
+                            <div class="mb-2">
+                                <p class="maroon location-hidden"><b>“Pan right or rotate screen to view all details”
+                                </b></p>
+                            </div>
                             <table class="table table-bordered table-responsive">
                                 <thead class="thead-dark">
                                     <tr>                                            
@@ -213,7 +221,7 @@
                                             @endif
                                         @endforeach
                                     @else
-                                        <td colspan="6"><h2><b>No data available!</b></h2></td>
+                                        <td colspan="10" class="text-center"><h2><b>No data available!</b></h2></td>
                                     @endif
                                 </tbody>
                             </table>

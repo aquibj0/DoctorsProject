@@ -22,6 +22,10 @@
                         <div class="col-md-12">
                             {{-- <div class=" mb-3">
                             </div> --}}
+                            <div class=" mb-2">
+                                    <p class="maroon location-hidden"><b>“Pan right or rotate screen to view all details”
+                                    </b></p>
+                                </div>
                             <table class="table table-responsive table-bordered">
                                 <thead class="thead-dark">
                                     <th scope="col">S.No</th>

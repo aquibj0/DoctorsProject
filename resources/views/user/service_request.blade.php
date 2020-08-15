@@ -16,7 +16,10 @@
             <div class="col-md">
                 <div class="card " >
                     <div class="card-header">
-
+                        <div class="mt-2 mb-0">
+                            <p class="maroon location-hidden mb-0 mt-0"><b>“Pan right or rotate screen to view all details”
+                            </b></p>
+                        </div>
                     </div>
                     {{-- <div class="card-header">
                         <form action="/filter" method="POST" enctype="multipart/form-data">
