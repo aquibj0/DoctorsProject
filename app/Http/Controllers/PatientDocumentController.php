@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\PatientDocument;
 use App\ServiceRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 class PatientDocumentController extends Controller
@@ -38,38 +39,50 @@ class PatientDocumentController extends Controller
      */
     public function store(Request $request, $id){
 
+
+        $validator = Validator::make($request->all(), [
+            'documentFileName' => ['required', 'max:2048', 'mimes:jpg,png,pdf']
+        ]);
+
+
         $serviceReq = ServiceRequest::where('id', $id)->first();
-        if($request){
-            $patientDocument = new PatientDocument;
-            $patientDocument->documentType = $request['documentType'];
-            $patientDocument->documentDescription = $request['documentDescription'];
 
-            if($request->hasFile('documentFileName')){
-                //Get filename with extension
-                $fileNameWithExt = $request->file('documentFileName')->getCLientOriginalName();
-                // Get just filename
-                $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-                // Get just ext
-                $extension = $request->file('documentFileName')->getClientOriginalExtension();
-                //File name to Store
-                $fileNameToStore = $serviceReq->srId.'-'.$filename.'.'.$extension;
-                //Upload File
-                $path = $request->file('documentFileName')->storeAs('public/documentFileName', $fileNameToStore);
-            }
-            else{
-                $fileNameToStore = 'nofile.img';
-            }
-            if($request['documentDate'])
-                $patientDocument->documentDate = $request['documentDate'];
-            else
-                $patientDocument->documentDate = Carbon::now()->toDateString();
-            $patientDocument->documentUploadDate = Carbon::now()->toDateString(); 
-            $patientDocument->documentUploadedBy = $request['documentUploadedBy'];
-            $patientDocument->service_request_id = $request['service_request_id'];
-            $patientDocument->documentFileName = $fileNameToStore;
-            $patientDocument->save();
-            return redirect()->back()->with('success', 'Document Uploaded');
+        if(!$validator->fails()){
+            if($request){
+                $patientDocument = new PatientDocument;
+                $patientDocument->documentType = $request['documentType'];
+                $patientDocument->documentDescription = $request['documentDescription'];
 
+                if($request->hasFile('documentFileName')){
+                    //Get filename with extension
+                    $fileNameWithExt = $request->file('documentFileName')->getCLientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $request->file('documentFileName')->getClientOriginalExtension();
+                    //File name to Store
+                    $fileNameToStore = $serviceReq->srId.'-'.$filename.'.'.$extension;
+                    //Upload File
+                    $path = $request->file('documentFileName')->storeAs('public/documentFileName', $fileNameToStore);
+                }
+                else{
+                    $fileNameToStore = 'nofile.img';
+                }
+                if($request['documentDate'])
+                    $patientDocument->documentDate = $request['documentDate'];
+                else
+                    $patientDocument->documentDate = Carbon::now()->toDateString();
+                $patientDocument->documentUploadDate = Carbon::now()->toDateString(); 
+                $patientDocument->documentUploadedBy = $request['documentUploadedBy'];
+                $patientDocument->service_request_id = $request['service_request_id'];
+                $patientDocument->documentFileName = $fileNameToStore;
+                $patientDocument->save();
+                return redirect()->back()->with('success', 'Document Uploaded');
+
+            }
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
     }
