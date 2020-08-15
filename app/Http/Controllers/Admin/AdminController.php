@@ -308,7 +308,6 @@ class AdminController extends Controller
             'firstName' => 'required|string|max:40',
             'lastName' => 'required|string|max:40',
             'phoneNo' => 'nullable|min:10|max:10',
-            'category' => 'required|string',
             'alternatePhoneNo' => 'nullable|max:10|min:10|unique:admins',
             'degree' => 'nullable|max:191|string',
             'dob' => 'string|nullable|max:10',

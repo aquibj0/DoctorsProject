@@ -150,7 +150,7 @@
                         @php
                             $prescriptions = App\PatientDocument::where([
                                 ['service_request_id', '=', $srvcReq->id],
-                                ['documentUploadedBy', '=', 'Doctor']
+                                ['documentUploadedBy', '!=', $srvcReq->user->id],
                             ])->get();
                         @endphp
 
@@ -164,6 +164,7 @@
                                     <th scope="col">File Name</th>
                                     <th scope="col">File Description</th>
                                     <th scope="col">Uploaded By</th>
+                                    <th scope="col">View</th>
 
 
                                 </thead>
@@ -174,6 +175,7 @@
                                             <td>{{$prescription->documentFileName}}</td>
                                             <td>{{$prescription->documentDescription}}</td>
                                             <td>{{$prescription->documentUploadedBy}}</td>
+                                            <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
                                         </tr>
                                     @endforeach
                                     {{-- {{$prescriptions}} --}}
@@ -264,8 +266,8 @@
                                                                 </span>
                                                             @enderror
                                                         </div>
-                                                    </div> --}}
-                                                    <input type="hidden" name="documentUploadedBy" id="documentUploadedBy" value="Doctor">
+                                                    </div> --}} 
+                                                    <input type="hidden" name="documentUploadedBy" id="documentUploadedBy" value="{{Auth::user()->firstName.' '.Auth::user()->lastName }}">
                                                     <input type="hidden" name="service_request_id" id="service_request_id" value="{{$srvcReq->id}}">
                                                 </div>
 

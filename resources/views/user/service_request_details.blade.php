@@ -489,8 +489,9 @@
                                                 <th scope="col">Docuement Type</th>
                                                 <th scope="col">Docuement Name</th>
                                                 <th scope="col">Description</th>
-                                                <th scope="col">Docuement Date</th>
+                                                {{-- <th scope="col">Docuement Date</th> --}}
                                                 <th scope="col">Uploaded Date</th>
+                                                <th scope="col">Uploated By</th>
                                                 <th scope="col">Action</th>
                                             </thead>
 
@@ -500,8 +501,10 @@
                                                         <td>{{ $patPrescription->documentType }}</td>
                                                         <td>{{ $patPrescription->documentFileName }} </td>
                                                         <td>{{ $patPrescription->documentDescription }}</td>
-                                                        <td>{{ $patPrescription->documentDate }}</td>
-                                                        <td>{{ $patPrescription->documentUploadDate }}</td>
+                                                        {{-- <td>{{ $patPrescription->documentDate }}</td> --}}
+                                                        <td>{{date('d-m-Y ', strtotime($patPrescription->documentUploadDate))}}</td>
+                                                        <td>{{ $patPrescription->documentUploadedBy }}</td>
+                                                        
                                                         <td>
                                                             <a href="/downloadDoc/{{$patPrescription->id}}" class="btn-maroon btn-sm btn">Download</a>
                                                         </td>

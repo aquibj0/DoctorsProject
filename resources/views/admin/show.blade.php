@@ -8,14 +8,14 @@
             
         <div class="row mt-4">
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->display_image)
-                                <img src="{{asset('storage/'.Auth::user()->display_image)}}" style="border-radius:50%;max-width:70%" alt="">
+                                <img src="{{asset('storage/'.Auth::user()->display_image)}}" style="border-radius:50%;max-width:150px" alt="">
 
                             @else
-                                <img src="{{asset('image/user-profile.png')}}" style="max-width:60%" alt="">
+                                <img src="{{asset('image/user-profile.png')}}" style="max-width:150px;" alt="">
                             @endisset
                         </div>
                         <a href="#" data-toggle="modal" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
@@ -89,7 +89,7 @@
                             <div class="form-group form-row">
                                 <div class="col-md-6">
                                     {{-- <label for="new-password" >Alternate Phone No</label> --}}
-                                    <input class="form-control" type="text" placeholder="Alternate Phone No." value="{{Auth::user()->alternaterPhoneNo}}" disabled>
+                                    <input class="form-control" type="text" placeholder="Alternate Phone No." value="{{Auth::user()->alternatePhoneNo}}" disabled>
                                 </div>
                                 {{-- <div class="col-md-6">
                                     <input class="form-control" type="date" value="{{Auth::user()->dob}}" disabled>                                    
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     {{-- <label for="new-password" >Date of Birth</label> --}}
-                                    <input class="form-control" type="date" placeholder="DOB" value="{{Auth::user()->dob}}" disabled>                                    
+                                    <input class="form-control" type="text" placeholder="DOB" value="{{Auth::user()->dob}}" disabled>                                    
                                 </div>
                             </div>
                             <div class="form-group form-row">
@@ -247,7 +247,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Alternate Phone No</label>
-                                                            <input class="form-control" type="text" name="alternaterPhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternaterPhoneNo}}">
+                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternaterPhoneNo}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">
