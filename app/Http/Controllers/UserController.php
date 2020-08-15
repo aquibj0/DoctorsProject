@@ -8,6 +8,7 @@ use Auth;
 use App\Patient;
 use App\Service;
 use App\ServiceRequest;
+use Illuminate\Support\Facades\Validator;
 // use App\Patient
 use Illuminate\Support\Facades\Hash;
 
@@ -104,16 +105,16 @@ class UserController extends Controller
             'userImage' => ['required', 'mimes:jpeg,png,gif,webp','max:2048'],
         ]);
         if(!$validator->fails()){
-        if($request){
-            $user = Auth::user()->where('id', $id)->first();
-            if($request->hasFile('userImage')){
-                $user->userImage = $request->file('userImage')->store('userImage','public');
+            if($request){
+                $user = Auth::user()->where('id', $id)->first();
+                if($request->hasFile('userImage')){
+                    $user->userImage = $request->file('userImage')->store('userImage','public');
+                }
+                $user->update();
+                return redirect()->back()->with('success', 'Image successfull Uploaded');
             }
-            $user->update();
-            return redirect()->back()->with('success', 'Image successfull Uploaded');
-        }
         }else{
-            return redirect()->back()->with('error', $validator );
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 

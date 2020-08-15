@@ -40,7 +40,13 @@
                                     <form action="{{route('image.upload',Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
-                                            <input type="file" name="userImage" id="userImage" class="form-control">
+                                            <input id="userImage" type="file" class="form-control @error('userImage') is-invalid @enderror" name="userImage" value="{{ old('userImage') }}"  autocomplete="userImage" autofocus>
+                                                                                 
+                                            @error('userImage')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
