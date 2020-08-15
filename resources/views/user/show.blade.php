@@ -21,10 +21,10 @@
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->userImage)
-                                <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:200px" alt="">
+                                <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:170px" alt="">
 
                             @else
-                                <img src="{{asset('image/user-profile.jpg')}}" style="max-width:60%" alt="">
+                                <img src="{{asset('image/user-profile.png')}}" style="max-width:150px" alt="">
                             @endisset
                         </div>
                         <a href="#" data-toggle="modal" data-target="#uploadImage" id="uploadDocumentButton" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>

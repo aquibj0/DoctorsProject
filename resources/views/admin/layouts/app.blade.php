@@ -78,7 +78,7 @@
                     @endguest
                     
                     
-                    <!-- Authentication Links -->
+                    <!-- Authentication Links --> 
                     @guest('admin')
                         
 
@@ -99,7 +99,7 @@
                                 @isset(Auth::user()->display_image)
                                     <span> <img  src="{{asset('storage/'.Auth::user()->display_image)}}" style="max-width:35px; border-radius:50%" alt=""> </span> 
                                 @else
-                                    <span> <img  src="https://image.flaticon.com/icons/svg/848/848043.svg" style="max-width:25px; border-radius:50%" alt=""> </span>
+                                    <span> <i class="fa fa-fw fa-user"></i> </span>
                                 @endisset 
                                 &nbsp;{{ Auth::user()->firstName." ".Auth::user()->lastName }} <span class="caret"></span>
 
