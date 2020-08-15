@@ -17,7 +17,6 @@
                     <div class="row service-request-details">
                         <div class="col-md-12">
                             @include('layouts.message')
-
                             {{-- Service Request Details Table --}}
 
                             <div class="mt-2 mb-2">
@@ -201,7 +200,16 @@
                                             @if( $serviceRequests->srStatus != 'CLOSED')
                                             {{-- Upload Document Button --}}
                                             @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
-                                                <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
+                                                <a href="#" class="btn btn-maroon btn-md mb-2" id="uploadDocumentButton" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function(){
+                                                        var x = "{{ $errors->any() }}"
+                                                        if(x === "1"){
+                                                            document.getElementById("uploadDocumentButton").click();
+                                                        }
+                                                    });
+                                                </script>
                                                 <div class="modal fade" id="uploadDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content " >
@@ -533,6 +541,15 @@
                                         {{-- Upload Document Button --}}
                                         @if ($serviceRequests->service_id != 4 || $serviceRequests->service_id != 5)
                                             <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    var x = "{{ $errors->any() }}"
+                                                    if(x === "1"){
+                                                        document.getElementById("uploadDocumentButton").click();
+                                                    }
+                                                });
+                                            </script>
                                             {{-- Upload Prescription Modal --}}
                                             <div class="modal fade" id="uploadDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -736,6 +753,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if($serviceRequests->paymentStatus == false)
+                                    <div class="btn-grouped float-right mt-4">
+                                        <a href="/user-payment/{{ $serviceRequests->srId }}" class="btn btn-maroon btn-md">Pay now</a>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>

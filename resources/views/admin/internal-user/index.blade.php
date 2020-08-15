@@ -13,6 +13,7 @@
             </div>
             <div class="card">
                 @include('layouts.message')
+                
                 <div class="card-header">
                     <div class="row">
                         

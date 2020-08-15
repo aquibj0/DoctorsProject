@@ -18,7 +18,16 @@
                                 <img src="{{asset('image/user-profile.png')}}" style="max-width:150px;" alt="">
                             @endisset
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
+                        <a href="#" data-toggle="modal" id="uploadDocumentButton" data-target="#uploadImage" class="btn btn-maroon btn-sm mt-4" style="width:100%">Upload Picture</a>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function(){
+                                var x = "{{ $errors->any() }}"
+                                if(x === "1"){
+                                    document.getElementById("uploadDocumentButton").click();
+                                }
+                            });
+                        </script>
                         <div class="modal fade" id="uploadImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
