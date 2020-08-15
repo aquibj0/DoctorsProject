@@ -21,7 +21,7 @@
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->userImage)
-                                <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:70%" alt="">
+                                <img src="{{asset('storage/'.Auth::user()->userImage)}}" style="border-radius:50%;max-width:200px" alt="">
 
                             @else
                                 <img src="{{asset('image/user-profile.jpg')}}" style="max-width:60%" alt="">
