@@ -2,10 +2,7 @@
 
 
 @section('content')
-
-
     <div class="container-fluid">
-            
         <div class="row mt-4">
             <div class="col-md-4">
                 <div class="card mb-4">
@@ -40,14 +37,12 @@
                                     <form action="{{route('admin.image.upload', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
-                                                <input id="display_image" type="file" placeholder="Document Filename" class="form-control @error('display_image') is-invalid @enderror" name="display_image" value="{{ old('display_image') }}"  autocomplete="display_image" autofocus>
-                            
-                                                @error('display_image')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            {{-- <input type="file" name="display_image" id="display_image" class="form-control"> --}}
+                                            <input id="display_image" type="file" placeholder="Document Filename" class="form-control @error('display_image') is-invalid @enderror" name="display_image" value="{{ old('display_image') }}"  autocomplete="display_image" autofocus>
+                                            @error('display_image')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -215,7 +210,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                        <button type="submit    " class="btn btn-maroon btn-sm">Save changes</button>
+                                        <button type="submit" class="btn btn-maroon btn-sm">Save changes</button>
                                     </div>
                                 </form>
                                 
@@ -263,7 +258,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Alternate Phone No</label>
-                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternaterPhoneNo}}">
+                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternatePhoneNo}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">

@@ -4,12 +4,12 @@
 <section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row" style="height:auto">
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div style="background:#142cd6;">
 
                 <img src="{{asset('image/IMAGE6.jpg')}}" style="max-width:100%" alt="">
             </div>
-        </div>
+        </div> --}}
 
 
         <div class="col-md-8" >
