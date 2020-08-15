@@ -16,60 +16,65 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="maroon mb-2"><b><u>PATIENT DETAILS</u></b></h5>
-                    <table class="table table-responsive table-bordered">
-                        <thead class="thead-dark">
-                            <th scope="col">Service Req ID</th>
-                            <th scope="col">Patient ID</th>
-                            <th scope="col">Patient Name</th>
-                            <th scope="col">Patient Age</th>
-                            <th scope="col">Patient Gender</th>
-                            
+                    <div class="table-responsive">
+                        <table class="table  table-bordered">
+                            <thead class="thead-dark">
+                                <th scope="col">Service Req ID</th>
+                                <th scope="col">Patient ID</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Patient Age</th>
+                                <th scope="col">Patient Gender</th>
+                                
 
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{$srvcReq->srId}}</td>
-                                <td>{{$srvcReq->patient->patId}}</td>
-                                <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>
-                                <td>{{ $srvcReq->patient->patAge}}</td> 
-                                <td>{{ $srvcReq->patient->patGender }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{$srvcReq->srId}}</td>
+                                    <td>{{$srvcReq->patient->patId}}</td>
+                                    <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>
+                                    <td>{{ $srvcReq->patient->patAge}}</td> 
+                                    <td>{{ $srvcReq->patient->patGender }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 
 
                     <br>
                     <h5 class="maroon mb-2"><b><u>PATIENT'S PRESCRIPTION</u></b></h5>
 
-                    <table class="table table-responsive table-bordered" style="max-width:100%; overflow-x:scroll;">
-                        <thead class="thead-dark">
-                            <th scope="col">Document Type </th>
-                            <th scope="col">File Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Uploaded On</th>
-                            <th scope="col">Action</th>
+                    <div class="table-responsive">
+                        <table class="table  table-bordered" style="max-width:100%; overflow-x:scroll;">
+                            <thead class="thead-dark">
+                                <th scope="col">Document Type </th>
+                                <th scope="col">File Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Uploaded On</th>
+                                <th scope="col">Action</th>
 
 
 
-                        </thead>
+                            </thead>
 
-                        <tbody>
-                            @foreach ($patDocs as $patDoc)
-                                <tr>
-                                    <td>{{$patDoc->documentType}}</td>
-                                    <td>{{$patDoc->documentFileName}}</td>
-                                    <td>{{$patDoc->documentDescription}}</td>
-                                    <td>Uploaded</td>
-                                    <td>{{$patDoc->documentUploadDate}}</td>
-                                    <td><a href="{{url('downloadDoc/'.$patDoc->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
-                                </tr>
+                            <tbody>
+                                @foreach ($patDocs as $patDoc)
+                                    <tr>
+                                        <td>{{$patDoc->documentType}}</td>
+                                        <td>{{$patDoc->documentFileName}}</td>
+                                        <td>{{$patDoc->documentDescription}}</td>
+                                        <td>Uploaded</td>
+                                        <td>{{$patDoc->documentUploadDate}}</td>
+                                        <td><a href="{{url('downloadDoc/'.$patDoc->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
+                                    </tr>
 
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
+                                @endforeach
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
                     <div class="container">
                         *Instructions for Downloading Reports <br>
                         1. Download files uploaded by customer for a booking ID <br>

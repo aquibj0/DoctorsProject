@@ -83,50 +83,52 @@
                             <h2 style="text-align: center"><b>No services created</b></h2>
                         @else
                         
-                        <table class="table table-bordered table-responsive">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Sr ID</th>
-                                    <th scope="col">Sr Type</th>
-                                    <th scope="col">Sr Date</th>
-                                    <th scope="col">Patient Name</th>
-                                    <th scope="col">Payment Status</th>
-                                    <th scope="col">Action</th>
-
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-
-
-                                @foreach ($serviceRequests as $serviceRequest)
+                        <div class="table-responsive">
+                            <table class="table table-bordered ">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <th scope="row">{{$serviceRequest->srId}}</th>
-                                        <td style="text-transform:uppercase">{{$serviceRequest->service->srvcName}}
-                                        <td> {{date('d-m-Y', strtotime($serviceRequest->srRecievedDateTime))}}  </td>
-                                        <td>{{$serviceRequest->patient->patFirstName}} {{$serviceRequest->patient->patLastName}}</td>
-                                        <td>
-                                            @if ($serviceRequest->paymentStatus == true)
-                                                Paid
-                                            @else
-                                                Not Paid
-                                            @endif
-                                            
-                                        </td>
-                                        <td> 
-
-                                            <a href="/service-request/{{Auth::user()->id}}/{{$serviceRequest->srId}}" class="btn btn-maroon btn-sm">View Details</a>
-
-                                        </td>
+                                        <th scope="col">Sr ID</th>
+                                        <th scope="col">Sr Type</th>
+                                        <th scope="col">Sr Date</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Payment Status</th>
+                                        <th scope="col">Action</th>
 
                                     </tr>
+                                </thead>
+                                
+                                <tbody>
 
+
+                                    @foreach ($serviceRequests as $serviceRequest)
+                                        <tr>
+                                            <th scope="row">{{$serviceRequest->srId}}</th>
+                                            <td style="text-transform:uppercase">{{$serviceRequest->service->srvcName}}
+                                            <td> {{date('d-m-Y', strtotime($serviceRequest->srRecievedDateTime))}}  </td>
+                                            <td>{{$serviceRequest->patient->patFirstName}} {{$serviceRequest->patient->patLastName}}</td>
+                                            <td>
+                                                @if ($serviceRequest->paymentStatus == true)
+                                                    Paid
+                                                @else
+                                                    Not Paid
+                                                @endif
+                                                
+                                            </td>
+                                            <td> 
+
+                                                <a href="/service-request/{{Auth::user()->id}}/{{$serviceRequest->srId}}" class="btn btn-maroon btn-sm">View Details</a>
+
+                                            </td>
+
+                                        </tr>
+
+                                        
+                                    @endforeach
                                     
-                                @endforeach
-                                
-                                
-                            </tbody>
-                        </table>
+                                    
+                                </tbody>
+                            </table>
+                        </div>  
                         @endif
                     </div>
                     <div class="card-footer"></div>

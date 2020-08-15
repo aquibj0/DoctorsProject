@@ -145,54 +145,56 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <table class="table table-bordered table-responsive">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Day</th>
-                                            <th scope="col">Schedule Exists?</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                    
-                                        @for ($i = 0;$i < count($data);$i++)
+                                <div class="table-responsive">
+                                    <table class="table table-bordered ">
+                                        <thead class="thead-dark">
                                             <tr>
-                                                <td>{{ $data[$i]['date'] }}</td>
-                                                <td>{{ $data[$i]['day'] }}</td>
-                                                <td>
-                                                    @if($data[$i]['created'] == 1)
-                                                        Created
-                                                    @else
-                                                        None
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($appointmentType == "VED")
-                                                        @if($docType == "TD")
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a> <!-- edit VTD -->
-                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD--> --}}
-                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VTD/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD-->
-                                                        @else
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
-                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VED/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                        @endif
-                                                    @else
-                                                        @if($docType == "TD")
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
-                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                        @else
-                                                            <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
-                                                            <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                        @endif
-                                                    @endif
-                                                </td>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Day</th>
+                                                <th scope="col">Schedule Exists?</th>
+                                                <th scope="col">Action</th>
                                             </tr>
-                                        @endfor
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>                                    
+                                            @for ($i = 0;$i < count($data);$i++)
+                                                <tr>
+                                                    <td>{{ $data[$i]['date'] }}</td>
+                                                    <td>{{ $data[$i]['day'] }}</td>
+                                                    <td>
+                                                        @if($data[$i]['created'] == 1)
+                                                            Created
+                                                        @else
+                                                            None
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($appointmentType == "VED")
+                                                            @if($docType == "TD")
+                                                                <a href="/admin/appointment/{{ $data[$i]['date'] }}/VTD/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a> <!-- edit VTD -->
+                                                                {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD--> --}}
+                                                                <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VTD/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> <!-- delete VTD-->
+                                                            @else
+                                                                <a href="/admin/appointment/{{ $data[$i]['date'] }}/VED/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                                <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/VED/0/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            @endif
+                                                        @else
+                                                            @if($docType == "TD")
+                                                                <a href="/admin/appointment/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                                <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CTD/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            @else
+                                                                <a href="/admin/appointment/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                {{-- <a href="#" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a> --}}
+                                                                <a href="/admin/appointment_delete/{{ $data[$i]['date'] }}/CED/{{ $appointmentType }}/{{ $start_date }}/{{$end_date}}" class="btn btn-md icon-maroon"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            @endif
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     @endif

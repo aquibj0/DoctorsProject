@@ -26,49 +26,51 @@
                             </div>
                             <h4 class="maroon mb-2"><b><u>SERVICE REQUEST DETAILS</u></b></h4>
 
-                            <table class="table table-bordered table-responsive mb-3">
-                                <thead class="thead-dark">
-                                    <th scope="col">Service Req Id</th>
-                                    <th scope="col">Service Type</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Sr Department</th>
-                                    <th scope="col">
-                                        @if(isset($serviceRequests->askQuestion))
-                                        Expected Response
-                                        @else
-                                        Appointment Slot
-                                        @endif
-                                    </th>
-                                    <th scope="col">Status</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $serviceRequests->srId }}</td>
-                                        <td>{{ $serviceRequests->service->srvcName }}</td>
-                                        <td>
-                                            {{ date('d-m-Y', strtotime($serviceRequests->srRecievedDateTime)) }}
-                                        </td>
-                                        <td>
-                                            @php
-                                                $dept = App\Department::select('department_name')->where('id', '=', $serviceRequests->srDepartment)->first() 
-                                            @endphp
-                                            {{ $dept->department_name }}
-                                        
-                                        </td>
-
-                                        <td>
+                            <div class="table-responsive">
+                                <table class="table table-bordered  mb-3">
+                                    <thead class="thead-dark">
+                                        <th scope="col">Service Req Id</th>
+                                        <th scope="col">Service Type</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Sr Department</th>
+                                        <th scope="col">
                                             @if(isset($serviceRequests->askQuestion))
-                                            {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }}
+                                            Expected Response
                                             @else
-                                            {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }} {{$serviceRequests->appointmentSchedule->appmntSlot}}
+                                            Appointment Slot
                                             @endif
-                                        </td>
-                                        
-                                        <td>{{$serviceRequests->srStatus}}</td>
-                                    </tr>
-                                </tbody>
+                                        </th>
+                                        <th scope="col">Status</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $serviceRequests->srId }}</td>
+                                            <td>{{ $serviceRequests->service->srvcName }}</td>
+                                            <td>
+                                                {{ date('d-m-Y', strtotime($serviceRequests->srRecievedDateTime)) }}
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $dept = App\Department::select('department_name')->where('id', '=', $serviceRequests->srDepartment)->first() 
+                                                @endphp
+                                                {{ $dept->department_name }}
+                                            
+                                            </td>
 
-                            </table>
+                                            <td>
+                                                @if(isset($serviceRequests->askQuestion))
+                                                {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }}
+                                                @else
+                                                {{ date('d-m-Y', strtotime($serviceRequests->srDueDateTime)) }} {{$serviceRequests->appointmentSchedule->appmntSlot}}
+                                                @endif
+                                            </td>
+                                            
+                                            <td>{{$serviceRequests->srStatus}}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
 
 
 
@@ -83,23 +85,24 @@
                             {{-- Patient Details Table --}}
                             <h4 class="maroon mb-2"><b><u>PATIENT DETAILS</u></b></h4>
  
-                            <table class="table table-bordered table-responsive mb-3">
-                                <thead class="thead-dark">
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Age</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Location</th>
-                                </thead>
+                            <div class="table-responsive">
+                                <table class="table table-bordered  mb-3">
+                                    <thead class="thead-dark">
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Location</th>
+                                    </thead>
 
-                                <tbody>
-                                    <td>{{ $serviceRequests->patient->patFirstName }} {{ $serviceRequests->patient->patLastName }}</td>
-                                    <td>{{ $serviceRequests->patient->patAge }}</td>
-                                    <td>{{ $serviceRequests->patient->patGender }}</td>
-                                    <td>{{ $serviceRequests->patient->patAddrLine1 }}, {{ $serviceRequests->patient->patCity }}, {{ $serviceRequests->patient->patDistrict }}, {{ $serviceRequests->patient->patState }} </td>
-                                </tbody>
+                                    <tbody>
+                                        <td>{{ $serviceRequests->patient->patFirstName }} {{ $serviceRequests->patient->patLastName }}</td>
+                                        <td>{{ $serviceRequests->patient->patAge }}</td>
+                                        <td>{{ $serviceRequests->patient->patGender }}</td>
+                                        <td>{{ $serviceRequests->patient->patAddrLine1 }}, {{ $serviceRequests->patient->patCity }}, {{ $serviceRequests->patient->patDistrict }}, {{ $serviceRequests->patient->patState }} </td>
+                                    </tbody>
 
-                            </table>
-
+                                </table>
+                            </div>
 
                             {{-- Service Details --}}
                             
@@ -112,22 +115,24 @@
                                 @endphp
                                 <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
 
-                                <table class="table table-bordered table-responsive mb-4">
-                                    <thead class="thead-dark">
-                                        <th scope="row">Payment Status</th>
-                                        <th scope="row">Payment ID</th>
-                                        <th scope="row">Payment Time</th>
-                                        <th scope="row">Payment Amount</th>
-                                    </thead>
-                                    <tbody>
-                                        <td>Paid</td>
-                                        <td>{{$paymentDetails->payment_transaction_id}}</td> 
-                                        <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
-                                        <td>{{$paymentDetails->payment_amount }}</td>
-                                    </tbody>
-                                    
-    
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered  mb-4">
+                                        <thead class="thead-dark">
+                                            <th scope="row">Payment Status</th>
+                                            <th scope="row">Payment ID</th>
+                                            <th scope="row">Payment Time</th>
+                                            <th scope="row">Payment Amount</th>
+                                        </thead>
+                                        <tbody>
+                                            <td>Paid</td>
+                                            <td>{{$paymentDetails->payment_transaction_id}}</td> 
+                                            <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                            <td>{{$paymentDetails->payment_amount }}</td>
+                                        </tbody>
+                                        
+        
+                                    </table>
+                                </div>
                                 @endif
                                 {{-- Patient Uploaded Documents --}}
                                 @php
@@ -140,46 +145,49 @@
                                 @if (isset($patDocs))
                                     <h4 class="maroon mb-2"><u><b>PATIENT DOCUMENTS</b></u></h4>
                                     <small class="maroon">Uploaded by patient</small>
-                                    <table class="table table-bordered table-responsive mb-3">
-                                        <thead class="thead-dark">
-                                            {{-- <th scope="col">Sr. No</th> --}}
-                                            <th scope="col">Docuement Type</th>
-                                            <th scope="col">Docuement Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Docuement Date</th>
-                                            <th scope="col">Uploaded Date</th>
-                                            <th scope="col">Action</th>
 
-                                            {{-- <th scope="col">Patient Address</th> --}}
-                                            {{-- <th scope="col">Patient</th> --}}
-                                        </thead>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-3">
+                                            <thead class="thead-dark">
+                                                {{-- <th scope="col">Sr. No</th> --}}
+                                                <th scope="col">Docuement Type</th>
+                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Docuement Date</th>
+                                                <th scope="col">Uploaded Date</th>
+                                                <th scope="col">Action</th>
 
-                                        <tbody>
-                                            @foreach ($patDocs as $patDoc)
-                                                <tr>
-                                                    <td>{{ $patDoc->documentType }}</td>
-                                                    <td>{{ $patDoc->documentFileName }} </td>
-                                                    <td>{{ $patDoc->documentDescription }}</td>
-                                                    <td>{{ date('d-m-Y ', strtotime($patDoc->documentDate))  }}</td>
-                                                    <td>{{ date('d-m-Y ', strtotime($patDoc->documentUploadDate))  }}</td>
-                                                    <td>
-                                                        <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
+                                                {{-- <th scope="col">Patient Address</th> --}}
+                                                {{-- <th scope="col">Patient</th> --}}
+                                            </thead>
 
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                            @if($serviceRequests->srStatus != "CLOSED")
-                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
-                                                            @else
-                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return false;" disabled>Delete </button>
-                                                            @endif
-                                                        </form>                                                  
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            
-                                        </tbody>
+                                            <tbody>
+                                                @foreach ($patDocs as $patDoc)
+                                                    <tr>
+                                                        <td>{{ $patDoc->documentType }}</td>
+                                                        <td>{{ $patDoc->documentFileName }} </td>
+                                                        <td>{{ $patDoc->documentDescription }}</td>
+                                                        <td>{{ date('d-m-Y ', strtotime($patDoc->documentDate))  }}</td>
+                                                        <td>{{ date('d-m-Y ', strtotime($patDoc->documentUploadDate))  }}</td>
+                                                        <td>
+                                                            <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
 
-                                    </table>
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                @if($serviceRequests->srStatus != "CLOSED")
+                                                                <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                                @else
+                                                                <button type="submit" class="btn btn-maroon btn-sm" onclick="return false;" disabled>Delete </button>
+                                                                @endif
+                                                            </form>                                                  
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                
+                                            </tbody>
+
+                                        </table>
+                                    </div>
                                     <small class="maroon">* To upload more document click Add Document</small>
                                 @endif   
 
@@ -381,27 +389,30 @@
                             @elseif(isset($serviceRequests->videoCall))
 
                                 <h4 class="maroon mb-2"><u><b>APPOINTMENT DETAILS</b></u></h4>
-                                <table class="table table-bordered table-responsive mb-4">
-                                    <thead class="thead-dark">
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">Prescription by doctor</th>
-                                        {{-- <th scope="col">Patient</th> --}}
-                                    </thead>
-                                    <tbody>
 
-                                        <td>
-                                            @if ($serviceRequests->appointmentSchedule->appmntType === 'VED')
-                                                Video Call With Expert Doctor
-                                            @endif
-                                        </td>
-                                        <td>{{$serviceRequests->appointmentSchedule->appmntDate}}</td>
-                                        <td>{{$serviceRequests->appointmentSchedule->appmntSlot}}</td>
-                                        <td></td>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered  mb-4">
+                                        <thead class="thead-dark">
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Prescription by doctor</th>
+                                            {{-- <th scope="col">Patient</th> --}}
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
+                                            <td>
+                                                @if ($serviceRequests->appointmentSchedule->appmntType === 'VED')
+                                                    Video Call With Expert Doctor
+                                                @endif
+                                            </td>
+                                            <td>{{$serviceRequests->appointmentSchedule->appmntDate}}</td>
+                                            <td>{{$serviceRequests->appointmentSchedule->appmntSlot}}</td>
+                                            <td></td>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             
 
                                 {{-- Patient Uploaded Documents --}}
@@ -414,45 +425,48 @@
 
                                 @if (isset($patDocs))
                                     <h4 class="maroon mb-2"><u><b>PATIENT DOCUMENTS</b></u></h4>
-                                    <table class="table table-bordered table-responsive mb-3">
-                                        <thead class="thead-dark">
-                                            {{-- <th scope="col">Sr. No</th> --}}
-                                            <th scope="col">Docuement Type</th>
-                                            <th scope="col">Docuement Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Docuement Date</th>
-                                            <th scope="col">Uploaded Date</th>
-                                            <th scope="col">Action</th>
 
-                                            {{-- <th scope="col">Patient Address</th> --}}
-                                            {{-- <th scope="col">Patient</th> --}}
-                                        </thead>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-3">
+                                            <thead class="thead-dark">
+                                                {{-- <th scope="col">Sr. No</th> --}}
+                                                <th scope="col">Docuement Type</th>
+                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Docuement Date</th>
+                                                <th scope="col">Uploaded Date</th>
+                                                <th scope="col">Action</th>
 
-                                        <tbody>
-                                            @foreach ($patDocs as $patDoc)
-                                                <tr>
-                                                    <td>{{ $patDoc->documentType }}</td>
-                                                    <td>{{ $patDoc->documentFileName }} </td>
-                                                    <td>{{ $patDoc->documentDescription }}</td>
-                                                    <td>{{ $patDoc->documentDate }}</td>
-                                                    <td>{{ $patDoc->documentUploadDate }}</td>
-                                                    <td>
-                                                     
-                                                     <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
+                                                {{-- <th scope="col">Patient Address</th> --}}
+                                                {{-- <th scope="col">Patient</th> --}}
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($patDocs as $patDoc)
+                                                    <tr>
+                                                        <td>{{ $patDoc->documentType }}</td>
+                                                        <td>{{ $patDoc->documentFileName }} </td>
+                                                        <td>{{ $patDoc->documentDescription }}</td>
+                                                        <td>{{ $patDoc->documentDate }}</td>
+                                                        <td>{{ $patDoc->documentUploadDate }}</td>
+                                                        <td>
+                                                        
+                                                        <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
 
 
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
-                                                     </form>
-                                                                                                       
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            
-                                        </tbody>
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                            <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                        </form>
+                                                                                                        
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                
+                                            </tbody>
 
-                                    </table>
+                                        </table>
+                                    </div>
                                     <small class="maroon">* To upload more document click Add Document</small>
                                 @endif   
 
@@ -468,33 +482,36 @@
                                 @if (isset($patPrescriptions))
 
                                     <h4 class="maroon mb-2"><u><b>DOCTOR'S PRESCRIPTIONS</b></u></h4>    
-                                    <table class="table table-bordered table-responsive mb-3">
-                                        <thead class="thead-dark">
-                                            <th scope="col">Docuement Type</th>
-                                            <th scope="col">Docuement Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Docuement Date</th>
-                                            <th scope="col">Uploaded Date</th>
-                                            <th scope="col">Action</th>
-                                        </thead>
 
-                                        <tbody>
-                                            @foreach ($patPrescriptions as $patPrescription)
-                                                <tr>
-                                                    <td>{{ $patPrescription->documentType }}</td>
-                                                    <td>{{ $patPrescription->documentFileName }} </td>
-                                                    <td>{{ $patPrescription->documentDescription }}</td>
-                                                    <td>{{ $patPrescription->documentDate }}</td>
-                                                    <td>{{ $patPrescription->documentUploadDate }}</td>
-                                                    <td>
-                                                        <a href="/downloadDoc/{{$patPrescription->id}}" class="btn-maroon btn-sm btn">Download</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            
-                                        </tbody>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-3">
+                                            <thead class="thead-dark">
+                                                <th scope="col">Docuement Type</th>
+                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Docuement Date</th>
+                                                <th scope="col">Uploaded Date</th>
+                                                <th scope="col">Action</th>
+                                            </thead>
 
-                                    </table>
+                                            <tbody>
+                                                @foreach ($patPrescriptions as $patPrescription)
+                                                    <tr>
+                                                        <td>{{ $patPrescription->documentType }}</td>
+                                                        <td>{{ $patPrescription->documentFileName }} </td>
+                                                        <td>{{ $patPrescription->documentDescription }}</td>
+                                                        <td>{{ $patPrescription->documentDate }}</td>
+                                                        <td>{{ $patPrescription->documentUploadDate }}</td>
+                                                        <td>
+                                                            <a href="/downloadDoc/{{$patPrescription->id}}" class="btn-maroon btn-sm btn">Download</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                
+                                            </tbody>
+
+                                        </table>
+                                    </div>
                                 @endif
 
 
@@ -689,31 +706,33 @@
 
                             @elseif(isset($serviceRequests->clinicAppointment))
                                 <h4 class="maroon mb-2"><u><b>APPOINTMENT DETAILS</b></u></h4>
-                                <table class="table table-bordered table-responsive mb-4">
-                                    <thead class="thead-dark">
-                                        {{-- <th scope="col">Clinic Type </th> --}}
-                                        <th scope="col">Clinic Name</th>
-                                        <th scope="col">Contact No</th>
-                                        <th scope="col">Location</th>
-                                        {{-- <th scope="col">Patient</th> --}}
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            {{-- <td>
-                                                {{$serviceRequests->clinicAppointment->clinic->clinicType}}
-                                            </td> --}}
-                                            <td>{{$serviceRequests->clinicAppointment->clinic->clinicName}}</td>
-                                            <td>
-                                                Mobile No. : {{$serviceRequests->clinicAppointment->clinic->clinicMobileNo}}<br>
-                                                Landline No. : {{$serviceRequests->clinicAppointment->clinic->clinicLandLineNo}} 
-                                            </td>
-                                            <td>
-                                                {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine1}}, {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine2}}, {{$serviceRequests->clinicAppointment->clinic->clinicCity}}, {{$serviceRequests->clinicAppointment->clinic->clinicDistrict}}, {{$serviceRequests->clinicAppointment->clinic->clinicState}},
-                                                {{$serviceRequests->clinicAppointment->clinic->clinicCountry}}, {{$serviceRequests->clinicAppointment->clinic->clinicPincode}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered  mb-4">
+                                        <thead class="thead-dark">
+                                            {{-- <th scope="col">Clinic Type </th> --}}
+                                            <th scope="col">Clinic Name</th>
+                                            <th scope="col">Contact No</th>
+                                            <th scope="col">Location</th>
+                                            {{-- <th scope="col">Patient</th> --}}
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                {{-- <td>
+                                                    {{$serviceRequests->clinicAppointment->clinic->clinicType}}
+                                                </td> --}}
+                                                <td>{{$serviceRequests->clinicAppointment->clinic->clinicName}}</td>
+                                                <td>
+                                                    Mobile No. : {{$serviceRequests->clinicAppointment->clinic->clinicMobileNo}}<br>
+                                                    Landline No. : {{$serviceRequests->clinicAppointment->clinic->clinicLandLineNo}} 
+                                                </td>
+                                                <td>
+                                                    {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine1}}, {{$serviceRequests->clinicAppointment->clinic->clinicAddressLine2}}, {{$serviceRequests->clinicAppointment->clinic->clinicCity}}, {{$serviceRequests->clinicAppointment->clinic->clinicDistrict}}, {{$serviceRequests->clinicAppointment->clinic->clinicState}},
+                                                    {{$serviceRequests->clinicAppointment->clinic->clinicCountry}}, {{$serviceRequests->clinicAppointment->clinic->clinicPincode}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             @endif
                         </div>
                     </div>

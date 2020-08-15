@@ -23,30 +23,32 @@
                     <div class="col-md-6">
                         
                         <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
-                        <table class="table table-responsive table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th>Service Req ID</th>
-                                    <td>{{$srvcReq->srId}}</td>        
-                                </tr>
-                                <tr>
-                                    <th>Patient Name</th>
-                                    <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>        
-                                </tr>
-                                
-                                <tr>
-                                    <th scope="row">Patient Age</th>
-                                    <td>{{ $srvcReq->patient->patAge}}</td> 
-                                </tr>
+                        <div class="table-responsive">
+                            <table class="table  table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Service Req ID</th>
+                                        <td>{{$srvcReq->srId}}</td>        
+                                    </tr>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row">Patient Age</th>
+                                        <td>{{ $srvcReq->patient->patAge}}</td> 
+                                    </tr>
 
-                                <tr>
-                                    <th scope="row">Patient Gender</th>
-                                    <td>{{ $srvcReq->patient->patGender }}</td>
-                                </tr>    
-                                </tr>
-                            </tbody>
-                          
-                        </table>
+                                    <tr>
+                                        <th scope="row">Patient Gender</th>
+                                        <td>{{ $srvcReq->patient->patGender }}</td>
+                                    </tr>    
+                                    </tr>
+                                </tbody>
+                            
+                            </table>
+                        </div>
 
                         <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
                         <div class="mb-3" style="padding:8px;max-height:200px; overflow-y:scroll;border:1px solid rgb(97, 13, 13);"> 
@@ -115,30 +117,31 @@
                     <div class="col-md-7 mb-3">
 
                         <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
-                        <table class="table table-responsive table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th>Service Req ID</th>
-                                    <td>{{$srvcReq->srId}}</td>        
-                                </tr>
-                                <tr>
-                                    <th>Patient Name</th>
-                                    <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>        
-                                </tr>
-                                
-                                <tr>
-                                    <th>Patient Age</th>
-                                    <td>{{$srvcReq->patient->patAge}}</td>        
-                                </tr>
-                                <tr>
-                                    <th>Patient Gender</th>
-                                    <td>{{$srvcReq->patient->patGender}}</td>        
-                                </tr>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Service Req ID</th>
+                                        <td>{{$srvcReq->srId}}</td>        
+                                    </tr>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>        
+                                    </tr>
                                     
-                            </tbody>
-                            
-                        </table>
-
+                                    <tr>
+                                        <th>Patient Age</th>
+                                        <td>{{$srvcReq->patient->patAge}}</td>        
+                                    </tr>
+                                    <tr>
+                                        <th>Patient Gender</th>
+                                        <td>{{$srvcReq->patient->patGender}}</td>        
+                                    </tr>
+                                        
+                                </tbody>
+                                
+                            </table>
+                        </div>
                         <h5 class="maroon"><b><u>PATIENT BACKGROUND</u> </b></h5>
                         <div class="mb-3" style="padding:8px;max-height:200px; overflow-y:scroll; border:1px solid rgb(97, 13, 13);"> 
                             {{$srvcReq->patient->patBackground}}
@@ -155,11 +158,12 @@
                     @if (isset($prescriptions))
                         <h5 class="mt-3 maroon"><b><u>DOCTOR'S PRESCRIPTIONS</u> </b></h5>
                         <small>*Uploaded by doctor</small>
-                        <table class="mt-2 table table-responsive table-bordered">
-                            <thead class="thead-dark">
-                                <th scope="col">File Name</th>
-                                <th scope="col">File Description</th>
-                                <th scope="col">Uploaded By</th>
+                        <div class="table-responsive">
+                            <table class="mt-2 table  table-bordered">
+                                <thead class="thead-dark">
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">File Description</th>
+                                    <th scope="col">Uploaded By</th>
 
 
                                 </thead>
@@ -175,7 +179,8 @@
                                     {{-- {{$prescriptions}} --}}
                                 </tbody>
                             </table>
-                        @endif
+                        </div>
+                    @endif
 
 
                         <div class="mt-4 buttons">

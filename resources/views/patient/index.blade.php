@@ -18,40 +18,43 @@
 
                     <div class="card" >
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Patient ID</th>
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Age</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($patients  as $patient)
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered ">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <th scope="row">{{$patient->patId}}</th>
-                                            <td>{{$patient->patFirstName}}</td>
-                                            <td>{{$patient->patLastName}}</td>
-                                            <td>{{$patient->patGender}}</td>
-                                            <td>{{$patient->patAge}}</td>
-                                            <td>
-                                            @if($service == "AAQ")
-                                                <a href="{{ url('/ask-a-doctor/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
-                                            @elseif($service == "VED")
-                                                <a href="{{ url('/video-consultation/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
-                                            @elseif($service == "CLI")
-                                                <a href="{{ url('/clinic-appointment/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
-                                            @endif
-                                            </td>
+                                            <th scope="col">Patient ID</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Action</th>
                                         </tr>
-                                    @endforeach
-                                    
-                                    
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($patients  as $patient)
+                                            <tr>
+                                                <th scope="row">{{$patient->patId}}</th>
+                                                <td>{{$patient->patFirstName}}</td>
+                                                <td>{{$patient->patLastName}}</td>
+                                                <td>{{$patient->patGender}}</td>
+                                                <td>{{$patient->patAge}}</td>
+                                                <td>
+                                                @if($service == "AAQ")
+                                                    <a href="{{ url('/ask-a-doctor/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
+                                                @elseif($service == "VED")
+                                                    <a href="{{ url('/video-consultation/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
+                                                @elseif($service == "CLI")
+                                                    <a href="{{ url('/clinic-appointment/'.$patient->id) }}" class="btn btn-maroon  btn-sm">Select Patient</a>
+                                                @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

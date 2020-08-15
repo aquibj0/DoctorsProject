@@ -55,14 +55,14 @@ td{
 }
 
 @media(min-width:768px){
-    .table-responsive{
+    /* .table-responsive{
         display: table;
-    }
+    } */
 }
 @media(max-width:768px){
-    .table-responsive{
+    /* .table-responsive{
         display: block;
-    }
+    } */
 
 
     .nav-item{
