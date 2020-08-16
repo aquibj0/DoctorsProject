@@ -5,7 +5,7 @@
 
 
     <div class="container">
-            @include('layouts.message')
+            
             <div class="row">
                 <div class="col-md-8">
                        <div class="register-block mt-4">
@@ -31,7 +31,7 @@
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                         <script>
                             $(document).ready(function(){
-                                var x = "{{ $errors->any() }}"
+                                var x = "{{ $errors->has('userImage') }}"
                                 if(x === "1"){
                                     document.getElementById("uploadDocumentButton").click();
                                 }
@@ -71,7 +71,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        
+                        @include('layouts.message')
                         <form action="" method="POST">
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -104,8 +104,18 @@
 
                         <div class="button mt-4">
 
-                            <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal"  data-target="#exampleModal">Update Password</a>
-
+                            <a href="#" class="btn btn-maroon btn-sm" data-toggle="modal" id="updatePassword"  data-target="#exampleModal">Update Password</a>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function(){
+                                    var x = "{{ $errors->has('current-password') }}";
+                                    var y = "{{ $errors->has('new-password') }}";
+                                    var z = "{{ $errors->has('new-password_confirmation') }}";
+                                    if(x === "1" || y === "1" || z=== "1"){
+                                        document.getElementById("updatePassword").click();
+                                    }
+                                });
+                            </script>
       
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

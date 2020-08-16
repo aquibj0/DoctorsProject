@@ -95,7 +95,7 @@
                                     <div class="form-row">
                                         {{-- Patient First Name Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control @error('firstName') is-invalid @enderror" id="firstName" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
+                                            <input type="text" class="form-control @error('firstName') is-invalid @enderror" id="firstName" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" max="35" required>
                                                 @error('firstName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -105,7 +105,7 @@
                                     
                                         {{-- Patient Last Name Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control @error('lastName') is-invalid @enderror" id="lastName" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
+                                            <input type="text" class="form-control @error('lastName') is-invalid @enderror" id="lastName" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" max="35" required>
                                                 @error('lastName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -177,7 +177,7 @@
 
                                         {{-- Patient Email Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
+                                            <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="patEmail" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" max="191" required>
                                             
                                             @error('patEmail')
                                                 <span class="invalid-feedback" role="alert">
@@ -189,7 +189,7 @@
                                     <div class="form-row">
                                         {{-- Patient Address Line 1 Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control @error('addressLine1') is-invalid @enderror" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ old('addressLine1') }}" required>
+                                            <input type="text" class="form-control @error('addressLine1') is-invalid @enderror" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ old('addressLine1') }}" max="35" required>
                                         
                                             @error('addressLine1')
                                                 <span class="invalid-feedback" role="alert">
@@ -200,7 +200,7 @@
                                     
                                         {{-- Patient Address Line 2 input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control @error('addressLine2') is-invalid @enderror" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}" >
+                                            <input type="text" class="form-control @error('addressLine2') is-invalid @enderror" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}" max="35" >
                                             @error('addressLine2')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -212,7 +212,7 @@
                                     <div class="form-row">
                                         {{-- Patient City Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control"class="form-control @error('city') is-invalid @enderror" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
+                                            <input type="text" class="form-control"class="form-control @error('city') is-invalid @enderror" id="city" placeholder="City" name="city" value="{{ old('city') }}" max="35" required>
                                             @error('city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -222,7 +222,7 @@
                                 
                                         {{-- Patient District Input --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}">
+                                            <input type="text" class="form-control"class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}" max="35">
                                             @error('district')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -234,7 +234,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             {{-- patient state Input --}}
-                                            <input type="text" class="form-control"class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
+                                            <input type="text" class="form-control"class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" max="35" required>
                                             @error('state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -245,7 +245,7 @@
                                         <div class="form-group col-md-6">
                                             {{-- Patient Country Input --}}
 
-                                            <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}" >
+                                            <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}">
                                                 <option value="India" selected>India</option>
                                             </select>
                                             @error('country')

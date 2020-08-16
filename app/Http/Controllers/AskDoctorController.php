@@ -78,7 +78,7 @@ class AskDoctorController extends Controller
                     'firstName' => ['required', 'string', 'max:35'],
                     'lastName' => ['required', 'string', 'max:35'],
                     'gender' => ['required', 'string', 'min:4', 'max:6'],
-                    'age' => ['required', 'numeric', 'min:10', 'max:90'],
+                    'age' => ['required', 'numeric'],
                     'patient_background' => ['required', 'string', 'max:1024'],
                     'patEmail' => ['required', 'email', 'max:255'],
                     'patMobileNo' => ['required', 'numeric', 'digits:10'],

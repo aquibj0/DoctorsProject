@@ -72,23 +72,26 @@
                         <h5 class="maroon"><b><u>DOCTOR'S RESPONSE</u> </b></h5>
                         @if ($srvcReq->askQuestion->aaqDocResponse != null)
                             <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
-    
+                        
                         @else
+                            @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
                             <form  method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >
-                                {{ csrf_field() }}
-                    
-                                <div class="form-row mt-1">
-                                    <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
-                                    </div>
-                                    <div class="text-center" style="width:100%">
-                                        @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
-                                        <button type="submit" style="width:100%" class="btn btn-maroon" >SUBMIT</button>
-                                        @endif
-                                    </div>
-                                </form>
+                            {{ csrf_field() }}
+                
+                            <div class="form-row mt-1">
+                                <div class="form-group col-md-12">
+                                    <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
+                                </div>
+                                <div class="text-center" style="width:100%">
+                                    @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
+                                    <button type="submit" style="width:100%" class="btn btn-maroon" >SUBMIT</button>
+                                    @endif
+                                </div>
+                            </form>
+                            @else
+                            <h2>No Response from Doctor</h2>
                             @endif
-
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -175,7 +178,9 @@
                                             <td>{{$prescription->documentFileName}}</td>
                                             <td>{{$prescription->documentDescription}}</td>
                                             <td>{{$prescription->documentUploadedBy}}</td>
+                                            @if($serviceReq->srStatus != "Cancelled")
                                             <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     {{-- {{$prescriptions}} --}}
@@ -193,7 +198,7 @@
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                             <script>
                                 $(document).ready(function(){
-                                    var x = "{{ $errors->any() }}"
+                                    var x = "{{ $errors->has('documentType') }}"
                                     if(x === "1"){
                                         document.getElementById("uploadDocumentButton").click();
                                     }
@@ -305,22 +310,29 @@
                                     <h5 class="maroon"><b><u>DOCTOR COMMENTS INTERNAL</u> </b></h5>
 
                             @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
+                                @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
                                 <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
                                     @csrf
                                     <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
+                                    @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
                                     <div class="form-group text-center mb-0">
                                         <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
                                     </div>
+                                    @endif
                                 </form>
-        
+                                @else
+                                <h2>No internal notes added</h2>
+                                @endif
                             @else
         
                                 <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
                                     @csrf
                                     <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
+                                    @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
                                     <div class="form-group text-center mb-0">
                                         <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
                                     </div>
+                                    @endif
                                 </form>
                             @endif
                             

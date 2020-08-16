@@ -19,7 +19,7 @@
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                         <script>
                             $(document).ready(function(){
-                                var x = "{{ $errors->any() }}"
+                                var x = "{{ $errors->has('display_image') }}"
                                 if(x === "1"){
                                     document.getElementById("uploadDocumentButton").click();
                                 }
@@ -152,8 +152,17 @@
                         <div class="row">
                         <div class="button col-md-3 mt-4 mb-4">
 
-                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal"  data-target="#exampleModal">Update Password</a>
-
+                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal" id="updatePassword"  data-target="#exampleModal">Update Password</a>
+                            <script>
+                                $(document).ready(function(){
+                                    var x = "{{ $errors->has('current-password') }}";
+                                    var y = "{{ $errors->has('new-password') }}";
+                                    var z = "{{ $errors->has('new-password_confirmation') }}";
+                                    if(x === "1" || y === "1" || z=== "1"){
+                                        document.getElementById("updatePassword").click();
+                                    }
+                                });
+                            </script>
       
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -220,7 +229,6 @@
                         </div>
                         <div class="button col-md-3 mt-4 mb-4">
                             <a href="#" class="btn btn-maroon btn-md" data-toggle="modal"  data-target="#profileModal">Update Profile</a>
-
       
                             <!-- Modal -->
                             <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

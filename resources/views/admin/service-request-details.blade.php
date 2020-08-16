@@ -288,6 +288,7 @@
 
                                 
                                     <div class="group-buttons float-right mt-4">
+                                        {{-- @if($srvcReq->srStatus != "Cancelled") --}}
                                         @if (!$srvcReq->clinicAppointment)
                                         {{-- @if (!empty($srvcReq->askQuestion)) --}}
                                             {{-- Show Respond Button where service request is AAQ --}}
@@ -306,24 +307,17 @@
 
                                         {{-- @endif --}}
                                         @endif
+                                        {{-- @endif --}}
                                         <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">Back</a>
 
                                     </div>
-                                
-
-                                
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-            
             </div>
         </div>
     </div>
-
-
 </section>
 
 

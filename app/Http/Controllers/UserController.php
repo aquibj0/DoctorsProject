@@ -83,11 +83,14 @@ class UserController extends Controller
             return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
         }
 
-        $validatedData = $request->validate([
+        // $validatedData = $request->validate([
+        //     'current-password' => 'required',
+        //     'new-password' => 'required|string|min:6|confirmed',
+        // ]);
+        $validator = Validator::make($request->all(), [
             'current-password' => 'required',
             'new-password' => 'required|string|min:6|confirmed',
         ]);
-
         //Change Password
         if(!$validator->fails()){
             $user = Auth::user();
@@ -96,7 +99,7 @@ class UserController extends Controller
 
             return redirect()->back()->with("success","Password changed successfully !");
         }else{
-            return redirect()->back()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
     }
 

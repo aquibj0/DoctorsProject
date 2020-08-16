@@ -288,18 +288,20 @@ class AdminController extends Controller
             return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
         }
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'current-password' => 'required',
             'new-password' => 'required|string|min:6|confirmed',
         ]);
-
         //Change Password
-        $user = Auth::user();
-        $user->password = Hash::make($request->get('new-password'));
-        $user->save();
+        if(!$validator->fails()){
+            $user = Auth::user();
+            $user->password = Hash::make($request->get('new-password'));
+            $user->save();
 
-        return redirect()->back()->with("success","Password changed successfully !");
-
+            return redirect()->back()->with("success","Password changed successfully !");
+        }else{
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     }
 
     public function updateProfile(Request $request){
