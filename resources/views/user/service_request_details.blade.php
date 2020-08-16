@@ -540,7 +540,7 @@
                                         @if($serviceRequests->srStatus != 'CLOSED')
                                         {{-- Upload Document Button --}}
                                         @if ($serviceRequests->service_id != 4 || $serviceRequests->service_id != 5)
-                                            <a href="#" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
+                                            <a href="#" id="uploadDocumentButton" class="btn btn-maroon btn-md mb-2" data-toggle="modal" data-target="#uploadDocument">Add Document</a>     
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                             <script>
                                                 $(document).ready(function(){

@@ -184,7 +184,7 @@
                                             <div class="col-md-12">
                                                 <label for="new-password" >Current Password</label>
 
-                                                <input id="current-password" type="password" class="form-control" name="current-password" required>
+                                                <input id="current-password" type="password" class="form-control" name="current-password"  required>
                 
                                                 @if ($errors->has('current-password'))
                                                     <span class="help-block">

@@ -300,7 +300,7 @@ class AdminController extends Controller
 
             return redirect()->back()->with("success","Password changed successfully !");
         }else{
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 
@@ -310,7 +310,7 @@ class AdminController extends Controller
             'firstName' => 'required|string|max:40',
             'lastName' => 'required|string|max:40',
             'phoneNo' => 'nullable|min:10|max:10',
-            'alternatePhoneNo' => 'nullable|max:10|min:10|unique:admins',
+            'alternatePhoneNo' => 'nullable|max:10|min:10',
             'degree' => 'nullable|max:191|string',
             'dob' => 'string|nullable|max:10',
             'addressLine1' => 'string|nullable|max:64',
