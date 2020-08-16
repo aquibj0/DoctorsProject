@@ -107,10 +107,27 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <select class="form-control" name="gender" id="gender" required>
+                                                @if(old('gender') == "Male")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Transgender">Transgender</option>
+                                                @elseif(old('gender') == "Female")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" selected>Female</option>
+                                                <option value="Transgender">Transgender</option>
+                                                @elseif(old('gender') == "Transgender")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" >Female</option>
+                                                <option value="Transgender" selected>Transgender</option>
+                                                @else
                                                 <option selected disabled>Gender </option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Transgender">Transgender</option>
+                                                @endif
                                             </select>
                                             {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled> --}}
                                             @error('gender')
@@ -124,7 +141,11 @@
                                             <select name="age" id="age" class="form-control">
                                                 <option disabled selected>Select age</option>
                                                 @for($i=10; $i<90 ;$i++)
-                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                    @if(old('age') == $i)
+                                                        <option value="{{ $i }}" selected>{{ $i }}</option>
+                                                    @else
+                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                    @endif
                                                 @endfor
                                             </select>
                                             @error('age')
@@ -245,7 +266,11 @@
                                             <select class="form-control" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
+                                                    @if(old('department') == $dept->id)
+                                                    <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
+                                                    @else
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             @error('department')
