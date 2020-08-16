@@ -25,249 +25,226 @@
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
                                     </div>
                                     @if($patient != null)
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="patFirstName" value="{{ $patient->patFirstName }}" disabled>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="patFirstName" value="{{ $patient->patFirstName }}" disabled>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="patLastName" value="{{ $patient->patLastName }}" disabled>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="patLastName" value="{{ $patient->patLastName }}" disabled>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ $patient->patAge }}" disabled>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ $patient->patAge }}" disabled>
+                                        <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
+                                                @error('patient_background')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ $patient->patBackground }}</textarea>
-                                            @error('patient_background')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ $patient->patAddrLine1 }}" required disabled>
+                                            </div>
+                                    
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ $patient->patAddrLine2 }}" required disabled>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ $patient->patAddrLine1 }}" required disabled>
-                                        </div>
-                                
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ $patient->patAddrLine2 }}" required disabled>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="city" placeholder="City" name="city" value="{{ $patient->patCity }}" required disabled>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="city" placeholder="City" name="city" value="{{ $patient->patCity }}" required disabled>
+                                            </div>
+                                    
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" disabled>
+                                            </div>
                                         </div>
-                                
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ $patient->patDistrict }}" disabled>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="state" placeholder="State" name="state" value="{{ $patient->patState }}" required disabled>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="state" placeholder="State" name="state" value="{{ $patient->patState }}" required disabled>
+                                            </div>
+                                    
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
+                                            </div>
                                         </div>
-                                
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
-                                        </div>
-                                    </div>
                                     
 
                                     @else <!-- without patient data -->
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
-                                            @error('firstName')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
-                                            @error('lastName')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control @error('firstName') is-invalid @enderror" id="firstName" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
+                                                @error('firstName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                     
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <select class="form-control" name="gender" id="gender" required>
-                                                @if(old('gender') == "Male")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" selected>Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Transgender">Transgender</option>
-                                                @elseif(old('gender') == "Female")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" >Male</option>
-                                                <option value="Female" selected>Female</option>
-                                                <option value="Transgender">Transgender</option>
-                                                @elseif(old('gender') == "Transgender")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" >Male</option>
-                                                <option value="Female" >Female</option>
-                                                <option value="Transgender" selected>Transgender</option>
-                                                @else
-                                                <option selected disabled>Gender </option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Transgender">Transgender</option>
-                                                @endif
-                                            </select>
-                                            {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name" name="gender" value="{{ $patient->patGender }}" disabled> --}}
-                                            @error('gender')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control @error('lastName') is-invalid @enderror" id="lastName" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
+                                                @error('lastName')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            {{-- <input type="text" class="form-control" id="inputPassword4" placeholder="Age" name="age" value="{{ old('age') }}" required> --}}
-                                            <select name="age" id="age" class="form-control">
-                                                <option disabled selected>Select age</option>
-                                                @for($i=10; $i<90 ;$i++)
-                                                    @if(old('age') == $i)
-                                                        <option value="{{ $i }}" selected>{{ $i }}</option>
+
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <select class="form-control @error('gender') is-invalid @enderror" name="gender" id="gender" required>
+                                                    @if(old('gender') == "Male")
+                                                        <option disabled>Gender </option>
+                                                        <option value="Male" selected>Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    @elseif(old('gender') == "Female")
+                                                        <option disabled>Gender </option>
+                                                        <option value="Male" >Male</option>
+                                                        <option value="Female" selected>Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    @elseif(old('gender') == "Transgender")
+                                                        <option disabled>Gender </option>
+                                                        <option value="Male" >Male</option>
+                                                        <option value="Female" >Female</option>
+                                                        <option value="Transgender" selected>Transgender</option>
                                                     @else
-                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                        <option selected disabled>Gender </option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
                                                     @endif
-                                                @endfor
-                                            </select>
-                                            @error('age')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
-                                            @error('patient_background')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        {{-- <div class="form-group col-md"> --}}
-                                        <input type="hidden" class="form-control" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
-                                        {{-- </div> --}}
-                                        <div class="form-group col-md-6">
-                                            <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
-                                            @error('patMobileNo')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="email" class="form-control" id="email" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
-                                            @error('patEmail')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ old('addressLine1') }}" required>
-                                            @error('addressLine1')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}">
-                                            @error('addressLine2')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
+                                                </select>
+                                                @error('gender')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
-                                                @error('city')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <select name="age" id="age" class="form-control @error('age') is-invalid @enderror">
+                                                    <option disabled selected>Select age</option>
+                                                    @for($i=10; $i<90 ;$i++)
+                                                        @if(old('age') == $i)
+                                                            <option value="{{ $i }}" selected>{{ $i }}</option>
+                                                        @else
+                                                            <option value="{{ $i }}">{{ $i }}</option>
+                                                        @endif
+                                                    @endfor
+                                                </select>
+                                                @error('age')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control @error('patient_background') is-invalid @enderror" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required>{{ old('patient_background') }}</textarea>
+                                                @error('patient_background')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="hidden" class="form-control @error('slot') is-invalid @enderror" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
+                                            <div class="form-group col-md-6">
+                                                <input type="number" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                                @error('patMobileNo')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="email" class="form-control @error('patEmail') is-invalid @enderror" id="email" placeholder="Email" name="patEmail" value="{{ old('patEmail') }}" required>
+                                                @error('patEmail')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control @error('addressLine1') is-invalid @enderror" id="addressLine1" placeholder="Address Line 1" name="addressLine1" value="{{ old('addressLine1') }}" required>
+                                                @error('addressLine1')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                 @enderror
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="district" placeholder="District" name="district" value="{{ old('district') }}">
-                                                @error('district')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <input type="text" class="form-control @error('addressLine2') is-invalid @enderror" id="addressLine2" placeholder="Address Line 2" name="addressLine2" value="{{ old('addressLine2') }}">
+                                                @error('addressLine2')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                 @enderror
                                             </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
-                                                @error('state')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                    
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
-                                                @error('country')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                    </div>
-                                    {{-- <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="number" onkeypress='validate(event)' class="form-control" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
-                                            @error('patMobileNo')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
-                                    </div> --}}
+
+                                        <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="City" name="city" value="{{ old('city') }}" required>
+                                                    @error('city')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control @error('district') is-invalid @enderror" id="district" placeholder="District" name="district" value="{{ old('district') }}">
+                                                    @error('district')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
+                                                    @error('state')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
+                                                    @error('country')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                        </div>
 
                                     @endif
-
-                                    
-
-                                    
-                                    {{-- <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="5" placeholder="Patient Background" required></textarea>
-                                        </div>
-                                    </div> --}}
 
 
                                     <div class="mb-3">
@@ -275,7 +252,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <select class="form-control" name="department" id="department" required>
+                                            <select class="form-control @error('department') is-invalid @enderror" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
                                                     @if(old('department') == $dept->id)
@@ -294,7 +271,7 @@
                                     {{-- </div>
                                     <div class="form-row"> --}}
                                         <div class="form-group col-md-6">
-                                            <input type="date" name="date" id="date" placeholder="Pick a date" class="some form-control" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                            <input type="date" name="date" id="date" placeholder="Pick a date" class="some form-control @error('date') is-invalid @enderror" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -302,9 +279,10 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <select class="some form-control" name="appointmentLoc" id="appointmentLoc" required>
+                                            <select class="some form-control @error('appointmentLoc') is-invalid @enderror" name="appointmentLoc" id="appointmentLoc" required>
                                                 <option selected disabled>Select Location</option>
                                                 @foreach ($location as $item)
                                                     <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
@@ -317,7 +295,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <select class="some form-control" name="service" id="service" required>
+                                            <select class="some form-control @error('service') is-invalid @enderror" name="service" id="service" required>
                                                 <option disabled selected>Select Type</option>
                                                 <option value="CED">Dr. Khastgir</option>
                                                 <option value="CTD">Birth Team Doctor</option>
@@ -331,7 +309,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <select class="form-control" name="slot" id="slot" required>
+                                            <select class="form-control @error('slot') is-invalid @enderror" name="slot" id="slot" required>
                                                 <option disabled selected>Select Time</option>
                                             </select>
                                             @error('slot')
