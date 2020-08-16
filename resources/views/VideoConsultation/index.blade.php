@@ -16,7 +16,7 @@
                             <div class="register-block">
                             <h2> Video Consultation</h2>
                             </div> 
-                        @include('layouts.message')
+                            @include('layouts.message')
                             <div>
                                 <form action="{{ url('/video-consultation') }}" method="POST">
                                     {{ csrf_field() }}
@@ -86,7 +86,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control @error('patFirstName') is-invalid @enderror" id="inputEmail4" placeholder="First Name" name="firstName" value="{{ old('firstName') }}" required>
-                                            @error('patFirstName')
+                                            @error('firstName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -95,7 +95,7 @@
                                 
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control @error('patLastName') is-invalid @enderror" id="inputPassword4" placeholder="Last Name" name="lastName" value="{{ old('lastName') }}" required>
-                                            @error('patLastName')
+                                            @error('lastName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -237,7 +237,10 @@
                                             </div>
                                     
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
+                                                {{-- <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required> --}}
+                                                <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}">
+                                                    <option value="India" selected>India</option>
+                                                </select>
                                                 @error('country')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -266,11 +269,11 @@
                                             <select class="form-control @error('department') is-invalid @enderror" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
-                                                    @if(old('department') == $dept->id)
+                                                    {{-- @if(old('department') == $dept->id)
                                                     <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
-                                                    @else
+                                                    @else --}}
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 @endforeach
                                             </select>
                                             @error('department')
@@ -280,7 +283,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="date" id="date" name="date" class="some form-control  @error('date') is-invalid @enderror" id="my_date_picker" value="{{ old('date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                            <input type="date" id="date" name="date" class="some form-control  @error('date') is-invalid @enderror" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -291,10 +294,19 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <select class="form-control some @error('appointmentType') is-invalid @enderror" name="appointmentType" id="appointmentType" required>
+                                                {{-- @if(old('appointmentType') == "VTD")
+                                                <option disabled>Team  or Expert</option>
+                                                <option value="VTD" selected>Birth Team Doctor</option>
+                                                <option value="VED">Dr. Khastgir</option>
+                                                @elseif(old('appointmentType') == "VED")
+                                                <option selected disabled>Team  or Expert</option>
+                                                <option value="VTD">Birth Team Doctor</option>
+                                                <option value="VED" selected>Dr. Khastgir</option>
+                                                @else --}}
                                                 <option selected disabled>Team  or Expert</option>
                                                 <option value="VTD">Birth Team Doctor</option>
                                                 <option value="VED">Dr. Khastgir</option>
-
+                                                {{-- @endif --}}
                                             </select>
                                             @error('appointmentType')
                                                 <span class="invalid-feedback" role="alert">
@@ -347,8 +359,8 @@
         $('.some').on('change', function(){
             var appType = $("#appointmentType").val();
             var date = $("#date").val();
-            console.log(appType);
-            console.log(date);
+            // console.log(appType);
+            // console.log(date);
             $('#slot').find('option').not(':first').remove();
             if(date){
                 $.ajax({
@@ -356,7 +368,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data){
                             $.each(data, function(key, value){
                                 $("#slot").append("<option value='"+value+"'>"+key+"</option>");
@@ -364,7 +376,7 @@
                         }
                     },
                     error: function(){
-                        console.log('error');
+                        // console.log('error');
                     }
                 });
             }

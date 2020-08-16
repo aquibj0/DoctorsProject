@@ -158,10 +158,10 @@ class ClinicAppointmentController extends Controller
                 'age' => ['required', 'numeric', 'min:10', 'max:90', 'digits:2'],
                 'patient_background' => ['required', 'string', 'max:1024'],
                 'mobileCC' => ['required'],
-                'patMobileNo' => ['required', 'digits:10', 'unique:patient'],
-                'patEmail' => ['required', 'string', 'unique:patient'],
+                'patMobileNo' => ['required', 'digits:10'],
+                'patEmail' => ['required', 'string'],
                 'addressLine1' => ['required', 'string', 'max:64'],
-                'addressLine2' => ['string', 'max:64'],
+                'addressLine2' => ['nullable','string', 'max:64'],
                 'city' => ['required', 'string', 'max:35'],
                 'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['required', 'string', 'max:35'],
@@ -182,9 +182,7 @@ class ClinicAppointmentController extends Controller
                     $patient->patGender = $request['gender'];
                     $patient->patAge = $request['age'];
                     $patient->patBackground = $request['patient_background'];
-                    if(!empty($request->email)){
-                        $patient->patEmail = $request['patEmail'];
-                    }
+                    $patient->patEmail = $request['patEmail'];
                     $patient->patMobileCC = $request['mobileCC'];
                     $patient->patMobileNo = $request['patMobileNo']; 
                     $patient->patAddrLine1 = $request['addressLine1'];

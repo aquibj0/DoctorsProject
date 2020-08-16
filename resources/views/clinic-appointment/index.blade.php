@@ -18,7 +18,7 @@
                             <h2>Clinic Appointment</h2>
                             </div> 
                             <div>
-                                
+                                @include('layouts.message')
                                 <form action="{{ url('/clinic-appointment') }}" method="POST">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
@@ -255,11 +255,11 @@
                                             <select class="form-control @error('department') is-invalid @enderror" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
-                                                    @if(old('department') == $dept->id)
+                                                    {{-- @if(old('department') == $dept->id)
                                                     <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
-                                                    @else
+                                                    @else --}}
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 @endforeach
                                             </select>
                                             @error('department')
@@ -285,7 +285,11 @@
                                             <select class="some form-control @error('appointmentLoc') is-invalid @enderror" name="appointmentLoc" id="appointmentLoc" required>
                                                 <option selected disabled>Select Location</option>
                                                 @foreach ($location as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
+                                                    {{-- @if(old('appointmentLoc') ==  $item->id )
+                                                        <option value="{{ $item->id }}" selected>{{ $item->clinicName }}</option>
+                                                    @else --}}
+                                                        <option value="{{ $item->id }}">{{ $item->clinicName }}</option>
+                                                    {{-- @endif --}}
                                                 @endforeach
                                             </select>
                                             @error('apointmentLoc')
@@ -296,9 +300,19 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <select class="some form-control @error('service') is-invalid @enderror" name="service" id="service" required>
-                                                <option disabled selected>Select Type</option>
+                                                {{-- @if(old('service') == "CTD")
+                                                <option disabled>Team  or Expert</option>
+                                                <option value="CTD" selected>Birth Team Doctor</option>
                                                 <option value="CED">Dr. Khastgir</option>
+                                                @elseif(old('service') == "CED")
+                                                <option selected disabled>Team  or Expert</option>
                                                 <option value="CTD">Birth Team Doctor</option>
+                                                <option value="CED" selected>Dr. Khastgir</option>
+                                                @else --}}
+                                                <option selected disabled>Team  or Expert</option>
+                                                <option value="CTD">Birth Team Doctor</option>
+                                                <option value="CED">Dr. Khastgir</option>
+                                                {{-- @endif --}}
                                             </select>
                                             @error('service')
                                                 <span class="invalid-feedback" role="alert">
@@ -352,9 +366,9 @@
             var date = $("#date").val();
             var loc = $("#appointmentLoc").val();
             var service = $(this).val();
-            console.log(loc);
-            console.log(date);
-            console.log(service);
+            // console.log(loc);
+            // console.log(date);
+            // console.log(service);
 
             $('#slot').find('option').not(':first').remove();
             if(service){
@@ -363,7 +377,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data){
                             $.each(data, function(key, value){
                                 $("#slot").append("<option value='"+value+"'>"+key+"</option>");
@@ -371,7 +385,7 @@
                         }
                     },
                     error: function(){
-                        console.log('error');
+                        // console.log('error');
                     }
                 });
             }
