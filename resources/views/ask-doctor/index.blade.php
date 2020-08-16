@@ -118,11 +118,28 @@
                                     <div class="form-row">
                                         {{-- Patient Gender Input --}}
                                         <div class="form-group col-md-6">
-                                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}" required>
+                                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
+                                                @if(old('gender') == "Male")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Transgender">Transgender</option>
+                                                @elseif(old('gender') == "Female")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" selected>Female</option>
+                                                <option value="Transgender">Transgender</option>
+                                                @elseif(old('gender') == "Transgender")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" >Female</option>
+                                                <option value="Transgender" selected>Transgender</option>
+                                                @else
                                                 <option selected disabled>Gender </option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Transgender">Transgender</option>
+                                                @endif
                                             </select>
 
                                             @error('gender')
@@ -137,7 +154,11 @@
                                             <select name="age" id="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age') }}" required>
                                                 <option disabled selected>Select age</option>
                                                 @for($i=10; $i<90 ;$i++)
-                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                    @if(old('age') == $i)
+                                                        <option value="{{ $i }}" selected>{{ $i }}</option>
+                                                    @else
+                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                    @endif
                                                 @endfor
                                             </select>
 
@@ -168,7 +189,7 @@
                                         <div class="form-group col-md-4">
                                             <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ old('patMobileNo') }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             
-                                            @error('mobileNo')
+                                            @error('patMobileNo')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -279,7 +300,11 @@
                                             <select class="form-control" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
+                                                    @if(old('department') == $dept->id)
+                                                    <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
+                                                    @else
                                                     <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             @error('department')
