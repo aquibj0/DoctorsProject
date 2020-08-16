@@ -187,7 +187,7 @@
 
                                         {{-- Patient Phone No Input --}}
                                         <div class="form-group col-md-4">
-                                            <input type="text" placeholder="Mobile No" id="mobileNo" class="form-control @error('mobileNo') is-invalid @enderror" name="patMobileNo" value="{{ old('patMobileNo') }}" autocomplete="mobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                            <input type="text" placeholder="Mobile No" id="patMobileNo" class="form-control @error('patMobileNo') is-invalid @enderror" name="patMobileNo" value="{{ old('patMobileNo') }}" autocomplete="patMobileNo" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             
                                             @error('patMobileNo')
                                                 <span class="invalid-feedback" role="alert">
