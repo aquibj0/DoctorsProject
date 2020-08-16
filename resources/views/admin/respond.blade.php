@@ -178,7 +178,7 @@
                                             <td>{{$prescription->documentFileName}}</td>
                                             <td>{{$prescription->documentDescription}}</td>
                                             <td>{{$prescription->documentUploadedBy}}</td>
-                                            @if($serviceReq->srStatus != "Cancelled")
+                                            @if($srvcReq->srStatus != "Cancelled")
                                             <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
                                             @endif
                                         </tr>
@@ -198,7 +198,7 @@
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                             <script>
                                 $(document).ready(function(){
-                                    var x = "{{ $errors->has('documentType') }}"
+                                    var x = "{{ $errors->has('documentFileName') }}"
                                     if(x === "1"){
                                         document.getElementById("uploadDocumentButton").click();
                                     }
