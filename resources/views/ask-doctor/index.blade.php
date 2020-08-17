@@ -123,22 +123,22 @@
                                                 <option disabled>Gender </option>
                                                 <option value="Male" selected>Male</option>
                                                 <option value="Female">Female</option>
-                                                <option value="Transgender">Transgender</option>
+                                                <option value="Trans">Transgender</option>
                                                 @elseif(old('gender') == "Female")
                                                 <option disabled>Gender </option>
                                                 <option value="Male" >Male</option>
                                                 <option value="Female" selected>Female</option>
-                                                <option value="Transgender">Transgender</option>
-                                                @elseif(old('gender') == "Transgender")
+                                                <option value="Trans">Transgender</option>
+                                                @elseif(old('gender') == "Trans")
                                                 <option disabled>Gender </option>
                                                 <option value="Male" >Male</option>
                                                 <option value="Female" >Female</option>
-                                                <option value="Transgender" selected>Transgender</option>
+                                                <option value="Trans" selected>Transgender</option>
                                                 @else
                                                 <option selected disabled>Gender </option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
-                                                <option value="Transgender">Transgender</option>
+                                                <option value="Trans">Transgender</option>
                                                 @endif
                                             </select>
 

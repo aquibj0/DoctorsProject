@@ -113,22 +113,22 @@
                                                         <option disabled>Gender </option>
                                                         <option value="Male" selected>Male</option>
                                                         <option value="Female">Female</option>
-                                                        <option value="Transgender">Transgender</option>
+                                                        <option value="Trans">Transgender</option>
                                                     @elseif(old('gender') == "Female")
                                                         <option disabled>Gender </option>
                                                         <option value="Male" >Male</option>
                                                         <option value="Female" selected>Female</option>
-                                                        <option value="Transgender">Transgender</option>
-                                                    @elseif(old('gender') == "Transgender")
+                                                        <option value="Trans">Transgender</option>
+                                                    @elseif(old('gender') == "Trans")
                                                         <option disabled>Gender </option>
                                                         <option value="Male" >Male</option>
                                                         <option value="Female" >Female</option>
-                                                        <option value="Transgender" selected>Transgender</option>
+                                                        <option value="Trans" selected>Transgender</option>
                                                     @else
                                                         <option selected disabled>Gender </option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
-                                                        <option value="Transgender">Transgender</option>
+                                                        <option value="Trans">Transgender</option>
                                                     @endif
                                                 </select>
                                                 @error('gender')
@@ -168,7 +168,7 @@
                                         <div class="form-row">
                                             <input type="hidden" class="form-control @error('slot') is-invalid @enderror" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
                                             <div class="form-group col-md-6">
-                                                <input type="number" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                                <input type="text" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                                 @error('patMobileNo')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
