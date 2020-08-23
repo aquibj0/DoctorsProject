@@ -89,6 +89,17 @@
                                         <span id="end">
                                             <input type="date" name="end_date" class="form-control mb-2" id="end_date" value="{{ old('end_date') }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" required>         
                                         </span>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                        <script>
+                                            $(document).ready(function(){
+                                                $('#start_date').on('change', function(){
+                                                    
+                                                    $('#end_date').attr({
+                                                        "min" : $('#start_date').val()
+                                                    });
+                                                });
+                                            });
+                                        </script>
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('end_date') }}</strong>

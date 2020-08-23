@@ -70,7 +70,7 @@
                                         <tbody>
                                             @if(count($appointments) == 0) <!-- For creating new Appointments  -->
                                                 @if($appointmentType == "VED")
-                                                    @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '15:00');$i->addMinute(15))
+                                                    @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '18:00');$i->addMinute(15))
                                                     <tr>                                                
                                                         <td>
                                                             <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">
@@ -87,7 +87,7 @@
                                                     </tr>
                                                     @endfor
                                                 @else                                            
-                                                    @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '15:00');$i->addMinute(30))
+                                                    @for($i = Carbon\Carbon::createFromFormat('H:i', '08:00') ; $i< Carbon\Carbon::createFromFormat('H:i', '18:00');$i->addMinute(30))
                                                     <tr>                                                
                                                         <td>
                                                             <input type="text" name="time[]" id="time" value="{{ $i->toTimeString() }}" class="form-control">

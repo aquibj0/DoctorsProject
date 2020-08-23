@@ -107,8 +107,8 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
         Route::get('/filter', 'Admin\AdminController@filter');
         Route::get('/{filter}/{sort}/{start}/{end}', 'Admin\AdminController@sort');
-        Route::get('register', 'Admin\AdminController@create')->name('admin.register');
-        Route::post('register', 'Admin\AdminController@store')->name('admin.register.store');
+        // Route::get('register', 'Admin\AdminController@create')->name('admin.register');
+        // Route::post('register', 'Admin\AdminController@store')->name('admin.register.store');
         Route::get('login', 'Auth\Admin\LoginController@login')->name('admin.auth.login');
         Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('admin.auth.loginAdmin');
         Route::post('logout', 'Auth\Admin\LoginController@logout')->name('admin.auth.logout');
