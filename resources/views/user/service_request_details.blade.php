@@ -333,7 +333,7 @@
                                                                     <h5><b>Patient Background</b>: {{ $serviceRequests->askQuestion->aaqPatientBackground }}</h5>
                                                                     <h5><b>Patient Question</b>: {{ $serviceRequests->askQuestion->aaqQuestionText }}</h5>
                                                                 @if ($serviceRequests->askQuestion->aaqDocResponse === null)
-                                                                    <h5 class="maroon">Doctor Not responded yet.</h5>
+                                                                    <h5 class="maroon"><strong>Doctor Not responded yet.</strong></h5>
             
                                                                 @else
                                                                     <h5 class="maroon"> {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
@@ -668,7 +668,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         @if ($serviceRequests->askQuestion->aaqDocResponse === null)
-                                                            <h5 class="maroon">Doctor Not responded yet.</h5>
+                                                            <h5 class="maroon"><strong>Doctor Not responded yet.</strong></h5>
     
                                                         @else
                                                             <h5 class="maroon"> {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
