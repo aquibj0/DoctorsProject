@@ -168,7 +168,7 @@
                                         <div class="form-row">
                                             <input type="hidden" class="form-control @error('slot') is-invalid @enderror" id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
                                             <div class="form-group col-md-6">
-                                                <input type="text" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Mobile No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                                <input type="text" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Contact No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                                 @error('patMobileNo')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
