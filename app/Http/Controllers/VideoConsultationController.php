@@ -173,7 +173,8 @@ class VideoConsultationController extends Controller
                 'department' => ['required'],
                 'date' => ['required'],
                 'appointmentType' => ['required', 'min:3', 'max:3'],
-                'slot' => ['required']
+                'slot' => ['required'],
+                'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpe,jpg,png,pdf']
             ]);
             if(!$validator->fails()){
                 $app = AppointmentSchedule::find($request->slot);
@@ -198,6 +199,23 @@ class VideoConsultationController extends Controller
                             $patient->patDistrict = $request['district'];
                             $patient->patState = $request['state'];
                             $patient->patCountry = $request['country'];
+
+                            if($request->hasFile('patPhotoFileNameLink')){
+                                //Get filename with extension
+                                $fileNameWithExt = $request->file('patPhotoFileNameLink')->getCLientOriginalName();
+                                // Get just filename
+                                $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                                // Get just ext
+                                $extension = $request->file('patPhotoFileNameLink')->getClientOriginalExtension();
+                                //File name to Store
+                                $fileNameToStore = $filename.$extension;
+                                //Upload File
+                                $path = $request->file('patPhotoFileNameLink')->storeAs('public/patPhotoFileNameLink',$fileNameToStore);
+                            }
+                            else{
+                                $fileNameToStore = 'nofile.img';
+                            }
+                            $patient->patPhotoFileNameLink = $fileNameToStore;
                             $patient->save();
                             $patient_no = count(Patient::where('user_id', Auth::user()->id)->get())+1;
                             $patient->patId = Auth::user()->userId."-".str_pad($patient_no, 2, "0", STR_PAD_LEFT);

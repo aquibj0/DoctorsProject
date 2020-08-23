@@ -244,11 +244,21 @@
                                                 </div>
                                         </div>
 
+                                        <div class="form-row ">
+                                            <div class="form-group col-md-12">
+                                                <input type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" name="patPhotoFileNameLink"  id="patPhotoFileNameLink" value="{{ old('patPhotoFileNameLink') }}" >
+                                                @error('patPhotoFileNameLink')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     @endif
 
 
                                     <div class="mb-3">
-                                        <h2 class="maroon MB-3"><b>Appointment</b></h2>
+                                        <h2 class="maroon MB-3"><b>APPOINTMENT</b></h2>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">

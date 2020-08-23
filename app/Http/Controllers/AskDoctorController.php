@@ -91,7 +91,7 @@ class AskDoctorController extends Controller
                     'patPhotoFileNameLink' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
                     'department' => ['required', 'string'],
                     'patient_question' => ['required', 'string', 'max:1024'],
-                    // 'photo' => ['nullable','file','image','mimes:jpeg,png,gif,webp','max:2048'],
+                    'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpe,jpg,png,pdf']
                 ]);
             }
             if(!$validator->fails()){                
