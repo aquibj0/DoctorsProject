@@ -177,11 +177,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <button type="submit" style="float:right" class="btn btn-maroon">Save</button>
-                                </div>
-                                <div class="col-md-6">
-                                    or <a href="/admin/appointment/{{ $docType }}/{{ $appointmentType }}/{{ $start_date }}/{{ $end_date }}/index">Cancel</a>
+                                <div class="col-md-6 text-center">
+                                    <button type="submit"  class="btn btn-maroon mr-2">Save</button>
+                                {{-- </div>
+                                <div class="col-md-6"> --}}
+                                    <a href="/admin/appointment/{{ $docType }}/{{ $appointmentType }}/{{ $start_date }}/{{ $end_date }}/index" class="btn btn-maroon ">Cancel</a>
                                 </div>
                             </div>
                             <input type="hidden" name="appointmentType" value="{{$appointmentType}}">
