@@ -178,7 +178,7 @@
                                             <td>{{$prescription->documentFileName}}</td>
                                             <td>{{$prescription->documentDescription}}</td>
                                             <td>{{$prescription->documentUploadedBy}}</td>
-                                            @if($serviceReq->srStatus != "Cancelled")
+                                            @if($srvcReq->srStatus != "Cancelled")
                                             <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
                                             @endif
                                         </tr>

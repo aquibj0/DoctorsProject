@@ -41,7 +41,7 @@ class PatientDocumentController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'documentFileName' => ['required', 'max:2048', 'mimes:jpg,png,pdf']
+            'documentFileName' => ['required', 'max:2048', 'mimes:jpeg,jfif,jpe,jpg,png,pdf']
         ]);
 
 

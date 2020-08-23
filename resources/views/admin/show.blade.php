@@ -9,7 +9,7 @@
                     <div class="card-body text-center">
                         <div class="user-image" style="height:200px; width:100%; border-radius:12px">
                             @isset(Auth::user()->display_image)
-                                <img src="{{asset('storage/'.Auth::user()->display_image)}}" style="border-radius:50%;max-width:150px" alt="">
+                                <img src="{{asset('storage/'.Auth::user()->display_image)}}" style="max-width:150px" alt="">
 
                             @else
                                 <img src="{{asset('image/user-profile.png')}}" style="max-width:150px;" alt="">

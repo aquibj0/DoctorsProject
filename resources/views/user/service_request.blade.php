@@ -92,6 +92,7 @@
                                         <th scope="col">Sr Date</th>
                                         <th scope="col">Patient Name</th>
                                         <th scope="col">Payment Status</th>
+                                        <th scope="col">Service Status</th>
                                         <th scope="col">Action</th>
 
                                     </tr>
@@ -113,6 +114,9 @@
                                                     Not Paid
                                                 @endif
                                                 
+                                            </td>
+                                            <td>
+                                                {{$serviceRequest->srStatus}}
                                             </td>
                                             <td> 
 

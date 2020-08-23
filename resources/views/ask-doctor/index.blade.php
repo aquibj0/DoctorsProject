@@ -120,25 +120,25 @@
                                         <div class="form-group col-md-6">
                                             <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
                                                 @if(old('gender') == "Male")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" selected>Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Trans">Transgender</option>
+                                                    <option disabled>Gender </option>
+                                                    <option value="Male" selected>Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Trans">Transgender</option>
                                                 @elseif(old('gender') == "Female")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" >Male</option>
-                                                <option value="Female" selected>Female</option>
-                                                <option value="Trans">Transgender</option>
+                                                    <option disabled>Gender </option>
+                                                    <option value="Male" >Male</option>
+                                                    <option value="Female" selected>Female</option>
+                                                    <option value="Trans">Transgender</option>
                                                 @elseif(old('gender') == "Trans")
-                                                <option disabled>Gender </option>
-                                                <option value="Male" >Male</option>
-                                                <option value="Female" >Female</option>
-                                                <option value="Trans" selected>Transgender</option>
+                                                    <option disabled>Gender </option>
+                                                    <option value="Male" >Male</option>
+                                                    <option value="Female" >Female</option>
+                                                    <option value="Trans" selected>Transgender</option>
                                                 @else
-                                                <option selected disabled>Gender </option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Trans">Transgender</option>
+                                                    <option selected disabled>Gender </option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Trans">Transgender</option>
                                                 @endif
                                             </select>
 
@@ -282,7 +282,7 @@
                                             <div class="mb-3">
                                                 <h2 class="maroon MB-3"><b>PATIENT PICTURE</b></h2>
                                             </div>
-                                           <input name="patPhotoFileNameLink" type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" id="patPhotoFileNameLink"   value="{{ old('patPhotoFileNameLink') }}" >
+                                           <input type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" name="patPhotoFileNameLink"  id="patPhotoFileNameLink" value="{{ old('patPhotoFileNameLink') }}" >
                                             @error('patPhotoFileNameLink')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -297,13 +297,13 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md">
-                                            <select class="form-control" name="department" id="department" required>
+                                            <select class="form-control @error('department') is-invalid @enderror" name="department" id="department" required>
                                                 <option selected disabled>Department </option>
                                                 @foreach($depts as $dept)
                                                     @if(old('department') == $dept->id)
-                                                    <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
+                                                        <option value="{{ $dept->id }}" selected>{{ $dept->department_name }}</option>
                                                     @else
-                                                    <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+                                                        <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -317,7 +317,7 @@
                                     @if($patient)
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
+                                            <textarea class="form-control @error('patient_background') is-invalid @enderror" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ $patient->patBackground }}</textarea>
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -328,7 +328,7 @@
                                     @else
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
+                                            <textarea class="form-control @error('patient_background') is-invalid @enderror" name="patient_background" id="patient_background" cols="30" rows="1" placeholder="Patient Background" required maxlength="1024">{{ old('patient_background') }}</textarea>
                                             
                                             @error('patient_background')
                                                 <span class="invalid-feedback" role="alert">
@@ -348,7 +348,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="patient_question" id="patient_question" cols="30" rows="1" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>                                          
+                                            <textarea class="form-control @error('patient_question') is-invalid @enderror" name="patient_question" id="patient_question" cols="30" rows="1" placeholder="Patient Question" required>{{ old('patient_question') }}</textarea>                                          
                                             @error('patient_question')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

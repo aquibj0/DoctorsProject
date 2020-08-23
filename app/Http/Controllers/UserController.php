@@ -27,7 +27,7 @@ class UserController extends Controller
 
         if(Auth::user()->id == $id){
 
-            $serviceRequests = ServiceRequest::where('user_id', '=', $id)->get();
+            $serviceRequests = ServiceRequest::where('user_id', '=', $id)->orderBy('created_at', 'DESC')->get();
             return view('user.service_request', compact('serviceRequests'));
         }
 
