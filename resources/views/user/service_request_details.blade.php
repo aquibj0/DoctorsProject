@@ -125,7 +125,7 @@
                                         <tbody>
                                             <td>Paid</td>
                                             <td>{{$paymentDetails->payment_transaction_id}}</td> 
-                                            <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                            <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
                                             <td>{{$paymentDetails->payment_amount }}</td>
                                         </tbody>
                                         

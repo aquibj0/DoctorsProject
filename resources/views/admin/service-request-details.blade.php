@@ -106,8 +106,8 @@
                                                 <td>{{$paymentDetails->payment_transaction_id}}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Payment Date</th>
-                                                <td>{{ date('d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                                <th scope="row">Payment Time</th>
+                                                <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
                                             </tr> 
                                             <tr>
                                                 <th scope="row">Payment Mode</th>
