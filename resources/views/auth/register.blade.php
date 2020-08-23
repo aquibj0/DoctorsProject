@@ -47,7 +47,6 @@
 
                                 <div class="form-row ">
                                     <div class="col-md-6 form-group">
-                                        {{-- <div class="mr-1" > --}}
                                             <input id="userMobileNo" onkeypress='validate(event)' type="text" placeholder="Mobile No." class="form-control @error('userMobileNo') is-invalid @enderror" name="userMobileNo" value="{{ old('userMobileNo') }}" required autocomplete="userMobileNo" autofocus oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
     
                                             @error('userMobileNo')
@@ -55,7 +54,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        {{-- </div> --}}
                                     </div>
                                     <div class="col-md-6 form-group" > 
                                         <input id="userLandLineNo" onkeypress='validate(event)' type="text" placeholder="Landline No." class="form-control @error('userLandLineNo') is-invalid @enderror" name="userLandLineNo" value="{{ old('userLandLineNo') }}" autocomplete="userLandLineNo" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
@@ -92,19 +90,6 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    {{-- <div style="width:5%; float:right">
-                                        <input type="checkbox" class="form-control" onclick="myFunction()">
-                                        <script>
-                                            function myFunction() {
-                                                var x = document.getElementById("password");
-                                                if (x.type === "password") {
-                                                    x.type = "text";
-                                                } else {
-                                                    x.type = "password";
-                                                }
-                                            } 
-                                        </script>
-                                    </div> --}}
                                 </div>
         
                                 <div class="form-row form-group">
@@ -114,19 +99,6 @@
                                             <button type="button" onclick="myFunctions()"class="btn btn-eye" id="btnToggle" class="toggle"><i id="eyeIcon" class="fa fa-eye"></i></button>                                            
                                         </div>
                                     </div>
-                                    {{-- <div style="width:5%;">
-                                        <input style="float:right" type="checkbox" class="form-control" onclick="myFunctionConfirm()">
-                                        <script>
-                                            function myFunctionConfirm() {
-                                                var x = document.getElementById("password-confirm");
-                                                if (x.type === "password") {
-                                                    x.type = "text";
-                                                } else {
-                                                    x.type = "password";
-                                                }
-                                            } 
-                                        </script>
-                                    </div> --}}
                                 </div>
                                 
                                 <div class="form-row form-group">
@@ -140,10 +112,8 @@
                                                 var button = document.getElementById('submit');
                                                 if(checkbox.checked == true){
                                                     button.disabled = false;
-                                                    // console.log('yes');   
                                                 }else{
                                                     button.disabled = true;
-                                                    // console.log('no');
                                                 }
                                             }
                                         </script>
@@ -153,7 +123,6 @@
                                                 <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title maroon"><b>TERMS AND CONDITIONS</b></h5>
-                                                            {{-- <h5 class="modal-title" id="exampleModalLabel">New message</h5> --}}
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -165,8 +134,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                        {{-- <button type="button" class="btn btn-primary">Send message</button> --}}
-                                                    </div>
+                                                     </div>
                                                 </div>
                                             </div>
                                         </div>

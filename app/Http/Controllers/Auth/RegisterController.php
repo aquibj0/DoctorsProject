@@ -122,9 +122,12 @@ class RegisterController extends Controller
             }
             DB::commit();
             return redirect('/')->with('success', $user->userFirstName.', your registration is successfull');
-        }else if($request->password != $request->password_confirmation){
+        }
+        else if($request->password != $request->password_confirmation){
+            
             return redirect('/register')->withErrors($validator)->withInput()->with('error', 'Password and Confirm Password dosen\'t match');
-        }else{
+        }
+        else{
             return redirect('/register')->withErrors($validator)->withInput();
         }
     }
