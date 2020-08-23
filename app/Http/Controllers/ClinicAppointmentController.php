@@ -170,7 +170,7 @@ class ClinicAppointmentController extends Controller
                 'date' => ['required'],
                 'appointmentLoc' => ['required'],
                 'slot' => ['required'],
-                'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpe,jpg,png,pdf']
+                'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpg,png,pdf']
             ]);
             if(!$validator->fails()){
                 DB::beginTransaction();
