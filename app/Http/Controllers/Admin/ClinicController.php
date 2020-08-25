@@ -187,8 +187,12 @@ class ClinicController extends Controller
         if(Auth::user()->category == "admin"){
             $clinic = Clinic::find($id);
             if(!empty($clinic)){
-                $clinic->delete();
-                return redirect('/admin/clinic')->with('success', 'Clinic deleted successfully!');
+                if ($clinic->appointments()->exists())
+                    return redirect()->back()->with('error', 'Can not delete'.$clinic->clinicName);
+                else
+                    $clinic->delete();
+                    return redirect('/admin/clinic')->with('success', 'Clinic deleted successfully!');
+                
             }else{
                 return redirect()->back()->with('error', 'Clinic dosen\'t exists!');
             }

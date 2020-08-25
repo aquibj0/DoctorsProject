@@ -185,7 +185,21 @@ class AdminController extends Controller
     }
 
     public function delete_user($id){
-
+        if(Auth::user()->category == "admin"){
+            $user = Admin::find($id);
+            if(!empty($user)){
+                if ($user->serviceRequest()->exists())
+                    return redirect()->back()->with('error', 'Can not delete '.$user->firstName);
+                else
+                    $user->delete();
+                    return redirect()->back()->with('success', 'Internal User deleted successfully!');
+                
+            }else{
+                return redirect()->back()->with('error', 'User dosen\'t exists!');
+            }
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
     /**
      * Show the form for creating a new resource.

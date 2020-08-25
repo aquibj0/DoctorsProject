@@ -115,8 +115,25 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         if(Auth::user()->category == "admin"){
-            Department::destroy($id);
-            return redirect()->back()->with('success', 'Deleted');
+
+            $department = Department::find($id);
+            if(!empty($department)){
+                if ($department->serviceRequests()->exists())
+                    return redirect()->back()->with('error', 'Can not delete '.$department->department_name);
+                else
+                    $department->delete();
+                    return redirect()->back()->with('success', 'Department Deleted');
+                
+            }else{
+                return redirect()->back()->with('error', 'Department dosen\'t exists!');
+            }
+
+
+
+
+
+            // Department::destroy($id);
+           
         }else{
             return redirect()->back()->with('error', 'Something went wrong!');
         }

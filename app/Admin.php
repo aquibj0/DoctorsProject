@@ -32,6 +32,9 @@ class Admin extends Authenticatable
         return $this->hasMany('App\ServiceRequest', 'srAssignedIntUserId');
 
     }
+    // public function assignedRequest(){
+    //     return $this->hasMany('App\ServiceRequest', 'srAssignedIntUserId');
+    // }
 
 
 }

@@ -10,4 +10,8 @@ class Clinic extends Model
     public $primarykey = 'id';
     public $timestamp = true;
 
+
+    public function appointments(){
+        return $this->hasMany('App\AppointmentSchedule', 'appmntClinicid');
+    }
 }

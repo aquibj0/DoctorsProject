@@ -121,7 +121,7 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('/internal-user', 'Admin\AdminController@create_user_index');
         Route::get('/create/internal-user', 'Admin\AdminController@create_user');
         Route::post('/create/internal-user/store', 'Admin\AdminController@store_user')->name('admin.register.user.store');
-        Route::get('/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
+        Route::delete('/internal-user/{id}/delete', 'Admin\AdminController@delete_user');
         
         //service requests
         Route::get('/service-request/{id}', 'Admin\ServiceRequestController@show');

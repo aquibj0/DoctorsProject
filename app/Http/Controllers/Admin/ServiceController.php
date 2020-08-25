@@ -122,8 +122,22 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         if(Auth::user()->category == "admin"){
-            Service::destroy($id);
-            return redirect()->back()->with('success', 'Deleted');
+            
+            $service = Service::find($id);
+            if(!empty($service)){
+                if ($service->serviceRequests()->exists())
+                    return redirect()->back()->with('error', 'Can not delete '.$service->srvcName);
+                else
+                    $service->delete();
+                    return redirect()->back()->with('success', 'Service Deleted');
+                
+            }else{
+                return redirect()->back()->with('error', 'Service dosen\'t exists!');
+            }
+
+
+
+
         }else{
             return redirect()->back()->with('error', 'Something went wrong!');
         }
