@@ -161,7 +161,7 @@ class ClinicController extends Controller
                 $clinic->update();
                 if($clinic->update()){
                     
-                    return redirect('/admin/clinic')->with('success', 'Clinic added successfully!');
+                    return redirect('/admin/clinic')->with('success', 'Clinic updated successfully!');
                 }
                 else{
                     // $clinic->delete();
