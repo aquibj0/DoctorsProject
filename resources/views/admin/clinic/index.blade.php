@@ -45,10 +45,17 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $clinic->clinicName }}</td>
-                                        <td>Mobile: {{ $clinic->clinicMobileNo }}                                        
-                                            @if($clinic->clinicLandLineNo)
-                                                <br>
-                                                Landline:{{ $clinic->clinicLandLineNo }}
+                                        <td>
+                                            @if(isset($clinic->clinicMobileNo) && isset($clinic->clinicLandLineNo))
+                                                @if(isset($clinic->clinicMobileNo))
+                                                    Mobile: {{ $clinic->clinicMobileNo }}
+                                                @endif                                        
+                                                @if(isset($clinic->clinicLandLineNo))
+                                                    <br>
+                                                    Landline:{{ $clinic->clinicLandLineNo }}
+                                                @endif
+                                            @else
+                                                Nothing added
                                             @endif
                                         </td>
                                         <td>{{ $clinic->clinicAddressLine1 }}

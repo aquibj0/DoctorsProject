@@ -172,7 +172,7 @@ class AdminController extends Controller
                         
                     } catch(\Exception $e){
                         DB::rollback();
-                        return redirect()->back()->with('error', 'Something went wrong!')->withInput();
+                        return redirect()->back()->with('error', 'Something went wrong!'.$e->getMessage())->withInput();
                     }
                     DB::commit();
                     return redirect('/admin/internal-user')->with('success', 'User created successfully!');
@@ -306,44 +306,48 @@ class AdminController extends Controller
 
     public function updateProfile(Request $request){
         // return $request;
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'firstName' => 'required|string|max:40',
             'lastName' => 'required|string|max:40',
             'phoneNo' => 'nullable|min:10|max:10',
             'alternatePhoneNo' => 'nullable|max:10|min:10',
             'degree' => 'nullable|max:191|string',
             'dob' => 'string|nullable|max:10',
-            'addressLine1' => 'string|nullable|max:64',
+            'addressLine1' => 'required|string|max:64',
             'addressLine2' => 'string|nullable|max:64',
-            'city' => 'string|nullable|max:35',
+            'city' => 'required|string|max:35',
             'district' => 'nullable|string|max:35',
-            'state' => 'string|nullable|max:35',
-            'country' => 'string|nullable|max:35',
+            'state' => 'required|string|max:35',
+            'country' => 'required|string|max:35',
         ]);
-        DB::beginTransaction();
-        try{
-            $intUser = Auth::user();
-            $intUser->firstName = $request->firstName;
-            $intUser->lastName = $request->lastName;
-            $intUser->phoneNo = $request->phoneNo;
-            $intUser->alternatePhoneNo = $request->alternatePhoneNo;
-            $intUser->degree = $request->degree;
-            $intUser->dob = Carbon::parse($request->dob)->toDateString();
-            $intUser->addressLine1 = $request->addressLine1;
-            $intUser->addressLine2 = $request->addressLine2;
-            $intUser->city = $request->city;
-            $intUser->district = $request->district;
-            $intUser->state = $request->state;
-            $intUser->country = $request->country;
-            $intUser->update();
-            // Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
-            
-        } catch(\Exception $e){
-            DB::rollback();
-            return redirect()->back()->with('error', 'Something went wrong!');
+        if(!$validator->fails()){
+            DB::beginTransaction();
+            try{
+                $intUser = Auth::user();
+                $intUser->firstName = $request->firstName;
+                $intUser->lastName = $request->lastName;
+                $intUser->phoneNo = $request->phoneNo;
+                $intUser->alternatePhoneNo = $request->alternatePhoneNo;
+                $intUser->degree = $request->degree;
+                $intUser->dob = Carbon::parse($request->dob)->toDateString();
+                $intUser->addressLine1 = $request->addressLine1;
+                $intUser->addressLine2 = $request->addressLine2;
+                $intUser->city = $request->city;
+                $intUser->district = $request->district;
+                $intUser->state = $request->state;
+                $intUser->country = $request->country;
+                $intUser->update();
+                // Mail::to($intUser->email)->send(new InternalUserRegisterEmail($intUser, $password));
+                
+            } catch(\Exception $e){
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Profile Updated successfully!');
+        }else{
+            return redirect()->back()->withInput()->withErrors($validator);
         }
-        DB::commit();
-        return redirect()->back()->with('success', 'Profile Updated successfully!');
     }
 
  

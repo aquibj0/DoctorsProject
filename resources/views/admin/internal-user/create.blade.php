@@ -21,7 +21,7 @@
                     @include('layouts.message')
                     <div class="card">
                         <div class="card-body">
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
                                         @foreach ($errors->all() as $error)
@@ -29,7 +29,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
+                            @endif --}}
 
                             <form  method="POST" action="{{ route('admin.register.user.store') }}">
                                 {{ csrf_field() }}
@@ -66,10 +66,27 @@
                                     <div class="col-md">
                                         {{-- <input id="gender" type="text" class="form-control" name="gender" value="{{ old('gender') }}" required autofocus> --}}
                                         <select name="gender" id="gender" class="form-control" required>
-                                            <option disabled selected>Select One</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Others">Others</option>
+                                            @if(old('gender') == "Male")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Trans">Transgender</option>
+                                            @elseif(old('gender') == "Female")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" selected>Female</option>
+                                                <option value="Trans">Transgender</option>
+                                            @elseif(old('gender') == "Trans")
+                                                <option disabled>Gender </option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" >Female</option>
+                                                <option value="Trans" selected>Transgender</option>
+                                            @else
+                                                <option selected disabled>Gender </option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Trans">Transgender</option>
+                                            @endif
                                         </select>
                                         @if ($errors->has('gender'))
                                             <span class="help-block">
@@ -116,10 +133,28 @@
                                     <div class="col-md">
                                         {{-- <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus> --}}
                                         <select name="category" id="category" class="form-control" required>
-                                            <option selected disabled>Select one</option>
-                                            <option value="doc">Doctor</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="others">Others Staff</option>
+                                            @if(old('category') == "doc")
+                                                <option disabled>Select one</option>
+                                                <option value="doc" selected>Doctor</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="others">Others Staff</option>
+                                            @elseif(old('category') == "admin")
+                                                <option disabled>Select one</option>
+                                                <option value="doc">Doctor</option>
+                                                <option value="admin" selected>Admin</option>
+                                                <option value="others">Others Staff</option>
+                                            @elseif(old('category') == "others")
+                                                <option disabled>Select one</option>
+                                                <option value="doc">Doctor</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="others" selected>Others Staff</option>
+                                            @else
+                                                <option selected disabled>Select one</option>
+                                                <option value="doc">Doctor</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="others">Others Staff</option>
+                                            @endif
+                                            
                                         </select>
                                         @if ($errors->has('category'))
                                             <span class="help-block">

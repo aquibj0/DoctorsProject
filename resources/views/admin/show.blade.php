@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-md">
                                 @include('layouts.message')
-                                @if ($errors->any())
+                                {{-- @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
                                             @foreach ($errors->all() as $error)
@@ -72,7 +72,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <form action="" method="POST">
@@ -228,8 +228,15 @@
                             </div>
                         </div>
                         <div class="button col-md-3 mt-4 mb-4">
-                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal"  data-target="#profileModal">Update Profile</a>
-      
+                            <a href="#" class="btn btn-maroon btn-md" data-toggle="modal" id="updateProfile" data-target="#profileModal">Update Profile</a>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function(){
+                                    if("{{ $errors->has('firstName') }}" === "1" || "{{ $errors->has('lastName') }}" === "1" || "{{ $errors->has('phoneNo') }}" === "1" || "{{ $errors->has('alternatePhoneNo') }}" === "1" || "{{ $errors->has('degree') }}" === "1" || "{{ $errors->has('dob') }}" === "1" || "{{ $errors->has('addressLine1') }}" === "1" || "{{ $errors->has('addressLine2') }}" === "1" || "{{ $errors->has('city') }}" === "1"|| "{{ $errors->has('district') }}" === "1"|| "{{ $errors->has('state') }}" === "1"|| "{{ $errors->has('country') }}" === "1"){
+                                        document.getElementById("updateProfile").click();
+                                    }
+                                });
+                            </script>
                             <!-- Modal -->
                             <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -252,10 +259,20 @@
                                                         <div class="col-md-6">
                                                             <label for="new-password" >First Name</label>
                                                             <input class="form-control" type="text" name="firstName" value="{{Auth::user()->firstName}}">
+                                                            @if ($errors->has('firstName'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('firstName') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Last Name</label>
                                                             <input class="form-control" type="text" name="lastName" value="{{Auth::user()->lastName}}">                                    
+                                                            @if ($errors->has('lastName'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('lastName') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                         
@@ -263,56 +280,108 @@
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Phone No</label>
                                                             <input class="form-control" type="text" name="phoneNo" value="{{Auth::user()->phoneNo}}">                                    
+                                                            @if ($errors->has('phoneNo'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('phoneNo') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Alternate Phone No</label>
-                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternatePhoneNo}}">
+                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternatePhoneNo}}">                                    
+                                                            @if ($errors->has('alternatePhoneNo'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('alternatePhoneNo') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Degree</label>
-                                                            <input class="form-control" type="text" name="degree" placeholder="Degree" value="{{Auth::user()->degree}}">
+                                                            <input class="form-control" type="text" name="degree" placeholder="Degree" value="{{Auth::user()->degree}}">                                    
+                                                            @if ($errors->has('degree'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('degree') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Date of Birth</label>
                                                             @if(isset(Auth::user()->dob))
-                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{Carbon\Carbon::parse(Auth::user()->dob)->toDateString()}}">                                    
+                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{Carbon\Carbon::parse(Auth::user()->dob)->toDateString()}}">                                        
                                                             @else
                                                                 <input class="form-control" type="date" placeholder="DOB" name="dob" value="">                                    
+                                                            @endif
+                                                                                                
+                                                            @if ($errors->has('dob'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('dob') }}</strong>
+                                                                </span>
                                                             @endif
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Address Line 1</label>
-                                                            <input class="form-control" type="text" name="addressLine1" placeholder="Address Line 1" value="{{Auth::user()->addressLine1}}">
+                                                            <input class="form-control" type="text" name="addressLine1" placeholder="Address Line 1" value="{{Auth::user()->addressLine1}}">                                    
+                                                            @if ($errors->has('addressLine1'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('addressLine1') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Address Line 2</label>
-                                                            <input class="form-control" type="text" name="addressLine2" placeholder="Address Line 2" value="{{Auth::user()->addressLine2}}">                                    
+                                                            <input class="form-control" type="text" name="addressLine2" placeholder="Address Line 2" value="{{Auth::user()->addressLine2}}">                                                                        
+                                                            @if ($errors->has('addressLine2'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('addressLine2') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >City</label>
-                                                            <input class="form-control" type="text" name="city" placeholder="City" value="{{Auth::user()->city}}">
+                                                            <input class="form-control" type="text" name="city" placeholder="City" value="{{Auth::user()->city}}">                                    
+                                                            @if ($errors->has('city'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('city') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >District</label>
-                                                            <input class="form-control" type="text" name="district" placeholder="District" value="{{Auth::user()->district}}">                                    
+                                                            <input class="form-control" type="text" name="district" placeholder="District" value="{{Auth::user()->district}}">                                                                        
+                                                            @if ($errors->has('district'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('district') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >State</label>
-                                                            <input class="form-control" type="text" name="state" placeholder="State" value="{{Auth::user()->state}}">
+                                                            <input class="form-control" type="text" name="state" placeholder="State" value="{{Auth::user()->state}}">                                    
+                                                            @if ($errors->has('state'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('state') }}</strong>
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Country</label>
                                                             <Select class="form-control" name="country">
                                                                 <option value="India" selected>India</option>
                                                             </Select>
+                                                                                                
+                                                            @if ($errors->has('country'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('country') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             {{-- <input class="form-control" type="text" name="country" placeholder="Country" value="{{Auth::user()->country}}">                                     --}}
                                                         </div>
                                                     </div>
