@@ -157,8 +157,7 @@
                                 $(document).ready(function(){
                                     var x = "{{ $errors->has('current-password') }}";
                                     var y = "{{ $errors->has('new-password') }}";
-                                    var z = "{{ $errors->has('new-password_confirmation') }}";
-                                    if(x === "1" || y === "1" || z=== "1"){
+                                    if(x === "1" || y === "1" || z === "1"){
                                         document.getElementById("updatePassword").click();
                                     }
                                 });
@@ -184,7 +183,7 @@
                                             <div class="col-md-12">
                                                 <label for="new-password" >Current Password</label>
 
-                                                <input id="current-password" type="password" class="form-control" name="current-password"  required>
+                                                <input id="current-password" type="password" class="form-control" name="current-password"  value="{{old('current-password')}}" required>
                 
                                                 @if ($errors->has('current-password'))
                                                     <span class="help-block">
@@ -199,7 +198,7 @@
                                             <div class="col-md-12">
                                                 <label for="new-password" >New Password</label>
 
-                                                <input id="new-password" type="password" class="form-control" name="new-password" required>
+                                                <input id="new-password" type="password" class="form-control" name="new-password" value="{{old('new-password')}}" required>
                 
                                                 @if ($errors->has('new-password'))
                                                     <span class="help-block">
@@ -213,7 +212,7 @@
                 
                                             <div class="col-md-12">
                                                 <label for="new-password-confirm" >Confirm New Password</label>
-                                                <input id="new-password-confirm" type="password" class="form-control" name="new-password_confirmation" required>
+                                                <input id="new-password-confirm" type="password" class="form-control" name="new-password_confirmation" value="{{old('new-password_confirmation')}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +221,6 @@
                                         <button type="submit" class="btn btn-maroon btn-sm">Save changes</button>
                                     </div>
                                 </form>
-                                
                                 </div>
                             </div>
                             </div>
@@ -258,7 +256,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >First Name</label>
+                                                            @if(old('firstName'))
+                                                            <input class="form-control" type="text" name="firstName" value="{{old('firstName')}}">
+                                                            @else
                                                             <input class="form-control" type="text" name="firstName" value="{{Auth::user()->firstName}}">
+                                                            @endif
                                                             @if ($errors->has('firstName'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('firstName') }}</strong>
@@ -267,7 +269,11 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Last Name</label>
+                                                            @if(old('lastName'))
+                                                            <input class="form-control" type="text" name="lastName" value="{{old('lastName')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="lastName" value="{{Auth::user()->lastName}}">                                    
+                                                            @endif
                                                             @if ($errors->has('lastName'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('lastName') }}</strong>
@@ -279,7 +285,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Phone No</label>
+                                                            @if(old('phoneNo'))
+                                                            <input class="form-control" type="text" name="phoneNo" value="{{old('phoneNo')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="phoneNo" value="{{Auth::user()->phoneNo}}">                                    
+                                                            @endif
                                                             @if ($errors->has('phoneNo'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -288,7 +298,11 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Alternate Phone No</label>
+                                                            @if(old('alternatePhoneNo'))
+                                                            <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{old('alternatePhoneNo')}}">
+                                                            @else
                                                             <input class="form-control" type="text" name="alternatePhoneNo" placeholder="Alternate Phone No." value="{{Auth::user()->alternatePhoneNo}}">                                    
+                                                            @endif
                                                             @if ($errors->has('alternatePhoneNo'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('alternatePhoneNo') }}</strong>
@@ -299,7 +313,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Degree</label>
+                                                            @if(old('degree'))
+                                                            <input class="form-control" type="text" name="degree" placeholder="Degree" value="{{old('degree')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="degree" placeholder="Degree" value="{{Auth::user()->degree}}">                                    
+                                                            @endif
                                                             @if ($errors->has('degree'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('degree') }}</strong>
@@ -310,6 +328,8 @@
                                                             <label for="new-password" >Date of Birth</label>
                                                             @if(isset(Auth::user()->dob))
                                                                 <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{Carbon\Carbon::parse(Auth::user()->dob)->toDateString()}}">                                        
+                                                            @elseif(old('dob'))
+                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{old('dob')}}">                                    
                                                             @else
                                                                 <input class="form-control" type="date" placeholder="DOB" name="dob" value="">                                    
                                                             @endif
@@ -324,7 +344,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Address Line 1</label>
+                                                            @if(old('addressLine1'))
+                                                            <input class="form-control" type="text" name="addressLine1" placeholder="Address Line 1" value="{{old('addressLine1')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="addressLine1" placeholder="Address Line 1" value="{{Auth::user()->addressLine1}}">                                    
+                                                            @endif
                                                             @if ($errors->has('addressLine1'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('addressLine1') }}</strong>
@@ -333,7 +357,11 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Address Line 2</label>
+                                                            @if(old('addressLine2'))
+                                                            <input class="form-control" type="text" name="addressLine2" placeholder="Address Line 2" value="{{old('addressLine2')}}">                                                                        
+                                                            @else
                                                             <input class="form-control" type="text" name="addressLine2" placeholder="Address Line 2" value="{{Auth::user()->addressLine2}}">                                                                        
+                                                            @endif
                                                             @if ($errors->has('addressLine2'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('addressLine2') }}</strong>
@@ -344,7 +372,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >City</label>
+                                                            @if(old('city'))
+                                                            <input class="form-control" type="text" name="city" placeholder="City" value="{{old('city')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="city" placeholder="City" value="{{Auth::user()->city}}">                                    
+                                                            @endif
                                                             @if ($errors->has('city'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('city') }}</strong>
@@ -353,7 +385,11 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="new-password" >District</label>
+                                                            @if(old('district'))
+                                                            <input class="form-control" type="text" name="district" placeholder="District" value="{{old('district')}}">                                                                        
+                                                            @else
                                                             <input class="form-control" type="text" name="district" placeholder="District" value="{{Auth::user()->district}}">                                                                        
+                                                            @endif
                                                             @if ($errors->has('district'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('district') }}</strong>
@@ -364,7 +400,11 @@
                                                     <div class="form-group form-row">
                                                         <div class="col-md-6">
                                                             <label for="new-password" >State</label>
+                                                            @if(old('state'))
+                                                            <input class="form-control" type="text" name="state" placeholder="State" value="{{old('state')}}">                                    
+                                                            @else
                                                             <input class="form-control" type="text" name="state" placeholder="State" value="{{Auth::user()->state}}">                                    
+                                                            @endif
                                                             @if ($errors->has('state'))
                                                                 <span class="help-block">
                                                                     <strong>{{ $errors->first('state') }}</strong>
