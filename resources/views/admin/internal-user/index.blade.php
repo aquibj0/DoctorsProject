@@ -79,7 +79,14 @@
                                             <br>
                                             {{ $user->state }}, {{ $user->country }}
                                         </td> --}}
-                                        <td><a href="{{ url('/admin/internal-user/'.$user->id.'/delete') }}" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></td>
+                                        <td>
+
+                                            @if (Auth::user() != $user  )
+                                                <a href="{{ url('/admin/internal-user/'.$user->id.'/delete') }}" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                            @endif
+
+                                                                                      
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
