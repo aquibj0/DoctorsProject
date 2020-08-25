@@ -172,7 +172,7 @@ class AdminController extends Controller
                         
                     } catch(\Exception $e){
                         DB::rollback();
-                        return redirect()->back()->with('error', 'Something went wrong!'.$e->getMessage())->withInput();
+                        return redirect()->back()->with('error', 'Something went wrong!')->withInput();
                     }
                     DB::commit();
                     return redirect('/admin/internal-user')->with('success', 'User created successfully!');
@@ -355,7 +355,7 @@ class AdminController extends Controller
                 
             } catch(\Exception $e){
                 DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                return redirect()->back()->with('error', 'Something went wrong! ');
             }
             DB::commit();
             return redirect()->back()->with('success', 'Profile Updated successfully!');
@@ -405,7 +405,7 @@ class AdminController extends Controller
                                         SendEmail::dispatch($srvcReq->patient, $srvcReq, $srvcReq->askQuestion, null, $doctor, 4);
                                     }catch(\Exception $e){
                                         DB::rollback();
-                                        return redirect()->back()->with('error', 'Something went wrong! '.$e->getMessage());
+                                        return redirect()->back()->with('error', 'Something went wrong! ');
                                     }
                                     DB::commit();
                                 }else{

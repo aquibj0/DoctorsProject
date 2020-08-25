@@ -140,7 +140,7 @@ class ClinicAppointmentController extends Controller
                         }
                     } catch(\Exception $e){
                         DB::rollback();
-                        return redirect()->back()->withInput()->with('error', $e->getMessage());
+                        return redirect()->back()->withInput()->with('error', 'Something went wrong');
                     }
                     DB::commit();
                     return $res;
@@ -271,7 +271,7 @@ class ClinicAppointmentController extends Controller
                     }
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', $e->getMessage());
+                    return redirect()->back()->withInput()->with('error', 'Something went wrong!');
                 }
                 DB::commit();
                 return $res;

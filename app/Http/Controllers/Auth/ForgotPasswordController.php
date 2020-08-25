@@ -61,7 +61,7 @@ class ForgotPasswordController extends Controller
                     try {
                         Mail::to($user->userEmail)->send(new PasswordForgetLink($user, $link));
                     } catch (\Exception $e) {
-                        return redirect()->back()->with('error','A Network Error occurred. Please try again. '.$e->getMessage());
+                        return redirect()->back()->with('error','A Network Error occurred. Please try again.');
                     }
                     return redirect()->back()->with('success', trans('A reset link has been sent to your email address.'));
                 }else{

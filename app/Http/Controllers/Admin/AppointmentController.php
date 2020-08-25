@@ -417,8 +417,8 @@ class AppointmentController extends Controller
                 }
             }catch (\Exception $e){
                 DB::rollback();
-                return $e->getMessage();
-                // return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Something Went wrong! Please try agian later. '.$e->getMessage());
+                // return $e->getMessage();
+                return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('error', 'Something Went wrong!');
             }
             DB::commit();
             return redirect('/admin/appointment/'.$docType.'/'.$appointmentType.'/'.$start.'/'.$end.'/index')->with('success', 'Appointment for '.$date.' has been deleted!');

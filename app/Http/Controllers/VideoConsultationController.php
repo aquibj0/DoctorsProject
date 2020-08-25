@@ -288,7 +288,7 @@ class VideoConsultationController extends Controller
                             // }
                         } catch(\Exception $e){
                             DB::rollback();
-                            return redirect()->back()->withInput()->with('error', 'Something went wrong! '.$e->getMessage());
+                            return redirect()->back()->withInput()->with('error', 'Something went wrong! ');
                         }
                         DB::commit();
                         return $res;
