@@ -157,7 +157,7 @@
                                 $(document).ready(function(){
                                     var x = "{{ $errors->has('current-password') }}";
                                     var y = "{{ $errors->has('new-password') }}";
-                                    if(x === "1" || y === "1" || z === "1"){
+                                    if(x === "1" || y === "1" || "{{ $message = Session::get('passerror') }}"){
                                         document.getElementById("updatePassword").click();
                                     }
                                 });
@@ -168,13 +168,17 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel"> Update Password</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-
-
+                                @if ($message = Session::get('passerror'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                        <strong>{{ $message }}</strong>
+                                </div>
+                                @endif
                                 <form action="{{ route('admin.changePassword') }}" method="POST">
                                     @csrf
                                     <div class="modal-body">

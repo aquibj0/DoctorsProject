@@ -280,12 +280,12 @@ class AdminController extends Controller
         // return $request;
         if (!(Hash::check($request['current-password'], Auth::user()->password))) {
             // The passwords matches
-            return redirect()->back()->withInput()->with("error","Your current password does not matches with the password you provided. Please try again.");
+            return redirect()->back()->withInput()->with("passerror","Your current password does not matches with the password you provided. Please try again.")->with('passErrorModal', 1);
         }
 
         if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
             //Current password and new password are same
-            return redirect()->back()->withInput()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            return redirect()->back()->withInput()->with("passerror","New Password cannot be same as your current password. Please choose a different password.")->with('passErrorModal', 1);
         }
 
         $validator = Validator::make($request->all(), [
