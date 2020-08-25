@@ -81,9 +81,13 @@
                                         </td> --}}
                                         <td>
 
-                                            @if (Auth::user() != $user )
+                                            @if (Auth::user() != $user  && count($user->serviceRequest) < 0)
                                                 <a href="{{ url('/admin/internal-user/'.$user->id.'/delete') }}" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                             @endif
+
+                                          
+
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

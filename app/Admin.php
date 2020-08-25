@@ -26,4 +26,12 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function serviceRequest(){
+        return $this->hasMany('App\ServiceRequest', 'srAssignedIntUserId');
+
+    }
+
+
 }
