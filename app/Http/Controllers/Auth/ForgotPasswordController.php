@@ -40,23 +40,25 @@ class ForgotPasswordController extends Controller
     }
 
     public function passwordReset(Request $request){
-        if(isset($request->_token) && isset($request->email)){
+        if(isset($request->_token) && isset($request->userEmail)){
             $validator = Validator::make($request->all(), [
-                'email' => ['required', 'email'],
+                'userEmail' => ['required', 'email'],
             ]);
             if(!$validator->fails()){
-                $user = User::where('userEmail', $request->email)->first();
+                $user = User::where('userEmail', $request->userEmail)->first();
                 if(isset($user)){
                     DB::table('password_resets')->insert([
-                        'email' => $request->email,
+                        'email' => $request->userEmail,
                         'token' => str_random(60),
                         'created_at' => Carbon::now()
                     ]);
-                    $tokenData = DB::table('password_resets')->where('email', $request->email)->first();
+                    $tokenData = DB::table('password_resets')->where('email', $request->userEmail)->first();
                     // $res = $this->sendResetEmail($request->email, $tokenData->token);
                     // $user = DB::table('users')->where('userEmail', $email)->select('userFirstName', 'userEmail')->first();
+                    
                     //Generate, the password reset link. The token generated is embedded in the link
-                    $link = config('app.url', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
+                    //remove the 's' from app.urls when in live server
+                    $link = config('app.urls', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
                     // return $link;
                     try {
                         Mail::to($user->userEmail)->send(new PasswordForgetLink($user, $link));
@@ -81,17 +83,16 @@ class ForgotPasswordController extends Controller
         // return $request;
         // Validate input
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,userEmail',
-            'password' => 'required|confirmed',
-            'token' => 'required',
+            'userEmail' => 'required|email|exists:users,userEmail',
+            'userPassword' => 'required|min:8|confirmed',
         ]);
 
         // check if payload is valid before moving on
         if ($validator->fails()) {
-            return redirect()->back()->with('error','Please complete the form');
+            return redirect()->back()->withErrors($validator)->with('error', 'Something went wrong!');
         }
 
-        $password = $request->password;// Validate the token
+        $password = $request->userPassword;// Validate the token
         $tokenData = DB::table('password_resets')->where('token',  $request->token)->first();
         // Redirect the user back to the password reset request form if the token is invalid
         if (!$tokenData) return redirect('/password/reset')->with('error', 'Data not found! Please try again.');

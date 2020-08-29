@@ -52,7 +52,6 @@ class SendEmail implements ShouldQueue
     {
         if($this->option == 1){             //service request creation and payment
             if($this->patient->patEmail){
-                
                 Mail::to(Auth::user()->userEmail)
                     ->cc($this->patient->patEmail)
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq, $this->payment));

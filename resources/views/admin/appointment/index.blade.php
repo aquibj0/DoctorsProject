@@ -20,7 +20,7 @@
                             @if($start_date != 0 && $end_date !=0 )
                                 <div class="form-row form-group">
                                     <div class="col-md">
-                                        <input type="date" name="start_date" class="form-control mb-2" id="start_date_self" value="{{ $start_date }}">         
+                                        <input type="date" name="start_date" class="form-control mb-2" id="start_date_self" value="{{ $start_date }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}">         
                                         @if ($errors->has('start_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('start_date') }}</strong>
@@ -35,6 +35,17 @@
                                                 <strong>{{ $errors->first('end_date') }}</strong>
                                             </span>
                                         @endif
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                        <script>
+                                            $(document).ready(function(){
+                                                $('#start_date').on('change', function(){
+                                                    
+                                                    $('#end_date').attr({
+                                                        "min" : $('#start_date').val()
+                                                    });
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                     <div class="col-md">
                                         <select name="doctor_type" id="doctor_type" class="form-control mb-2">

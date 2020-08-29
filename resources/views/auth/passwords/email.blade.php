@@ -8,16 +8,8 @@
                 <h2 class="mb-0"> <b>{{ __('Reset Password') }}</b></h2> 
             </div>
             <div class="card">
-                {{-- <div class="card-header">{{ __('Reset Password') }}</div> --}}
 
                 <div class="card-body">
-                    @include('layouts.message')
-
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     @include('layouts.message')
 
                     <form method="POST" action="{{ url('/password-reset') }}">
