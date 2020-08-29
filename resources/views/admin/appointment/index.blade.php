@@ -29,7 +29,7 @@
                                     </div>
                                     <input type="hidden" id="counter" name="counter" value="{{ $counter }}">
                                     <div class="col-md">
-                                        <input type="date" name="end_date" class="form-control mb-2" id="end_date_self" value="{{ $end_date }}">         
+                                        <input type="date" name="end_date" class="form-control mb-2" id="end_date_self" value="{{ $end_date }}" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}">         
                                         @if ($errors->has('end_date'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('end_date') }}</strong>
@@ -38,12 +38,11 @@
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                         <script>
                                             $(document).ready(function(){
-                                                $('#start_date').on('change', function(){
-                                                    
-                                                    $('#end_date').attr({
-                                                        "min" : $('#start_date').val()
+                                                
+                                                    $('#end_date_self').attr({
+                                                        "min" : $('#start_date_self').val()
                                                     });
-                                                });
+
                                             });
                                         </script>
                                     </div>
