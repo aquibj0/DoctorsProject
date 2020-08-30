@@ -84,13 +84,11 @@ class PaymentController extends Controller
                 $serviceReq->srStatus = "ACTIVE";
                 $serviceReq->update();
 
-                $user = Auth::user();
-
                 if($serviceReq->askQuestion){
 
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
-                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, null, 1);
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, $user, 1);
                 }
                 elseif($serviceReq->videoCall){
                     $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
@@ -98,7 +96,7 @@ class PaymentController extends Controller
                     $app->update();
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
-                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->videoCall, $payment, null, 1);
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->videoCall, $payment, $user, 1);
                 }
                 elseif($serviceReq->clinicAppointment){
                     $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
@@ -106,7 +104,7 @@ class PaymentController extends Controller
                     $app->update();
                     Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
 
-                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->clinicAppointment, $payment, null, 1);
+                    SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->clinicAppointment, $payment, $user, 1);
                 }
 
                 return redirect()->route('servicereq-details', [$id, $serviceReq->srId])->with('success', 'Thank you for the order');

@@ -52,11 +52,11 @@ class SendEmail implements ShouldQueue
     {
         if($this->option == 1){             //service request creation and payment
             if($this->patient->patEmail){
-                Mail::to(Auth::user()->userEmail)
+                Mail::to($this->user->userEmail)
                     ->cc($this->patient->patEmail)
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq, $this->payment));
             }else{
-                Mail::to(Auth::user()->userEmail)
+                Mail::to($this->user->userEmail)
                     ->send(new AAQEmail($this->patient, $this->srvcReq ,$this->asaq, $this->payment));
             }
         }elseif($this->option == 2){        //response from doctor
@@ -82,7 +82,7 @@ class SendEmail implements ShouldQueue
                     ->send(new AssignDoctorEmail($this->patient, $this->srvcReq ,$this->asaq));
         }elseif($this->option == 5){        //Service request closed
             Mail::to($this->user->userEmail)
-                    ->send(new ServiceRequestCloseEmail($this->patient, $this->srvcReq, $this->user));
+                ->send(new ServiceRequestCloseEmail($this->patient, $this->srvcReq, $this->user));
             
         }else{
             //
