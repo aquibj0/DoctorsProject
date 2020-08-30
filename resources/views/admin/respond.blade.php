@@ -343,8 +343,14 @@
                 <div class="col-md">
                     @if(count($prescriptions) != 0 && $srvcReq->srStatus != "CLOSED")
                     <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
+                    <div class="text-center mt-3">
+                        <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                    </div>
                     @else
                     <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
+                        <div class="text-center mt-3">
+                            <a href="{{ url('/admin') }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                       </div>
                     @endif
                 </div>
             </div>
