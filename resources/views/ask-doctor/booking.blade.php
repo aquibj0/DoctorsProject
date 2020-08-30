@@ -34,7 +34,7 @@
 </section> --}}
 
 @endsection
-<form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
+<form hidden method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
     {{-- {{ csrf_field() }} --}}
     <input type="hidden" value="{{csrf_token()}}" name="_token" /> 
     <input type="hidden" name="key_id" value="{{$response['razorpayId']}}">
@@ -44,14 +44,13 @@
     <input type="hidden" name="description" value="Enter description">
     <input type="hidden" name="prefill[email]" value="{{$response['email']}}">
     <input type="hidden" name="prefill[contact]" value="{{$response['contactNumber']}}">
-    <input type="hidden" name="notes[transaction_id]" value="transaction_1234">
-    <input type="hidden" name="callback_url" value="{{url('/payment-complete/'.Auth::user()->id.'/'.$data['srvdID'])}}">
+    <input type="hidden" name="callback_url" value="{{url('payment-complete/'.Auth::user()->id.'/'.$data['srvdID'])}}">
     <button id="rzp-button1" type="submit" hidden>Submit</button>
 </form>
 
-<button hidden>Pay</button> 
+{{-- <button hidden>Pay</button>  --}}
 
-{{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{{-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> --}}
 <script>
 var options = {
     // "callback_url": "/payment-initiate-request",   
@@ -88,19 +87,19 @@ var options = {
         "color": "#F37254"
     }
 };
-var rzp1 = new Razorpay(options); --}}
-<script>
+// var rzp1 = new Razorpay(options); 
+// <script>
 window.onload = function(){
     document.getElementById('rzp-button1').click();
 };
 
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
+// document.getElementById('rzp-button1').onclick = function(e){
+//     rzp1.open();
+//     e.preventDefault();
+// }
 </script>
 
-{{-- 
+
 <form action="/payment-complete/{{Auth::user()->id}}/{{$data['srvdID']}}" method="POST" hidden>
     <input type="hidden" value="{{csrf_token()}}" name="_token" /> 
     <input type="text" class="form-control" id="rzp_paymentid" name="rzp_paymentid">
@@ -109,7 +108,7 @@ document.getElementById('rzp-button1').onclick = function(e){
     <input type="text" id="service_req_id" name="service_req_id" value="{{$data['srId']}}">
     <input type="text" name="amount" value="{{ $data['amount'] }}">
     <button type="submit" id="rzp-paymentresponse" class="btn btn-primary">Submit</button>
-</form> --}}
+</form>
 
 
 

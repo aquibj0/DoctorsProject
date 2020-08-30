@@ -65,7 +65,7 @@
                     <!-- Authentication Links -->
                     @guest
                         
-
+ 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
@@ -84,7 +84,7 @@
                                 @else
                                     <span> <i class="fa fa-fw fa-user"></i> </span>
                                 @endisset 
-                                &nbsp; {{ Auth::user()->userFirstName." ".Auth::user()->userLastName }} <span class="caret"></span>
+                                &nbsp; {{ substr(Auth::user()->userFirstName, 0, 1).'.'." ".Auth::user()->userLastName }} <span class="caret"></span>
 
                             </a>
                             

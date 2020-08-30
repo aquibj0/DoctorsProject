@@ -4,9 +4,7 @@
 <section class="ask-doctor" style="padding-top:0"> 
     
     <div class="row" style="height:auto">
-        <div class="col-md-4" style="background:#142cd6; min-height:100%;">
-        <div style="background:#142cd6;"></div>
-    </div>
+       
         <div class="col-md-8" >
             
             <div class="container">
@@ -17,7 +15,6 @@
                                 <h2>ADD SERVICE</h2>
                             </div>   
                             <div>
-                                <h5 class="maroon mb-3"><b><u>SERVICE DETAILS</u></b></h5>
                                 @include('layouts.message')
                                 <form action="{{route('service.store')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -47,6 +44,9 @@
                                     </div>
                                     
                                     <button type="submit" class="btn btn-maroon btn-md mb-2" style="width:100%">Submit</button>
+                                    <div class="text-center mt-3">
+                                        <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                                   </div>
                                 </form>
                             </div>
                         </div>

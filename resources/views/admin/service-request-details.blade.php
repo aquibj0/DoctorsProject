@@ -212,21 +212,21 @@
                                 <table class="table table-bordered ">
                                     <tbody >
                                         <tr>
-                                            <th scope="row">P. Name</th>
+                                            <th scope="row"> Name</th>
                                             <td>{{ $srvcReq->patient->patFirstName }} {{ $srvcReq->patient->patLastName }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">P. Age</th>
+                                            <th scope="row"> Age</th>
                                             <td>{{ $srvcReq->patient->patAge}}</td> 
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">P. Gender</th>
+                                            <th scope="row"> Gender</th>
                                             <td>{{ $srvcReq->patient->patGender }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">P. Address</th>
+                                            <th scope="row"> Address</th>
                                             <td>{{ $srvcReq->patient->patAddrLine1 }}, {{ $srvcReq->patient->patAddrLine2 }} , 
                                                     {{ $srvcReq->patient->patCity }}, {{ $srvcReq->patient->patDistrict }},
                                                     {{ $srvcReq->patient->patState }}, {{ $srvcReq->patient->patCountry }}, 
@@ -256,7 +256,7 @@
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">P. Purpose</th>
+                                            <th scope="row"> Purpose</th>
 
                                             @php
                                                 $department = App\Department::select('department_name')->where('id', '=', $srvcReq->srDepartment)->first();
@@ -265,7 +265,7 @@
                                             <td>{{ $department->department_name }}</td>
                                         </tr>
                                         <tr >
-                                            <th scope="row">P. Background</th>
+                                            <th scope="row"> Background</th>
                                             <td>
                                                 <div style="max-height:70px; overflow:hidden; overflow-y:scroll;padding-right:8px;">
                                                     {{ $srvcReq->patient->patBackground }}
@@ -274,7 +274,7 @@
                                         </tr>
                                         @if (isset($srvcReq->askQuestion))
                                             <tr >
-                                                <th scope="row">P. Question</th>
+                                                <th scope="row"> Question</th>
                                                 <td>
                                                     <div style="max-height:70px; overflow:hidden; overflow-y:scroll;padding-right:8px;">
                                                         {{ $srvcReq->askQuestion->aaqQuestionText }}

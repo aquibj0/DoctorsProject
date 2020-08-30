@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<section class="">
+<section class="full-vh">
     <div class="row mt-2" >
         <div class="col-md" style="padding-left:30px;">
             <h3 class="maroon " style="margin-top:15px !important;"><b>Dr Gautam Khastgir </b></h3>

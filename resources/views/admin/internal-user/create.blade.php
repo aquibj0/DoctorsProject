@@ -214,6 +214,10 @@
                                         <button type="submit" class="btn btn-maroon" style="width:100%">
                                             Submit
                                         </button>
+
+                                        <div class="text-center mt-3">
+                                            <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                                       </div>
                                     </div>
                                 </div>
                             </form>

@@ -118,6 +118,7 @@
                                     <div class="form-row">
                                         {{-- Patient Gender Input --}}
                                         <div class="form-group col-md-6">
+                                            <Label>Gender</Label>
                                             <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
                                                 @if(old('gender') == "Male")
                                                     <option disabled>Gender </option>
@@ -135,7 +136,7 @@
                                                     <option value="Female" >Female</option>
                                                     <option value="Trans" selected>Transgender</option>
                                                 @else
-                                                    <option selected disabled>Gender </option>
+                                                    <option hidden></option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                     <option value="Trans">Transgender</option>
@@ -151,8 +152,9 @@
 
                                         {{-- Patient Age Input --}}
                                         <div class="form-group col-md-6">
+                                            <label for="Age">Age</label>
                                             <select name="age" id="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age') }}" required>
-                                                <option disabled selected>Select age</option>
+                                                <option hidden></option>
                                                 @for($i=10; $i<90 ;$i++)
                                                     @if(old('age') == $i)
                                                         <option value="{{ $i }}" selected>{{ $i }}</option>

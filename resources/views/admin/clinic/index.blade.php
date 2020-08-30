@@ -46,7 +46,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $clinic->clinicName }}</td>
                                         <td>
-                                            @if(isset($clinic->clinicMobileNo) && isset($clinic->clinicLandLineNo))
+                                            @if(isset($clinic->clinicMobileNo) || isset($clinic->clinicLandLineNo))
                                                 @if(isset($clinic->clinicMobileNo))
                                                     Mobile: {{ $clinic->clinicMobileNo }}
                                                 @endif                                        
@@ -55,7 +55,7 @@
                                                     Landline:{{ $clinic->clinicLandLineNo }}
                                                 @endif
                                             @else
-                                                Nothing added
+                                                Mobile/Landline Not Added
                                             @endif
                                         </td>
                                         <td>{{ $clinic->clinicAddressLine1 }}
