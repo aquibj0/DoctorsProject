@@ -177,7 +177,7 @@
                                     <th scope="col">File Name</th>
                                     <th scope="col">File Description</th>
                                     <th scope="col">Uploaded By</th>
-                                    <th scope="col">View</th>
+                                    <th scope="col">Action</th>
 
 
                                 </thead>
@@ -189,7 +189,15 @@
                                             <td>{{$prescription->documentDescription}}</td>
                                             <td>{{$prescription->documentUploadedBy}}</td>
                                             @if($srvcReq->srStatus != "Cancelled")
-                                            <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
+                                            <td><a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm mb-2">Download</a>
+                                                <form action="/upload-documents/delete/{{$prescription->id}}" method="post">
+
+
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                </form>
+                                            {{-- <a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm mb-2">Delete</a></td> --}}
                                             @endif
                                         </tr>
                                     @endforeach
@@ -203,13 +211,14 @@
                         <div class="mt-4 buttons">
                             
                             <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                          
-                                
+                            @if(count($prescriptions) < 1)
                             <a href="#"  data-toggle="modal" id="uploadDocumentButton" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
+                            @endif
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                             <script>
                                 $(document).ready(function(){
                                     var x = "{{ $errors->has('documentType') }}"
-                                    if(x === "1"){
+                                    if(x === "1" || "{{$errors->has('documentFileName')}}" == "1" || "{{$errors->has('documentDescription')}}" == "1"){
                                         document.getElementById("uploadDocumentButton").click();
                                     }
                                 });
@@ -218,7 +227,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Upoad Prescription</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Upload Prescription</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
@@ -234,7 +243,7 @@
 
                                                     <div class="form-group row">
                                                         <div class="col-md-12">
-                                                            <label for="documentType">Docuement Type</label>
+                                                            <label for="documentType">Document Type</label>
                                                             <select name="documentType" id="documentType" class="form-control @error('documentType') is-invalid @enderror" required>
                                                                 <option value="Report">Report</option>
                                                                 <option value="Prescription">Prescription</option>
@@ -252,7 +261,7 @@
 
                                                     <div class="form-group row">
                                                         <div class="col-md-12">
-                                                            <label for="documentDescription"> Document Description</label>
+                                                            <label for="documentDescription">Document Description</label>
                                                             <input name="documentDescription" id="documentDescription" placeholder="Document Description" class="form-control @error('documentDescription') is-invalid @enderror"  value="{{ old('documentDescription') }}" autocomplete="documentDescription" autofocus>
                                                             
                             
@@ -265,7 +274,7 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col-md-12">
-                                                            <label for="documentFileName">Upload Docuement</label>
+                                                            <label for="documentFileName">Upload Document</label>
                                                             <input id="documentFileName" type="file" placeholder="Document Filename" class="form-control @error('documentFileName') is-invalid @enderror" name="documentFileName" value="{{ old('documentFileName') }}" required autocomplete="documentFileName" autofocus>
                             
                                                             @error('documentFileName')
@@ -340,7 +349,9 @@
                                     <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
                                     @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
                                     <div class="form-group text-center mb-0">
+                                        @if($srvcReq->srStatus != "CLOSED")
                                         <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
+                                        @endif
                                     </div>
                                     @endif
                                 </form>
@@ -351,21 +362,38 @@
             </div>
             <div class="row">
                 <div class="col-md">
-                    @if(count($prescriptions) != 0 && $srvcReq->srStatus != "CLOSED")
-                    <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
+                    @if( $srvcReq->srStatus != "CLOSED" && count($prescriptions) == 1)
+                    <div class="row mt-3">
+                        <div class="col-md">
+                            <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
+                        </div>
+                        <div class="col-md">
+                            <a href="{{ url()->previous() }}" class=" text-center mb-3 btn btn-md btn-maroon" style="width: 100%">Back</a>
+                        </div>
+                    </div>
+                    {{-- @elseif(count($prescriptions) > 1)
+                    <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;" disabled>Submit 2</a>
                     <div class="text-center mt-3">
                         <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
-                    </div>
+                    </div> --}}
                     @else
-                    <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
-                        <div class="text-center mt-3">
-                            <a href="{{ url('/admin') }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
-                       </div>
+                        <div class="row mt-3">
+                            <div class="col-md">
+                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
+                            </div>
+                            <div class="col-md">
+                                <div class="text-center" style="width:100%; ">
+                                    <a href="{{ url('/admin') }}" class=" text-center mb-2 btn btn-md btn-maroon" style="width: 100%">Back</a>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
             <div class="container">
+                @if(count($prescriptions) < 1)
                 *Submit atleast One prescription to CLOSE the Service Request.
+                @endif
             </div>
         </div>
     </div>

@@ -172,7 +172,7 @@ class AdminController extends Controller
                         
                     } catch(\Exception $e){
                         DB::rollback();
-                        return redirect()->back()->with('error', 'Something went wrong!')->withInput();
+                        return redirect()->back()->with('error', 'Something went wrong!'.$e->getMessage())->withInput();
                     }
                     DB::commit();
                     return redirect('/admin/internal-user')->with('success', 'User created successfully!');

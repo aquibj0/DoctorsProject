@@ -234,7 +234,7 @@ class ServiceRequestController extends Controller
             DB::commit();
             
             SendEmail::dispatch($servcReq->patient, $servcReq, null, null, $servcReq->user, 5);
-            return redirect()->back()->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
+            return redirect('/admin')->with('success', 'Service Request '.$servcReq->srId.' closed successfully.');
         }else{
             return redirect()->back()->with('error', 'Something went wrong! Please try agian later.');
         }
