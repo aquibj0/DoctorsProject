@@ -45,7 +45,7 @@
                                     
                                     <button type="submit" class="btn btn-maroon btn-md mb-2" style="width:100%">Submit</button>
                                     <div class="text-center mt-3">
-                                        <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                                        <a href="/admin/services" class="btn btn-maroon btn-md text-center mt-4 mb-2"><u>Back</u></a>
                                    </div>
                                 </form>
                             </div>

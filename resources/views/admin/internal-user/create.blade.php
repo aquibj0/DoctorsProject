@@ -216,7 +216,7 @@
                                         </button>
 
                                         <div class="text-center mt-3">
-                                            <a href="{{ url()->previous() }}" class=" text-center mt-4 mb-2"><u>Back</u></a>
+                                            <a href="/admin/internal-user" class="btn btn-maroon btn-md text-center mt-4 mb-2"><u>Back</u></a>
                                        </div>
                                     </div>
                                 </div>

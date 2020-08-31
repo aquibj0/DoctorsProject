@@ -322,8 +322,11 @@
                                         {{-- @endif --}}
                                         @endif
                                         {{-- @endif --}}
-                                        <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">Back</a>
-
+                                        @if (isset($srvcReq->clinicAppointment) &&  $srvcReq->srAssignedIntUserId != null)
+                                            <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-2 mr-1 ml-1" disabled>Close Request</a>
+                                        @endif
+                                        <a href="/admin" class="btn btn-maroon btn-md mb-2 mr-1 ml-1">Back</a>
+                                        {{-- <span class="small"></span> --}}
                                     </div>
                             </div>
                         </div>

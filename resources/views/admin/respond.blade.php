@@ -195,7 +195,9 @@
 
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @if($srvcReq->srStatus != "CLOSED")
                                                     <button type="submit" class="btn btn-maroon btn-sm" onclick="return confirm('Are you sure?')">Delete </button>
+                                                    @endif 
                                                 </form>
                                             {{-- <a href="{{url('downloadDoc/'.$prescription->id)}}" class="btn btn-maroon btn-sm mb-2">Delete</a></td> --}}
                                             @endif
@@ -368,7 +370,7 @@
                             <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%">Submit</a>
                         </div>
                         <div class="col-md">
-                            <a href="{{ url()->previous() }}" class=" text-center mb-3 btn btn-md btn-maroon" style="width: 100%">Back</a>
+                            <a href="/admin" class=" text-center mb-3 btn btn-md btn-maroon" style="width: 100%">Back</a>
                         </div>
                     </div>
                     {{-- @elseif(count($prescriptions) > 1)
