@@ -70,28 +70,38 @@
                     </div>
                     <div class="col-md-6" style="border:1px solid #000; padding: 15px">
                         <h5 class="maroon"><b><u>DOCTOR'S RESPONSE</u> </b></h5>
-                        @if ($srvcReq->askQuestion->aaqDocResponse != null)
-                            <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
-                        
-                        @else
-                            @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
-                            <form  method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >
-                            {{ csrf_field() }}
-                
-                            <div class="form-row mt-1">
-                                <div class="form-group col-md-12">
-                                    <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
-                                </div>
-                                <div class="text-center" style="width:100%">
-                                    @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
-                                    <button type="submit" style="width:100%" class="btn btn-maroon" >SUBMIT</button>
-                                    @endif
-                                </div>
-                            </form>
+
+                        {{-- Check if doctor has been assigned to this service request --}}
+                        @if (isset($srvcReq->srAssignedIntUserId))
+                            
+                            @if ($srvcReq->askQuestion->aaqDocResponse != null)
+                                <p>{{$srvcReq->askQuestion->aaqDocResponse}}</p> 
+                            
                             @else
-                            <h2>No Response from Doctor</h2>
+                                @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
+                                    <form  method="POST" action="{{ url('/admin/ask-a-doctor/'.$srvcReq->askQuestion->id.'/response') }}" >
+                                    {{ csrf_field() }}
+                        
+                                    <div class="form-row mt-1">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" name="response" id="response" cols="30" rows="15" placeholder="Response" required></textarea>
+                                        </div>
+                                        <div class="text-center" style="width:100%">
+                                            @if(isset($srvcReq->adminDoctor) && Auth::user()->id == $srvcReq->adminDoctor->id)
+                                            <button type="submit" style="width:100%" class="btn btn-maroon" >SUBMIT</button>
+                                            @endif
+                                        </div>
+                                    </form>
+                                @else
+                                    <h2>No Response from Doctor</h2>
+                                @endif
                             @endif
+
+                        @else
+                            <h2><b>Doctor Not Assigned. Kindly Assign</b></h2>
                         @endif
+
+                  
                         </div>
                     </div>
                 </div>
