@@ -11,33 +11,35 @@
         <h3><b>New Contact Us Message</b></h3>
     </div>
     <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">Name</div>
-            <div class="col-md">{{ $msg->name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Email</div>
-            <div class="col-md">{{ $msg->email }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Phone</div>
-            <div class="col-md">{{ $msg->phone }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Address</div>
-            <div class="col-md">{{ $msg->address }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Subject</div>
-            <div class="col-md">{{ $msg->subject }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Message</div>
-            <div class="col-md">{{ $msg->message }}</div>
-        </div>
-    </div>
+    <table class="table table-borderless">
+        <tbody>
+          <tr>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="row">{{ $msg->name }}</th>
+              </tr>
+              <tr>
+                <th scope="col">Email</th>
+                <td>{{ $msg->email }}</td>
+              </tr>
+              <tr>
+                <th scope="col">Phone</th>
+                <td>{{ $msg->phone }}</td>
+              </tr>
+              <tr>
+                <th scope="col">Address</th>
+                <td>{{ $msg->address }}</td>
+              </tr>
+              <tr>
+                <th scope="col">Subject</th>
+                <td>{{ $msg->subject }}</td>
+              </tr>
+              <tr>
+                <th scope="col">Message</th>
+                <td>{{ $msg->message }}</td>
+              </tr>
+          </tr>
+        </tbody>
+    </table>
 </body>
 </html>
-
-{{ $msg }}

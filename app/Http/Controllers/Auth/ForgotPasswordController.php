@@ -58,7 +58,7 @@ class ForgotPasswordController extends Controller
                     
                     //Generate, the password reset link. The token generated is embedded in the link
                     //remove the 's' from app.urls when in live server
-                    $link = config('app.urls', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
+                    $link = config('app.url', '127.0.0.1:8000') . '/password/reset/' . $tokenData->token . '?email=' . urlencode($user->userEmail);
                     // return $link;
                     try {
                         Mail::to($user->userEmail)->send(new PasswordForgetLink($user, $link));
