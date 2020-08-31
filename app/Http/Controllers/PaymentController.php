@@ -86,15 +86,14 @@ class PaymentController extends Controller
 
                 if($serviceReq->askQuestion){
 
-                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
-
+                    Sms::send("We have received your Ask A Doctor request and payment of Rs. ".$serviceReq->payment->payment_amount ." for the same. Please upload documents. Doctor will respond in 24 hrs.")->to('91'.$user->userMobileNo)->dispatch();
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->askQuestion, $payment, $user, 1);
                 }
                 elseif($serviceReq->videoCall){
                     $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
                     $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                     $app->update();
-                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                    Sms::send("We have received your Ask A Doctor request and payment of Rs. ".$serviceReq->payment->payment_amount ." for the same. Please upload documents. Doctor will respond in 24 hrs.")->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->videoCall, $payment, $user, 1);
                 }
@@ -102,7 +101,7 @@ class PaymentController extends Controller
                     $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
                     $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                     $app->update();
-                    Sms::send("Thank you. Your Service Request has been created with SR-ID  ".$serviceReq->srId)->to('91'.$user->userMobileNo)->dispatch();
+                    Sms::send("We have received your Ask A Doctor request and payment of Rs. ".$serviceReq->payment->payment_amount ." for the same. Please upload documents. Doctor will respond in 24 hrs.")->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->clinicAppointment, $payment, $user, 1);
                 }

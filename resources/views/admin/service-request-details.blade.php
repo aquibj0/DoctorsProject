@@ -156,12 +156,26 @@
 
                                             <tr>
                                                 <th scope="row">Responded By</th>
-                                                <td>Dr. {{$srvcReq->adminDoctor->firstName}} {{$srvcReq->adminDoctor->lastName}}</td>
+                                                <td>
+                                                    @if ($srvcReq->srStatus == 'CLOSED') 
+                                                        Dr. {{$srvcReq->adminDoctor->firstName}} {{$srvcReq->adminDoctor->lastName}}
+
+                                                    @else
+                                                        Not Responded yet
+                                                    @endif    
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Response Time</th>
                                                 
-                                                <td>{{date('d-m-Y ', strtotime($srvcReq->srRecievedDateTime))}} </td>
+                                                <td> 
+                                                    @if ($srvcReq->srStatus == 'CLOSED')
+                                                        {{date('d-m-Y ', strtotime($srvcReq->srResponseDateTime))}} 
+                                                    @else
+                                                        Not Responded yet
+                                                    @endif
+                                                    
+                                                </td>
                                             </tr>        
     
                                             <tr>
