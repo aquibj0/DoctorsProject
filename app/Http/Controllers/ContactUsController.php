@@ -67,7 +67,8 @@ class ContactUsController extends Controller
                     Mail::to(config('mail.from.address'))->send(new ContactUsMail($msg));
                 }catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error','Something went wrong'. $e->getMessage());
+                    return redirect()->back()->withInput()->with('error','Something went wrong');
+                    // return redirect()->back()->withInput()->with('error','Something went wrong'. $e->getMessage());
                 }
                 DB::commit();
             }

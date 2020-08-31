@@ -229,7 +229,8 @@ class ServiceRequestController extends Controller
 
             } catch(\Exception $e){
                 DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong! Please try agian later. '.$e->getMessage());
+                return redirect()->back()->with('error', 'Something went wrong! Please try agian later.');
+                // return redirect()->back()->with('error', 'Something went wrong! Please try agian later. '.$e->getMessage());
             }
             DB::commit();
             

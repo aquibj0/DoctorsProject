@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" class="form-control" id="phone" placeholder="Phone No" name="phone" value="{{ old('phone') }}" required>
+                                <input type="text" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" class="form-control" id="phone" placeholder="Phone No" name="phone" value="{{ old('phone') }}" required>
                             </div>
                        
                             <div class="form-group col-md-6">
