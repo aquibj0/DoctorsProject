@@ -141,7 +141,7 @@
                                             </th>
                                             <th scope="col">Sr Type</th>
                                             <th scope="col">Sr Date<span style="float: right"><a href="/admin/{{$filter}}/3/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/4/{{$start}}/{{$end}}">&#9660;</a></span></th>
-                                            <th scope="col">Sr Due Date</th>
+                                            <th scope="col">Sr Due Date<span style="float: right"><a href="/admin/{{$filter}}/5/{{$start}}/{{$end}}">&#9650;</a><a href="/admin/{{$filter}}/6/{{$start}}/{{$end}}">&#9660;</a></span></th>
                                             <th scope="col">Payment Status</th>
                                             <th scope="col">Patient Name</th>
                                             <th scope="col">Service Status</th>

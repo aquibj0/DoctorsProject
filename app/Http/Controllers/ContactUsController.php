@@ -39,6 +39,7 @@ class ContactUsController extends Controller
      */
     public function store(Request $request)
     {
+        // return config('mail.from.address');
         // return $request;
         if($request){
             $validator = Validator::make($request->all(), [
@@ -63,16 +64,16 @@ class ContactUsController extends Controller
                     $msg->topic = $request->subject;
                     $msg->message = $request->message;
                     $msg->save();
-                    Mail::to('admin@admin.com')->send(new ContactUsMail($msg));
+                    Mail::to(config('mail.from.address'))->send(new ContactUsMail($msg));
                 }catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->with('error','Something went wrong');
+                    return redirect()->back()->withInput()->with('error','Something went wrong'. $e->getMessage());
                 }
                 DB::commit();
             }
             return redirect('/contact-us')->with('success', $msg->name.', you message submitted successfully!');
         }else{
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->back()->withInput()->with('error', 'Something went wrong!');
         }
         
     }
