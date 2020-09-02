@@ -16,7 +16,7 @@
                         {{ csrf_field() }}
                         <div class="row form-group">
                             <div class="col-md-5">
-                                <h2 style="text-align: center">Enter E-Mail Address</h2>
+                                <h4 style="text-align: center">Enter E-Mail Address</h4>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -35,7 +35,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-4.5">
                                 <button type="submit" class="btn btn-md btn-maroon" style="text-align: center">
-                                    <h5><b>Send Password Reset Link</b></h5>
+                                    Send Password Reset Link
                                 </button>
                             </div>
                         </div>
