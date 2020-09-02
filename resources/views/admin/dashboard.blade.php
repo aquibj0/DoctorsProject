@@ -172,9 +172,9 @@
                                                         <td>{{$serviceReq->srStatus}}</td>
                                                         <td>
                                                             <a href="{{ url('/admin/service-request/'.$serviceReq->id) }}" class="btn btn-maroon btn-sm mb-2">View Details</a> 
+                                                            <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm mb-2">Response</a>                                                              
                                                             @if ($serviceReq->paymentStatus == true)
                                                                 @if (!isset($serviceReq->clinicAppointment))
-                                                                    <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/respond') }}" class="btn btn-maroon btn-sm mb-2">Response</a>  
                                                                     <a href="{{ url('/admin/service-request/'.$serviceReq->id.'/download-report') }}" class="btn btn-maroon btn-sm mb-2">Download Report</a>
                                                                 @endif
                                                                                                           

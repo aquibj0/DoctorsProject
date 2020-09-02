@@ -401,44 +401,107 @@
     </div>
 </div>   
 
-                                    {{-- @if ($srvcReq->videoCall->vcDocInternalNotesText == null)
-                                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                            @csrf
-                                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{ old('vcDocInternalNotesText') }}</textarea>
-                                            <div class="form-group text-center mb-0">
-                                                <button type="submit" class=" mt-2 btn btn-maroon">Save</button>
-                                            </div>
-                                        </form>
-                
-                                    @else
-                
-                                        <form action="/admin/internalnotes/{{$srvcReq->videoCall->id}}" method="POST">
-                                            @csrf
-                                            <textarea  class="form-control" name="vcDocInternalNotesText" id="vcDocInternalNotesText" cols="30" rows="10">{{$srvcReq->videoCall->vcDocInternalNotesText}}</textarea>
-                                            <div class="form-group text-center mb-0">
-                                                <button type="submit" class=" mt-2 btn btn-maroon">Update</button>
-                                            </div>
-                                        </form>
-                                    @endif
-                                    
-                
-                                    
-                            </div>
-                        </div>
-                        @endif
-
-                    @endif
-
-
+                    
+@elseif(!empty($srvcReq->clinicAppointment))
+    <div class="container mt-2">
+        @include('layouts.message')
+        <div class="row">
+            
+            <div class="col-md-6">
+                <div class="register-block">
+                    <h2>RESPONSE ASK A DOCTOR</h2>
                 </div>
             </div>
         </div>
-    </div>    --}}
+
+        <div class="card">
+            <div class="card-body">
+                @include('layouts.message')
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                        <h5 class="maroon"><b><u>PATIENT DETAILS</u> </b></h5>
+                        <div class="table-responsive">
+                            <table class="table  table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Service Req ID</th>
+                                        <td>{{$srvcReq->srId}}</td>        
+                                    </tr>
+                                    <tr>
+                                        <th>Patient Name</th>
+                                        <td>{{$srvcReq->patient->patFirstName}} {{$srvcReq->patient->patLastName}}</td>        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row">Patient Age</th>
+                                        <td>{{ $srvcReq->patient->patAge}}</td> 
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Patient Gender</th>
+                                        <td>{{ $srvcReq->patient->patGender }}</td>
+                                    </tr>    
+                                    </tr>
+                                </tbody>
+                            
+                            </table>
+                        </div>
+
+                        <h5 class="maroon"><b><u>CLINIC DETAILS</u> </b></h5>
+                        <div class="mb-3"> 
+                            {{-- {{$srvcReq->clinicAppointment}}
+                            {{$srvcReq->clinicAppointment->clinic}} --}}
+                            <table class="table  table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Clinic Name</th>
+                                        <td>{{$srvcReq->clinicAppointment->clinic->clinicName}}</td>        
+                                    </tr>
+                                    <tr>
+                                        <th>Clinic Contact</th>
+                                        <td>{{$srvcReq->clinicAppointment->clinic->clinicMobileNo}} {{$srvcReq->clinicAppointment->clinic->clinicLandLineNo}}</td>        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row">Clinic Address</th>
+                                        <td>{{$srvcReq->clinicAppointment->clinic->clinicAddressLine1}}, 
+                                            {{$srvcReq->clinicAppointment->clinic->clinicAddressLine1}},
+                                            {{$srvcReq->clinicAppointment->clinic->clinicCity}},
+                                            {{$srvcReq->clinicAppointment->clinic->clinicDistrict}},
+                                            {{$srvcReq->clinicAppointment->clinic->clinicState}},
+                                            {{$srvcReq->clinicAppointment->clinic->clinicCountry}},
+                                            {{$srvcReq->clinicAppointment->clinic->clinicPincode}},
+                                        </td> 
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Patient Gender</th>
+                                        <td>{{ $srvcReq->patient->patGender }}</td>
+                                    </tr>    
+                                    </tr>
+                                </tbody>
+                            
+                            </table>
+                        </div>
 
 
-{{-- If Service Request Regarding The Clinic Booking  --}}
-{{-- @elseif(!empty($srvcReq->clinicAppointment))
 
-    Nothing to response  --}}
+                        
+                        <div class="mt-4 buttons">
+                            @if (isset($srvcReq->clinicAppointment) &&  $srvcReq->srAssignedIntUserId != null)
+                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-2 mr-1 ml-1" disabled>Close Request</a>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
+
+
+
 @endsection
