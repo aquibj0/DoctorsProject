@@ -187,16 +187,51 @@
 
                                         </table>
                                     </div>
+                                    @if($serviceRequests->srStatus != "CLOSED" || $serviceRequests->srStatus != 'Cancelled')
                                     <small class="maroon">* To upload more document click Add Document</small>
+                                    @endif
                                 @endif   
 
                                 @if ($serviceRequests->paymentStatus == true)
                                 <div class="btn-grouped float-right mt-4">
-                                
+
 
                                         {{-- Request Cancellation Button will only be available on below condiions. --}}
                                         @if ($serviceRequests->srStatus != 'Cancelled')
-                                            
+                                            {{-- View Response Button --}}
+                                                @if ($serviceRequests->service_id === 1)
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-maroon btn-md mb-2">View Response</a>
+                                                
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">View Response</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <tbody>
+                                                                    <h5><b>Patient Background</b>: {{ $serviceRequests->askQuestion->aaqPatientBackground }}</h5>
+                                                                    <h5><b>Patient Question</b>: {{ $serviceRequests->askQuestion->aaqQuestionText }}</h5>
+                                                                @if ($serviceRequests->askQuestion->aaqDocResponse === null)
+                                                                    <h5 class="maroon"><strong>Doctor Not responded yet.</strong></h5>
+            
+                                                                @else
+                                                                    <h5 class="maroon"><b>Doctor Response</b>: {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
+                                                                @endif
+            
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
                                             @if( $serviceRequests->srStatus != 'CLOSED')
                                                 {{-- Upload Document Button --}}
                                                 @if ($serviceRequests->service_id === 1 || $serviceRequests->service_id === 2)
@@ -315,39 +350,6 @@
             
                                                 @endif
                                             
-                                                {{-- View Response Button --}}
-                                                @if ($serviceRequests->service_id === 1)
-                                                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-maroon btn-md mb-2">View Response</a>
-                                                
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">View Response</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <tbody>
-                                                                    <h5><b>Patient Background</b>: {{ $serviceRequests->askQuestion->aaqPatientBackground }}</h5>
-                                                                    <h5><b>Patient Question</b>: {{ $serviceRequests->askQuestion->aaqQuestionText }}</h5>
-                                                                @if ($serviceRequests->askQuestion->aaqDocResponse === null)
-                                                                    <h5 class="maroon"><strong>Doctor Not responded yet.</strong></h5>
-            
-                                                                @else
-                                                                    <h5 class="maroon"> {{$serviceRequests->askQuestion->aaqDocResponse}}</h5>
-                                                                @endif
-            
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-maroon btn-sm" data-dismiss="modal">Close</button>
-                                                                
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
         
                                                 <a href="#" data-toggle="modal" data-target="#requestCancellation" class="btn btn-maroon btn-md mb-2">Request Cancellation</a>                                
                                             

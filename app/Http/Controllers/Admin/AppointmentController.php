@@ -138,7 +138,7 @@ class AppointmentController extends Controller
                         $appmntType = "VTD";
                     else if($request->docType == "ED")
                         $appmntType = "VED";
-                    for($i=0;$i<28;$i++){
+                    for($i=0;$i<40;$i++){
                         if(!AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->first()){
                             $app = new AppointmentSchedule;
                             $app->appmntType = $appmntType;
@@ -168,7 +168,7 @@ class AppointmentController extends Controller
                             $appmntType = "CTD";
                         else if($request->docType == "ED")
                             $appmntType = "CED";
-                    for($i=0;$i<12;$i++){
+                    for($i=0;$i<20;$i++){
                         $app = new AppointmentSchedule;
                         $app->appmntType = $appmntType;
                         $app->appmntClinicid = $request->appointmentType;
@@ -195,7 +195,7 @@ class AppointmentController extends Controller
                     else if($request->docType == "ED")
                         $appmntType = "VED";
                         // return $request;
-                    for($i=0;$i<28;$i++){
+                    for($i=0;$i<40;$i++){
                         $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->first();
                         if($app){
                             if($request->time[$i] == $request->flag[$flagCount]){
@@ -227,7 +227,7 @@ class AppointmentController extends Controller
                             $appmntType = "CTD";
                         else if($request->docType == "ED")
                             $appmntType = "CED";
-                    for($i=0;$i<12;$i++){
+                    for($i=0;$i<20;$i++){
                         $app = AppointmentSchedule::where('appmntDate', Carbon::parse($request->date)->toDateString())->where('appmntType', $appmntType)->where('appmntSlot', $request->time[$i])->where('appmntClinicid', $request->appointmentType)->first();
                         if($request->time[$i] == $request->flag[$flagCount]){
                             $booked = $app->appmntSlotMaxCount - $app->appmntSlotFreeCount;

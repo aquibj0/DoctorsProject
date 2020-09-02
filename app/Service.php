@@ -10,8 +10,6 @@ class Service extends Model
     public $primarykey = 'id';
     public $timestamp = true;
 
-
-
     public function serviceRequests(){
         return $this->hasMany('App\ServiceRequest', 'service_id');
     }

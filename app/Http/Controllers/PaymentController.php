@@ -57,29 +57,31 @@ class PaymentController extends Controller
    
     public function Complete($id, $srvdID, Request $request)
     {
+        // return $request;
+        // return array($id, $srvdID, $request);
         $user = Auth::user('id', $id)->first();
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
         // Now verify the signature is correct . We create the private function for verify the signature
         
         $signatureStatus = $this->SignatureVerify(
-            $request->all()['rzp_signature'],
-            $request->all()['rzp_paymentid'],
-            $request->all()['rzp_orderid']
+            $request->all()['razorpay_signature'],
+            $request->all()['razorpay_payment_id'],
+            $request->all()['razorpay_order_id']
         );
 
         // If Signature status is true We will save the payment response in our database
         if($signatureStatus == true){
             $payment = new Payment;
             $payment->user_id = Auth::user()->id;
-            $payment->service_req_id = $request['service_req_id'];
-            $payment->order_id = $request['rzp_orderid'];
-            $payment->payment_transaction_id = $request['rzp_paymentid'];
-            $payment->signature = $request['rzp_signature'];
-            $payment->payment_amount = $request['amount'];
+            $payment->service_req_id = $serviceRequest->id;
+            $payment->order_id = $request['razorpay_order_id'];
+            $payment->payment_transaction_id = $request['razorpay_payment_id'];
+            $payment->signature = $request['razorpay_signature'];
+            $payment->payment_amount = $serviceRequest->service->srvcPrice;
             $payment->save();
 
             if($payment->save()){
-                $serviceReq = ServiceRequest::where('id', $request->service_req_id)->first();
+                $serviceReq = ServiceRequest::where('id', $serviceRequest->id)->first();
                 $serviceReq->paymentStatus = true;
                 $serviceReq->srStatus = "ACTIVE";
                 $serviceReq->update();

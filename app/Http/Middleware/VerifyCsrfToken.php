@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'payment-complete/*',
+        // 'http://12payment-complete/1/SR0000000040AAQ'
     ];
 }
