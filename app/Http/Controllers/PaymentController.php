@@ -63,6 +63,10 @@ class PaymentController extends Controller
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
         // Now verify the signature is correct . We create the private function for verify the signature
         
+        if(!isset($request->razorpay_signature)){
+            return redirect('/service-request/'.$user->id.'/'.$serviceRequest->srId)->with('error', 'Payment Failed, please try again.');
+        }
+
         $signatureStatus = $this->SignatureVerify(
             $request->all()['razorpay_signature'],
             $request->all()['razorpay_payment_id'],
@@ -113,18 +117,19 @@ class PaymentController extends Controller
         }
         else{
             
-            $serviceReq = ServiceRequest::where('srId', '=',$serviceRequest->srId )->first();
+            // $serviceReq = ServiceRequest::where('srId', '=',$serviceRequest->srId )->first();
             // $serviceReq->paymentStatus = false;
-            $serviceReq->delete();
+            // $serviceReq->delete();
 
             // return redirect()->back()->with('success', 'Thank you for the order');
-            return redirect()->route('servicereq-details', [$id, $serviceRequest->srId])->with('error', 'Payment Failed, Please try again Later.');
+            // return redirect()->route('servicereq-details', [$id, $serviceRequest->srId])->with('error', 'Payment Failed, Please try again Later.');
+            return redirect('/service-request/'.$user->id.'/'.$serviceRequest->srId)->with('error', 'Payment Failed, please try again.');
             // DB::rollback();
         }
     }
 
     // In this function we return boolean if signature is correct
-    private function SignatureVerify($_signature,$_paymentId,$_orderId)
+    private function SignatureVerify($_signature=0,$_paymentId,$_orderId)
     {
         try
         {

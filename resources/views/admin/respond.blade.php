@@ -10,7 +10,7 @@
         <div class="row">
             
             <div class="col-md-6">
-                <div class="register-block">
+                <div class="register-block mt-2">
                     <h2>RESPONSE ASK A DOCTOR</h2>
                 </div>
             </div>
