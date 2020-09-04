@@ -106,6 +106,10 @@
                             {{-- Service Details --}}
                             
 
+                            
+
+
+
                             {{-- Showing service details of ASK A QUESTION --}}
                             @if (isset($serviceRequests->askQuestion))
                                 @if($serviceRequests->paymentStatus == true)
@@ -399,6 +403,10 @@
                             {{-- Showing service details of VIDEOCALL --}}
                             @elseif(isset($serviceRequests->videoCall))
 
+                      
+
+
+                            
                                 <h4 class="maroon mb-2"><u><b>APPOINTMENT DETAILS</b></u></h4>
 
                                 <div class="table-responsive">
@@ -424,7 +432,39 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            
+                                
+
+
+                                {{-- Payment Details --}}
+
+                                @if($serviceRequests->paymentStatus == true)
+                                    @php
+                                        $paymentDetails = App\Payment::where('service_req_id', '=', $serviceRequests->id)->first();
+                                    @endphp
+                                    <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+        
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-4">
+                                            <thead class="thead-dark">
+                                                <th scope="row">Payment Status</th>
+                                                <th scope="row">Payment ID</th>
+                                                <th scope="row">Payment Time</th>
+                                                <th scope="row">Payment Amount</th>
+                                            </thead>
+                                            <tbody>
+                                                <td>Paid</td>
+                                                <td>{{$paymentDetails->payment_transaction_id}}</td> 
+                                                <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                                <td>{{$paymentDetails->payment_amount }}</td>
+                                            </tbody>
+                                            
+            
+                                        </table>
+                                    </div>
+                                @endif
+
+
+
 
                                 {{-- Patient Uploaded Documents --}}
                                 @php
@@ -756,6 +796,37 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+
+                                {{-- Payment Details --}}
+                                @if($serviceRequests->paymentStatus == true)
+                                @php
+                                    $paymentDetails = App\Payment::where('service_req_id', '=', $serviceRequests->id)->first();
+                                @endphp
+                                <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+    
+                                <div class="table-responsive">
+                                    <table class="table table-bordered  mb-4">
+                                        <thead class="thead-dark">
+                                            <th scope="row">Payment Status</th>
+                                            <th scope="row">Payment ID</th>
+                                            <th scope="row">Payment Time</th>
+                                            <th scope="row">Payment Amount</th>
+                                        </thead>
+                                        <tbody>
+                                            <td>Paid</td>
+                                            <td>{{$paymentDetails->payment_transaction_id}}</td> 
+                                            <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                            <td>{{$paymentDetails->payment_amount }}</td>
+                                        </tbody>
+                                        
+        
+                                    </table>
+                                </div>
+                                @endif
+
+
+
                                 @if($serviceRequests->srStatus != 'CLOSED')
                                     <div class="btn-grouped float-right mt-4">
                                         <a href="#" data-toggle="modal" data-target="#requestCancellation" class="btn btn-maroon btn-md mb-2">Request Cancellation</a>                                
