@@ -64,7 +64,7 @@ class PaymentController extends Controller
         // Now verify the signature is correct . We create the private function for verify the signature
         
         if(!isset($request->razorpay_signature)){
-            return redirect('/service-request/'.$user->id.'/'.$serviceRequest->srId)->with('error', 'Payment Failed, please try again.');
+            return redirect('/service-request/'.$user->id.'/'.$serviceRequest->srId)->with('error', 'Transaction Not successfull, please try again later.');
         }
 
         $signatureStatus = $this->SignatureVerify(
