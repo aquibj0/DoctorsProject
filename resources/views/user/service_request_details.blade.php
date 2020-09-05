@@ -461,6 +461,8 @@
             
                                         </table>
                                     </div>
+                                {{-- fetch latest details from failed details --}}
+                                {{-- @elseif(isset($serviceRequests->failedPayment)) --}}
                                 @endif
 
 

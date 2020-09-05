@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use Tzsk\Sms\Facade\Sms;
 use App\Jobs\SendEmail;
+use App\FailedPayment;
 use App\AppointmentSchedule;
 
 
@@ -57,13 +58,27 @@ class PaymentController extends Controller
    
     public function Complete($id, $srvdID, Request $request)
     {
-        // return $request;
+        
         // return array($id, $srvdID, $request);
         $user = Auth::user('id', $id)->first();
         $serviceRequest = ServiceRequest::where('srId', $srvdID )->first();
         // Now verify the signature is correct . We create the private function for verify the signature
         
-        if(!isset($request->razorpay_signature)){
+        if(isset($request->error)){
+            $str = str_replace(array('{','}','"'), '', str_getcsv($request->error['metadata']));
+
+            $payments = new FailedPayment;
+            $payments->service_req_id = $serviceRequest->id;
+            $payments->user_id = $user->id;
+            $payments->payment_amount = $serviceRequest->service->srvcPrice;
+            $payments->payment_transaction_id = explode(":", $str[0])[1];
+            $payments->order_id = explode(":", $str[1])[1];
+            $payments->code = $request->error['code'];
+            $payments->description = $request->error['description'];
+            $payments->source = $request->error['source'];
+            $payments->step = $request->error['step'];
+            $payments->reason = $request->error['reason'];
+            $payments->save();
             return redirect('/service-request/'.$user->id.'/'.$serviceRequest->srId)->with('error', 'Transaction Not successfull, please try again later.');
         }
 
