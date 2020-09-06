@@ -50,4 +50,9 @@ class ServiceRequest extends Model
         return $this->hasOne('App\Payment', 'service_req_id');
     }
 
+    public function failedPayment(){
+        return $this->hasOne('App\FailedPayment', 'service_req_id');
+    }
+
+
 }

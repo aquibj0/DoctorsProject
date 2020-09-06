@@ -113,29 +113,53 @@
                             {{-- Showing service details of ASK A QUESTION --}}
                             @if (isset($serviceRequests->askQuestion))
                                 @if($serviceRequests->paymentStatus == true)
-                                @php
-                                    $paymentDetails = App\Payment::where('service_req_id', '=', $serviceRequests->id)->first();
-                                @endphp
-                                <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+                                    @php
+                                        $paymentDetails = App\Payment::where('service_req_id', '=', $serviceRequests->id)->first();
+                                    @endphp
+                                    <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered  mb-4">
-                                        <thead class="thead-dark">
-                                            <th scope="row">Payment Status</th>
-                                            <th scope="row">Payment ID</th>
-                                            <th scope="row">Payment Time</th>
-                                            <th scope="row">Payment Amount</th>
-                                        </thead>
-                                        <tbody>
-                                            <td>Paid</td>
-                                            <td>{{$paymentDetails->payment_transaction_id}}</td> 
-                                            <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
-                                            <td>{{$paymentDetails->payment_amount }}</td>
-                                        </tbody>
-                                        
-        
-                                    </table>
-                                </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-4">
+                                            <thead class="thead-dark">
+                                                <th scope="row">Payment Status</th>
+                                                <th scope="row">Payment ID</th>
+                                                <th scope="row">Payment Time</th>
+                                                <th scope="row">Payment Amount</th>
+                                            </thead>
+                                            <tbody>
+                                                <td>Paid</td>
+                                                <td>{{$paymentDetails->payment_transaction_id}}</td> 
+                                                <td>{{ date('H:i | d-m-Y ', strtotime($paymentDetails->created_at))}}</td>
+                                                <td>{{$paymentDetails->payment_amount }}</td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                @elseif(isset($serviceRequests->failedPayment))
+                                    
+                                    <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-4">
+                                            <thead class="thead-dark">
+                                                <th scope="row">Payment Status</th>
+                                                <th scope="row">Payment ID</th>
+                                                <th scope="row">Payment Amount</th>
+                                                <th scope="row">Error Code</th>
+                                                <th scope="row">Payment Time</th>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                <td>{{$serviceRequests->failedPayment->description}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_transaction_id}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_amount}}</td>
+                                                <td>{{$serviceRequests->failedPayment->code}}</td>
+                                                <td>
+                                                    {{ date('H:i | d-m-Y ', strtotime($serviceRequests->failedPayment->created_at))}}
+                                                </td>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 @endif
                                 {{-- Patient Uploaded Documents --}}
                                 @php
@@ -197,7 +221,7 @@
                                 @endif   
 
                                 @if ($serviceRequests->paymentStatus == true)
-                                <div class="btn-grouped float-right mt-4">
+                                    <div class="btn-grouped float-right mt-4">
 
 
                                         {{-- Request Cancellation Button will only be available on below condiions. --}}
@@ -459,6 +483,33 @@
                                             </tbody>
                                             
             
+                                        </table>
+                                    </div>
+
+                                    
+                                @elseif(isset($serviceRequests->failedPayment))
+                                        
+                                    <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-4">
+                                            <thead class="thead-dark">
+                                                <th scope="row">Payment Status</th>
+                                                <th scope="row">Payment ID</th>
+                                                <th scope="row">Payment Amount</th>
+                                                <th scope="row">Error Code</th>
+                                                <th scope="row">Payment Time</th>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                <td>{{$serviceRequests->failedPayment->description}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_transaction_id}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_amount}}</td>
+                                                <td>{{$serviceRequests->failedPayment->code}}</td>
+                                                <td>
+                                                    {{ date('H:i | d-m-Y ', strtotime($serviceRequests->failedPayment->created_at))}}
+                                                </td>
+                                                
+                                            </tbody>
                                         </table>
                                     </div>
                                 {{-- fetch latest details from failed details --}}
@@ -825,6 +876,35 @@
         
                                     </table>
                                 </div>
+
+                                
+                                @elseif(isset($serviceRequests->failedPayment))
+                                    
+                                    <h4 class="maroon mb-2"><u><b>PAYMENT DETAILS</b></u></h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered  mb-4">
+                                            <thead class="thead-dark">
+                                                <th scope="row">Payment Status</th>
+                                                <th scope="row">Payment ID</th>
+                                                <th scope="row">Payment Amount</th>
+                                                <th scope="row">Error Code</th>
+                                                <th scope="row">Payment Time</th>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                <td>{{$serviceRequests->failedPayment->description}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_transaction_id}}</td>
+                                                <td>{{$serviceRequests->failedPayment->payment_amount}}</td>
+                                                <td>{{$serviceRequests->failedPayment->code}}</td>
+                                                <td>
+                                                    {{ date('H:i | d-m-Y ', strtotime($serviceRequests->failedPayment->created_at))}}
+                                                </td>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
                                 @endif
 
 
