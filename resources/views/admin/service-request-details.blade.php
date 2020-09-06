@@ -121,12 +121,44 @@
                                     </table>
                                 @else
                                     <table class="table  table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Payment Status</th>
-                                                <td>Not Paid</td>
-                                            </tr>
-                                        </tbody>
+{{-- 
+                                            <thead class="thead-dark">
+                                                
+                                                <th scope="row">Payment ID</th>
+                                                
+                                                <th scope="row">Error Code</th>
+                                                <th scope="row">Payment Time</th>
+                                                
+                                            </thead> --}}
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Payment Status</th>
+                                                    <td>{{$srvcReq->failedPayment->description}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Payment ID</th>
+                                                    <td>{{$srvcReq->failedPayment->payment_transaction_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Payment Amount</th>
+                                                    <td>{{$srvcReq->failedPayment->payment_amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Error Code</th>
+                                                    <td>{{$srvcReq->failedPayment->code}}</td>
+                                                </tr>
+                                               <tr>
+                                                    <th scope="row">Time</th>
+                                                    <td>
+                                                        {{ date('H:i | d-m-Y ', strtotime($srvcReq->failedPayment->created_at))}}
+                                                    </td>
+
+                                               </tr>
+                                                
+                                            </tbody>
+
+
+                                        
                                     </table>
                                     
                                    
