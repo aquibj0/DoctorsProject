@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div style="text-align: center">
-                                    <h2>Appointment Schedules for 
+                                    <h2>Appointment Schedules for
                                         @if($appointmentType == "VED")
                                             video
                                         @else 

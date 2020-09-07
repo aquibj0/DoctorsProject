@@ -179,7 +179,12 @@
                                         <tbody>                                    
                                             @for ($i = 0;$i < count($data);$i++)
                                                 <tr>
-                                                    <td>{{ $data[$i]['date'] }}</td>
+                                                        
+                                                    <td>
+
+                                                        {{date('d-m-Y', strtotime($data[$i]['date']))}}
+                                                        {{-- {{ $data[$i]['date'] }} --}}
+                                                    </td>
                                                     <td>{{ $data[$i]['day'] }}</td>
                                                     <td>
                                                         @if($data[$i]['created'] == 1)

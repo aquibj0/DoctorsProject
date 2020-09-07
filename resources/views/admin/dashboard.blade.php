@@ -159,8 +159,8 @@
                                                     <tr>
                                                         <th scope="row">{{$serviceReq->srId}}</th>
                                                         <td>{{$serviceReq->service->srvcName}}</td>
-                                                        <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
-                                                        <td>{{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}</td>
+                                                        <td>{{date('d-m-Y', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($serviceReq->srDueDateTime)) }}</td>
                                                         <td> 
                                                             @if ($serviceReq->paymentStatus == true)
                                                             Paid
@@ -202,7 +202,7 @@
                                                         @if ($serviceReq->paymentStatus == true)
                                                         Paid
                                                         @else
-                                                        Not Paid
+                                                        Payment Failed
                                                         @endif
                                                     </td>
                                                     <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
