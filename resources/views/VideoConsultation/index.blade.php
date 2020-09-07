@@ -295,10 +295,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input 
-                                                type="text"
-                                                placeholder="Appointment Date"
-                                                onmouseover="(this.type='date')" 
-                                                {{-- onblur="(this.type='date')" --}}
+                                                type="date"
                                                 id="date" 
                                                 name="date" 
                                                 class="some form-control  @error('date') is-invalid @enderror" 

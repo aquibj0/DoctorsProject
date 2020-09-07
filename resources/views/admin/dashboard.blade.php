@@ -194,9 +194,9 @@
                                                     <th scope="row">
                                                         {{$serviceReq->srId}} </th>
                                                     <td>{{$serviceReq->service->srvcName}}</td>
-                                                    <td>{{date('d-m-Y H:i:s', strtotime($serviceReq->srRecievedDateTime))}}</td>
+                                                    <td>{{date('d-m-Y | H:i', strtotime($serviceReq->srRecievedDateTime))}}</td>
                                                     <td>
-                                                        {{ date('d-m-Y H:i:s', strtotime($serviceReq->srDueDateTime)) }}
+                                                        {{ date('d-m-Y | H:i', strtotime($serviceReq->srDueDateTime)) }}
                                                     </td>
                                                     <td> 
                                                         @if ($serviceReq->paymentStatus == true)
@@ -211,7 +211,7 @@
                                                         @if(isset($serviceReq->adminDoctor))
                                                             {{ 'Dr. '.$serviceReq->adminDoctor->firstName.' '.$serviceReq->adminDoctor->lastName }}
                                                         @else
-                                                            Not assigned.
+                                                            Not Assigned
                                                         @endif
                                                     </td>
                                                     <td>

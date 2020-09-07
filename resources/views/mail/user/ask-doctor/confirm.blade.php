@@ -40,7 +40,7 @@
             <p>Payment Amount :  Rs.{{$srvcReq->service->srvcPrice}}.00</p>
             {{-- <p>Payment Mode :  Credit card / Net Banking etc</p> --}}
             <p>Transaction ID : {{ $payment->payment_transaction_id }}	</p>
-            <p>Transaction Time: {{ $payment->created_at }}</p>
+            <p>Transaction Time:  {{ date('d-m-Y | H:i', strtotime($payment->created_at)) }}</p>
 
 
             Regards
