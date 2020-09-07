@@ -294,7 +294,18 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="date" id="date" name="date" class="some form-control  @error('date') is-invalid @enderror" id="my_date_picker" min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
+                                            <input 
+                                                type="text"
+                                                placeholder="Appointment Date"
+                                                onmouseover="(this.type='date')" 
+                                                {{-- onblur="(this.type='date')" --}}
+                                                id="date" 
+                                                name="date" 
+                                                class="some form-control  @error('date') is-invalid @enderror" 
+                                                id="my_date_picker" 
+                                                min="{{ Carbon\Carbon::today()->add(1, 'day')->toDateString() }}" 
+                                                step="1"
+                                                max="{{ Carbon\Carbon::today()->add(15, 'days')->toDateString() }}">         
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
