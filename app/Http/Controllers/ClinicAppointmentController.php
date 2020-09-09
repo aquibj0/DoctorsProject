@@ -166,11 +166,12 @@ class ClinicAppointmentController extends Controller
                 'district' => ['nullable', 'string', 'max:35'],
                 'state' => ['required', 'string', 'max:35'],
                 'country' => ['required', 'string', 'max:35'],
+                'pincode' => ['required', 'numeric', 'digits:6'],
                 'department' => ['required'],
                 'date' => ['required'],
                 'appointmentLoc' => ['required'],
                 'slot' => ['required'],
-                'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpg,png,pdf']
+                'patPhotoFileNameLink' => ['nullable', 'max:2048', 'mimes:jpeg,jfif,jpg,png,pdf']
             ]);
             if(!$validator->fails()){
                 DB::beginTransaction();
@@ -192,6 +193,7 @@ class ClinicAppointmentController extends Controller
                     $patient->patDistrict = $request['district'];
                     $patient->patState = $request['state'];
                     $patient->patCountry = $request['country'];
+                    $patient->patPincode = $request['pincode'];
 
                     if($request->hasFile('patPhotoFileNameLink')){
                         //Get filename with extension

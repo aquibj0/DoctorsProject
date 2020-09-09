@@ -82,6 +82,17 @@
                                                 <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
                                             </div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                {{-- Clinc Pincode Input --}}
+                                                <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ $patient->patCountry }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6">
+                                                @error('pincode')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     
 
                                     @else <!-- without patient data -->
@@ -243,7 +254,17 @@
                                                     @enderror
                                                 </div>
                                         </div>
-
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                {{-- Clinc Pincode Input --}}
+                                                <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ old('pincode') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6">
+                                                @error('pincode')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-row ">
                                             <div class="form-group col-md-12">
                                                 <input type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" name="patPhotoFileNameLink"  id="patPhotoFileNameLink" value="{{ old('patPhotoFileNameLink') }}" >

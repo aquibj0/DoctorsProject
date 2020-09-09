@@ -88,10 +88,11 @@ class AskDoctorController extends Controller
                     'district' => ['nullable', 'string', 'max:35'],
                     'state' => ['required', 'string', 'max:35'],
                     'country' => ['required', 'string', 'max:35'],
+                    'pincode' => ['required', 'numeric', 'digits:6'],
                     'patPhotoFileNameLink' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
                     'department' => ['required', 'string'],
                     'patient_question' => ['required', 'string', 'max:1024'],
-                    'patPhotoFileNameLink' => ['sometimes', 'max:2048', 'mimes:jpeg,jfif,jpg,png,pdf']
+                    'patPhotoFileNameLink' => ['nullable', 'max:2048', 'mimes:jpeg,jfif,jpg,png,pdf']
                 ]);
             }
             if(!$validator->fails()){                
@@ -120,6 +121,7 @@ class AskDoctorController extends Controller
                         $patient->patDistrict = $request['district'];
                         $patient->patState = $request['state'];
                         $patient->patCountry = $request['country'];
+                        $patient->patPincode = $request['pincode'];
 
                         if($request->hasFile('patPhotoFileNameLink')){
                             //Get filename with extension

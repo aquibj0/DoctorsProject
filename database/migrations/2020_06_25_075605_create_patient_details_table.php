@@ -33,6 +33,7 @@ class CreatePatientDetailsTable extends Migration
             $table->string("patDistrict")->nullable()->default(null);
             $table->string("patState");
             $table->string("patCountry");
+            $table->integer('pincode')->nullable()->default(null);
             $table->text("patBackground");
             $table->text("patPhotoFileNameLink")->nullable();
             $table->timestamps();

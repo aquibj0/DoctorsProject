@@ -343,13 +343,13 @@ class AdminController extends Controller
             'phoneNo' => 'nullable|min:10|max:10',
             'alternatePhoneNo' => 'nullable|max:10|min:10',
             'degree' => 'nullable|max:191|string',
-            'dob' => 'string|nullable|max:10',
-            'addressLine1' => 'required|string|max:64',
-            'addressLine2' => 'string|nullable|max:64',
-            'city' => 'required|string|max:35',
+            'dob' => 'nullable|string|max:10',
+            'addressLine1' => 'nullable|string|max:64',
+            'addressLine2' => 'nullable|string|max:64',
+            'city' => 'nullable|string|max:35',
             'district' => 'nullable|string|max:35',
-            'state' => 'required|string|max:35',
-            'country' => 'required|string|max:35',
+            'state' => 'nullable|string|max:35',
+            'country' => 'nullable|string|max:35',
         ]);
         if(!$validator->fails()){
             DB::beginTransaction();

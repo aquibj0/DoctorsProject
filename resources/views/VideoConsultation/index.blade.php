@@ -81,6 +81,17 @@
                                             <input type="text" class="form-control" id="country" placeholder="Country" name="state" value="{{ $patient->patCountry }}" required disabled>
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            {{-- Clinc Pincode Input --}}
+                                            <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ $patient->patCountry }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6">
+                                            @error('pincode')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     @else <!-- without patient data -->
                                     <div class="form-row">
@@ -170,7 +181,7 @@
                                         <input type="hidden" class="form-control " id="mobileCC" placeholder="+91" name="mobileCC" value="+91" required>
                                         {{-- </div> --}}
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Contact No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                                            <input type="text" onkeypress='validate(event)' class="form-control @error('patMobileNo') is-invalid @enderror" id="patMobileNo" placeholder="Contact No." name="patMobileNo" value="{{ old('patMobileNo') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                                             @error('patMobileNo')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -227,26 +238,37 @@
                                     </div>
 
                                     <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
-                                                @error('state')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                    
-                                            <div class="form-group col-md-6">
-                                                {{-- <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required> --}}
-                                                <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}">
-                                                    <option value="India" selected>India</option>
-                                                </select>
-                                                @error('country')
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" placeholder="State" name="state" value="{{ old('state') }}" required>
+                                            @error('state')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="form-group col-md-6">
+                                            {{-- <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required> --}}
+                                            <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}">
+                                                <option value="India" selected>India</option>
+                                            </select>
+                                            @error('country')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            {{-- Clinc Pincode Input --}}
+                                            <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ old('pincode') }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6">
+                                            @error('pincode')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row ">
                                         <div class="form-group col-md-12">
@@ -369,7 +391,25 @@
 
 
 </section >
-    
+<script>
+    function validate(evt) {
+    var theEvent = evt || window.event;
+
+    // Handle paste
+    if (theEvent.type === 'paste') {
+        key = event.clipboardData.getData('text/plain');
+    } else {
+    // Handle key press
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+    }
+    var regex = /[0-9]|\./;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){

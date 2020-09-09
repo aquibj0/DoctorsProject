@@ -177,10 +177,10 @@
                                         <table class="table table-bordered  mb-3">
                                             <thead class="thead-dark">
                                                 {{-- <th scope="col">Sr. No</th> --}}
-                                                <th scope="col">Docuement Type</th>
-                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Document Type</th>
+                                                <th scope="col">Document Name</th>
                                                 <th scope="col">Description</th>
-                                                <th scope="col">Docuement Date</th>
+                                                <th scope="col">Document Date</th>
                                                 <th scope="col">Uploaded Date</th>
                                                 <th scope="col">Action</th>
 
@@ -302,7 +302,7 @@
 
                                                                             <div class="form-group row">
                                                                                 <div class="col-md-12">
-                                                                                    <label for="documentType">Docuement Type</label>
+                                                                                    <label for="documentType">Document Type</label>
                                                                                     <select name="documentType" id="documentType" class="form-control @error('documentType') is-invalid @enderror" required>
                                                                                         <option value="Report">Report</option>
                                                                                         <option value="Prescription">Prescription</option>
@@ -333,7 +333,7 @@
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <div class="col-md-12">
-                                                                                    <label for="documentFileName">Upload Docuement</label>
+                                                                                    <label for="documentFileName">Upload Document</label>
                                                                                     <input id="documentFileName" type="file" placeholder="Document Filename" class="form-control @error('documentFileName') is-invalid @enderror" name="documentFileName" value="{{ old('documentFileName') }}" required autocomplete="documentFileName" autofocus>
                                                     
                                                                                     @error('documentFileName')
@@ -534,10 +534,10 @@
                                         <table class="table table-bordered  mb-3">
                                             <thead class="thead-dark">
                                                 {{-- <th scope="col">Sr. No</th> --}}
-                                                <th scope="col">Docuement Type</th>
-                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Document Type</th>
+                                                <th scope="col">Document Name</th>
                                                 <th scope="col">Description</th>
-                                                <th scope="col">Docuement Date</th>
+                                                <th scope="col">Document Date</th>
                                                 <th scope="col">Uploaded Date</th>
                                                 <th scope="col">Action</th>
 
@@ -590,10 +590,10 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered  mb-3">
                                             <thead class="thead-dark">
-                                                <th scope="col">Docuement Type</th>
-                                                <th scope="col">Docuement Name</th>
+                                                <th scope="col">Document Type</th>
+                                                <th scope="col">Document Name</th>
                                                 <th scope="col">Description</th>
-                                                {{-- <th scope="col">Docuement Date</th> --}}
+                                                {{-- <th scope="col">Document Date</th> --}}
                                                 <th scope="col">Uploaded Date</th>
                                                 <th scope="col">Uploated By</th>
                                                 <th scope="col">Action</th>
@@ -707,7 +707,7 @@
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
-                                                                            <label for="documentFileName">Upload Docuement</label>
+                                                                            <label for="documentFileName">Upload Document</label>
                                                                             <input id="documentFileName" type="file" placeholder="Document Filename" class="form-control @error('documentFileName') is-invalid @enderror" name="documentFileName" value="{{ old('documentFileName') }}" required autocomplete="documentFileName" autofocus>
                                             
                                                                             @error('documentFileName')

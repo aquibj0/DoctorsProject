@@ -13,7 +13,7 @@ class CreateFailedPayementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('failed_payements', function (Blueprint $table) {
+        Schema::create('failed_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('service_req_id');
             $table->foreign('service_req_id')->references('id')->on('service_request')->onDelete('cascade');
