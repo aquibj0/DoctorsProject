@@ -216,7 +216,9 @@
                                         </table>
                                     </div>
                                     @if($serviceRequests->srStatus != "CLOSED" || $serviceRequests->srStatus != 'Cancelled')
-                                    <small class="maroon">* To upload more document click Add Document</small>
+                                        @if ($serviceRequests->paymentStatus == true)
+                                            <small class="maroon">* To upload more document click Add Document</small>
+                                        @endif
                                     @endif
                                 @endif   
 
@@ -571,7 +573,10 @@
 
                                         </table>
                                     </div>
-                                    <small class="maroon">* To upload more document click Add Document</small>
+                                    @if ($serviceRequests->paymentStatus == true)
+                                        <small class="maroon">* To upload more document click Add Document</small>
+                                    @endif
+                                   
                                 @endif   
 
                                 

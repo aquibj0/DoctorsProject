@@ -200,9 +200,11 @@
                                                     </td>
                                                     <td> 
                                                         @if ($serviceReq->paymentStatus == true)
-                                                        Paid
+                                                            Paid
+                                                        @elseif($serviceReq->failedPayment()->exists())
+                                                            Payment Failed
                                                         @else
-                                                        Payment Failed
+                                                            Payment Not Completed
                                                         @endif
                                                     </td>
                                                     <td>{{$serviceReq->patient->patFirstName}} {{$serviceReq->patient->patLastName}}</td>
