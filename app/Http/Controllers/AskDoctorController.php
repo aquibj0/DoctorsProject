@@ -64,6 +64,7 @@ class AskDoctorController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        // return $request;
         if($request){
             if(isset($request->patient_id)){
                 $validator = Validator::make($request->all(), [
@@ -203,7 +204,7 @@ class AskDoctorController extends Controller
                     }
                 } catch(\Exception $e){
                     DB::rollback();
-                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again.');
+                    return redirect()->back()->withInput()->with('error', 'Something went wrong! Please try again.'.$e->getMessage());
                     // return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
                 DB::commit();
