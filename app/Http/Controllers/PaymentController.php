@@ -122,7 +122,7 @@ class PaymentController extends Controller
                     $app = AppointmentSchedule::where('id', $serviceReq->srAppmntId)->first();
                     $app->appmntSlotFreeCount = $app->appmntSlotFreeCount-1;
                     $app->update();
-                    Sms::send("We have received your Ask A Doctor request and payment of Rs. ".$serviceReq->payment->payment_amount ." for the same. Please upload documents. Doctor will respond in 24 hrs.")->to('91'.$user->userMobileNo)->dispatch();
+                    Sms::send('We have received your Ask A Doctor request and payment of Rs. '.$serviceReq->payment->payment_amount .' for the same. Please upload documents. Doctor will respond in 24 hrs.')->to('91'.$user->userMobileNo)->dispatch();
 
                     SendEmail::dispatch($serviceReq->patient, $serviceReq, $serviceReq->clinicAppointment, $payment, $user, 1);
                 }
