@@ -1,6 +1,4 @@
 @extends('admin.layouts.app')
-
-
 @section('content')
     <div class="container-fluid">
         <div class="row mt-4">
@@ -113,7 +111,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     {{-- <label for="new-password" >Date of Birth</label> --}}
-                                    <input class="form-control" type="text" placeholder="DOB" value="{{Auth::user()->dob}}" disabled>                                    
+                                    <input class="form-control" type="text" placeholder="DOB" value="{{ date(' d-m-Y ', strtotime(Auth::user()->dob))}}" disabled>                                    
                                 </div>
                             </div>
                             <div class="form-group form-row">
@@ -449,6 +447,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

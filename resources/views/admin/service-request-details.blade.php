@@ -196,7 +196,7 @@
                                                 
                                                 <td> 
                                                     @if ($srvcReq->srStatus == 'CLOSED')
-                                                        {{date('d-m-Y ', strtotime($srvcReq->srResponseDateTime))}} 
+                                                        {{date('H:i | d-m-Y ', strtotime($srvcReq->srResponseDateTime))}} 
                                                     @else
                                                         Not Responded yet
                                                     @endif

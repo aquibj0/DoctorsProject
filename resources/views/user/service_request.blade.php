@@ -118,7 +118,7 @@
                                             <td>
                                                 {{$serviceRequest->srStatus}}
                                             </td>
-                                            <td> 
+                                            <td class="text-center"> 
 
                                                 <a href="/service-request/{{Auth::user()->id}}/{{$serviceRequest->srId}}" class="btn btn-maroon btn-sm">View Details</a>
 

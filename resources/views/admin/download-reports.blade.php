@@ -65,7 +65,8 @@
                                         <td>{{$patDoc->documentFileName}}</td>
                                         <td>{{$patDoc->documentDescription}}</td>
                                         <td>Uploaded</td>
-                                        <td>{{$patDoc->documentUploadDate}}</td>
+                                        <td>{{ date(' d-m-Y ', strtotime($patDoc->documentUploadDate))}}
+                                        </td>
                                         <td><a href="{{url('downloadDoc/'.$patDoc->id)}}" class="btn btn-maroon btn-sm">Download</a></td>
                                     </tr>
 

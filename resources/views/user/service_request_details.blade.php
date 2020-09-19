@@ -217,7 +217,7 @@
                                     </div>
                                     @if($serviceRequests->srStatus != "CLOSED" || $serviceRequests->srStatus != 'Cancelled')
                                         @if ($serviceRequests->paymentStatus == true)
-                                            <small class="maroon">* To upload more document click Add Document</small>
+                                            <small class="maroon">* To upload patient prescription and report click Add Document</small>
                                         @endif
                                     @endif
                                 @endif   
@@ -441,7 +441,6 @@
                                             <th scope="col">Type</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Time</th>
-                                            <th scope="col">Prescription by doctor</th>
                                             {{-- <th scope="col">Patient</th> --}}
                                         </thead>
                                         <tbody>
@@ -449,11 +448,16 @@
                                             <td>
                                                 @if ($serviceRequests->appointmentSchedule->appmntType === 'VED')
                                                     Video Call With Expert Doctor
+
+                                                @elseif($serviceRequests->appointmentSchedule->appmntType === 'VTD')
+                                                Video Call With Team  Doctor
                                                 @endif
                                             </td>
-                                            <td>{{$serviceRequests->appointmentSchedule->appmntDate}}</td>
+                                            <td>
+                                                {{date(' d-m-Y ', strtotime($serviceRequests->appointmentSchedule->appmntDate))}} 
+                                            </td>
                                             <td>{{$serviceRequests->appointmentSchedule->appmntSlot}}</td>
-                                            <td></td>
+
 
                                         </tbody>
                                     </table>
@@ -553,8 +557,8 @@
                                                         <td>{{ $patDoc->documentType }}</td>
                                                         <td>{{ $patDoc->documentFileName }} </td>
                                                         <td>{{ $patDoc->documentDescription }}</td>
-                                                        <td>{{ $patDoc->documentDate }}</td>
-                                                        <td>{{ $patDoc->documentUploadDate }}</td>
+                                                        <td>{{date(' d-m-Y ', strtotime($patDoc->documentDate))}} </td>
+                                                        <td>{{date(' d-m-Y ', strtotime($patDoc->documentUploadDate))}}</td>
                                                         <td>
                                                         
                                                         <form action="/upload-documents/delete/{{$patDoc->id}}" method="post">
@@ -574,7 +578,7 @@
                                         </table>
                                     </div>
                                     @if ($serviceRequests->paymentStatus == true)
-                                        <small class="maroon">* To upload more document click Add Document</small>
+                                        <small class="maroon">* To upload patient prescription and report click Add Document</small>
                                     @endif
                                    
                                 @endif   

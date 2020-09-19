@@ -267,7 +267,7 @@
                                         </div>
                                         <div class="form-row ">
                                             <div class="form-group col-md-12">
-                                                <input type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" name="patPhotoFileNameLink"  id="patPhotoFileNameLink" value="{{ old('patPhotoFileNameLink') }}" >
+                                                <input type="file" class="form-control @error('patPhotoFileNameLink') is-invalid @enderror" name="patPhotoFileNameLink"  id="patPhotoFileNameLink" >
                                                 @error('patPhotoFileNameLink')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
