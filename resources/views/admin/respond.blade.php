@@ -218,7 +218,9 @@
                             <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                          
                             @endif
                             @if(count($prescriptions) < 1)
+                            @if($srvcReq->srStatus == "ACTIVE" && isset($srvcReq->srAssignedIntUserId))
                             <a href="#"  data-toggle="modal" id="uploadDocumentButton" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
+                            @endif
                             @endif
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                             <script>

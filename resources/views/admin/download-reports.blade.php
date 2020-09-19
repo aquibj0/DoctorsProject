@@ -75,7 +75,13 @@
                             </tbody>
                         </table>
                     </div>
-                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md">
+                                <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md ml-3 mr-3 mb-3">Back</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container">
                         *Instructions for Downloading Reports <br>
                         1. Download files uploaded by customer for a booking ID <br>

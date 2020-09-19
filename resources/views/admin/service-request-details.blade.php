@@ -196,7 +196,8 @@
                                                 
                                                 <td> 
                                                     @if ($srvcReq->srStatus == 'CLOSED')
-                                                        {{date('H:i | d-m-Y ', strtotime($srvcReq->srResponseDateTime))}} 
+                                                        {{-- {{date('H:i | d-m-Y ', ($srvcReq->srResponseDateTime))}}  --}}
+                                                        {{ Carbon\Carbon::parse($srvcReq->srResponseDateTime)->format('H:i | d-m-Y') }}
                                                     @else
                                                         Not Responded yet
                                                     @endif
