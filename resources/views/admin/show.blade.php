@@ -329,11 +329,11 @@
                                                         <div class="col-md-6">
                                                             <label for="new-password" >Date of Birth</label>
                                                             @if(isset(Auth::user()->dob))
-                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{Carbon\Carbon::parse(Auth::user()->dob)->toDateString()}}">                                        
+                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{Carbon\Carbon::parse(Auth::user()->dob)->toDateString()}}" max="{{ Carbon\Carbon::today()->toDateString() }}">                                        
                                                             @elseif(old('dob'))
-                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{old('dob')}}">                                    
+                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="{{old('dob')}}"  max="{{ Carbon\Carbon::today()->toDateString() }}">                                    
                                                             @else
-                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="">                                    
+                                                                <input class="form-control" type="date" placeholder="DOB" name="dob" value="" max="{{ Carbon\Carbon::yesterday()->toDateString() }}">                                    
                                                             @endif
                                                                                                 
                                                             @if ($errors->has('dob'))

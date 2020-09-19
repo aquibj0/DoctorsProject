@@ -85,7 +85,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 {{-- Clinc Pincode Input --}}
-                                                <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ $patient->patCountry }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6">
+                                                <input type="text" onkeypress='validate(event)' class="form-control @error('pincode') is-invalid @enderror" id="pincode" placeholder="Pincode" name="pincode" value="{{ $patient->patPincode }}" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="6" disabled>
                                                 @error('pincode')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -396,7 +396,7 @@
             // var appType = $(this).val();
             var date = $("#date").val();
             var loc = $("#appointmentLoc").val();
-            var service = $(this).val();
+            var service = $('#service').val();
             // console.log(loc);
             // console.log(date);
             // console.log(service);
@@ -408,7 +408,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){
-                        // console.log(data);
+                        console.log(data);
                         if(data){
                             $.each(data, function(key, value){
                                 $("#slot").append("<option value='"+value+"'>"+key+"</option>");

@@ -64,7 +64,10 @@
 
                         
                         <div class="mt-4 buttons">
-                            <a href="{{ url('/admin/service-request/'.$srvcReq  ->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                                  
+                            @if($srvcReq->srStatus == "ACTIVE")
+                            <a href="{{ url('/admin/service-request/'.$srvcReq  ->id.'/download-report') }}" class="btn btn-maroon btn-md mlr-3 mb-3">Download Report</a>                                                  
+                            @endif
+                            <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md ml-3 mr-3 mb-3">Back</a>
                         </div>
 
                     </div>
@@ -211,8 +214,9 @@
 
 
                         <div class="mt-4 buttons">
-                            
+                            @if($srvcReq->srStatus == "ACTIVE")
                             <a href="{{ url('/admin/service-request/'.$srvcReq->id.'/download-report') }}" class="btn btn-maroon btn-md mb-3">Download Report</a>                                          
+                            @endif
                             @if(count($prescriptions) < 1)
                             <a href="#"  data-toggle="modal" id="uploadDocumentButton" data-target="#uploadPrescription" class="btn btn-maroon btn-md mb-3">Upload Prescription</a>    
                             @endif
@@ -381,7 +385,7 @@
                     @else
                         <div class="row mt-3">
                             <div class="col-md">
-                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
+                                <button href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;" disabled>Submit</button>
                             </div>
                             <div class="col-md">
                                 <div class="text-center" style="width:100%; ">
@@ -409,7 +413,7 @@
             
             <div class="col-md-6">
                 <div class="register-block">
-                    <h2>RESPONSE ASK A DOCTOR</h2>
+                    <h2>CLINIC APPOINTMENT {{strtoupper($srvcReq->clinicAppointment->clinic->clinicName)}}</h2>
                 </div>
             </div>
         </div>
@@ -490,8 +494,9 @@
                         
                         <div class="mt-4 buttons">
                             @if (isset($srvcReq->clinicAppointment) &&  $srvcReq->srAssignedIntUserId != null)
-                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-2 mr-1 ml-1" disabled>Close Request</a>
+                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3 mr-1 ml-1" disabled>Close Request</a>
                             @endif
+                            <a href="{{ url()->previous() }}" class="btn btn-maroon btn-md ml-3 mr-3 mb-3">Back</a>
                         </div>
 
                     </div>

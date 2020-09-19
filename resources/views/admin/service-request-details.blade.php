@@ -269,7 +269,8 @@
                                             <th scope="row"> Address</th>
                                             <td>{{ $srvcReq->patient->patAddrLine1 }}, {{ $srvcReq->patient->patAddrLine2 }} , 
                                                     {{ $srvcReq->patient->patCity }}, {{ $srvcReq->patient->patDistrict }},
-                                                    {{ $srvcReq->patient->patState }}, {{ $srvcReq->patient->patCountry }}, 
+                                                    {{ $srvcReq->patient->patState }}, {{ $srvcReq->patient->patCountry }},
+                                                    {{ $srvcReq->patient->patPincode }}
                                             </td>
                                         </tr>
 
