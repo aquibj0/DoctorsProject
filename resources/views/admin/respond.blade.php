@@ -385,7 +385,7 @@
                     @else
                         <div class="row mt-3">
                             <div class="col-md">
-                                <a href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;">Submit</a>
+                                <button href="/admin/service-request/{{$srvcReq->id}}/close" class="btn btn-maroon btn-md mb-3" style="width: 100%" onclick="return false;" disabled>Submit</button>
                             </div>
                             <div class="col-md">
                                 <div class="text-center" style="width:100%; ">

@@ -396,7 +396,7 @@
             // var appType = $(this).val();
             var date = $("#date").val();
             var loc = $("#appointmentLoc").val();
-            var service = $(this).val();
+            var service = $('#service').val();
             // console.log(loc);
             // console.log(date);
             // console.log(service);
@@ -408,7 +408,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data){
-                        // console.log(data);
+                        console.log(data);
                         if(data){
                             $.each(data, function(key, value){
                                 $("#slot").append("<option value='"+value+"'>"+key+"</option>");

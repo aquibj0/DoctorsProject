@@ -97,7 +97,7 @@
                                         <td>{{ $serviceRequests->patient->patFirstName }} {{ $serviceRequests->patient->patLastName }}</td>
                                         <td>{{ $serviceRequests->patient->patAge }}</td>
                                         <td>{{ $serviceRequests->patient->patGender }}</td>
-                                        <td>{{ $serviceRequests->patient->patAddrLine1 }}, {{ $serviceRequests->patient->patCity }}, {{ $serviceRequests->patient->patDistrict }}, {{ $serviceRequests->patient->patState }} </td>
+                                        <td>{{ $serviceRequests->patient->patAddrLine1 }}, {{ $serviceRequests->patient->patCity }}, {{ $serviceRequests->patient->patDistrict }}, {{ $serviceRequests->patient->patState }}, {{ $serviceRequests->patient->patCountry }} </td>
                                     </tbody>
 
                                 </table>
