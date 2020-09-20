@@ -18,7 +18,7 @@
                             </div> 
                             @include('layouts.message')
                             <div>
-                                <form action="{{ url('/video-consultation') }}" method="POST">
+                                <form action="{{ url('/video-consultation') }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>

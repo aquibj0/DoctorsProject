@@ -19,7 +19,7 @@
                             </div> 
                             <div>
                                 @include('layouts.message')
-                                <form action="{{ url('/clinic-appointment') }}" method="POST">
+                                <form action="{{ url('/clinic-appointment') }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="mb-2">
                                         <h2 class="maroon MB-3"><b>PATIENT DETAILS</b></h2>
@@ -246,7 +246,10 @@
                                                 </div>
                                         
                                                 <div class="form-group col-md-6">
-                                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required>
+                                                    {{-- <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" value="{{ old('country') }}" required> --}}
+                                                    <select class="form-control @error('country') is-invalid @enderror" id="country" placeholder="Country" name="country" required value="{{ old('country') }}">
+                                                        <option value="India" selected>India</option>
+                                                    </select>
                                                     @error('country')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
